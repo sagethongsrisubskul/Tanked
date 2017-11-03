@@ -24,7 +24,7 @@ public class Tank extends StateBasedGame
 		try
 			{
 			appGameContainer = new AppGameContainer(new Tank("Tank"));
-			appGameContainer.setDisplayMode(800, 800, false);
+			appGameContainer.setDisplayMode(800, 600, false);
 			appGameContainer.setTargetFrameRate(60);
 			appGameContainer.setShowFPS(false);
 			appGameContainer.setVSync(true);
