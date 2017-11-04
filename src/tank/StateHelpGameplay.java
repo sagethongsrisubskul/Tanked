@@ -6,22 +6,20 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-public class StateMain extends BasicGameState
+public class StateHelpGameplay extends BasicGameState
 	{
 	Tank tank;
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
 		{
-		return StateControl.STATE_MAIN;
+		return StateControl.STATE_HELP_GAMEPLAY;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 		{
 		tank = (Tank) game;
-		Settings.initSettings();
-		DisplaysStateMain.initDisplays();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -30,15 +28,16 @@ public class StateMain extends BasicGameState
 		AppGameContainer gc = (AppGameContainer) container;
 		gc.setDisplayMode(Settings.mainScreenWidth, Settings.mainScreenHeight, false);
 		StateControl.addCurrentState(getID());
-		Settings.currentScreenWidth = Settings.mainScreenWidth;
 		Settings.currentScreenHeight = Settings.mainScreenHeight;
-		DisplaysStateMain.positionDisplays();
+		Settings.currentScreenWidth = Settings.mainScreenWidth;
+		DisplaysStateHelpGameplay.positionDisplays();
+		DisplaysStateHelpGameplay.formatHelpText();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 		{
-		DisplaysStateMain.renderDisplays(g);
+		DisplaysStateHelpGameplay.renderDisplays(g);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -54,7 +53,5 @@ public class StateMain extends BasicGameState
 		Inputs.xMouse = x;
 		Inputs.yMouse = y;
 		Inputs.processMouseInput(tank);
-		Inputs.xMouse = -1;
-		Inputs.yMouse = -1;
 		}
 	}

@@ -3,7 +3,6 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-
 public class Tank extends StateBasedGame
 	{
 	/*-----------------------------------------------------------------------------------------------------*/
@@ -15,7 +14,28 @@ public class Tank extends StateBasedGame
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException
 		{
+		int i;
 		addState(new StateMain());
+		addState(new StateSetupGame());
+		addState(new StateSelectMap());
+		addState(new StateHelpMain());
+		addState(new StateHelpGameplay());
+		addState(new StateHelpControls());
+		addState(new StatePlay());
+		addState(new StateChangeScreenSize());
+		ResourceManager.loadImage(Filenames.title);
+		ResourceManager.loadImage(Filenames.logo);
+		ResourceManager.loadImage(Filenames.buttonRectangle);
+		ResourceManager.loadImage(Filenames.buttonSquare);
+		ResourceManager.loadImage(Filenames.navHome);
+		ResourceManager.loadImage(Filenames.navBack);
+		ResourceManager.loadImage(Filenames.navFF);
+		ResourceManager.loadImage(Filenames.navNext);
+		ResourceManager.loadImage(Filenames.navPrev);
+		ResourceManager.loadImage(Filenames.navRew);
+		ResourceManager.loadSound(Filenames.buttonClick);
+		for(i = 0; i < Filenames.miniMap.length; i++)
+			ResourceManager.loadImage(Filenames.miniMap[i]);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void main(String[] args)
@@ -23,9 +43,13 @@ public class Tank extends StateBasedGame
 		AppGameContainer appGameContainer;
 		try
 			{
-			appGameContainer = new AppGameContainer(new Tank("Tank"));
-			appGameContainer.setDisplayMode(800, 600, false);
-			appGameContainer.setTargetFrameRate(60);
+			appGameContainer = new AppGameContainer(new Tank(Strings.gameTitle));
+			appGameContainer.setDisplayMode(Settings.mainScreenWidth, Settings.mainScreenHeight, false);
+			Settings.maxMainScreenHeight = appGameContainer.getScreenHeight();
+			Settings.maxPlayScreenHeight = appGameContainer.getScreenHeight();
+			Settings.maxMainScreenWidth = appGameContainer.getScreenWidth();
+			Settings.maxPlayScreenWidth = appGameContainer.getScreenWidth();
+			appGameContainer.setTargetFrameRate(Settings.targetFrameRate);
 			appGameContainer.setShowFPS(false);
 			appGameContainer.setVSync(true);
 			appGameContainer.start();

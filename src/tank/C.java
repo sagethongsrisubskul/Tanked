@@ -1,0 +1,41 @@
+package tank;
+/* This class is for holding all the final constant variables in the game */
+public class C
+	{
+	/*-----------------------------------------------------------------------------------------------------*/
+	/// Game variables:
+	public static final int MAX_PLAYERS = 4;
+	/*-----------------------------------------------------------------------------------------------------*/
+	/// Universal switches:
+	public static final int OFF = 0;
+	public static final int ON = 1;
+	public static final int FALSE = 0;
+	public static final int TRUE = 1;
+	public static final int NO = 0;
+	public static final int YES = 1;
+	/*-----------------------------------------------------------------------------------------------------*/
+	/// Player colors:
+	public static final int RED = 0;
+	public static final int YELLOW = 1;
+	public static final int GREEN = 2;
+	public static final int BLUE = 3;
+	/*-----------------------------------------------------------------------------------------------------*/
+	/// Area:
+	public static final int X_COORDINATE = 0;
+	public static final int Y_COORDINATE = 1;
+	/*-----------------------------------------------------------------------------------------------------*/
+	/// StringsDisplay:
+	public static final int CENTER = -1;
+	/*-----------------------------------------------------------------------------------------------------*/
+	/// Win condition:
+	public static final int DEATHMATCH = 0;
+	public static final int PROTECT_BASE = 1;
+	public static final int DESTRUCTION = 2;
+	public static final int FIND_RELIC = 3;
+
+	/*-----------------------------------------------------------------------------------------------------*/
+	/// Player type:
+	public static final int UNDECIDED = 0;
+	public static final int SERVER = 1;
+	public static final int CLIENT = 2;
+	}
