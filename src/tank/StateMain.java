@@ -22,6 +22,7 @@ public class StateMain extends BasicGameState
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 		{
 		g.drawString("Tank", 100, 100);
+		g.drawString("Tyler Test",100,130);
 		}
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
