@@ -25,6 +25,7 @@ public class Tank extends StateBasedGame
 		addState(new StateChangeScreenSize());
 		ResourceManager.loadImage(Filenames.title);
 		ResourceManager.loadImage(Filenames.logo);
+		ResourceManager.loadImage(Filenames.camo);
 		ResourceManager.loadImage(Filenames.buttonRectangle);
 		ResourceManager.loadImage(Filenames.buttonSquare);
 		ResourceManager.loadImage(Filenames.navHome);

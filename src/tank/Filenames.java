@@ -5,6 +5,7 @@ public class Filenames
 	/// Title & logo:
 	public final static String title = "res/Title.png";
 	public final static String logo = "res/Logo.png";
+	public final static String camo = "res/camo.jpg";
 	/// Navigation buttons:
 	public final static String navFF = "res/Navigation_ff.png";
 	public final static String navRew = "res/Navigation_rew.png";

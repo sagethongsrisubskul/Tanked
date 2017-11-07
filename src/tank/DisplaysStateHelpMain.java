@@ -39,7 +39,7 @@ public class DisplaysStateHelpMain
 		{
 		spaceAfterTitle = (Settings.currentScreenHeight / 2) - marginTitleTop - DisplaysTitle.title.getHeight() - DisplaysHeading.spaceAfterTitle - DisplaysHeading.heading.getHeight();
 		DisplaysTitle.positionTitle(marginTitleTop);
-		DisplaysNavigationalButtons.positionNavigationalButtons();
+		DisplaysNavigationalButtons.positionButtons();
 		DisplaysHeading.positionHeading(Strings.helpInfo);
 		for(i = 0; i < buttons.length; i++)
 			{

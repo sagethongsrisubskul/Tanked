@@ -30,7 +30,7 @@ public class DisplaysStateHelpGameplay
 		{
 		DisplaysButtonsHelpNavigation.positionButtons();
 		DisplaysTitle.positionTitle(marginTitleTop);
-		DisplaysNavigationalButtons.positionNavigationalButtons();
+		DisplaysNavigationalButtons.positionButtons();
 		DisplaysHeading.positionHeading(Strings.helpInfo + " : " + Strings.gameplay);
 		textY = DisplaysHeading.heading.y + DisplaysHeading.heading.trueTypeFont.getHeight(DisplaysHeading.heading.string) + textMarginY;
 		textWidth = Settings.currentScreenWidth - (2 * textMarginX);

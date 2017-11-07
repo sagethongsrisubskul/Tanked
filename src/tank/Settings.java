@@ -20,8 +20,10 @@ public class Settings
 	public static int targetFrameRate = 60;
 	public static int screenAdjustment = 100; /// When user presses key to resize screen, this is the increment
 	/// Screen dimensions (Main):
-	public static int mainScreenWidth = 800;
-	public static int mainScreenHeight = 800;
+	public static int mainScreenWidthStart = 800;
+	public static int mainScreenHeightStart = 800;
+	public static int mainScreenWidth = mainScreenWidthStart;
+	public static int mainScreenHeight = mainScreenHeightStart;
 	public static int minMainScreenWidth = 700;
 	public static int minMainScreenHeight = 700;
 	public static int maxMainScreenWidth; /// Max screen dimensions are set by the container at launch

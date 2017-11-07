@@ -38,7 +38,7 @@ public class DisplaysStateSelectMap
 	public static void positionDisplays()
 		{
 		DisplaysTitle.positionTitle(marginTitleTop);
-		DisplaysNavigationalButtons.positionNavigationalButtons();
+		DisplaysNavigationalButtons.positionButtons();
 		DisplaysHeading.positionHeading(Strings.selectMap);
 		for(i = 0; i < miniMap.length; i++)
 			{

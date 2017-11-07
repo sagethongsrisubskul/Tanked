@@ -33,6 +33,8 @@ public class StateMain extends BasicGameState
 		Settings.currentScreenWidth = Settings.mainScreenWidth;
 		Settings.currentScreenHeight = Settings.mainScreenHeight;
 		DisplaysStateMain.positionDisplays();
+		DisplaysNavigationalButtons.positionButtons();
+		DisplaysButtonsHelpNavigation.positionButtons();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override

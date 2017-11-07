@@ -55,7 +55,7 @@ public class DisplaysStateSetupGame
 		spaceBetweenRows = Settings.currentScreenHeight <= 800 ? 25 : 25 + (int)((Settings.currentScreenHeight - 800) / C.MAX_PLAYERS);
 		/// Title & heading:
 		DisplaysTitle.positionTitle(marginTitleTop);
-		DisplaysNavigationalButtons.positionNavigationalButtons();
+		DisplaysNavigationalButtons.positionButtons();
 		DisplaysHeading.positionHeading(Strings.setupPlayers);
 		/// Individual settings:
 		winCondition.x = (Settings.currentScreenWidth - winCondition.getWidth() - spaceColumn - winConditionButton.getWidth()) / 2;
@@ -100,12 +100,14 @@ public class DisplaysStateSetupGame
 		for(i = 0; i < C.MAX_PLAYERS; i++)
 			{
 			settingTextFont.drawString(id.x, id.getEndY() + ((i + 1) * spaceBetweenRows) + (i * buttonColor[i].getWidth()), String.format("%d", i+1), settingTextColor);
-			settingTextFont.drawString(name.x, name.getEndY() + ((i + 1) * spaceBetweenRows) + (i * buttonColor[i].getWidth()), Settings.playerName[i], settingTextColor);
 			buttonColor[i].colorSection(g, Settings.allColors[Settings.playerTeamColors[i]]);
 //			g.setColor(Settings.allColors[Settings.playerTeamColors[i]]);
 //			g.fillRect(buttonColor[i].x, buttonColor[i].y, buttonColor[i].getWidth(), buttonColor[i].getHeight());
 			if(i < Settings.numberActivePlayers)
+				{
+				settingTextFont.drawString(name.x, name.getEndY() + ((i + 1) * spaceBetweenRows) + (i * buttonColor[i].getWidth()), Settings.playerName[i], settingTextColor);
 				settingTextFont.drawString(joined.x, joined.getEndY() + ((i + 1) * spaceBetweenRows) + (i * buttonColor[i].getWidth()), Strings.check, settingTextColor);
+				}
 			}
 		}
 	}

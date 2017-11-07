@@ -18,7 +18,7 @@ public class DisplaysStatePlay
 	public static void positionDisplays()
 		{
 		DisplaysTitle.positionTitle(marginTitleTop);
-		DisplaysNavigationalButtons.positionNavigationalButtons();
+		DisplaysNavigationalButtons.positionButtons();
 		DisplaysHeading.positionHeading("Play Game");
 		}
 

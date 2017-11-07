@@ -20,15 +20,18 @@ public class DisplaysStateMain
 	public static float pswLogo = .4f;
 	public static float pswTitle = .6f;
 	public static float pswButtons = .3f;
+	public static float pswCamo = 2f;
 	/// Fonts:
 	public static TrueTypeFont authorTextFont = Fonts.fontVerdana25TTF;
 	public static TrueTypeFont buttonTextFont = Fonts.fontVerdana20TTF;
 	/// Colors:
-	public static Color authorTextColor = Color.green;
+	public static Color backgroundColor = Color.darkGray;
+	public static Color authorTextColor = Color.black;
 	public static Color buttonTextColor = Color.black;
 	/// Areas:
 	/// Objects:
 	public static Image logo = new Image(Filenames.logo, 0, 0, pswLogo);
+	public static Image camo = new Image(Filenames.camo, 0, 0, pswCamo);
 //	public static Image buttonsStartup[] = new Image[2];
 	public static Image buttonHost = new Image(Filenames.buttonRectangle, 0, 0, pswButtons);
 	public static Image buttonJoin = new Image(Filenames.buttonRectangle, 0, 0, pswButtons);
@@ -92,6 +95,9 @@ public class DisplaysStateMain
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void renderDisplays(Graphics g)
 		{
+		g.setColor(backgroundColor);
+		g.fillRect(0,0, Settings.currentScreenWidth, Settings.currentScreenHeight);
+		camo.renderImage();
 		logo.renderImage();
 		DisplaysTitle.renderTitle();
 		for(i = 0; i < authors.length; i++)
