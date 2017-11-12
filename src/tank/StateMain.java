@@ -22,6 +22,7 @@ public class StateMain extends BasicGameState
 		tank = (Tank) game;
 		Settings.initSettings();
 		DisplaysStateMain.initDisplays();
+		Popup.clearEntered();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -48,6 +49,14 @@ public class StateMain extends BasicGameState
 		{
 		Input input = container.getInput();
 		Inputs.processKeyboardInput(input, tank, container);
+		if(Popup.popupDisplayed == C.YES)
+			{
+			if(Popup.charactersEntered < Popup.ipAddressEntered.length)
+				{
+				Popup.getPopupInput(input);
+				}
+			else input.clearKeyPressedRecord();
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override

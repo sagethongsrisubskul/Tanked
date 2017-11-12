@@ -91,6 +91,7 @@ public class DisplaysStateMain
 			buttonText[i].x = buttons[i].centerStringX(buttonText[i].trueTypeFont, buttonText[i].string);
 			buttonText[i].y = buttons[i].centerStringY(buttonText[i].trueTypeFont, buttonText[i].string);
 			}
+		Popup.positionPopup();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void renderDisplays(Graphics g)
@@ -124,5 +125,10 @@ public class DisplaysStateMain
 			buttonJoin.renderImage();
 			buttonExitJoinText.renderString();
 			}
+		if(Popup.popupDisplayed == C.YES)
+			{
+			Popup.renderPopup(g);
+			}
+
 		}
 	}

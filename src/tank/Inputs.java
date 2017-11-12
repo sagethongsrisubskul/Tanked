@@ -12,6 +12,25 @@ public class Inputs
 	public static void processKeyboardInput(Input input, Tank tank, GameContainer container)
 		{
 		processScreenAdjustment(tank, input);
+		if(Popup.popupDisplayed == C.YES)
+			{
+			if(input.isKeyPressed(Input.KEY_ESCAPE))
+				{
+				popupEnd();
+				}
+			else if(input.isKeyPressed(Input.KEY_DELETE))
+				{
+				Popup.clearEntered();
+				}
+			else if(input.isKeyPressed(Input.KEY_BACK))
+				{
+				Popup.clearLastCharacter();
+				}
+			else if(input.isKeyPressed(Input.KEY_ENTER))
+				{
+				Popup.enterIPAddress();
+				}
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processScreenAdjustment(Tank tank, Input input)
@@ -112,7 +131,30 @@ public class Inputs
 	/* STATE MAIN +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		if(StateControl.currentState == StateControl.STATE_MAIN)
 			{
-			if(Settings.playerType == C.UNDECIDED)
+			if(Popup.popupDisplayed == C.YES)
+				{
+				if(Inputs.withinCoordinates(Popup.buttonEsc))
+					{
+					playClick();
+					popupEnd();
+					}
+				else if(Inputs.withinCoordinates(Popup.buttonClear))
+					{
+					playClick();
+					Popup.clearEntered();
+					}
+				else if(Inputs.withinCoordinates(Popup.buttonBack))
+					{
+					playClick();
+					Popup.clearLastCharacter();
+					}
+				else if(Inputs.withinCoordinates(Popup.buttonEnter))
+					{
+					playClick();
+					Popup.enterIPAddress();
+					}
+				}
+			else if(Settings.playerType == C.UNDECIDED)
 				{
 				if(withinCoordinates(DisplaysStateMain.buttonHost))
 					{
@@ -123,8 +165,7 @@ public class Inputs
 				else if(withinCoordinates(DisplaysStateMain.buttonJoin))
 					{
 					playClick();
-					Settings.playerType = C.CLIENT;
-					Network.isClient();
+					Popup.initPopup();
 					}
 				}
 			else if(Settings.playerType == C.SERVER)
@@ -284,6 +325,12 @@ public class Inputs
 	public static void playClick()
 		{
 		if(Settings.playButtonClick == C.YES) ResourceManager.getSound(Filenames.buttonClick).play();
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void popupEnd()
+		{
+		Popup.clearEntered();
+		Popup.popupDisplayed = C.NO;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void backState(Tank tank)

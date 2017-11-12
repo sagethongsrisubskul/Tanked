@@ -33,6 +33,14 @@ public class Strings
 	public static final String findRelic = "Find Relic";
 	public static final String winConditionTypes[] = {deathmatch, protectBase, destruction, findRelic};
 	/*-----------------------------------------------------------------------------------------------------*/
+	/// Popup:
+	public static final String enterIPAddress = "Enter IP Address:";
+	public static final String esc = "Esc";
+	public static final String max = "Max";
+	public static final String clear = "Clear";
+	public static final String back = "Back";
+	public static final String enter = "Enter";
+	/*-----------------------------------------------------------------------------------------------------*/
 	/// Select Map State:
 	public static final String miniMap[] = {
 		"This is a description of map 1.\nThis is a description of map 1.\nThis is a description of map 1.\nThis is a description of map 1.",

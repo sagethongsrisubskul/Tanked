@@ -10,9 +10,9 @@ public class Network
 		}
 
 	/* This method is called when a player clicks on button to join a game */
-	public static void isClient()
+	public static void isClient(String ipAddress)
 		{
-		System.out.printf("isClient\n");
+		System.out.printf("isClient: ipAddress = %s\n", ipAddress);
 		}
 
 	/* This method is called when a server clicks on button to exit host game */
