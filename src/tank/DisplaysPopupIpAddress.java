@@ -3,7 +3,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.TrueTypeFont;
-public class Popup
+public class DisplaysPopupIpAddress
 	{
 	public static int i;
 	public static int popupDisplayed = C.NO;
@@ -200,10 +200,9 @@ public class Popup
 		int i;
 		String string = "";
 		popupDisplayed = C.NO;
-		Settings.playerType = C.CLIENT;
 		for(i=0;i<charactersEntered;i++)
 			string += ipAddressEntered[i];
-		Network.isClient(string);
+		Network.setupClient(string);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	}

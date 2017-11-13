@@ -8,6 +8,7 @@ import org.newdawn.slick.TrueTypeFont;
 public class DisplaysStateMain
 	{
 	static int i;
+	public static int numMessages = 0;
 	/// Spacings:
 	public static int marginTitleTop = 25; /// The margin from the top of the screen to the top of the title
 	public static int logoOffsetX = 0; /// The offset position of the logo relative to the tile
@@ -16,6 +17,8 @@ public class DisplaysStateMain
 	public static int spaceBetweenAuthors = 0;
 	public static int spaceAfterAuthors;
 	public static int spaceBetweenButtons = 15;
+	public static int messageAreaHeight = 60;
+	public static int messageAreaPadding = 10;
 	/// psw (percentage of screen width):
 	public static float pswLogo = .4f;
 	public static float pswTitle = .6f;
@@ -24,11 +27,15 @@ public class DisplaysStateMain
 	/// Fonts:
 	public static TrueTypeFont authorTextFont = Fonts.fontVerdana25TTF;
 	public static TrueTypeFont buttonTextFont = Fonts.fontVerdana20TTF;
+	public static TrueTypeFont messageTextFont = Fonts.fontCourier11BTTF;
 	/// Colors:
 	public static Color backgroundColor = Color.darkGray;
 	public static Color authorTextColor = Color.black;
 	public static Color buttonTextColor = Color.black;
+	public static Color messageBackgroundColor = Color.black;
+	public static Color messageTextColor = Color.white;
 	/// Areas:
+	public static Area messageArea = new Area();
 	/// Objects:
 	public static Image logo = new Image(Filenames.logo, 0, 0, pswLogo);
 	public static Image camo = new Image(Filenames.camo, 0, 0, pswCamo);
@@ -56,6 +63,11 @@ public class DisplaysStateMain
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void positionDisplays()
 		{
+		/// Areas:
+		messageArea.x = 0;
+		messageArea.endX = Settings.currentScreenWidth;
+		messageArea.y = Settings.currentScreenHeight - messageAreaHeight;
+		messageArea.endY = Settings.currentScreenHeight;
 		/// Spacing:
 		spaceAfterTitle = Settings.currentScreenHeight < 800 ? 25 : 25 + (int) ((Settings.currentScreenHeight - 700) * 0.2);
 		spaceAfterAuthors = spaceAfterTitle;
@@ -91,7 +103,7 @@ public class DisplaysStateMain
 			buttonText[i].x = buttons[i].centerStringX(buttonText[i].trueTypeFont, buttonText[i].string);
 			buttonText[i].y = buttons[i].centerStringY(buttonText[i].trueTypeFont, buttonText[i].string);
 			}
-		Popup.positionPopup();
+		DisplaysPopupIpAddress.positionPopup();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void renderDisplays(Graphics g)
@@ -120,15 +132,40 @@ public class DisplaysStateMain
 				buttonText[i].renderString();
 				}
 			}
-		else
+		else if(Settings.playerType == C.CLIENT)
 			{
 			buttonJoin.renderImage();
 			buttonExitJoinText.renderString();
+			buttons[buttons.length - 1].renderImage();
+			buttonText[buttonText.length - 1].renderString();
 			}
-		if(Popup.popupDisplayed == C.YES)
+		if(DisplaysPopupIpAddress.popupDisplayed == C.YES)
 			{
-			Popup.renderPopup(g);
+			DisplaysPopupIpAddress.renderPopup(g);
 			}
-
+		messageArea.colorSection(g, messageBackgroundColor);
+		for(i=0;i<Strings.networkMessages.length;i++)
+			{
+//			System.out.printf("message %d = %s, (%d, %d)\n", i, Strings.networkMessages[i], messageArea.x + messageAreaPadding, messageArea.y + messageAreaPadding + (i * 10));
+			messageTextFont.drawString(messageArea.x + messageAreaPadding, messageArea.y + messageAreaPadding + (i * 10), Strings.networkMessages[i], messageTextColor);
+			}
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void displayMessage(String string)
+		{
+		if(numMessages < Strings.networkMessages.length)
+			{
+			Strings.networkMessages[numMessages] = ">> " + string;
+			numMessages++;
+			}
+		else
+			{
+			int i;
+			for(i = 0; i < Strings.networkMessages.length - 1; i++)
+				{
+				Strings.networkMessages[i] = Strings.networkMessages[i+1];
+				}
+			Strings.networkMessages[Strings.networkMessages.length - 1] = ">> " + string;
+			}
 		}
 	}

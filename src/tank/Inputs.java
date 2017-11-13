@@ -12,7 +12,7 @@ public class Inputs
 	public static void processKeyboardInput(Input input, Tank tank, GameContainer container)
 		{
 		processScreenAdjustment(tank, input);
-		if(Popup.popupDisplayed == C.YES)
+		if(DisplaysPopupIpAddress.popupDisplayed == C.YES)
 			{
 			if(input.isKeyPressed(Input.KEY_ESCAPE))
 				{
@@ -20,15 +20,15 @@ public class Inputs
 				}
 			else if(input.isKeyPressed(Input.KEY_DELETE))
 				{
-				Popup.clearEntered();
+				DisplaysPopupIpAddress.clearEntered();
 				}
 			else if(input.isKeyPressed(Input.KEY_BACK))
 				{
-				Popup.clearLastCharacter();
+				DisplaysPopupIpAddress.clearLastCharacter();
 				}
 			else if(input.isKeyPressed(Input.KEY_ENTER))
 				{
-				Popup.enterIPAddress();
+				DisplaysPopupIpAddress.enterIPAddress();
 				}
 			}
 		}
@@ -131,27 +131,27 @@ public class Inputs
 	/* STATE MAIN +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		if(StateControl.currentState == StateControl.STATE_MAIN)
 			{
-			if(Popup.popupDisplayed == C.YES)
+			if(DisplaysPopupIpAddress.popupDisplayed == C.YES)
 				{
-				if(Inputs.withinCoordinates(Popup.buttonEsc))
+				if(Inputs.withinCoordinates(DisplaysPopupIpAddress.buttonEsc))
 					{
 					playClick();
 					popupEnd();
 					}
-				else if(Inputs.withinCoordinates(Popup.buttonClear))
+				else if(Inputs.withinCoordinates(DisplaysPopupIpAddress.buttonClear))
 					{
 					playClick();
-					Popup.clearEntered();
+					DisplaysPopupIpAddress.clearEntered();
 					}
-				else if(Inputs.withinCoordinates(Popup.buttonBack))
+				else if(Inputs.withinCoordinates(DisplaysPopupIpAddress.buttonBack))
 					{
 					playClick();
-					Popup.clearLastCharacter();
+					DisplaysPopupIpAddress.clearLastCharacter();
 					}
-				else if(Inputs.withinCoordinates(Popup.buttonEnter))
+				else if(Inputs.withinCoordinates(DisplaysPopupIpAddress.buttonEnter))
 					{
 					playClick();
-					Popup.enterIPAddress();
+					DisplaysPopupIpAddress.enterIPAddress();
 					}
 				}
 			else if(Settings.playerType == C.UNDECIDED)
@@ -159,13 +159,12 @@ public class Inputs
 				if(withinCoordinates(DisplaysStateMain.buttonHost))
 					{
 					playClick();
-					Settings.playerType = C.SERVER;
-					Network.isServer();
+					Network.setupServer();
 					}
 				else if(withinCoordinates(DisplaysStateMain.buttonJoin))
 					{
 					playClick();
-					Popup.initPopup();
+					DisplaysPopupIpAddress.initPopup();
 					}
 				}
 			else if(Settings.playerType == C.SERVER)
@@ -204,6 +203,11 @@ public class Inputs
 					playClick();
 					Settings.playerType = C.UNDECIDED;
 					Network.exitClient();
+					}
+				else if(withinCoordinates(DisplaysStateMain.buttons[3]))
+					{
+					playClick();
+					enterState(tank, StateControl.STATE_HELP_MAIN);
 					}
 				}
 			}
@@ -329,8 +333,8 @@ public class Inputs
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void popupEnd()
 		{
-		Popup.clearEntered();
-		Popup.popupDisplayed = C.NO;
+		DisplaysPopupIpAddress.clearEntered();
+		DisplaysPopupIpAddress.popupDisplayed = C.NO;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void backState(Tank tank)

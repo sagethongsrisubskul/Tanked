@@ -3,7 +3,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
 /* This class contains a method for displaying a popup message in the middle of the current screen*/
-public class PopupMessage
+public class DisplaysPopupMessage
 	{
 	public static void renderMessage(Graphics g, String string, int x, int y, int padding, TrueTypeFont trueTypeFont, Color backgroundColor, Color textColor)
 		{
