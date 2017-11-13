@@ -6,12 +6,18 @@ public class Network
 	public static void setupServer()
 		{
 		System.out.printf("setupServer\n");
+
+		/// If server is successful:
+		successServer();
 		}
 
 	/* This method is called when a player clicks on button to join a game */
 	public static void setupClient(String ipAddress)
 		{
 		System.out.printf("setupClient: ipAddress = %s\n", ipAddress);
+
+		/// If client is successful:
+		successClient(ipAddress);
 		}
 
 	/* This method is called when a server clicks on button to exit host game */
@@ -39,7 +45,7 @@ public class Network
 	public static void successClient(String ipAddress)
 		{
 		Settings.playerType = C.CLIENT;
-		displayMessage("Success joining game (ipAddress = " + ipAddress + ")");
+		displayMessage("Success joining game (ipAddress = '" + ipAddress + "')");
 		}
 
 	/* Call this method when player is hosting a game and a player joins */
@@ -51,6 +57,12 @@ public class Network
 
 	/* Call this method to display a message on the screen */
 	public static void displayMessage(String string)
+		{
+		DisplaysStateMain.displayMessage(string);
+		}
+
+	/* This method is called when sending a message */
+	public static void messageSend(String string)
 		{
 		DisplaysStateMain.displayMessage(string);
 		}

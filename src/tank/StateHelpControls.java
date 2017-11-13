@@ -45,6 +45,7 @@ public class StateHelpControls extends BasicGameState
 		{
 		Input input = container.getInput();
 		Inputs.processKeyboardInput(input, tank, container);
+		input.clearKeyPressedRecord();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override

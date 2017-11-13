@@ -17,6 +17,7 @@ public class Strings
 	public static final String helpInfo = "Help/Info";
 	public static final String mainButtonTypes[] = {newGame, setupPlayers, selectMap, helpInfo};
 	public static final String networkMessages[] = {"", "", "", ""};
+	public static final String networkMessagePrompt = ">>";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Setup Game State:
 	public static final String players = "Players";
@@ -34,13 +35,16 @@ public class Strings
 	public static final String findRelic = "Find Relic";
 	public static final String winConditionTypes[] = {deathmatch, protectBase, destruction, findRelic};
 	/*-----------------------------------------------------------------------------------------------------*/
-	/// DisplaysPopupIpAddress:
+	/// Popup ip address:
 	public static final String enterIPAddress = "Enter IP Address:";
 	public static final String esc = "Esc";
 	public static final String max = "Max";
 	public static final String clear = "Clear";
 	public static final String back = "Back";
 	public static final String enter = "Enter";
+	/*-----------------------------------------------------------------------------------------------------*/
+	/// Popup chat:
+	public static final String enterMessage = "Enter message:";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Select Map State:
 	public static final String miniMap[] = {

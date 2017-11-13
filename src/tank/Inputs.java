@@ -16,7 +16,7 @@ public class Inputs
 			{
 			if(input.isKeyPressed(Input.KEY_ESCAPE))
 				{
-				popupEnd();
+				DisplaysPopupIpAddress.popupEnd();
 				}
 			else if(input.isKeyPressed(Input.KEY_DELETE))
 				{
@@ -29,6 +29,32 @@ public class Inputs
 			else if(input.isKeyPressed(Input.KEY_ENTER))
 				{
 				DisplaysPopupIpAddress.enterIPAddress();
+				}
+			}
+		else if(DisplaysPopupChat.popupDisplayed == C.YES)
+			{
+			if(input.isKeyPressed(Input.KEY_ESCAPE))
+				{
+				DisplaysPopupChat.popupEnd();
+				}
+			else if(input.isKeyPressed(Input.KEY_DELETE))
+				{
+				DisplaysPopupChat.clearEntered();
+				}
+			else if(input.isKeyPressed(Input.KEY_BACK))
+				{
+				DisplaysPopupChat.clearLastCharacter();
+				}
+			else if(input.isKeyPressed(Input.KEY_ENTER))
+				{
+				DisplaysPopupChat.sendMessage();
+				}
+			}
+		else if(StateControl.currentState == StateControl.STATE_MAIN && Settings.playerType != C.UNDECIDED)
+			{
+			if(input.isKeyPressed((Input.KEY_ENTER)))
+				{
+				DisplaysPopupChat.initPopup();
 				}
 			}
 		}
@@ -136,7 +162,7 @@ public class Inputs
 				if(Inputs.withinCoordinates(DisplaysPopupIpAddress.buttonEsc))
 					{
 					playClick();
-					popupEnd();
+					DisplaysPopupIpAddress.popupEnd();
 					}
 				else if(Inputs.withinCoordinates(DisplaysPopupIpAddress.buttonClear))
 					{
@@ -152,6 +178,29 @@ public class Inputs
 					{
 					playClick();
 					DisplaysPopupIpAddress.enterIPAddress();
+					}
+				}
+			else if(DisplaysPopupChat.popupDisplayed == C.YES)
+				{
+				if(Inputs.withinCoordinates(DisplaysPopupChat.buttonEsc))
+					{
+					playClick();
+					DisplaysPopupChat.popupEnd();
+					}
+				else if(Inputs.withinCoordinates(DisplaysPopupChat.buttonClear))
+					{
+					playClick();
+					DisplaysPopupChat.clearEntered();
+					}
+				else if(Inputs.withinCoordinates(DisplaysPopupChat.buttonBack))
+					{
+					playClick();
+					DisplaysPopupChat.clearLastCharacter();
+					}
+				else if(Inputs.withinCoordinates(DisplaysPopupChat.buttonEnter))
+					{
+					playClick();
+					DisplaysPopupChat.sendMessage();
 					}
 				}
 			else if(Settings.playerType == C.UNDECIDED)
@@ -329,12 +378,6 @@ public class Inputs
 	public static void playClick()
 		{
 		if(Settings.playButtonClick == C.YES) ResourceManager.getSound(Filenames.buttonClick).play();
-		}
-	/*-----------------------------------------------------------------------------------------------------*/
-	public static void popupEnd()
-		{
-		DisplaysPopupIpAddress.clearEntered();
-		DisplaysPopupIpAddress.popupDisplayed = C.NO;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void backState(Tank tank)

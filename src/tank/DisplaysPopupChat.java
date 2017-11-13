@@ -3,20 +3,20 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.TrueTypeFont;
-public class DisplaysPopupIpAddress
+public class DisplaysPopupChat
 	{
 	public static int i;
 	public static int popupDisplayed = C.NO;
 	public static int charactersEntered = 0;
-	public static char[] ipAddressEntered = new char[12];
+	public static char[] messageCharacters = new char[50];
 	/// Margins:
 	public static int outerBorderWidth = 2;
 	public static int outerFillWidth = 10;
 	public static int innerBorderWidth = 1;
-	public static int innerFillWidth = 400; /// Multiple of 5
+	public static int innerFillWidth = 600; /// Multiple of 5
 	public static int innerFillHeight = 150;
 	public static int enterBorderWidth = 1;
-	public static int enterWidth = 125;
+	public static int enterWidth = 500;
 	public static int enterHeight = 30;
 	public static int buttonWidth;
 	public static int buttonHeight;
@@ -46,7 +46,7 @@ public class DisplaysPopupIpAddress
 	public static int popupWidth;
 	public static int popupHeight;
 	/// Objects:
-	public static StringsDisplay enterAmount = new StringsDisplay(Strings.enterIPAddress, enterAmountFont, textColor, 0, 0);
+	public static StringsDisplay enterAmount = new StringsDisplay(Strings.enterMessage, enterAmountFont, textColor, 0, 0);
 	public static StringsDisplay buttonEscText = new StringsDisplay(Strings.esc, buttonFont, textColor, 0, 0);
 	//	public static StringsDisplay buttonMaxText = new StringsDisplay(Strings.max, buttonFont, textColor, 0, 0);
 	public static StringsDisplay buttonClearText = new StringsDisplay(Strings.clear, buttonFont, textColor, 0, 0);
@@ -124,9 +124,6 @@ public class DisplaysPopupIpAddress
 		buttonEsc.colorSection(g, borderColor);
 		g.setColor(buttonColor);
 		g.fillRect(buttonEsc.x + buttonBorderWidth, buttonEsc.y + buttonBorderWidth, buttonEsc.getWidth() - (2 * buttonBorderWidth), buttonEsc.getHeight() - (2 * buttonBorderWidth));
-//		buttonMax.colorSection(g, borderColor);
-//		g.setColor(buttonColor);
-//		g.fillRect(buttonMax.x + buttonBorderWidth, buttonMax.y + buttonBorderWidth, buttonMax.getWidth() - (2 * buttonBorderWidth), buttonMax.getHeight() - (2 * buttonBorderWidth));
 		buttonClear.colorSection(g, borderColor);
 		g.setColor(buttonColor);
 		g.fillRect(buttonClear.x + buttonBorderWidth, buttonClear.y + buttonBorderWidth, buttonClear.getWidth() - (2 * buttonBorderWidth), buttonClear.getHeight() - (2 * buttonBorderWidth));
@@ -142,16 +139,16 @@ public class DisplaysPopupIpAddress
 		buttonFont.drawString(buttonClearText.x, buttonClearText.y, buttonClearText.string, buttonClearText.color);
 		buttonFont.drawString(buttonBackText.x, buttonBackText.y, buttonBackText.string, buttonBackText.color);
 		buttonFont.drawString(buttonEnterText.x, buttonEnterText.y, buttonEnterText.string, buttonEnterText.color);
-		/// Render characters:
-		for(i=0;i<ipAddressEntered.length;i++)
-			enterDigitFont.drawString(enterFill.x + (i * enterDigitFont.getWidth("0")) + 5, enterFill.y + 5, String.format("%c", ipAddressEntered[i]), textColor);
+		/// Render digits:
+		for(i=0; i< messageCharacters.length; i++)
+			enterDigitFont.drawString(enterFill.x + (i * enterDigitFont.getWidth("0")) + 5, enterFill.y + 5, String.format("%c", messageCharacters[i]), textColor);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void getPopupInput(Input input)
 		{
-		if(charactersEntered < ipAddressEntered.length)
+		if(charactersEntered < messageCharacters.length)
 			{
-			char c = ' ';
+			char c = '\0';
 			if(input.isKeyPressed(Input.KEY_0)) c = '0';
 			else if(input.isKeyPressed(Input.KEY_1)) c = '1';
 			else if(input.isKeyPressed(Input.KEY_2)) c = '2';
@@ -163,10 +160,37 @@ public class DisplaysPopupIpAddress
 			else if(input.isKeyPressed(Input.KEY_8)) c = '8';
 			else if(input.isKeyPressed(Input.KEY_9)) c = '9';
 			else if(input.isKeyPressed(Input.KEY_PERIOD)) c = '.';
-
-			if(c != ' ')
+			else if(input.isKeyPressed(Input.KEY_COMMA)) c = ',';
+			else if(input.isKeyPressed(Input.KEY_A)) c = 'a';
+			else if(input.isKeyPressed(Input.KEY_B)) c = 'b';
+			else if(input.isKeyPressed(Input.KEY_C)) c = 'c';
+			else if(input.isKeyPressed(Input.KEY_D)) c = 'd';
+			else if(input.isKeyPressed(Input.KEY_E)) c = 'e';
+			else if(input.isKeyPressed(Input.KEY_F)) c = 'f';
+			else if(input.isKeyPressed(Input.KEY_G)) c = 'g';
+			else if(input.isKeyPressed(Input.KEY_H)) c = 'h';
+			else if(input.isKeyPressed(Input.KEY_I)) c = 'i';
+			else if(input.isKeyPressed(Input.KEY_J)) c = 'j';
+			else if(input.isKeyPressed(Input.KEY_K)) c = 'k';
+			else if(input.isKeyPressed(Input.KEY_L)) c = 'l';
+			else if(input.isKeyPressed(Input.KEY_M)) c = 'm';
+			else if(input.isKeyPressed(Input.KEY_N)) c = 'n';
+			else if(input.isKeyPressed(Input.KEY_O)) c = 'o';
+			else if(input.isKeyPressed(Input.KEY_P)) c = 'p';
+			else if(input.isKeyPressed(Input.KEY_Q)) c = 'q';
+			else if(input.isKeyPressed(Input.KEY_R)) c = 'r';
+			else if(input.isKeyPressed(Input.KEY_S)) c = 's';
+			else if(input.isKeyPressed(Input.KEY_T)) c = 't';
+			else if(input.isKeyPressed(Input.KEY_U)) c = 'u';
+			else if(input.isKeyPressed(Input.KEY_V)) c = 'v';
+			else if(input.isKeyPressed(Input.KEY_W)) c = 'w';
+			else if(input.isKeyPressed(Input.KEY_X)) c = 'x';
+			else if(input.isKeyPressed(Input.KEY_Y)) c = 'y';
+			else if(input.isKeyPressed(Input.KEY_Z)) c = 'z';
+			else if(input.isKeyPressed(Input.KEY_SPACE)) c = ' ';
+			if(c != '\0')
 				{
-				ipAddressEntered[charactersEntered] = c;
+				messageCharacters[charactersEntered] = c;
 				charactersEntered++;
 				}
 			}
@@ -182,27 +206,28 @@ public class DisplaysPopupIpAddress
 		{
 		int i;
 		charactersEntered = 0;
-		for(i = 0; i < ipAddressEntered.length; i++)
-			ipAddressEntered[i] = ' ';
+		for(i = 0; i < messageCharacters.length; i++)
+			messageCharacters[i] = ' ';
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void clearLastCharacter()
 		{
 		if(charactersEntered > 0)
 			{
-			ipAddressEntered[charactersEntered - 1] = ' ';
+			messageCharacters[charactersEntered - 1] = ' ';
 			charactersEntered--;
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void enterIPAddress()
+	public static void sendMessage()
 		{
 		int i;
 		String string = "";
 		popupDisplayed = C.NO;
 		for(i=0;i<charactersEntered;i++)
-			string += ipAddressEntered[i];
-		Network.setupClient(string);
+			string += messageCharacters[i];
+
+		Network.messageSend(string);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void popupEnd()
@@ -211,5 +236,4 @@ public class DisplaysPopupIpAddress
 		popupDisplayed = C.NO;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-
 	}

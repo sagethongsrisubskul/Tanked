@@ -1,9 +1,11 @@
 package tank;
 import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 public class StateMain extends BasicGameState
@@ -55,8 +57,15 @@ public class StateMain extends BasicGameState
 				{
 				DisplaysPopupIpAddress.getPopupInput(input);
 				}
-			else input.clearKeyPressedRecord();
 			}
+		else if(DisplaysPopupChat.popupDisplayed == C.YES)
+			{
+			if(DisplaysPopupChat.charactersEntered < DisplaysPopupChat.messageCharacters.length)
+				{
+				DisplaysPopupChat.getPopupInput(input);
+				}
+			}
+		input.clearKeyPressedRecord();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -68,4 +77,10 @@ public class StateMain extends BasicGameState
 		Inputs.xMouse = -1;
 		Inputs.yMouse = -1;
 		}
+	/*-----------------------------------------------------------------------------------------------------*/
+//	@Override
+//	public void keyPressed(int key, char c)
+//		{
+////		System.out.printf("'%c' '%d'\n", c, key);
+//		}
 	}

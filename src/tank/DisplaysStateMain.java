@@ -104,6 +104,7 @@ public class DisplaysStateMain
 			buttonText[i].y = buttons[i].centerStringY(buttonText[i].trueTypeFont, buttonText[i].string);
 			}
 		DisplaysPopupIpAddress.positionPopup();
+		DisplaysPopupChat.positionPopup();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void renderDisplays(Graphics g)
@@ -142,6 +143,10 @@ public class DisplaysStateMain
 		if(DisplaysPopupIpAddress.popupDisplayed == C.YES)
 			{
 			DisplaysPopupIpAddress.renderPopup(g);
+			}
+		else if(DisplaysPopupChat.popupDisplayed == C.YES)
+			{
+			DisplaysPopupChat.renderPopup(g);
 			}
 		messageArea.colorSection(g, messageBackgroundColor);
 		for(i=0;i<Strings.networkMessages.length;i++)

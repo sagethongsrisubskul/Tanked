@@ -49,6 +49,7 @@ public class StatePlay extends BasicGameState
 		{
 		Input input = container.getInput();
 		Inputs.processKeyboardInput(input, tank, container);
+		input.clearKeyPressedRecord();
 		updateTime(delta);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
