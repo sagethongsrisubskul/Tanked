@@ -2,19 +2,26 @@ package tank;
 /* This class is to handle the networking of the game. */
 public class Network
 	{
+	
 	/* This method is called when a player clicks on button to host a game */
 	public static void setupServer()
 		{
 		System.out.printf("setupServer\n");
+		
 		/// If server is successful:
 		successServer();
+		ServerMain sm=new ServerMain();
+		sm.go();
 		}
 	/* This method is called when a player clicks on button to join a game and enters an ip address to connect to*/
 	public static void setupClient(String ipAddress)
 		{
 		System.out.printf("setupClient: ipAddress = %s\n", ipAddress);
+		
 		/// If client is successful:
 		successClient(ipAddress);
+		ClientMain cm=new ClientMain();
+		cm.go(ipAddress);
 		}
 	/* This method is called when a server clicks on button to leave game */
 	public static void exitServer()
