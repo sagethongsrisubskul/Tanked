@@ -10,7 +10,7 @@ public class DisplaysStateSelectMap
 	static int i;
 	/// Spacings:
 	public static int marginTitleTop = 25; /// The margin from the top of the screen to the top of the title
-	public static int spaceAfterHeading = 25; /// Space between the bottom of the heading and the top of 1st map
+	public static int spaceAfterHeading = 25; /// Space between the bottom of the lobbyHeading and the top of 1st map
 	public static int spaceBetweenMaps = 10;
 	public static int marginSides = 50; /// The margins on the left and right sides of screen
 	/// psw (percentage of screen width):

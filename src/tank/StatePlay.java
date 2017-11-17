@@ -48,7 +48,7 @@ public class StatePlay extends BasicGameState
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
 		{
 		Input input = container.getInput();
-		Inputs.processKeyboardInput(input, tank, container);
+		Inputs.processKeyboardInput(input);
 		input.clearKeyPressedRecord();
 		updateTime(delta);
 		}
@@ -58,7 +58,7 @@ public class StatePlay extends BasicGameState
 		{
 		Inputs.xMouse = x;
 		Inputs.yMouse = y;
-		Inputs.processMouseInput(tank);
+		Inputs.processMouseInput();
 		Inputs.xMouse = -1;
 		Inputs.yMouse = -1;
 		}

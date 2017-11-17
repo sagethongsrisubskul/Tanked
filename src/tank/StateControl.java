@@ -1,22 +1,44 @@
 package tank;
-/* This class is for controling the current/previous state and the state que (used for back button) */
+/* This class is for controlling the current/previous state and the state que (used for back button) */
 public class StateControl
 	{
+	public static Tank tank;
 	public static final int STATE_NONE = -1;
 	public static final int STATE_MAIN = 0;
-	public static final int STATE_SETUP_GAME = 1;
-	public static final int STATE_SELECT_MAP = 2;
-	public static final int STATE_HELP_MAIN = 3;
-	public static final int STATE_HELP_GAMEPLAY = 4;
-	public static final int STATE_HELP_CONTROLS = 5;
-	public static final int STATE_PLAY = 6;
-	public static final int STATE_CHANGE_SCREEN_SIZE = 7;
-	public static final int NUM_STATES = 8;
+	public static final int STATE_LOBBY = 1;
+	public static final int STATE_HELP_MAIN = 2;
+	public static final int STATE_HELP_GAMEPLAY = 3;
+	public static final int STATE_HELP_CONTROLS = 4;
+	public static final int STATE_PLAY = 5;
+	public static final int STATE_CHANGE_SCREEN_SIZE = 6;
+	public static final int NUM_STATES = 7;
 	/// States:
 	public static int previousState = STATE_MAIN;
 	public static int currentState = STATE_MAIN;
 	public static int statesVisited[] = new int[NUM_STATES + 1];
 	public static int numStatesQue = 0;
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void initStateControl(Tank tankGame)
+		{
+		tank = tankGame;
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void enterState(int state)
+		{
+		previousState = currentState;
+		tank.enterState(state);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void backState()
+		{
+		int tempState = currentState;
+		currentState = previousState;
+		previousState = tempState;
+		if(numStatesQue > 1)
+			{
+			enterState(statesVisited[numStatesQue - 2]);
+			}
+		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void checkStates()
 		{
@@ -39,8 +61,9 @@ public class StateControl
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void addCurrentState(int state)
 		{
+		/// Adds a state to the state que
 		currentState = state;
-		if(currentState == STATE_MAIN)
+		if(currentState == STATE_MAIN) /// Clears the que and puts Main state as the first in the que
 			{
 			int i;
 			statesVisited[0] = STATE_MAIN;

@@ -1,5 +1,4 @@
 package tank;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 /* This class is for handling any keyboard or mouse click inputs */
 public class Inputs
@@ -9,57 +8,38 @@ public class Inputs
 	public static int yMouse;
 	public static int tempState;
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void processKeyboardInput(Input input, Tank tank, GameContainer container)
+	public static void processKeyboardInput(Input input)
 		{
-		processScreenAdjustment(tank, input);
-		if(DisplaysPopupIpAddress.popupDisplayed == C.YES)
+//		processScreenAdjustment(input);
+		if(DisplaysPopupBox.popupDisplayed == C.YES)
 			{
 			if(input.isKeyPressed(Input.KEY_ESCAPE))
 				{
-				DisplaysPopupIpAddress.popupEnd();
+				DisplaysPopupBox.popupEnd();
 				}
 			else if(input.isKeyPressed(Input.KEY_DELETE))
 				{
-				DisplaysPopupIpAddress.clearEntered();
+				DisplaysPopupBox.clearEntered();
 				}
 			else if(input.isKeyPressed(Input.KEY_BACK))
 				{
-				DisplaysPopupIpAddress.clearLastCharacter();
+				DisplaysPopupBox.clearLastCharacter();
 				}
 			else if(input.isKeyPressed(Input.KEY_ENTER))
 				{
-				DisplaysPopupIpAddress.enterIPAddress();
+				DisplaysPopupBox.finalizeMessage();
 				}
 			}
-		else if(DisplaysPopupChat.popupDisplayed == C.YES)
-			{
-			if(input.isKeyPressed(Input.KEY_ESCAPE))
-				{
-				DisplaysPopupChat.popupEnd();
-				}
-			else if(input.isKeyPressed(Input.KEY_DELETE))
-				{
-				DisplaysPopupChat.clearEntered();
-				}
-			else if(input.isKeyPressed(Input.KEY_BACK))
-				{
-				DisplaysPopupChat.clearLastCharacter();
-				}
-			else if(input.isKeyPressed(Input.KEY_ENTER))
-				{
-				DisplaysPopupChat.sendMessage();
-				}
-			}
-		else if(StateControl.currentState == StateControl.STATE_MAIN && Settings.playerType != C.UNDECIDED)
+		else if(StateControl.currentState == StateControl.STATE_LOBBY)
 			{
 			if(input.isKeyPressed((Input.KEY_ENTER)))
 				{
-				DisplaysPopupChat.initPopup();
+				DisplaysPopupBox.initPopup(C.POPUP_CHAT);
 				}
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void processScreenAdjustment(Tank tank, Input input)
+	public static void processScreenAdjustment(Input input)
 		{
 		/* Right arrow : Width + */
 		if(input.isKeyPressed(Input.KEY_RIGHT))
@@ -70,7 +50,7 @@ public class Inputs
 					{
 					Settings.currentScreenWidth += Settings.screenAdjustment;
 					Settings.playScreenWidth += Settings.screenAdjustment;
-					tank.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
+					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
 					}
 				}
 			else
@@ -79,7 +59,7 @@ public class Inputs
 					{
 					Settings.currentScreenWidth += Settings.screenAdjustment;
 					Settings.mainScreenWidth += Settings.screenAdjustment;
-					tank.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
+					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
 					}
 				}
 			}
@@ -92,7 +72,7 @@ public class Inputs
 					{
 					Settings.currentScreenWidth -= Settings.screenAdjustment;
 					Settings.playScreenWidth -= Settings.screenAdjustment;
-					tank.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
+					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
 					}
 				}
 			else
@@ -101,7 +81,7 @@ public class Inputs
 					{
 					Settings.currentScreenWidth -= Settings.screenAdjustment;
 					Settings.mainScreenWidth -= Settings.screenAdjustment;
-					tank.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
+					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
 					}
 				}
 			}
@@ -114,7 +94,7 @@ public class Inputs
 					{
 					Settings.currentScreenHeight += Settings.screenAdjustment;
 					Settings.playScreenHeight += Settings.screenAdjustment;
-					tank.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
+					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
 					}
 				}
 			else
@@ -123,7 +103,7 @@ public class Inputs
 					{
 					Settings.currentScreenHeight += Settings.screenAdjustment;
 					Settings.mainScreenHeight += Settings.screenAdjustment;
-					tank.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
+					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
 					}
 				}
 			}
@@ -136,7 +116,7 @@ public class Inputs
 					{
 					Settings.currentScreenHeight -= Settings.screenAdjustment;
 					Settings.playScreenHeight -= Settings.screenAdjustment;
-					tank.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
+					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
 					}
 				}
 			else
@@ -146,185 +126,144 @@ public class Inputs
 					{
 					Settings.currentScreenHeight -= Settings.screenAdjustment;
 					Settings.mainScreenHeight -= Settings.screenAdjustment;
-					tank.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
+					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
 					}
 				}
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void processMouseInput(Tank tank)
+	public static void processMouseInput()
 		{
 	/* STATE MAIN +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		if(StateControl.currentState == StateControl.STATE_MAIN)
 			{
-			if(DisplaysPopupIpAddress.popupDisplayed == C.YES)
-				{
-				if(Inputs.withinCoordinates(DisplaysPopupIpAddress.buttonEsc))
-					{
-					playClick();
-					DisplaysPopupIpAddress.popupEnd();
-					}
-				else if(Inputs.withinCoordinates(DisplaysPopupIpAddress.buttonClear))
-					{
-					playClick();
-					DisplaysPopupIpAddress.clearEntered();
-					}
-				else if(Inputs.withinCoordinates(DisplaysPopupIpAddress.buttonBack))
-					{
-					playClick();
-					DisplaysPopupIpAddress.clearLastCharacter();
-					}
-				else if(Inputs.withinCoordinates(DisplaysPopupIpAddress.buttonEnter))
-					{
-					playClick();
-					DisplaysPopupIpAddress.enterIPAddress();
-					}
-				}
-			else if(DisplaysPopupChat.popupDisplayed == C.YES)
-				{
-				if(Inputs.withinCoordinates(DisplaysPopupChat.buttonEsc))
-					{
-					playClick();
-					DisplaysPopupChat.popupEnd();
-					}
-				else if(Inputs.withinCoordinates(DisplaysPopupChat.buttonClear))
-					{
-					playClick();
-					DisplaysPopupChat.clearEntered();
-					}
-				else if(Inputs.withinCoordinates(DisplaysPopupChat.buttonBack))
-					{
-					playClick();
-					DisplaysPopupChat.clearLastCharacter();
-					}
-				else if(Inputs.withinCoordinates(DisplaysPopupChat.buttonEnter))
-					{
-					playClick();
-					DisplaysPopupChat.sendMessage();
-					}
-				}
-			else if(Settings.playerType == C.UNDECIDED)
+			if(DisplaysPopupBox.popupDisplayed == C.YES) processPopupClick();
+			else
 				{
 				if(withinCoordinates(DisplaysStateMain.buttonHost))
 					{
 					playClick();
+					Settings.playerType = C.SERVER;
 					Network.setupServer();
 					}
 				else if(withinCoordinates(DisplaysStateMain.buttonJoin))
 					{
 					playClick();
-					DisplaysPopupIpAddress.initPopup();
+					Settings.playerType = C.CLIENT;
+					DisplaysPopupBox.initPopup(C.POPUP_IP_ADDRESS);
 					}
 				}
-			else if(Settings.playerType == C.SERVER)
-				{
-				if(withinCoordinates(DisplaysStateMain.buttonHost))
-					{
-					playClick();
-					Settings.playerType = C.UNDECIDED;
-					Network.exitServer();
-					}
-				else if(withinCoordinates(DisplaysStateMain.buttons[0]))
-					{
-					playClick();
-					enterState(tank, StateControl.STATE_PLAY);
-					}
-				else if(withinCoordinates(DisplaysStateMain.buttons[1]))
-					{
-					playClick();
-					enterState(tank, StateControl.STATE_SETUP_GAME);
-					}
-				else if(withinCoordinates(DisplaysStateMain.buttons[2]))
-					{
-					playClick();
-					enterState(tank, StateControl.STATE_SELECT_MAP);
-					}
-				else if(withinCoordinates(DisplaysStateMain.buttons[3]))
-					{
-					playClick();
-					enterState(tank, StateControl.STATE_HELP_MAIN);
-					}
-				}
+			}
+	/* STATE LOBBY ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		else if(StateControl.currentState == StateControl.STATE_LOBBY)
+			{
+			processNavigationalClick();
+			if(DisplaysPopupBox.popupDisplayed == C.YES) processPopupClick();
 			else
 				{
-				if(withinCoordinates(DisplaysStateMain.buttonJoin))
+				for(i = 0; i < C.MAX_PLAYERS; i++)
 					{
-					playClick();
-					Settings.playerType = C.UNDECIDED;
-					Network.exitClient();
+					if(withinCoordinates(DisplaysStateLobby.buttonColor[i]))
+						{
+						playClick();
+						Settings.playerTeamColors[i] = getNextColor(i);
+						}
+					else if(Settings.playerID == i && withinCoordinates(DisplaysStateLobby.nameArea[i]))
+						{
+						playClick();
+						DisplaysPopupBox.initPopup(C.POPUP_NAME);
+						}
 					}
-				else if(withinCoordinates(DisplaysStateMain.buttons[3]))
+				if(withinCoordinates(DisplaysStateLobby.winConditionButton))
 					{
 					playClick();
-					enterState(tank, StateControl.STATE_HELP_MAIN);
+					Settings.winCondition++;
+					if(Settings.winCondition > Strings.winConditionTypes.length - 1) Settings.winCondition = 0;
 					}
-				}
-			}
-	/* STATE SETUP GAME +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		else if(StateControl.currentState == StateControl.STATE_SETUP_GAME)
-			{
-			processNavigationalClick(tank);
-			if(withinCoordinates(DisplaysStateSetupGame.winConditionButton))
-				{
-				playClick();
-				Settings.winCondition++;
-				if(Settings.winCondition > Strings.winConditionTypes.length - 1)
-					Settings.winCondition = 0;
-				}
-			for(i = 0; i < C.MAX_PLAYERS; i++)
-				{
-				if(withinCoordinates(DisplaysStateSetupGame.buttonColor[i]))
+				else if(withinCoordinates(DisplaysStateLobby.helpButton))
 					{
 					playClick();
-					Settings.playerTeamColors[i] = getNextColor(i);
+					StateControl.enterState(StateControl.STATE_HELP_MAIN);
 					}
-				}
-
-			}
-	/* STATE SELECT MAP +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		else if(StateControl.currentState == StateControl.STATE_SELECT_MAP)
-			{
-			processNavigationalClick(tank);
-			for(i=0; i< Filenames.miniMap.length; i++)
-				{
-				if(withinCoordinates(DisplaysStateSelectMap.miniMapArea[i]))
+				else if(withinCoordinates(DisplaysStateLobby.leaveGameButton))
 					{
 					playClick();
-					Settings.mapSelected = i;
+					if(Settings.playerType == C.SERVER)
+						Network.exitServer();
+					else
+						Network.exitClient();
+					}
+				else if(withinCoordinates(DisplaysStateLobby.prevButton))
+					{
+					playClick();
+					DisplaysStateLobby.currentMiniMapDisplayed--;
+					if(DisplaysStateLobby.currentMiniMapDisplayed < 0)
+						DisplaysStateLobby.currentMiniMapDisplayed = Filenames.miniMap.length - 1;
+					}
+				else if(withinCoordinates(DisplaysStateLobby.nextButton))
+					{
+					playClick();
+					DisplaysStateLobby.currentMiniMapDisplayed++;
+					if(DisplaysStateLobby.currentMiniMapDisplayed == Filenames.miniMap.length)
+						DisplaysStateLobby.currentMiniMapDisplayed = 0;
 					}
 				}
 			}
 	/* STATE HELP MAIN ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		else if(StateControl.currentState == StateControl.STATE_HELP_MAIN)
 			{
-			processNavigationalClick(tank);
+			processNavigationalClick();
 			if(withinCoordinates(DisplaysStateHelpMain.buttons[0]))
 				{
 				playClick();
-				enterState(tank, StateControl.STATE_HELP_GAMEPLAY);
+				StateControl.enterState(StateControl.STATE_HELP_GAMEPLAY);
 				}
 			else if(withinCoordinates(DisplaysStateHelpMain.buttons[1]))
 				{
 				playClick();
-				enterState(tank, StateControl.STATE_HELP_CONTROLS);
+				StateControl.enterState(StateControl.STATE_HELP_CONTROLS);
 				}
 			}
 	/* STATE HELP GAMEPLAY ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		else if(StateControl.currentState == StateControl.STATE_HELP_GAMEPLAY)
 			{
-			processNavigationalClick(tank);
+			processNavigationalClick();
 			processHelpNavigationalClick(StateControl.currentState);
 			}
 	/* STATE HELP CONTROLS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		else if(StateControl.currentState == StateControl.STATE_HELP_CONTROLS)
 			{
-			processNavigationalClick(tank);
+			processNavigationalClick();
 			processHelpNavigationalClick(StateControl.currentState);
 			}
 	/* STATE PLAY +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		else if(StateControl.currentState == StateControl.STATE_PLAY)
 			{
-			processNavigationalClick(tank);
+			processNavigationalClick();
+			}
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void processPopupClick()
+		{
+		if(Inputs.withinCoordinates(DisplaysPopupBox.buttonEsc))
+			{
+			playClick();
+			DisplaysPopupBox.popupEnd();
+			}
+		else if(Inputs.withinCoordinates(DisplaysPopupBox.buttonClear))
+			{
+			playClick();
+			DisplaysPopupBox.clearEntered();
+			}
+		else if(Inputs.withinCoordinates(DisplaysPopupBox.buttonBack))
+			{
+			playClick();
+			DisplaysPopupBox.clearLastCharacter();
+			}
+		else if(Inputs.withinCoordinates(DisplaysPopupBox.buttonEnter))
+			{
+			playClick();
+			DisplaysPopupBox.finalizeMessage();
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
@@ -361,40 +300,23 @@ public class Inputs
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void processNavigationalClick(Tank tank)
+	public static void processNavigationalClick()
 		{
-		if(withinCoordinates(DisplaysNavigationalButtons.buttonHome))
+//		if(withinCoordinates(DisplaysNavigationalButtons.buttonHome))
+//			{
+//			playClick();
+//			enterState(StateControl.STATE_MAIN);
+//			}
+		if(withinCoordinates(DisplaysNavigationalButtons.buttonBack))
 			{
 			playClick();
-			enterState(tank, StateControl.STATE_MAIN);
-			}
-		else if(withinCoordinates(DisplaysNavigationalButtons.buttonBack))
-			{
-			playClick();
-			backState(tank);
+			StateControl.backState();
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void playClick()
 		{
 		if(Settings.playButtonClick == C.YES) ResourceManager.getSound(Filenames.buttonClick).play();
-		}
-	/*-----------------------------------------------------------------------------------------------------*/
-	public static void backState(Tank tank)
-		{
-		tempState = StateControl.currentState;
-		StateControl.currentState = StateControl.previousState;
-		StateControl.previousState = tempState;
-		if(StateControl.numStatesQue > 1)
-			{
-			tank.enterState(StateControl.statesVisited[StateControl.numStatesQue - 2]);
-			}
-		}
-	/*-----------------------------------------------------------------------------------------------------*/
-	public static void enterState(Tank tank, int state)
-		{
-		StateControl.previousState = StateControl.currentState;
-		tank.enterState(state);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static boolean withinCoordinates(Image image)

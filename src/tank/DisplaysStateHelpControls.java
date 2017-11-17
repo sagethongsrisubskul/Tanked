@@ -13,7 +13,7 @@ public class DisplaysStateHelpControls
 	public static int marginBottom = 25;
 	public static int marginTitleTop = 25; /// The margin from the top of the screen to the top of the title
 	public static int textMarginX = 25; /// The space on the left and right sides of the text to the outer screen border
-	public static int textMarginY = 25; /// The space between the bottom of the heading and the top of the help text
+	public static int textMarginY = 25; /// The space between the bottom of the lobbyHeading and the top of the help text
 	/// psw (percentage of screen width):
 	/// Fonts:
 	/// Colors:

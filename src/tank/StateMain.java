@@ -1,11 +1,9 @@
 package tank;
 import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 public class StateMain extends BasicGameState
@@ -24,7 +22,7 @@ public class StateMain extends BasicGameState
 		tank = (Tank) game;
 		Settings.initSettings();
 		DisplaysStateMain.initDisplays();
-		DisplaysPopupIpAddress.clearEntered();
+		StateControl.initStateControl(tank);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -41,31 +39,25 @@ public class StateMain extends BasicGameState
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
-		{
-		DisplaysStateMain.renderDisplays(g);
-		}
-	/*-----------------------------------------------------------------------------------------------------*/
-	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
 		{
 		Input input = container.getInput();
-		Inputs.processKeyboardInput(input, tank, container);
-		if(DisplaysPopupIpAddress.popupDisplayed == C.YES)
+		Inputs.processKeyboardInput(input);
+		if(DisplaysPopupBox.popupDisplayed == C.YES)
 			{
-			if(DisplaysPopupIpAddress.charactersEntered < DisplaysPopupIpAddress.ipAddressEntered.length)
+			if(DisplaysPopupBox.charactersEntered < DisplaysPopupBox.maxCharacters)
 				{
-				DisplaysPopupIpAddress.getPopupInput(input);
-				}
-			}
-		else if(DisplaysPopupChat.popupDisplayed == C.YES)
-			{
-			if(DisplaysPopupChat.charactersEntered < DisplaysPopupChat.messageCharacters.length)
-				{
-				DisplaysPopupChat.getPopupInput(input);
+				System.out.printf("popupDisplayed: %d < %d\n", DisplaysPopupBox.charactersEntered, DisplaysPopupBox.maxCharacters);
+				DisplaysPopupBox.getPopupInput(input);
 				}
 			}
 		input.clearKeyPressedRecord();
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	@Override
+	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
+		{
+		DisplaysStateMain.renderDisplays(g);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -73,7 +65,7 @@ public class StateMain extends BasicGameState
 		{
 		Inputs.xMouse = x;
 		Inputs.yMouse = y;
-		Inputs.processMouseInput(tank);
+		Inputs.processMouseInput();
 		Inputs.xMouse = -1;
 		Inputs.yMouse = -1;
 		}

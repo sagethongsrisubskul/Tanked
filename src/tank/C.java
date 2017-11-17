@@ -27,6 +27,11 @@ public class C
 	/// StringsDisplay:
 	public static final int CENTER = -1;
 	/*-----------------------------------------------------------------------------------------------------*/
+	/// Popup types:
+	public static final int POPUP_NAME = 0;
+	public static final int POPUP_IP_ADDRESS = 1;
+	public static final int POPUP_CHAT = 2;
+	/*-----------------------------------------------------------------------------------------------------*/
 	/// Win condition:
 	public static final int DEATHMATCH = 0;
 	public static final int PROTECT_BASE = 1;
