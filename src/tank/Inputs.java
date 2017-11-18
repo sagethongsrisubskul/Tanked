@@ -144,7 +144,7 @@ public class Inputs
 					{
 					playClick();
 					Settings.playerType = C.SERVER;
-					Network.setupServer();
+					NetworkControl.setupServer();
 					}
 				else if(withinCoordinates(DisplaysStateMain.buttonJoin))
 					{
@@ -189,9 +189,9 @@ public class Inputs
 					{
 					playClick();
 					if(Settings.playerType == C.SERVER)
-						Network.exitServer();
+						NetworkControl.exitServer();
 					else
-						Network.exitClient();
+						NetworkControl.exitClient();
 					}
 				else if(withinCoordinates(DisplaysStateLobby.prevButton))
 					{
