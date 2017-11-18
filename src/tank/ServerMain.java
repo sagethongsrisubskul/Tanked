@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.util.HashSet;
 import java.util.Scanner;
 
-public class ServerMain 
+public class ServerMain extends Thread
 {
 	ServerSocket server; // declare a server socket
 	Socket client; // declare a socket representing the client
@@ -21,7 +21,7 @@ public class ServerMain
 	int portnumber=1201;
 	public static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
 	
-	public void go() // start the server
+	public void run() // start the server
 	{
 		try {
 			server=new ServerSocket(portnumber);
@@ -33,7 +33,7 @@ public class ServerMain
 		wt.start();
 		while(true) // infinite loop, allow the client to connect again after exiting
 		{
-			System.out.println("SERVERMAINTEST");
+			//System.out.println("SERVERMAINTEST");
 			try
 			{	
 				

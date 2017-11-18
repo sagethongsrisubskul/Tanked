@@ -11,7 +11,7 @@ public class Network
 		/// If server is successful:
 		successServer();
 		ServerMain sm=new ServerMain();
-		sm.go();
+		sm.start();
 		}
 	/* This method is called when a player clicks on button to join a game and enters an ip address to connect to*/
 	public static void setupClient(String ipAddress)
@@ -20,8 +20,8 @@ public class Network
 		
 		/// If client is successful:
 		successClient(ipAddress);
-		ClientMain cm=new ClientMain();
-		cm.go(ipAddress);
+		ClientMain cm=new ClientMain(ipAddress);
+		cm.start();
 		}
 	/* This method is called when a server clicks on button to leave game */
 	public static void exitServer()

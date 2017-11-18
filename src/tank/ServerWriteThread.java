@@ -11,7 +11,7 @@ public class ServerWriteThread extends Thread
 	//OutputStreamWriter osw; // declare an output stream writer to write to the client
 	Scanner input; // declare a scanner
 	Socket s; // declare a socket, represents the client
-	String temp = "Test"; // declare a temporary string
+	String temp = ""; // declare a temporary string
 	boolean terminated=false; // declare a flag indicating whether the read thread has terminated
 	ServerMain sm;
 	
@@ -26,12 +26,12 @@ public class ServerWriteThread extends Thread
 		try
 		{
 			//osw=new OutputStreamWriter(s.getOutputStream()); // initialize the output stream writer to write to the client
-			//input=new Scanner(System.in); // initialize the scanner to scan standard in
+			input=new Scanner(System.in); // initialize the scanner to scan standard in
 			while(true) // infinite loop
 			{
 				if(terminated==true) // check if the read thread has terminated
 					break; // done
-				//temp=input.nextLine(); // read a line from standard in
+				temp=input.nextLine(); // read a line from standard in
 				if(terminated==true) // check if the read thread has terminated
 					break; // done
 				for (PrintWriter writer : ServerMain.writers) {
