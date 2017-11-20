@@ -73,12 +73,12 @@ public class Image
 	/*-----------------------------------------------------------------------------------------------------*/
 	public int getCenterX()
 		{
-		return getEndX() - x;
+		return x + (width / 2);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public int getCenterY()
 		{
-		return getEndY() - y;
+		return y + (height / 2);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public int centerStringX(TrueTypeFont trueTypeFont, String string)

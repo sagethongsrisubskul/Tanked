@@ -1,26 +1,19 @@
 package tank;
 /* This class is to handle the networking of the game. */
-public class Network
+public class NetworkControl
 	{
-	
 	/* This method is called when a player clicks on button to host a game */
 	public static void setupServer()
 		{
 		System.out.printf("setupServer\n");
-		
-		/// If server is successful:
-		successServer();
-		ServerMain sm=new ServerMain();
+		NetworkServerMain sm = new NetworkServerMain();
 		sm.start();
 		}
 	/* This method is called when a player clicks on button to join a game and enters an ip address to connect to*/
 	public static void setupClient(String ipAddress)
 		{
 		System.out.printf("setupClient: ipAddress = %s\n", ipAddress);
-		
-		/// If client is successful:
-		successClient(ipAddress);
-		ClientMain cm=new ClientMain(ipAddress);
+		NetworkClientMain cm = new NetworkClientMain(ipAddress);
 		cm.start();
 		}
 	/* This method is called when a server clicks on button to leave game */
@@ -33,13 +26,10 @@ public class Network
 		Settings.numberActivePlayers = 0;
 		for(i = 0; i < C.MAX_PLAYERS; i++)
 			{
-			Settings.playerName[i] = Strings.defaultName + (i+1);
+			Settings.playerName[i] = Strings.defaultName + (i + 1);
 			}
-
 		StateControl.enterState(StateControl.STATE_MAIN);
-
 		/// When server exits, should we boot all the participants out or have the next player automatically host?
-
 //		displayMessage("Exited host");
 		}
 	/* This method is called when a client clicks on button to leave game */

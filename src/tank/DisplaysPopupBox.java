@@ -259,7 +259,7 @@ public class DisplaysPopupBox
 			}
 		else if(popupType == C.POPUP_IP_ADDRESS)
 			{
-			Network.setupClient(string);
+			NetworkControl.setupClient(string);
 			}
 		else if(popupType == C.POPUP_CHAT)
 			{
