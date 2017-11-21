@@ -16,8 +16,7 @@ public class Tank extends StateBasedGame
 		{
 		int i;
 		addState(new StateMain());
-		addState(new StateSetupGame());
-		addState(new StateSelectMap());
+		addState(new StateLobby());
 		addState(new StateHelpMain());
 		addState(new StateHelpGameplay());
 		addState(new StateHelpControls());
@@ -25,7 +24,8 @@ public class Tank extends StateBasedGame
 		addState(new StateChangeScreenSize());
 		ResourceManager.loadImage(Filenames.title);
 		ResourceManager.loadImage(Filenames.logo);
-		ResourceManager.loadImage(Filenames.camo);
+		ResourceManager.loadImage(Filenames.camoBackground);
+		ResourceManager.loadImage(Filenames.lobbyBackground);
 		ResourceManager.loadImage(Filenames.buttonRectangle);
 		ResourceManager.loadImage(Filenames.buttonSquare);
 		ResourceManager.loadImage(Filenames.navHome);
@@ -34,6 +34,8 @@ public class Tank extends StateBasedGame
 		ResourceManager.loadImage(Filenames.navNext);
 		ResourceManager.loadImage(Filenames.navPrev);
 		ResourceManager.loadImage(Filenames.navRew);
+		ResourceManager.loadImage(Filenames.arrowNext);
+		ResourceManager.loadImage(Filenames.arrowPrev);
 		ResourceManager.loadSound(Filenames.buttonClick);
 		for(i = 0; i < Filenames.miniMap.length; i++)
 			ResourceManager.loadImage(Filenames.miniMap[i]);

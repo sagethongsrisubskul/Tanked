@@ -8,17 +8,14 @@ import org.newdawn.slick.TrueTypeFont;
 public class DisplaysStateMain
 	{
 	static int i;
-	public static int numMessages = 0;
 	/// Spacings:
 	public static int marginTitleTop = 25; /// The margin from the top of the screen to the top of the title
 	public static int logoOffsetX = 0; /// The offset position of the logo relative to the tile
 	public static int logoOffsetY = 20; /// The offset position of the logo relative to the title
-	public static int spaceAfterTitle; /// The space from the bottom of the title to the top of the 1st author
-	public static int spaceBetweenAuthors = 0;
-	public static int spaceAfterAuthors;
+	public static int spaceAfterTitle = 50; /// The space from the bottom of the title to the top of the 1st author
+	public static int spaceBetweenAuthors = 5;
+	public static int spaceAfterAuthors = 50;
 	public static int spaceBetweenButtons = 15;
-	public static int messageAreaHeight = 60;
-	public static int messageAreaPadding = 10;
 	/// psw (percentage of screen width):
 	public static float pswLogo = .4f;
 	public static float pswTitle = .6f;
@@ -27,51 +24,41 @@ public class DisplaysStateMain
 	/// Fonts:
 	public static TrueTypeFont authorTextFont = Fonts.fontVerdana25TTF;
 	public static TrueTypeFont buttonTextFont = Fonts.fontVerdana20TTF;
-	public static TrueTypeFont messageTextFont = Fonts.fontCourier11BTTF;
 	/// Colors:
 	public static Color backgroundColor = Color.darkGray;
 	public static Color authorTextColor = Color.black;
 	public static Color buttonTextColor = Color.black;
-	public static Color messageBackgroundColor = Color.black;
-	public static Color messageTextColor = Color.white;
 	/// Areas:
-	public static Area messageArea = new Area();
 	/// Objects:
 	public static Image logo = new Image(Filenames.logo, 0, 0, pswLogo);
-	public static Image camo = new Image(Filenames.camo, 0, 0, pswCamo);
-//	public static Image buttonsStartup[] = new Image[2];
+	public static Image camoBackground = new Image(Filenames.camoBackground, 0, 0, pswCamo);
 	public static Image buttonHost = new Image(Filenames.buttonRectangle, 0, 0, pswButtons);
 	public static Image buttonJoin = new Image(Filenames.buttonRectangle, 0, 0, pswButtons);
-	public static Image buttons[] = new Image[Strings.mainButtonTypes.length];
+	//	public static Image buttons[] = new Image[Strings.mainButtonTypes.length];
 	public static StringsDisplay buttonHostText = new StringsDisplay(Strings.hostGame, buttonTextFont, buttonTextColor, 0, 0);
 	public static StringsDisplay buttonExitHostText = new StringsDisplay(Strings.exitHost, buttonTextFont, buttonTextColor, 0, 0);
 	public static StringsDisplay buttonJoinText = new StringsDisplay(Strings.joinGame, buttonTextFont, buttonTextColor, 0, 0);
 	public static StringsDisplay buttonExitJoinText = new StringsDisplay(Strings.exitJoin, buttonTextFont, buttonTextColor, 0, 0);
-//	public static StringsDisplay buttonTextStartup[] = new StringsDisplay[2];
-	public static StringsDisplay buttonText[] = new StringsDisplay[Strings.mainButtonTypes.length];
+	//	public static StringsDisplay buttonTextStartup[] = new StringsDisplay[2];
+//	public static StringsDisplay buttonText[] = new StringsDisplay[Strings.mainButtonTypes.length];
 	public static StringsDisplay authors[] = new StringsDisplay[Strings.authors.length];
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initDisplays()
 		{
 		for(i = 0; i < Strings.authors.length; i++)
 			authors[i] = new StringsDisplay(Strings.authors[i], authorTextFont, authorTextColor, 0, 0);
-		for(i = 0; i < buttons.length; i++)
-			buttons[i] = new Image(Filenames.buttonRectangle, 0, 0, pswButtons);
-		for(i = 0; i < buttonText.length; i++)
-			buttonText[i] = new StringsDisplay(Strings.mainButtonTypes[i], buttonTextFont, buttonTextColor, 0, 0);
+//		for(i = 0; i < buttons.length; i++)
+//			buttons[i] = new Image(Filenames.buttonRectangle, 0, 0, pswButtons);
+//		for(i = 0; i < buttonText.length; i++)
+//			buttonText[i] = new StringsDisplay(Strings.mainButtonTypes[i], buttonTextFont, buttonTextColor, 0, 0);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void positionDisplays()
 		{
-		/// Areas:
-		messageArea.x = 0;
-		messageArea.endX = Settings.currentScreenWidth;
-		messageArea.y = Settings.currentScreenHeight - messageAreaHeight;
-		messageArea.endY = Settings.currentScreenHeight;
 		/// Spacing:
-		spaceAfterTitle = Settings.currentScreenHeight < 800 ? 25 : 25 + (int) ((Settings.currentScreenHeight - 700) * 0.2);
-		spaceAfterAuthors = spaceAfterTitle;
-		spaceBetweenButtons = Settings.currentScreenHeight < 800 ? 15 : (int) ((Settings.currentScreenHeight - 700) * 0.15);
+//		spaceAfterTitle = Settings.currentScreenHeight < 800 ? 35 : 35 + (int) ((Settings.currentScreenHeight - 700) * 0.2);
+//		spaceAfterAuthors = spaceAfterTitle;
+//		spaceBetweenButtons = Settings.currentScreenHeight < 800 ? 15 : (int) ((Settings.currentScreenHeight - 700) * 0.15);
 		/// Title & logo:
 		DisplaysTitle.positionTitle(marginTitleTop);
 		logo.x = DisplaysTitle.title.centerImageX(pswLogo) + logoOffsetX;
@@ -95,82 +82,32 @@ public class DisplaysStateMain
 		buttonJoinText.y = buttonJoin.centerStringY(buttonJoinText.trueTypeFont, buttonJoinText.string);
 		buttonExitJoinText.x = buttonJoin.centerStringX(buttonExitJoinText.trueTypeFont, buttonExitJoinText.string);
 		buttonExitJoinText.y = buttonJoin.centerStringY(buttonExitJoinText.trueTypeFont, buttonExitJoinText.string);
-
-		for(i = 0; i < buttons.length; i++)
-			{
-			buttons[i].x = buttons[i].centerImageScreenX();
-			buttons[i].y = authors[Strings.authors.length - 1].getEndY() + spaceAfterAuthors + ((i+1) * buttons[i].getHeight()) + ((i+1) * spaceBetweenButtons);
-			buttonText[i].x = buttons[i].centerStringX(buttonText[i].trueTypeFont, buttonText[i].string);
-			buttonText[i].y = buttons[i].centerStringY(buttonText[i].trueTypeFont, buttonText[i].string);
-			}
-		DisplaysPopupIpAddress.positionPopup();
-		DisplaysPopupChat.positionPopup();
+//		for(i = 0; i < buttons.length; i++)
+//			{
+//			buttons[i].x = buttons[i].centerImageScreenX();
+//			buttons[i].y = authors[Strings.authors.length - 1].getEndY() + spaceAfterAuthors + ((i+1) * buttons[i].getHeight()) + ((i+1) * spaceBetweenButtons);
+//			buttonText[i].x = buttons[i].centerStringX(buttonText[i].trueTypeFont, buttonText[i].string);
+//			buttonText[i].y = buttons[i].centerStringY(buttonText[i].trueTypeFont, buttonText[i].string);
+//			}
+		DisplaysPopupBox.positionPopup();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void renderDisplays(Graphics g)
 		{
 		g.setColor(backgroundColor);
-		g.fillRect(0,0, Settings.currentScreenWidth, Settings.currentScreenHeight);
-		camo.renderImage();
+		g.fillRect(0, 0, Settings.currentScreenWidth, Settings.currentScreenHeight);
+		camoBackground.renderImage();
 		logo.renderImage();
 		DisplaysTitle.renderTitle();
 		for(i = 0; i < authors.length; i++)
 			authors[i].renderString();
-		if(Settings.playerType == C.UNDECIDED)
+		buttonHost.renderImage();
+		buttonHostText.renderString();
+		buttonJoin.renderImage();
+		buttonJoinText.renderString();
+		if(DisplaysPopupBox.popupDisplayed == C.YES)
 			{
-			buttonHost.renderImage();
-			buttonHostText.renderString();
-			buttonJoin.renderImage();
-			buttonJoinText.renderString();
-			}
-		else if(Settings.playerType == C.SERVER)
-			{
-			buttonHost.renderImage();
-			buttonExitHostText.renderString();
-			for(i = 0; i < buttons.length; i++)
-				{
-				buttons[i].renderImage();
-				buttonText[i].renderString();
-				}
-			}
-		else if(Settings.playerType == C.CLIENT)
-			{
-			buttonJoin.renderImage();
-			buttonExitJoinText.renderString();
-			buttons[buttons.length - 1].renderImage();
-			buttonText[buttonText.length - 1].renderString();
-			}
-		if(DisplaysPopupIpAddress.popupDisplayed == C.YES)
-			{
-			DisplaysPopupIpAddress.renderPopup(g);
-			}
-		else if(DisplaysPopupChat.popupDisplayed == C.YES)
-			{
-			DisplaysPopupChat.renderPopup(g);
-			}
-		messageArea.colorSection(g, messageBackgroundColor);
-		for(i=0;i<Strings.networkMessages.length;i++)
-			{
-//			System.out.printf("message %d = %s, (%d, %d)\n", i, Strings.networkMessages[i], messageArea.x + messageAreaPadding, messageArea.y + messageAreaPadding + (i * 10));
-			messageTextFont.drawString(messageArea.x + messageAreaPadding, messageArea.y + messageAreaPadding + (i * 10), Strings.networkMessages[i], messageTextColor);
-			}
-		}
-	/*-----------------------------------------------------------------------------------------------------*/
-	public static void displayMessage(String string)
-		{
-		if(numMessages < Strings.networkMessages.length)
-			{
-			Strings.networkMessages[numMessages] = ">> " + string;
-			numMessages++;
-			}
-		else
-			{
-			int i;
-			for(i = 0; i < Strings.networkMessages.length - 1; i++)
-				{
-				Strings.networkMessages[i] = Strings.networkMessages[i+1];
-				}
-			Strings.networkMessages[Strings.networkMessages.length - 1] = ">> " + string;
+			DisplaysPopupBox.renderPopup(g);
 			}
 		}
 	}

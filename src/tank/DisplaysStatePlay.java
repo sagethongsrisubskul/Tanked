@@ -7,7 +7,7 @@ public class DisplaysStatePlay
 	{
 	/// Spacings:
 	public static int marginTitleTop = 25; /// The margin from the top of the screen to the top of the title
-	public static int spacingAfterTitle = 20; /// The space between the bottom of the title and the top of the heading
+	public static int spacingAfterTitle = 20; /// The space between the bottom of the title and the top of the lobbyHeading
 	/// psw (percentage of screen width):
 	/// Fonts:
 	/// Colors:

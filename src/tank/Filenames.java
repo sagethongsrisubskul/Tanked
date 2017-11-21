@@ -5,7 +5,9 @@ public class Filenames
 	/// Title & logo:
 	public final static String title = "res/Title.png";
 	public final static String logo = "res/Logo.png";
-	public final static String camo = "res/camo.jpg";
+	/// Backgrounds:
+	public final static String camoBackground = "res/camo.jpg";
+	public final static String lobbyBackground = "res/lobbyBackground.jpg";
 	/// Navigation buttons:
 	public final static String navFF = "res/Navigation_ff.png";
 	public final static String navRew = "res/Navigation_rew.png";
@@ -13,6 +15,8 @@ public class Filenames
 	public final static String navPrev = "res/Navigation_prev.png";
 	public final static String navHome = "res/Navigation_home.png";
 	public final static String navBack = "res/Navigation_back.png";
+	public final static String arrowNext = "res/Arrow_next.png";
+	public final static String arrowPrev = "res/Arrow_prev.png";
 	/// Sounds:
 	public final static String buttonClick = "res/buttonClick.wav";
 	/// Buttons:

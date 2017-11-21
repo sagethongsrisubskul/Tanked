@@ -11,21 +11,22 @@ public class Strings
 	public static final String exitHost = "Exit Host";
 	public static final String joinGame = "Join Game";
 	public static final String exitJoin = "Exit Join";
-	public static final String newGame = "New Game";
-	public static final String setupPlayers = "Setup Game";
+	public static final String defaultName = "Player";
 	public static final String selectMap = "Select Map";
-	public static final String helpInfo = "Help/Info";
-	public static final String mainButtonTypes[] = {newGame, setupPlayers, selectMap, helpInfo};
-	public static final String networkMessages[] = {"", "", "", ""};
+	public static final String networkMessages[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
 	public static final String networkMessagePrompt = ">>";
 	/*-----------------------------------------------------------------------------------------------------*/
-	/// Setup Game State:
+	/// Lobby State:
+	public static final String lobbyHeading = gameTitle + " Lobby";
 	public static final String players = "Players";
 	public static final String id = "ID";
 	public static final String name = "Name";
 	public static final String team = "Team";
 	public static final String joined = "Joined";
+	public static final String map = "Map";
 	public static final String check = "X";
+	public static final String helpInfo = "Help/Info";
+	public static final String leaveGame = "Leave Game";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Setup Win Conditions State:
 	public static final String winCondition = "Win Condition";
@@ -35,16 +36,15 @@ public class Strings
 	public static final String findRelic = "Find Relic";
 	public static final String winConditionTypes[] = {deathmatch, protectBase, destruction, findRelic};
 	/*-----------------------------------------------------------------------------------------------------*/
-	/// Popup ip address:
+	/// Popup:
+	public static final String enterName = "Enter Name:";
 	public static final String enterIPAddress = "Enter IP Address:";
+	public static final String enterMessage = "Enter message:";
 	public static final String esc = "Esc";
 	public static final String max = "Max";
 	public static final String clear = "Clear";
 	public static final String back = "Back";
 	public static final String enter = "Enter";
-	/*-----------------------------------------------------------------------------------------------------*/
-	/// Popup chat:
-	public static final String enterMessage = "Enter message:";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Select Map State:
 	public static final String miniMap[] = {
