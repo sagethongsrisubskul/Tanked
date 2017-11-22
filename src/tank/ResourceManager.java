@@ -122,7 +122,7 @@ public class ResourceManager
 	 * Loads a sound file from the hard drive given a resource name. If this is
 	 * the first time this sound has been loaded, it will be cached for next
 	 * time so that the same data doesn't have to be loaded every time the user
-	 * calls for it. <br>
+	 * calls for it. <bufferedReader>
 	 * Note: Slick implements sound as two separate classes, Sound and Music. We
 	 * should find a happy stringMedium between those two.
 	 *
@@ -144,7 +144,7 @@ public class ResourceManager
 		}
 	/**
 	 * Gets a named sound resource, loading and caching it if necessary.
-	 * Ideally, users should call getSound() prior to calling this method. <br>
+	 * Ideally, users should call getSound() prior to calling this method. <bufferedReader>
 	 * Note: Slick implements sound as two separate classes, Sound and Music. We
 	 * should find a happy stringMedium between those two.
 	 *

@@ -34,7 +34,7 @@ public class Image
 			this.y = (int)((Settings.currentScreenHeight - (height * this.scale)) / 2);
 		else
 			this.y = y;
-//		System.out.printf("String = %s, x = %d, screenWidth = %d, Width = %d, Height = %d, scale = %.2f, width*scale = %d\n", filename, this.x, Settings.currentScreenWidth, width, height, this.scale, (int)(width * this.scale));
+//		System.out.printf("String = %socket, x = %d, screenWidth = %d, Width = %d, Height = %d, scale = %.2f, width*scale = %d\n", filename, this.x, Settings.currentScreenWidth, width, height, this.scale, (int)(width * this.scale));
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public void rescaleImage()

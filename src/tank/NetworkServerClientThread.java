@@ -12,11 +12,11 @@ public class NetworkServerClientThread extends Thread
 		}
 	public void run()
 		{
-		System.out.println("A new client has connected."); // print a message to the user of the server
+		System.out.println("A new socketClient has connected."); // print a message to the user of the socket
 		rt = new NetworkServerReadThread(client); // initialize the read thread
 		rt.start(); // start the read thread
-		//wt=new WriteThread(client); // initialize the write thread
-		//wt.start(); // start the write thread
+		//writeThread=new WriteThread(socketClient); // initialize the write thread
+		//writeThread.start(); // start the write thread
 		}
 	}
 

@@ -30,7 +30,7 @@ public class StringsDisplay
 			this.y = ((Settings.currentScreenHeight - height) / 2);
 		else
 			this.y = y;
-//		System.out.printf("String = %s, x = %d, screenWidth = %d, stringWidth = %d, stringHeight = %d\n", string, this.x, Settings.currentScreenWidth, width, height);
+//		System.out.printf("String = %socket, x = %d, screenWidth = %d, stringWidth = %d, stringHeight = %d\n", string, this.x, Settings.currentScreenWidth, width, height);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public void renderString()
