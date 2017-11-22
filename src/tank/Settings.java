@@ -4,8 +4,11 @@ import org.newdawn.slick.Color;
 public class Settings
 	{
 	/*-----------------------------------------------------------------------------------------------------*/
+	/// Network:
+	public static int portnumber = 1201;
+	/*-----------------------------------------------------------------------------------------------------*/
 	/// Players:
-	public static int playerType = C.UNDECIDED; /// Choices are undecided, server, and client
+	public static int playerType = C.UNDECIDED; /// Choices are undecided, socket, and socketClient
 	public static int numberActivePlayers = 0; /// As players join game, this variable will change
 	public static int playerID = 0; /// ID of the player
 	public static String playerName[] = new String[C.MAX_PLAYERS]; /// As players join, they can log in with a name

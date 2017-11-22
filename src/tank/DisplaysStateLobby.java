@@ -13,7 +13,7 @@ public class DisplaysStateLobby
 	/// Spacings:
 	public static int marginTitleTop = 25; /// The margin from the top of the screen to the top of the title
 	public static int spaceAfterHeading = 25; /// Space between the bottom of the lobbyHeading and the top of 1st setting
-	public static int spaceColumn = 25; /// The space in-between individual settings and corresponding button(s)
+	public static int spaceColumn = 25; /// The space in-between individual settings and corresponding button(socket)
 	public static int spaceBetweenNavigationalButtons = 50;
 	public static int marginTop = 15;
 	public static int marginBottom = 15;
@@ -191,7 +191,7 @@ public class DisplaysStateLobby
 		messageArea.colorSection(g, messageBackgroundColor);
 		for(i=0;i<Strings.networkMessages.length;i++)
 			{
-//			System.out.printf("message %d = %s, (%d, %d)\n", i, Strings.networkMessages[i], messageArea.x + messageAreaPadding, messageArea.y + messageAreaPadding + (i * 10));
+//			System.out.printf("message %d = %socket, (%d, %d)\n", i, Strings.networkMessages[i], messageArea.x + messageAreaPadding, messageArea.y + messageAreaPadding + (i * 10));
 			messageTextFont.drawString(messageArea.x + messageAreaPadding, messageArea.y + messageAreaPadding + (i * 10), Strings.networkMessages[i], messageTextColor);
 			}
 		/// Navigational buttons:
