@@ -30,7 +30,7 @@ public class NetworkServerWriteThread extends Thread
 	/*-----------------------------------------------------------------------------------------------------*/
 	public void interrupt() // method to interrupt the thread
 	{
-	System.out.println("Client has exited. Press <ENTER> to continue."); // print a message to the user indicating the socketClient has logged out, they need to press enter to proceed past the scanner so the thread can close
+//	System.out.println("Client has exited. Press <ENTER> to continue."); // print a message to the user indicating the client has logged out, they need to press enter to proceed past the scanner so the thread can close
 	terminated = true; // set the flag indicating the read thread has ended
 	}
 	}

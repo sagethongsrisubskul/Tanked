@@ -4,22 +4,22 @@ import java.io.PrintWriter;
 /* This class is to handle the networking of the game. */
 public class NetworkControl
 	{
-	public static NetworkServerMain sm = new NetworkServerMain();
-	public static NetworkClientMain cm;
+	public static NetworkServerMain serverMain = new NetworkServerMain();
+	public static NetworkClientMain clientMain;
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called when a player clicks on button to host a game */
 	public static void setupServer()
 		{
 		System.out.printf("setupServer\n");
-		sm.start();
+		serverMain.start();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called when a player clicks on button to join a game and enters an ip address to connect to*/
 	public static void setupClient(String ipAddress)
 		{
 		System.out.printf("setupClient: ipAddress = %socket\n", ipAddress);
-		cm = new NetworkClientMain(ipAddress);
-		cm.start();
+		clientMain = new NetworkClientMain(ipAddress);
+		clientMain.start();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called when a socket clicks on button to leave game */
@@ -50,7 +50,7 @@ public class NetworkControl
 		Settings.playerType = C.UNDECIDED;
 		try
 			{
-			sm.clientThread.rt.closeSocket();
+			serverMain.clientThread.readThread.closeSocket();
 			}
 		catch (IOException e)
 			{
@@ -129,6 +129,8 @@ public class NetworkControl
 		/// Sends a message to the server. The server needs to have a thread that listens for incoming messages.
 		/// When a sever receives an incoming message, it will display the message on his screen by calling
 		// displayMessage(String string) and then will send the message to all clients
+
+		/// Need line here that sends the string to the server
 		sendMessageToClients(string);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/

@@ -63,8 +63,8 @@ public class StateLobby extends BasicGameState
 		Inputs.processMouseInput();
 		//Playing around with sending messages
 		//Send mouse coords over the sever to socketClient
-		//NetworkClientMain cm=new NetworkClientMain();
-		//cm.displayMessageToServer(" " + x + " , " +y);
+		//NetworkClientMain clientMain=new NetworkClientMain();
+		//clientMain.displayMessageToServer(" " + x + " , " +y);
 		//NetworkServerWriteThread sw = new NetworkServerWriteThread();
 		//sw.displayMessageToClients(" " + x + " , " +y);
 		}
