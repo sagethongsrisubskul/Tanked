@@ -24,7 +24,7 @@ public class NetworkServerMain extends Thread
 		{
 		e1.printStackTrace();
 		} // initialize the server
-	/// If server\ is successful:
+	/// If server is successful:
 	NetworkControl.successServer();
 
 	wt = new NetworkServerWriteThread();
