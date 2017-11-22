@@ -24,8 +24,7 @@ public class NetworkServerWriteThread extends Thread
 			{
 			if(terminated == true) // check if the read thread has terminated
 				break; // done
-		}
-			
+			}
 		//s.close(); // close the socket
 		//osw.close(); // close the output stream writer
 		for(PrintWriter writer : NetworkServerMain.writers)
@@ -39,15 +38,7 @@ public class NetworkServerWriteThread extends Thread
 		return;
 		}
 	}
-	public void displayMessageToClients(String string)
-		{
-			for(PrintWriter writer : NetworkServerMain.writers)
-			{
-				writer.println(string);
-			}
-	}
-
-	public void interupt() // method to interrupt the thread
+	public void interrupt() // method to interrupt the thread
 	{
 	System.out.println("Client has exited. Press <ENTER> to continue."); // print a message to the user indicating the client has logged out, they need to press enter to proceed past the scanner so the thread can close
 	terminated = true; // set the flag indicating the read thread has ended

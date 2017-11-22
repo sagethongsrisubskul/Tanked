@@ -22,6 +22,8 @@ public class Filenames
 	/// Buttons:
 	public final static String buttonRectangle = "res/ButtonRectangle.png";
 	public final static String buttonSquare = "res/ButtonSquare.png";
+	/// Maps:
+	public final static String map1 = "Mapt1.tmx";
 	/// Mini maps:
 	public final static String miniMap[] = {"res/miniMap1.jpg", "res/miniMap2.jpg", "res/miniMap3.jpg"};
 	}

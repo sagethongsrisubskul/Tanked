@@ -263,7 +263,7 @@ public class DisplaysPopupBox
 			}
 		else if(popupType == C.POPUP_CHAT)
 			{
-			DisplaysStateLobby.displayMessage(string);
+			NetworkControl.sendMessage(string);
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/

@@ -15,10 +15,9 @@ public class NetworkClientMain extends Thread
 		{
 		ipnumber = ip;
 		}
-	
-	NetworkClientMain(){
-		
-	}
+	NetworkClientMain()
+		{
+		}
 	public void run() // start the client
 	{
 	try
@@ -29,7 +28,6 @@ public class NetworkClientMain extends Thread
 		pw = new PrintWriter(server.getOutputStream(), true);
 		/// If client is successful:
 		NetworkControl.successClient(ipnumber);
-
 		}
 	catch (Exception e)  // if there was a problem...
 		{
@@ -37,9 +35,4 @@ public class NetworkClientMain extends Thread
 		return;
 		}
 	}
-	
-	public void displayMessageToServer(String string)
-	{
-		pw.println(string);
 	}
-}

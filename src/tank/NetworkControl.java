@@ -1,4 +1,5 @@
 package tank;
+import java.io.PrintWriter;
 /* This class is to handle the networking of the game. */
 public class NetworkControl
 	{
@@ -75,4 +76,39 @@ public class NetworkControl
 		{
 		DisplaysStateLobby.displayMessage(string);
 		}
+
+	/* This method is called when user presses enter to display a chat message */
+	public static void sendMessage(String string)
+		{
+		if(Settings.playerType == C.SERVER)
+			{
+			/// If the user is the server, it will display the message on his screen and then send to message to all the clients
+			displayMessage(string);
+			sendMessageToClients(string);
+			}
+		else if(Settings.playerType == C.CLIENT)
+			{
+			/// If the user is a client, it will send to the server first
+			sendMessageToServer(string);
+			}
+		}
+
+	public static void sendMessageToClients(String string)
+		{
+		/// Sends message to all the clients. The clients need to have a thread that listens for incoming messages.
+		/// When a client receives an incoming message, it will call displayMessage(String string) to display it
+		for(PrintWriter writer : NetworkServerMain.writers)
+			{
+			writer.println(string);
+			}
+		}
+	public static void sendMessageToServer(String string)
+		{
+		/// Sends a message to the server. The server needs to have a thread that listens for incoming messages.
+		/// When a server receives an incoming message, it will display the message on his screen by calling
+		// displayMessage(String string) and then will send the message to all clients
+		sendMessageToClients(string);
+		}
+
+
 	}
