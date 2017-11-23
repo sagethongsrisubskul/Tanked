@@ -131,7 +131,8 @@ public class NetworkControl
 		// displayMessage(String string) and then will send the message to all clients
 
 		/// Need line here that sends the string to the server
-		sendMessageToClients(string);
+		//sendMessageToClients(string);
+		NetworkClientMain.printWriter.println(string);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	}
