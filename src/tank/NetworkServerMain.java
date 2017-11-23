@@ -6,46 +6,41 @@ import java.net.Socket;
 import java.util.HashSet;
 public class NetworkServerMain extends Thread
 	{
-	ServerSocket server; // declare a server socket
-	Socket client; // declare a socket representing the client
-//	String temp; // declare a temporary string
-//	NetworkServerReadThread rt; // declare a read thread
-	NetworkServerWriteThread wt; // declare a write thread
-	NetworkServerClientThread ct;
-	int portnumber = 1201;
+	ServerSocket serverSocket; // declare a socket socket
+	Socket socketClient; // declare a socket representing the socketClient
+	NetworkServerWriteThread writeThread; // declare a write thread
+	NetworkServerClientThread clientThread;
 	public static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
-	public void run() // start the server
+	/*-----------------------------------------------------------------------------------------------------*/
+	public void run() // start the socket
 	{
 	try
 		{
-		server = new ServerSocket(portnumber);
+		serverSocket = new ServerSocket(Settings.portnumber);
 		}
-	catch (IOException e1)
+	catch (IOException e)
 		{
-		e1.printStackTrace();
-		} // initialize the server
-	/// If server\ is successful:
+		e.printStackTrace();
+		}
+	// initialize the socket:
 	NetworkControl.successServer();
-
-	wt = new NetworkServerWriteThread();
-	wt.start();
-	while(true) // infinite loop, allow the client to connect again after exiting
+	writeThread = new NetworkServerWriteThread();
+	writeThread.start();
+	// infinite loop, allow the socketClient to connect again after exiting:
+	while(true)
 		{
-		//System.out.println("SERVERMAINTEST");
 		try
 			{
-			client = server.accept(); // initialize the client
+			socketClient = serverSocket.accept(); // initialize the socketClient
 			System.out.println("Client Connected");
-			ct = new NetworkServerClientThread(client);
-			ct.start();
-			writers.add(new PrintWriter(client.getOutputStream(), true));
-			//client.close(); // close the client socket
-			//server.close(); // close the server socket
+			clientThread = new NetworkServerClientThread(socketClient);
+			clientThread.start();
+			writers.add(new PrintWriter(socketClient.getOutputStream(), true));
 			}
 		catch (Exception e) // if there was a problem...
 			{
-			System.out.println("Error, originated from server class.");
-			//e.printStackTrace();
+			e.printStackTrace();
+			System.out.println("Error, originated from socket class.");
 			return;
 			}
 		}

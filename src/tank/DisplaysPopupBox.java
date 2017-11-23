@@ -223,7 +223,7 @@ public class DisplaysPopupBox
 			if(c != '\0')
 				{
 				messageCharacters[charactersEntered] = c;
-				System.out.printf("c = %c\n", c);
+//				System.out.printf("c = %c\n", c);
 				charactersEntered++;
 				}
 			}
@@ -263,7 +263,7 @@ public class DisplaysPopupBox
 			}
 		else if(popupType == C.POPUP_CHAT)
 			{
-			DisplaysStateLobby.displayMessage(string);
+			NetworkControl.sendMessage(string);
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/

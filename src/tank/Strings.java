@@ -175,7 +175,7 @@ public class Strings
 			if(linesLeft == 0 || currentPos == string.length() - 1)
 				{
 //				System.out.printf("\n\n*** New page: %d\n\n", pagesCurrent);
-//				System.out.printf("%d: %s", pagesCurrent, sb.toString());
+//				System.out.printf("%d: %socket", pagesCurrent, sb.toString());
 				stringArray[pagesCurrent] = sb.toString(); /// Save the entire stringBuilder to array index
 				sb = new StringBuilder(""); /// Start a new stringBuilder
 				pagesCurrent++;
@@ -189,7 +189,7 @@ public class Strings
 //				System.out.printf("*** Found ~:\n\n");
 				if(Character.getNumericValue(string.charAt(currentPos + 1)) > linesLeft) /// If there is not room in the page to print the next number of lines
 					{
-//					System.out.printf("%d: %s", pagesCurrent, sb.toString());
+//					System.out.printf("%d: %socket", pagesCurrent, sb.toString());
 					stringArray[pagesCurrent] = sb.toString(); /// Save the entire stringBuilder to array index
 					sb = new StringBuilder(""); /// Start a new stringBuilder
 					currentPos++; /// Skip over the number after the '~' marker
@@ -210,7 +210,7 @@ public class Strings
 		for(int i = 0; i < pagesCurrent; i++)
 			{
 			returnArray[i] = stringArray[i];
-//			System.out.printf("\nPage %d:\n\n%s", i, returnArray[i]);
+//			System.out.printf("\nPage %d:\n\n%socket", i, returnArray[i]);
 			}
 		return returnArray;
 		}
