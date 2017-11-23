@@ -22,10 +22,9 @@ public class NetworkServerReadThread extends Thread // class for reading input f
 		bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream())); // initialize buffered reader
 		while(socket != null && (temp = bufferedReader.readLine()) != null) // while the socketClient has not logged out...
 			{
-
 			NetworkControl.displayMessage(temp);
 			NetworkControl.sendMessageToClients(temp);
-//			System.out.println(temp); // ... print whatever the socketClient is typing in
+			System.out.println("ServerReadThread: " + temp); // ... print whatever the socketClient is typing in
 			}
 		}
 	catch (Exception e) // if there was a problem...

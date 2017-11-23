@@ -22,7 +22,7 @@ public class NetworkClientReadThread extends Thread // class for reading input f
 		while(terminated == false && (temp = bufferedReader.readLine()) != null) // while the socketClient has not logged out...
 			{
 			NetworkControl.displayMessage(temp);
-//			System.out.println(temp); // ...print whatever the socket is typing in
+			System.out.println("ClientReadThread: " + temp); // ...print whatever the socket is typing in
 			}
 		}
 	catch (Exception e) // if there was a problem...
@@ -32,6 +32,7 @@ public class NetworkClientReadThread extends Thread // class for reading input f
 		return;
 		}
 	}
+	/*-----------------------------------------------------------------------------------------------------*/
 	public void interrupt() // method to interrupt the thread
 	{
 	terminated = true; // set the flag to true indicating the socketClient wants to logout
