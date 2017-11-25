@@ -27,6 +27,8 @@ public class Strings
 	public static final String check = "X";
 	public static final String helpInfo = "Help/Info";
 	public static final String leaveGame = "Leave Game";
+	public static final String launchGame = "Launch Game";
+	public static final String pressEnter = "Press <Enter> to send chat message";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Setup Win Conditions State:
 	public static final String winCondition = "Win Condition";

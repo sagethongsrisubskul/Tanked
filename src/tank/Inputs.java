@@ -166,9 +166,9 @@ public class Inputs
 						{
 						playClick();
 						Settings.playerTeamColors[i] = getNextColor(i);
-						Commands.setPlayerColorsForAll();
+						Commands.sendSetColorsCommand();
 						}
-					else if(Settings.playerID == i && withinCoordinates(DisplaysStateLobby.nameArea[i]))
+					else if(Settings.playerID == i && withinCoordinates(DisplaysStateLobby.nameButton))
 						{
 						playClick();
 						DisplaysPopupBox.initPopup(C.POPUP_NAME);
@@ -179,7 +179,7 @@ public class Inputs
 					playClick();
 					Settings.winCondition++;
 					if(Settings.winCondition > Strings.winConditionTypes.length - 1) Settings.winCondition = 0;
-					Commands.setWinConditionsForAll();
+					Commands.sendSetWinConditionCommand();
 					}
 				else if(withinCoordinates(DisplaysStateLobby.helpButton))
 					{
@@ -194,13 +194,18 @@ public class Inputs
 					else
 						NetworkControl.exitClient();
 					}
+				else if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.launchGameButton))
+					{
+					playClick();
+					Commands.sendLaunchGameCommand();
+					}
 				else if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.prevButton))
 					{
 					playClick();
 					Settings.mapSelected--;
 					if(Settings.mapSelected < 0)
 						Settings.mapSelected = Filenames.miniMap.length - 1;
-					Commands.setMapSelectionForAll();
+					Commands.sendSetMapCommand();
 					}
 				else if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.nextButton))
 					{
@@ -208,7 +213,7 @@ public class Inputs
 					Settings.mapSelected++;
 					if(Settings.mapSelected == Filenames.miniMap.length)
 						Settings.mapSelected = 0;
-					Commands.setMapSelectionForAll();
+					Commands.sendSetMapCommand();
 					}
 				}
 			}

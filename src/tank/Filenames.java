@@ -25,5 +25,5 @@ public class Filenames
 	/// Maps:
 	public final static String map1 = "Mapt1.tmx";
 	/// Mini maps:
-	public final static String miniMap[] = {"res/miniMap1.jpg", "res/miniMap2.jpg", "res/miniMap3.jpg"};
+	public final static String miniMap[] = {"res/miniMap1.jpg"};
 	}

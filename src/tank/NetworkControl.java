@@ -1,5 +1,4 @@
 package tank;
-import java.io.IOException;
 import java.io.PrintWriter;
 /* This class is to handle the networking of the game. */
 public class NetworkControl
@@ -81,11 +80,11 @@ public class NetworkControl
 	public static void successClient()
 		{
 		System.out.printf("successClient\n");
-		Commands.setPlayerJoinsForAll();
-		Commands.setNamesForAll();
-		Commands.setWinConditionsForAll();
-		Commands.setMapSelectionForAll();
-		Commands.setPlayerColorsForAll();
+		Commands.sendPlayerJoinedCommand();
+		Commands.sendSetNamesCommand();
+		Commands.sendSetWinConditionCommand();
+		Commands.sendSetMapCommand();
+		Commands.sendSetColorsCommand();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called to display a chat message on the screen */

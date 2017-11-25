@@ -9,7 +9,6 @@ public class DisplaysStateLobby
 	{
 	static int i;
 	public static int numMessages = 0;
-//	public static int currentMiniMapDisplayed = 0;
 	/// Spacings:
 	public static int marginTitleTop = 25; /// The margin from the top of the screen to the top of the title
 	public static int spaceAfterHeading = 25; /// Space between the bottom of the lobbyHeading and the top of 1st setting
@@ -20,7 +19,7 @@ public class DisplaysStateLobby
 	public static int marginSides = 50; /// The margins on the left and right sides of screen
 	public static int spaceAfterIndividualSettings = 25; /// The space between the last individual setting and the player settings
 	public static int spaceBetweenColumns = 30;
-	public static int spaceBetweenRows = 20;
+	public static int spaceBetweenRows = 15;
 	public static int buttonSquareDimension;
 	public static int messageAreaHeight = 200;
 	public static int messageAreaMargin = 20;
@@ -44,14 +43,16 @@ public class DisplaysStateLobby
 	public static Color messageBackgroundColor = Color.black;
 	public static Color messageTextColor = Color.white;
 	/// Areas:
-	public static Area nameArea[] = new Area[C.MAX_PLAYERS];
+//	public static Area nameArea[] = new Area[C.MAX_PLAYERS];
 	public static Area buttonColor[] = new Area[C.MAX_PLAYERS];
 	public static Area messageArea = new Area();
 	/// Objects:
 	public static Image lobbyBackground = new Image(Filenames.lobbyBackground, 0, 0, pswLobbyBackground);
 	public static Image winConditionButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
+	public static Image nameButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
 	public static Image helpButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
 	public static Image leaveGameButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
+	public static Image launchGameButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
 	public static Image prevButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonSquare);
 	public static Image prevIcon = new Image(Filenames.arrowPrev, 0, 0, pswIcon);
 	public static Image nextButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonSquare);
@@ -61,12 +62,14 @@ public class DisplaysStateLobby
 	public static StringsDisplay heading = new StringsDisplay(Strings.lobbyHeading, DisplaysHeading.headingFont, DisplaysHeading.headingColor, 0, 0);
 	public static StringsDisplay map = new StringsDisplay(Strings.map, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay help = new StringsDisplay(Strings.helpInfo, buttonTextFont, buttonTextColor, 0, 0);
+	public static StringsDisplay launchGame = new StringsDisplay(Strings.launchGame, buttonTextFont, buttonTextColor, 0, 0);
 	public static StringsDisplay leaveGame = new StringsDisplay(Strings.leaveGame, buttonTextFont, buttonTextColor, 0, 0);
 	public static StringsDisplay players = new StringsDisplay(Strings.players, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay winCondition = new StringsDisplay(Strings.winCondition, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay id = new StringsDisplay(Strings.id, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay name = new StringsDisplay(Strings.name, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay team = new StringsDisplay(Strings.team, settingTextFont, settingTextColor, 0, 0);
+	public static StringsDisplay pressEnter = new StringsDisplay(Strings.pressEnter, settingTextFont, settingTextColor, 0, 0);
 
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initDisplays()
@@ -74,7 +77,7 @@ public class DisplaysStateLobby
 		for(i = 0; i < C.MAX_PLAYERS; i++)
 			{
 			buttonColor[i] = new Area();
-			nameArea[i] = new Area();
+//			nameArea[i] = new Area();
 			}
 		for(i = 0; i < miniMap.length; i++)
 			{
@@ -89,7 +92,7 @@ public class DisplaysStateLobby
 		heading.y = marginTop;
 		/// Spacings:
 		buttonSquareDimension = winConditionButton.getHeight();
-		nameWidth = settingTextFont.getWidth(Settings.sampleMaxName);
+		nameWidth = nameButton.getWidth();
 		nameHeight = settingTextFont.getHeight(Settings.sampleMaxName);
 //		marginSides = Settings.currentScreenWidth <= 800 ? 100 : 100 + (int)((Settings.currentScreenWidth - 800) * 0.5);
 //		spaceBetweenColumns = (Settings.currentScreenWidth - id.getWidth() - name.getWidth() - team.getWidth() - joined.getWidth() - (2 * marginSides)) / 3;
@@ -117,22 +120,26 @@ public class DisplaysStateLobby
 			buttonColor[i].endY = buttonColor[i].y + buttonSquareDimension;
 			}
 		/// Areas:
-		for(i = 0; i < C.MAX_PLAYERS; i++)
-			{
-			nameArea[i].x = name.x;
-			nameArea[i].y = name.getEndY() + ((i + 1) * spaceBetweenRows) + (i * buttonColor[i].getWidth());
-			nameArea[i].endX = nameArea[i].x + nameWidth + (spaceBetweenColumns / 2);
-			nameArea[i].endY = nameArea[i].y + nameHeight;
-			}
+//		for(i = 0; i < C.MAX_PLAYERS; i++)
+//			{
+//			nameArea[i].x = name.x;
+//			nameArea[i].y = name.getEndY() + ((i + 1) * spaceBetweenRows) + (i * buttonColor[i].getWidth());
+//			nameArea[i].endX = nameArea[i].x + nameWidth + (spaceBetweenColumns / 2);
+//			nameArea[i].endY = nameArea[i].y + nameHeight;
+//			}
+		nameButton.x = name.x;
+		nameButton.y = team.getEndY() + ((Settings.playerID + 1) * spaceBetweenRows) + (Settings.playerID * buttonSquareDimension);
+		pressEnter.x = pressEnter.centerStringScreenX();
+		pressEnter.y = buttonColor[C.MAX_PLAYERS - 1].endY + spaceAfterSettings;
 		messageArea.x = messageAreaMargin;
 		messageArea.endX = Settings.currentScreenWidth - messageAreaMargin;
-		messageArea.y = buttonColor[C.MAX_PLAYERS - 1].endY + spaceAfterSettings;
+		messageArea.y = pressEnter.getEndY() + spaceBetweenRows;
 		messageArea.endY = messageArea.y + messageAreaHeight;
 		/// Minimap:
 		for(i = 0; i < Filenames.miniMap.length; i++)
 			{
 			miniMap[i].x = team.getEndX() + ((Settings.currentScreenWidth - team.getEndX() - miniMap[i].getWidth()) / 2);
-			miniMap[i].y = nameArea[0].y;
+			miniMap[i].y = team.getEndY() + spaceBetweenRows;
 			}
 		map.x = miniMap[0].x;
 		map.y = team.y;
@@ -147,12 +154,16 @@ public class DisplaysStateLobby
 		/// Navigational buttons:
 		helpButton.x = (Settings.currentScreenWidth - helpButton.getWidth() - leaveGameButton.getWidth() - spaceBetweenNavigationalButtons) / 2;
 		helpButton.y = Settings.currentScreenHeight - helpButton.getHeight() - marginBottom;
-		leaveGameButton.x = helpButton.getEndX() + spaceBetweenNavigationalButtons;
-		leaveGameButton.y = helpButton.y;
 		help.x = helpButton.centerStringX(help.trueTypeFont, help.string);
 		help.y = helpButton.centerStringY(help.trueTypeFont, help.string);
+		leaveGameButton.x = helpButton.getEndX() + spaceBetweenNavigationalButtons;
+		leaveGameButton.y = helpButton.y;
 		leaveGame.x = leaveGameButton.centerStringX(leaveGame.trueTypeFont, leaveGame.string);
 		leaveGame.y = leaveGameButton.centerStringY(leaveGame.trueTypeFont, leaveGame.string);
+		launchGameButton.x = leaveGameButton.getEndX() + spaceBetweenNavigationalButtons;
+		launchGameButton.y = helpButton.y;
+		launchGame.x = launchGameButton.centerStringX(launchGame.trueTypeFont, launchGame.string);
+		launchGame.y = launchGameButton.centerStringY(launchGame.trueTypeFont, launchGame.string);
 		}
 
 	/*-----------------------------------------------------------------------------------------------------*/
@@ -169,14 +180,19 @@ public class DisplaysStateLobby
 		id.renderString();
 		name.renderString();
 		team.renderString();
+		nameButton.renderImage();
 		for(i = 0; i < C.MAX_PLAYERS; i++)
 			{
-			settingTextFont.drawString(id.x, id.getEndY() + ((i + 1) * spaceBetweenRows) + (i * buttonColor[i].getWidth()), String.format("%d", i+1), settingTextColor);
+			settingTextFont.drawString(id.x, id.getEndY() + ((i + 1) * spaceBetweenRows) + (i * buttonColor[i].getWidth()), String.format("%d", i), settingTextColor);
 			buttonColor[i].colorSection(g, Settings.allColors[Settings.playerTeamColors[i]]);
 			if(i < Settings.numberActivePlayers)
 				{
-				settingTextFont.drawString(name.x, name.getEndY() + ((i + 1) * spaceBetweenRows) + (i * buttonColor[i].getWidth()), Settings.playerName[i], settingTextColor);
-//				settingTextFont.drawString(joined.x, joined.getEndY() + ((i + 1) * spaceBetweenRows) + (i * buttonColor[i].getWidth()), Strings.check, settingTextColor);
+				if(i == Settings.playerID)
+					{
+					buttonTextFont.drawString(nameButton.centerStringX(buttonTextFont, Settings.playerName[i]), nameButton.centerStringY(buttonTextFont, Settings.playerName[i]), Settings.playerName[i], buttonTextColor);
+					}
+				else
+					settingTextFont.drawString(name.x, name.getEndY() + ((i + 1) * spaceBetweenRows) + (i * buttonColor[i].getWidth()), Settings.playerName[i], settingTextColor);
 				}
 			}
 		/// Minimap:
@@ -188,6 +204,7 @@ public class DisplaysStateLobby
 		nextButton.renderImage();
 		nextIcon.renderImage();
 		/// Messages:
+		pressEnter.renderString();
 		messageArea.colorSection(g, messageBackgroundColor);
 		for(i=0;i<Strings.networkMessages.length;i++)
 			{
@@ -199,6 +216,11 @@ public class DisplaysStateLobby
 		help.renderString();
 		leaveGameButton.renderImage();
 		leaveGame.renderString();
+		if(Settings.playerType == C.SERVER)
+			{
+			launchGameButton.renderImage();
+			launchGame.renderString();
+			}
 		/// Popup:
 		if(DisplaysPopupBox.popupDisplayed == C.YES)
 			{

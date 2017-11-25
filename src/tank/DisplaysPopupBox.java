@@ -255,7 +255,7 @@ public class DisplaysPopupBox
 			string += messageCharacters[i];
 		if(popupType == C.POPUP_NAME)
 			{
-			Commands.setNameChangeForAll(Settings.playerID + string);
+			Commands.sendNameChangeCommand(Settings.playerID + string);
 			}
 		else if(popupType == C.POPUP_IP_ADDRESS)
 			{

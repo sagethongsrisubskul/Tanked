@@ -2,56 +2,58 @@ package tank;
 public class Commands
 	{
 	/*-----------------------------------------------------------------------------------------------------*/
-	/* Upon receiving a command/message via the socket, this method is called. Both server and client will call this method
-	*  There is no distinction */
+	/* Use this method to control all the commands in the game.
+	 * Format of command: ~ x y ~
+	 * (x = a 2-letter acronym of the command, y = any string of characters that further describe the command, the last ~ is optional)
+	 * Upon receiving a command/message via the socket, this method is called to process the command.
+	 * This method is called for both server and client, as all machines variables will need to be in sync.
+	 * If you need a distinction between server and client, you need to include an if statement in the processing of the command.
+	 * For multi-line command process, please include a seperate method and call that method from here.
+	 * See examples below.
+	 * */
 	public static void processCommand(String string)
 		{
 		int n;
 		System.out.printf("processCommand: %s\n", string);
 		if(string.charAt(0) == '~') /// String is a command
 			{
-			/// Player joins game:
 			if(string.charAt(1) == 'P' && string.charAt(2) == 'J')
-				{
-				n = Character.getNumericValue(string.charAt(3));
-				Settings.numberActivePlayers = n + 1;
-				if(Settings.playerType == C.UNDECIDED)
-					Settings.playerType = C.CLIENT;
-				if(Settings.playerID == -1)
-					Settings.playerID = n;
-				if(StateControl.currentState != StateControl.STATE_LOBBY)
-					{
-					StateControl.enterState(StateControl.STATE_LOBBY);
-					}
-				NetworkControl.displayMessage(Settings.playerName[n] + " has joined the game");
-				}
-			/// Name change:
+				playerJoins(string);
 			else if(string.charAt(1) == 'N' && string.charAt(2) == 'C')
-				{
 				Settings.playerName[Character.getNumericValue(string.charAt(3))] = string.substring(4, string.length());
-				}
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'N')
-				{
-				setNames(string.substring(4,string.length()));
-				}
+				setNames(string.substring(4, string.length()));
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'C')
-				{
-				setColors(string.substring(3,string.length()));
-				}
+				setColors(string.substring(3, string.length()));
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'W')
-				{
 				Settings.winCondition = Character.getNumericValue(string.charAt(3));
-				}
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'M')
-				{
 				Settings.mapSelected = Character.getNumericValue(string.charAt(3));
-				}
+			else if(string.charAt(1) == 'L' && string.charAt(2) == 'G') launchGame();
 			}
 		else /// String is a chat message
 			{
 			NetworkControl.displayMessage(string);
 			}
-
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void playerJoins(String string)
+		{
+		int n;
+		n = Character.getNumericValue(string.charAt(3));
+		Settings.numberActivePlayers = n + 1;
+		if(Settings.playerType == C.UNDECIDED) Settings.playerType = C.CLIENT;
+		if(Settings.playerID == -1) Settings.playerID = n;
+		if(StateControl.currentState != StateControl.STATE_LOBBY)
+			{
+			StateControl.enterState(StateControl.STATE_LOBBY);
+			}
+		NetworkControl.displayMessage(Settings.playerName[n] + " has joined the game");
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void launchGame()
+		{
+		StateControl.enterState(StateControl.STATE_PLAY);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void setColors(String string)
@@ -80,22 +82,26 @@ public class Commands
 			Settings.playerName[names] = string.substring(start, end);
 			names++;
 			current = end;
-			if(string.charAt(current) == '~')
-				break;
+			if(string.charAt(current) == '~') break;
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void setPlayerJoinsForAll()
+	public static void sendLaunchGameCommand()
+		{
+		NetworkControl.sendToAll("~LG");
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void sendPlayerJoinedCommand()
 		{
 		NetworkControl.sendToAll("~PJ" + Settings.numberActivePlayers);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void setNameChangeForAll(String string)
+	public static void sendNameChangeCommand(String string)
 		{
 		NetworkControl.sendToAll("~NC" + string);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void setNamesForAll()
+	public static void sendSetNamesCommand()
 		{
 		int i;
 		String string = "~";
@@ -110,7 +116,7 @@ public class Commands
 		NetworkControl.sendToAll(string);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void setPlayerColorsForAll()
+	public static void sendSetColorsCommand()
 		{
 		int i;
 		String temp = "~SC";
@@ -121,15 +127,14 @@ public class Commands
 		NetworkControl.sendToAll(temp);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void setMapSelectionForAll()
+	public static void sendSetMapCommand()
 		{
 		NetworkControl.sendToAll("~SM" + Settings.mapSelected);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void setWinConditionsForAll()
+	public static void sendSetWinConditionCommand()
 		{
 		NetworkControl.sendToAll("~SW" + Settings.winCondition);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-
 	}
