@@ -47,7 +47,7 @@ public class StateMain extends BasicGameState
 			{
 			if(DisplaysPopupBox.charactersEntered < DisplaysPopupBox.maxCharacters)
 				{
-				System.out.printf("popupDisplayed: %d < %d\n", DisplaysPopupBox.charactersEntered, DisplaysPopupBox.maxCharacters);
+//				System.out.printf("popupDisplayed: %d < %d\n", DisplaysPopupBox.charactersEntered, DisplaysPopupBox.maxCharacters);
 				DisplaysPopupBox.getPopupInput(input);
 				}
 			}

@@ -6,7 +6,7 @@ import java.net.Socket;
 public class NetworkServerReadThread extends Thread // class for reading input from an input stream
 	{
 	Socket socket; // declare a socket
-	String temp; // declare a temporary string
+	String stringTemp; // declare a temporary string
 	BufferedReader bufferedReader; // declare a buffered reader
 	boolean terminated = false; // declare a flag indicating whether the socket (that buffered reader is reading from has closed
 	/*-----------------------------------------------------------------------------------------------------*/
@@ -20,15 +20,16 @@ public class NetworkServerReadThread extends Thread // class for reading input f
 	try
 		{
 		bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream())); // initialize buffered reader
-		while(socket != null && (temp = bufferedReader.readLine()) != null) // while the socketClient has not logged out...
+		while(socket != null && (stringTemp = bufferedReader.readLine()) != null) // while the socketClient has not logged out...
 			{
-			NetworkControl.displayMessage(temp);
-			NetworkControl.sendMessageToClients(temp);
-			System.out.println("ServerReadThread: " + temp); // ... print whatever the socketClient is typing in
+			Commands.processCommand(stringTemp);
+			NetworkControl.sendToClients(stringTemp);
+//			NetworkControl.processCommandServer(stringTemp);
 			}
 		}
 	catch (Exception e) // if there was a problem...
 		{
+		System.out.printf("ServerReadThread Error:\n" + e.toString());
 		e.printStackTrace();
 		terminated = true;
 		return;

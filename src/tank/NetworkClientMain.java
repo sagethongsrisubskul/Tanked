@@ -23,12 +23,12 @@ public class NetworkClientMain extends Thread
 		readThread = new NetworkClientReadThread(socket); // initialize the read thread and pass the socket socket
 		readThread.start(); // start the read thread
 		printWriter = new PrintWriter(socket.getOutputStream(), true);
-		NetworkControl.successClient(ipAddress);
+		System.out.printf("Client joined game\n");
 		}
 	catch (Exception e)  // if there was a problem...
 		{
+		System.out.println("ClientMain Error:\n" + e.toString());
 		e.printStackTrace();
-		System.out.println("A problem occured.");
 		return;
 		}
 	}

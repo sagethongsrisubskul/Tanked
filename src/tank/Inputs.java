@@ -6,7 +6,6 @@ public class Inputs
 	static int i;
 	public static int xMouse;
 	public static int yMouse;
-	public static int tempState;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processKeyboardInput(Input input)
 		{
@@ -157,16 +156,17 @@ public class Inputs
 	/* STATE LOBBY ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		else if(StateControl.currentState == StateControl.STATE_LOBBY)
 			{
-			processNavigationalClick();
+//			processNavigationalClick();
 			if(DisplaysPopupBox.popupDisplayed == C.YES) processPopupClick();
 			else
 				{
 				for(i = 0; i < C.MAX_PLAYERS; i++)
 					{
-					if(withinCoordinates(DisplaysStateLobby.buttonColor[i]))
+					if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.buttonColor[i]))
 						{
 						playClick();
 						Settings.playerTeamColors[i] = getNextColor(i);
+						Commands.setPlayerColorsForAll();
 						}
 					else if(Settings.playerID == i && withinCoordinates(DisplaysStateLobby.nameArea[i]))
 						{
@@ -174,11 +174,12 @@ public class Inputs
 						DisplaysPopupBox.initPopup(C.POPUP_NAME);
 						}
 					}
-				if(withinCoordinates(DisplaysStateLobby.winConditionButton))
+				if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.winConditionButton))
 					{
 					playClick();
 					Settings.winCondition++;
 					if(Settings.winCondition > Strings.winConditionTypes.length - 1) Settings.winCondition = 0;
+					Commands.setWinConditionsForAll();
 					}
 				else if(withinCoordinates(DisplaysStateLobby.helpButton))
 					{
@@ -193,19 +194,21 @@ public class Inputs
 					else
 						NetworkControl.exitClient();
 					}
-				else if(withinCoordinates(DisplaysStateLobby.prevButton))
+				else if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.prevButton))
 					{
 					playClick();
-					DisplaysStateLobby.currentMiniMapDisplayed--;
-					if(DisplaysStateLobby.currentMiniMapDisplayed < 0)
-						DisplaysStateLobby.currentMiniMapDisplayed = Filenames.miniMap.length - 1;
+					Settings.mapSelected--;
+					if(Settings.mapSelected < 0)
+						Settings.mapSelected = Filenames.miniMap.length - 1;
+					Commands.setMapSelectionForAll();
 					}
-				else if(withinCoordinates(DisplaysStateLobby.nextButton))
+				else if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.nextButton))
 					{
 					playClick();
-					DisplaysStateLobby.currentMiniMapDisplayed++;
-					if(DisplaysStateLobby.currentMiniMapDisplayed == Filenames.miniMap.length)
-						DisplaysStateLobby.currentMiniMapDisplayed = 0;
+					Settings.mapSelected++;
+					if(Settings.mapSelected == Filenames.miniMap.length)
+						Settings.mapSelected = 0;
+					Commands.setMapSelectionForAll();
 					}
 				}
 			}

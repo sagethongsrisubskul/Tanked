@@ -9,7 +9,7 @@ public class DisplaysStateLobby
 	{
 	static int i;
 	public static int numMessages = 0;
-	public static int currentMiniMapDisplayed = 0;
+//	public static int currentMiniMapDisplayed = 0;
 	/// Spacings:
 	public static int marginTitleTop = 25; /// The margin from the top of the screen to the top of the title
 	public static int spaceAfterHeading = 25; /// Space between the bottom of the lobbyHeading and the top of 1st setting
@@ -181,8 +181,8 @@ public class DisplaysStateLobby
 			}
 		/// Minimap:
 		map.renderString();
-		settingTextFont.drawString(map.getEndX() + 10, map.y, Integer.toString(currentMiniMapDisplayed + 1), settingTextColor);
-		miniMap[currentMiniMapDisplayed].renderImage();
+		settingTextFont.drawString(map.getEndX() + 10, map.y, Integer.toString(Settings.mapSelected + 1), settingTextColor);
+		miniMap[Settings.mapSelected].renderImage();
 		prevButton.renderImage();
 		prevIcon.renderImage();
 		nextButton.renderImage();

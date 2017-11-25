@@ -23,6 +23,7 @@ public class NetworkServerWriteThread extends Thread
 		}
 	catch (Exception e) // if there was a problem...
 		{
+		System.out.printf("ServerWriteThread Error:\n");
 		e.printStackTrace();
 		return;
 		}
