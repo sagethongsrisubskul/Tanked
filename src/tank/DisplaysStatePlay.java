@@ -17,16 +17,16 @@ public class DisplaysStatePlay
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void positionDisplays()
 		{
-		DisplaysTitle.positionTitle(marginTitleTop);
-		DisplaysNavigationalButtons.positionButtons();
-		DisplaysHeading.positionHeading("Play Game");
+//		DisplaysTitle.positionTitle(marginTitleTop);
+//		DisplaysNavigationalButtons.positionButtons();
+//		DisplaysHeading.positionHeading("Play Game");
 		}
 
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void renderDisplays(Graphics g)
 		{
-		DisplaysTitle.renderTitle();
-		DisplaysNavigationalButtons.renderNavigationalButtons();
-		DisplaysHeading.renderHeading();
+//		DisplaysTitle.renderTitle();
+//		DisplaysNavigationalButtons.renderNavigationalButtons();
+//		DisplaysHeading.renderHeading();
 		}
 	}

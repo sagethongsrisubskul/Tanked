@@ -231,6 +231,11 @@ public class Inputs
 				playClick();
 				StateControl.enterState(StateControl.STATE_HELP_CONTROLS);
 				}
+			else if(withinCoordinates(DisplaysStateHelpMain.buttons[2]))
+				{
+				playClick();
+				StateControl.enterState(StateControl.STATE_HELP_CREDITS);
+				}
 			}
 	/* STATE HELP GAMEPLAY ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		else if(StateControl.currentState == StateControl.STATE_HELP_GAMEPLAY)
@@ -243,6 +248,11 @@ public class Inputs
 			{
 			processNavigationalClick();
 			processHelpNavigationalClick(StateControl.currentState);
+			}
+	/* STATE HELP CREDITS +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		else if(StateControl.currentState == StateControl.STATE_HELP_CREDITS)
+			{
+			processNavigationalClick();
 			}
 	/* STATE PLAY +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		else if(StateControl.currentState == StateControl.STATE_PLAY)
