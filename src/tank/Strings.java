@@ -1,5 +1,4 @@
 package tank;
-
 /* This class holds all the strings in the game */
 public class Strings
 	{
@@ -48,6 +47,7 @@ public class Strings
 	public static final String back = "Back";
 	public static final String enter = "Enter";
 	/*-----------------------------------------------------------------------------------------------------*/
+	// @formatter:off
 	/// Select Map State:
 	public static final String miniMap[] = {
 		"This is a description of map 1.\nThis is a description of map 1.\nThis is a description of map 1.\nThis is a description of map 1.",
@@ -61,7 +61,14 @@ public class Strings
 	public static final String credits = "Credits/Licensing";
 	public static final String authors = "Authors";
 	public static final String licenses = "Licenses";
-	public static final String licensesText[] = {"https://github.com/bjorn/tiled/blob/master/LICENSE.GPL", "http://pngimg.com/download/1308", "fontspace.com", "opengameart.org", "http://www.reinerstilesets.de/lizenz/", "freesounds.org"};
+	public static final String licensesText[] = {
+		"https://github.com/bjorn/tiled/blob/master/LICENSE.GPL",
+		"http://pngimg.com/download/1308",
+		"fontspace.com",
+		"opengameart.org",
+		"http://www.reinerstilesets.de/lizenz/",
+		"freesounds.org"
+	};
 	public static final String gameControlsText = String.format("" +
 
 		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
@@ -106,9 +113,9 @@ public class Strings
 		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
 		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
 		"");
+	// @formatter:on
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Keyboard shortcuts:
-
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static String[] formatString(String string, int screenWidth, int screenHeight)
 		{

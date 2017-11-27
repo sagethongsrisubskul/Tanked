@@ -5,6 +5,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 public class Tank extends StateBasedGame
 	{
+	public static AppGameContainer application;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public Tank(String title)
 		{
@@ -45,10 +46,12 @@ public class Tank extends StateBasedGame
 	public static void main(String[] args)
 		{
 		AppGameContainer appGameContainer;
+
 		try
 			{
 			appGameContainer = new AppGameContainer(new Tank(Strings.gameTitle));
 			appGameContainer.setDisplayMode(Settings.mainScreenWidth, Settings.mainScreenHeight, false);
+			application = appGameContainer;
 			Settings.maxMainScreenHeight = appGameContainer.getScreenHeight();
 			Settings.maxPlayScreenHeight = appGameContainer.getScreenHeight();
 			Settings.maxMainScreenWidth = appGameContainer.getScreenWidth();
@@ -62,5 +65,10 @@ public class Tank extends StateBasedGame
 			{
 			e.printStackTrace();
 			}
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void exitProgram()
+		{
+		application.exit();
 		}
 	}

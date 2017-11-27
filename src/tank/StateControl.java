@@ -81,4 +81,9 @@ public class StateControl
 			checkStates();
 			}
 		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void exitProgram()
+		{
+		tank.exitProgram();
+		}
 	}

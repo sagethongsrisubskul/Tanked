@@ -8,7 +8,7 @@ public class NetworkServerReadThread extends Thread // class for reading input f
 	Socket socket; // declare a socket
 	String stringTemp; // declare a temporary string
 	BufferedReader bufferedReader; // declare a buffered reader
-	boolean terminated = false; // declare a flag indicating whether the socket (that buffered reader is reading from has closed
+	public static boolean terminated = false; // declare a flag indicating whether the socket (that buffered reader is reading from has closed
 	/*-----------------------------------------------------------------------------------------------------*/
 	NetworkServerReadThread(Socket s) // constructor for the class
 	{
@@ -20,12 +20,13 @@ public class NetworkServerReadThread extends Thread // class for reading input f
 	try
 		{
 		bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream())); // initialize buffered reader
-		while(socket != null && (stringTemp = bufferedReader.readLine()) != null) // while the socketClient has not logged out...
+		while(terminated == false && (stringTemp = bufferedReader.readLine()) != null) // while the socketClient has not logged out...
 			{
 			Commands.processCommand(stringTemp);
 			NetworkControl.sendToClients(stringTemp);
 //			NetworkControl.processCommandServer(stringTemp);
 			}
+		closeSocket();
 		}
 	catch (Exception e) // if there was a problem...
 		{
