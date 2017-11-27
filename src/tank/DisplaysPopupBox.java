@@ -255,7 +255,7 @@ public class DisplaysPopupBox
 			string += messageCharacters[i];
 		if(popupType == C.POPUP_NAME)
 			{
-			Settings.playerName[Settings.playerID] = string;
+			Commands.sendNameChangeCommand(Settings.playerID + string);
 			}
 		else if(popupType == C.POPUP_IP_ADDRESS)
 			{
@@ -263,7 +263,7 @@ public class DisplaysPopupBox
 			}
 		else if(popupType == C.POPUP_CHAT)
 			{
-			NetworkControl.sendMessage(string);
+			NetworkControl.sendToAll(Settings.playerName[Settings.playerID] + ": " + string);
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/

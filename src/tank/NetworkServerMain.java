@@ -20,6 +20,7 @@ public class NetworkServerMain extends Thread
 		}
 	catch (IOException e)
 		{
+		System.out.printf("ServerMain: Error init socket:\n" + e.toString());
 		e.printStackTrace();
 		}
 	// initialize the socket:
@@ -32,15 +33,16 @@ public class NetworkServerMain extends Thread
 		try
 			{
 			socketClient = serverSocket.accept(); // initialize the socketClient
-			System.out.println("Client Connected");
+//			System.out.println("Client Connected");
 			clientThread = new NetworkServerClientThread(socketClient);
 			clientThread.start();
 			writers.add(new PrintWriter(socketClient.getOutputStream(), true));
+			NetworkControl.successClient();
 			}
 		catch (Exception e) // if there was a problem...
 			{
+			System.out.println("ServerMain Error:\n" + e.toString());
 			e.printStackTrace();
-			System.out.println("Error, originated from socket class.");
 			return;
 			}
 		}

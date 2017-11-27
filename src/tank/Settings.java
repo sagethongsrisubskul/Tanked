@@ -10,10 +10,10 @@ public class Settings
 	/// Players:
 	public static int playerType = C.UNDECIDED; /// Choices are undecided, socket, and socketClient
 	public static int numberActivePlayers = 0; /// As players join game, this variable will change
-	public static int playerID = 0; /// ID of the player
+	public static int playerID = -1; /// ID of the player
 	public static String playerName[] = new String[C.MAX_PLAYERS]; /// As players join, they can log in with a name
-	public static int maxCharactersName = 12;
-	public static String sampleMaxName = "123456789012";
+	public static int maxCharactersName = 9;
+	public static String sampleMaxName = "123456789";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Map:
 	public static int mapSelected = 0;
@@ -56,7 +56,7 @@ public class Settings
 		int i;
 		for(i = 0; i < C.MAX_PLAYERS; i++)
 			{
-			playerName[i] = "Player" + (i+1);
+			playerName[i] = "Player" + (i);
 			playerTeamColors[i] = i;
 			}
 		}

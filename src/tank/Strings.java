@@ -6,7 +6,7 @@ public class Strings
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Main State:
 	public static final String gameTitle = "Tank";
-	public static final String authors[] = {"Samuel Riesterer", "Benjamin DeCamp", "Sage Thongsrisubskul", "Tyler Coy"};
+	public static final String authorsList[] = {"Samuel Riesterer", "Benjamin DeCamp", "Sage Thongsrisubskul", "Tyler Coy"};
 	public static final String hostGame = "Host Game";
 	public static final String exitHost = "Exit Host";
 	public static final String joinGame = "Join Game";
@@ -27,6 +27,8 @@ public class Strings
 	public static final String check = "X";
 	public static final String helpInfo = "Help/Info";
 	public static final String leaveGame = "Leave Game";
+	public static final String launchGame = "Launch Game";
+	public static final String pressEnter = "Press <Enter> to send chat message";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Setup Win Conditions State:
 	public static final String winCondition = "Win Condition";
@@ -56,6 +58,10 @@ public class Strings
 	/// Help State:
 	public static final String gameControls = "Game Controls";
 	public static final String gameplay = "Gameplay";
+	public static final String credits = "Credits/Licensing";
+	public static final String authors = "Authors";
+	public static final String licenses = "Licenses";
+	public static final String licensesText[] = {"https://github.com/bjorn/tiled/blob/master/LICENSE.GPL", "http://pngimg.com/download/1308", "fontspace.com", "opengameart.org", "http://www.reinerstilesets.de/lizenz/", "freesounds.org"};
 	public static final String gameControlsText = String.format("" +
 
 		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +

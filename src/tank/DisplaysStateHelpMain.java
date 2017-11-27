@@ -22,8 +22,8 @@ public class DisplaysStateHelpMain
 	public static Color buttonTextColor = Color.black;
 	/// Areas:
 	/// Objects:
-	public static Image buttons[] = new Image[2];
-	public static StringsDisplay buttonText[] = new StringsDisplay[2];
+	public static Image buttons[] = new Image[3];
+	public static StringsDisplay buttonText[] = new StringsDisplay[3];
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initDisplays()
 		{
@@ -33,6 +33,7 @@ public class DisplaysStateHelpMain
 			buttonText[i] = new StringsDisplay("", buttonTextFont, buttonTextColor, 0, 0);
 		buttonText[0].string = Strings.gameplay;
 		buttonText[1].string = Strings.gameControls;
+		buttonText[2].string = Strings.credits;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void positionDisplays()

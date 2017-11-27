@@ -1,5 +1,4 @@
 package tank;
-import java.io.IOException;
 import java.io.PrintWriter;
 /* This class is to handle the networking of the game. */
 public class NetworkControl
@@ -17,122 +16,114 @@ public class NetworkControl
 	/* This method is called when a player clicks on button to join a game and enters an ip address to connect to*/
 	public static void setupClient(String ipAddress)
 		{
-		System.out.printf("setupClient: ipAddress = %socket\n", ipAddress);
+		System.out.printf("setupClient: ipAddress = %s\n", ipAddress);
 		clientMain = new NetworkClientMain(ipAddress);
 		clientMain.start();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	/* This method is called when a socket clicks on button to leave game */
+	/* This method is called when a server clicks on button to leave game or closes application */
 	public static void exitServer()
 		{
-		/// When a socket leaves the game, all clients are booted from the game and return to the main screen
-		int i;
 		System.out.printf("exitServer\n");
-		Settings.playerType = C.UNDECIDED;
-		Settings.numberActivePlayers = 0;
-		for(i = 0; i < C.MAX_PLAYERS; i++)
-			{
-			Settings.playerName[i] = Strings.defaultName + (i + 1);
-			}
-		StateControl.enterState(StateControl.STATE_MAIN);
-		/// When socket exits, should we boot all the participants out or have the next player automatically host?
-//		displayMessage("Exited host");
+		/// When server exits:
+		// Close all sockets
+		// Both server and clients settings reset
+		// Both server and clients return to main screen
+
+//		int i;
+//		Settings.playerType = C.UNDECIDED;
+//		Settings.numberActivePlayers = 0;
+//		for(i = 0; i < C.MAX_PLAYERS; i++)
+//			{
+//			Settings.playerName[i] = Strings.defaultName + (i + 1);
+//			}
+//		StateControl.enterState(StateControl.STATE_MAIN);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	/* This method is called when a socketClient clicks on button to leave game */
+	/* This method is called when a client clicks on button to leave game or closes application */
 	public static void exitClient()
 		{
-		/// When a socketClient leaves the game, that information needs to be sent to the socket
-		/// The socket will then update the game settings and send that information out to each other clients in the game
-		/// All the active participants will update their game settings to match the socket
 		System.out.printf("exitClient\n");
-		Settings.numberActivePlayers--;
-		Settings.playerType = C.UNDECIDED;
-		try
-			{
-			serverMain.clientThread.readThread.closeSocket();
-			}
-		catch (IOException e)
-			{
-			e.printStackTrace();
-			}
-		displayMessage(Settings.playerName[Settings.playerID] + " has left the game");
-		Settings.playerName[Settings.playerID] = Strings.defaultName + Settings.playerID;
-		StateControl.enterState(StateControl.STATE_MAIN);
+		/// When a client exits:
+		// Socket closed to client
+		// Client's settings reset
+		// Client returns to main screen
+		// All other active players should reflect that the client has left the game
+
+//		Settings.numberActivePlayers--;
+//		Settings.playerType = C.UNDECIDED;
+//		try
+//			{
+//			serverMain.clientThread.readThread.closeSocket();
+//			}
+//		catch (IOException e)
+//			{
+//			e.printStackTrace();
+//			}
+//		displayMessage(Settings.playerName[Settings.playerID] + " has left the game");
+//		Settings.playerName[Settings.playerID] = Strings.defaultName + Settings.playerID;
+//		StateControl.enterState(StateControl.STATE_MAIN);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* Call this method when the player is successful in hosting a game */
 	public static void successServer()
 		{
+		System.out.printf("successServer\n");
 		Settings.playerType = C.SERVER;
 		Settings.numberActivePlayers++;
+		Settings.playerID = 0;
 		StateControl.enterState(StateControl.STATE_LOBBY);
 		displayMessage(Settings.playerName[Settings.playerID] + " is hosting the game");
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	/* Call this method when the player is successful in joining a game */
-	public static void successClient(String ipAddress)
+	/* The server will call this method when a client successful joins the game */
+	public static void successClient()
 		{
-		/// When a socketClient joins the game, that information needs to be sent to the socket
-		/// The socket will then update the game settings and send that information out to each other clients in the game
-		/// All the active participants will update their game settings to match the socket
-		Settings.playerType = C.CLIENT;
-		Settings.playerID = Settings.numberActivePlayers;
-		StateControl.enterState(StateControl.STATE_LOBBY);
-		playerJoinedGame();
+		System.out.printf("successClient\n");
+		Commands.sendPlayerJoinedCommand();
+		Commands.sendSetNamesCommand();
+		Commands.sendSetWinConditionCommand();
+		Commands.sendSetMapCommand();
+		Commands.sendSetColorsCommand();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	/* Call this method when someone joins the game */
-	public static void playerJoinedGame()
-		{
-		Settings.numberActivePlayers++;
-		displayMessage(Settings.playerName[Settings.playerID] + " has joined the game");
-		}
-	/*-----------------------------------------------------------------------------------------------------*/
-	/* Call this method to display a message on the screen */
+	/* This method is called to display a chat message on the screen */
 	public static void displayMessage(String string)
 		{
 		DisplaysStateLobby.displayMessage(string);
 		}
-
 	/*-----------------------------------------------------------------------------------------------------*/
-	/* This method is called when user presses enter to display a chat message */
-	public static void sendMessage(String string)
+	/* Call this method to send a command or a chat message to everyone */
+	public static void sendToAll(String string)
 		{
+		System.out.printf("sendToAll: %s\n", string);
 		if(Settings.playerType == C.SERVER)
 			{
-			/// If the user is the server, it will display the message on his screen and then send to message to all the clients
-			displayMessage(string);
-			sendMessageToClients(string);
+			/// A server will process the command on his side and then send the command to all clients
+			Commands.processCommand(string);
+			sendToClients(string);
 			}
-		else if(Settings.playerType == C.CLIENT)
+		else
 			{
-			/// If the user is a client, it will send to the socket first
-			sendMessageToServer(string);
+			/// A client will simply send the command to the server, who will in turn process the command and send it to all clients
+			sendToServer(string);
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	/* This method is called to send chat messages to all the clients */
-	public static void sendMessageToClients(String string)
+	/* This method is called to send commands and messages to all the clients */
+	public static void sendToClients(String string)
 		{
-		/// Sends message to all the clients. The clients need to have a thread that listens for incoming messages.
-		/// When a client receives an incoming message, it will call displayMessage(String string) to display it
+		System.out.printf("sendToClients: %s\n", string);
 		for(PrintWriter writer : NetworkServerMain.writers)
 			{
 			writer.println(string);
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	/* This method is called to send chat messages to the server */
-	public static void sendMessageToServer(String string)
+	/* This method is called to send commands and messages to the server */
+	public static void sendToServer(String string)
 		{
-		/// Sends a message to the server. The server needs to have a thread that listens for incoming messages.
-		/// When a sever receives an incoming message, it will display the message on his screen by calling
-		// displayMessage(String string) and then will send the message to all clients
-
-		/// Need line here that sends the string to the server
-		//sendMessageToClients(string);
+		System.out.printf("sendToServer: %s\n", string);
 		NetworkClientMain.printWriter.println(string);
 		}
-	/*-----------------------------------------------------------------------------------------------------*/
 	}

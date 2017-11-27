@@ -36,6 +36,7 @@ public class StatePlay extends BasicGameState
 		Settings.currentScreenWidth = Settings.playScreenWidth;
 		Settings.currentScreenHeight = Settings.playScreenHeight;
 		DisplaysStatePlay.positionDisplays();
+		GameStats.initGameStats();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override

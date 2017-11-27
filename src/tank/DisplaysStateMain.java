@@ -41,12 +41,12 @@ public class DisplaysStateMain
 	public static StringsDisplay buttonExitJoinText = new StringsDisplay(Strings.exitJoin, buttonTextFont, buttonTextColor, 0, 0);
 	//	public static StringsDisplay buttonTextStartup[] = new StringsDisplay[2];
 //	public static StringsDisplay buttonText[] = new StringsDisplay[Strings.mainButtonTypes.length];
-	public static StringsDisplay authors[] = new StringsDisplay[Strings.authors.length];
+	public static StringsDisplay authors[] = new StringsDisplay[Strings.authorsList.length];
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initDisplays()
 		{
-		for(i = 0; i < Strings.authors.length; i++)
-			authors[i] = new StringsDisplay(Strings.authors[i], authorTextFont, authorTextColor, 0, 0);
+		for(i = 0; i < Strings.authorsList.length; i++)
+			authors[i] = new StringsDisplay(Strings.authorsList[i], authorTextFont, authorTextColor, 0, 0);
 //		for(i = 0; i < buttons.length; i++)
 //			buttons[i] = new Image(Filenames.buttonRectangle, 0, 0, pswButtons);
 //		for(i = 0; i < buttonText.length; i++)
@@ -56,24 +56,24 @@ public class DisplaysStateMain
 	public static void positionDisplays()
 		{
 		/// Spacing:
-//		spaceAfterTitle = Settings.currentScreenHeight < 800 ? 35 : 35 + (int) ((Settings.currentScreenHeight - 700) * 0.2);
-//		spaceAfterAuthors = spaceAfterTitle;
+//		spaceAfterHeading = Settings.currentScreenHeight < 800 ? 35 : 35 + (int) ((Settings.currentScreenHeight - 700) * 0.2);
+//		spaceAfterAuthors = spaceAfterHeading;
 //		spaceBetweenButtons = Settings.currentScreenHeight < 800 ? 15 : (int) ((Settings.currentScreenHeight - 700) * 0.15);
 		/// Title & logo:
 		DisplaysTitle.positionTitle(marginTitleTop);
 		logo.x = DisplaysTitle.title.centerImageX(pswLogo) + logoOffsetX;
 		logo.y = DisplaysTitle.title.y - ((logo.getHeight() - DisplaysTitle.title.getHeight()) / 2) + logoOffsetY;
 		/// Authors:
-		for(i = 0; i < Strings.authors.length; i++)
+		for(i = 0; i < Strings.authorsList.length; i++)
 			{
 			authors[i].x = authors[i].centerStringScreenX();
 			authors[i].y = DisplaysTitle.title.getEndY() + spaceAfterTitle + (i * authors[i].getHeight()) + spaceBetweenAuthors;
 			}
 		/// Buttons:
 		buttonHost.x = buttonHost.centerImageScreenX();
-		buttonHost.y = authors[Strings.authors.length - 1].getEndY() + spaceAfterAuthors;
+		buttonHost.y = authors[Strings.authorsList.length - 1].getEndY() + spaceAfterAuthors;
 		buttonJoin.x = buttonJoin.centerImageScreenX();
-		buttonJoin.y = authors[Strings.authors.length - 1].getEndY() + spaceAfterAuthors + buttonHost.getHeight() + spaceBetweenButtons;
+		buttonJoin.y = authors[Strings.authorsList.length - 1].getEndY() + spaceAfterAuthors + buttonHost.getHeight() + spaceBetweenButtons;
 		buttonHostText.x = buttonHost.centerStringX(buttonHostText.trueTypeFont, buttonHostText.string);
 		buttonHostText.y = buttonHost.centerStringY(buttonHostText.trueTypeFont, buttonHostText.string);
 		buttonExitHostText.x = buttonHost.centerStringX(buttonExitHostText.trueTypeFont, buttonExitHostText.string);
@@ -85,7 +85,7 @@ public class DisplaysStateMain
 //		for(i = 0; i < buttons.length; i++)
 //			{
 //			buttons[i].x = buttons[i].centerImageScreenX();
-//			buttons[i].y = authors[Strings.authors.length - 1].getEndY() + spaceAfterAuthors + ((i+1) * buttons[i].getHeight()) + ((i+1) * spaceBetweenButtons);
+//			buttons[i].y = authorsText[Strings.authorsText.length - 1].getEndY() + spaceAfterAuthors + ((i+1) * buttons[i].getHeight()) + ((i+1) * spaceBetweenButtons);
 //			buttonText[i].x = buttons[i].centerStringX(buttonText[i].trueTypeFont, buttonText[i].string);
 //			buttonText[i].y = buttons[i].centerStringY(buttonText[i].trueTypeFont, buttonText[i].string);
 //			}

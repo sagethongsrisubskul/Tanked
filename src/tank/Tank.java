@@ -20,6 +20,7 @@ public class Tank extends StateBasedGame
 		addState(new StateHelpMain());
 		addState(new StateHelpGameplay());
 		addState(new StateHelpControls());
+		addState(new StateHelpCredits());
 		addState(new StatePlay());
 		addState(new StateChangeScreenSize());
 		ResourceManager.loadImage(Filenames.title);
