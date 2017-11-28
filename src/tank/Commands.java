@@ -3,12 +3,14 @@ public class Commands
 	{
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* Use this method to control all the commands in the game.
-	 * Format of command: ~ x y ~
+	 * To issue a command, call NetworkControl.sendToAll(String string). This will send the command string to every user.
+	 * Every user will then call this method on the respective system.
+	 * Format of a command: ~ x y ~
 	 * (x = a 2-letter acronym of the command, y = any string of characters that further describe the command, the last ~ is optional)
 	 * Upon receiving a command/message via the socket, this method is called to process the command.
 	 * This method is called for both server and client, as all machines variables will need to be in sync.
 	 * If you need a distinction between server and client, you need to include an if statement in the processing of the command.
-	 * For multi-line command process, please include a seperate method and call that method from here.
+	 * For multi-line command process, please include a separate method and call that method from here.
 	 * See examples below.
 	 * */
 	public static void processCommand(String string)

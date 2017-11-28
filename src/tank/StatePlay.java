@@ -9,11 +9,11 @@ import org.newdawn.slick.state.StateBasedGame;
 public class StatePlay extends BasicGameState
 	{
 	Tank tank;
-	PlayGame playGame;
-	int elapsedTime;
-	int hours;
-	int minutes;
-	int seconds;
+	PlayGame playGame = new PlayGame();
+	public static int elapsedTime;
+	public static int hours;
+	public static int minutes;
+	public static int seconds;
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
@@ -25,6 +25,7 @@ public class StatePlay extends BasicGameState
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 		{
 		tank = (Tank) game;
+		DisplaysStatePlay.initDisplays();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -37,6 +38,7 @@ public class StatePlay extends BasicGameState
 		Settings.currentScreenHeight = Settings.playScreenHeight;
 		DisplaysStatePlay.positionDisplays();
 		GameStats.initGameStats();
+		elapsedTime = hours = minutes = seconds = 0;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override

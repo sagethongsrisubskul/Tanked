@@ -37,10 +37,14 @@ public class C
 	public static final int PROTECT_BASE = 1;
 	public static final int DESTRUCTION = 2;
 	public static final int FIND_RELIC = 3;
-
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Player type:
 	public static final int UNDECIDED = 0;
 	public static final int SERVER = 1;
 	public static final int CLIENT = 2;
+	/*-----------------------------------------------------------------------------------------------------*/
+	/// Powerup type:
+	public static final int COLLECTIBLE = 0;
+	public static final int TIMED = 1;
+	public static final int PERMANENT = 2;
 	}
