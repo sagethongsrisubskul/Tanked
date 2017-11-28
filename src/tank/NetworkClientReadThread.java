@@ -7,7 +7,7 @@ public class NetworkClientReadThread extends Thread // class for reading input f
 	Socket socket; // declare a socket
 	String stringTemp = null; // declare a temporary string
 	BufferedReader bufferedReader; // declare a buffered reader
-	boolean terminated = false; // declare a flag indicating whether the socketClient wants to logout
+	public static boolean terminated = false; // declare a flag indicating whether the socketClient wants to logout
 	/*-----------------------------------------------------------------------------------------------------*/
 	NetworkClientReadThread(Socket socket) // constructor for the class
 	{
@@ -19,7 +19,7 @@ public class NetworkClientReadThread extends Thread // class for reading input f
 	try
 		{
 		bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream())); // initialize the buffered reader
-		while(terminated == false && (stringTemp = bufferedReader.readLine()) != null) // while the socketClient has not logged out...
+		while(terminated == false && (stringTemp = bufferedReader.readLine()) != null) // while the client has not logged out...
 			{
 			Commands.processCommand(stringTemp);
 //			NetworkControl.processCommandClient(stringTemp);
@@ -27,15 +27,16 @@ public class NetworkClientReadThread extends Thread // class for reading input f
 		}
 	catch (Exception e) // if there was a problem...
 		{
-		System.out.printf("ClientReadThread Error:\n" + e.toString());
-		e.printStackTrace();
-		terminated = true;
+//		System.out.printf("ClientReadThread Error:\n" + e.toString());
+//		e.printStackTrace();
+//		terminated = true;
+		NetworkControl.exitServer();
 		return;
 		}
 	}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public void interrupt() // method to interrupt the thread
 	{
-	terminated = true; // set the flag to true indicating the socketClient wants to logout
+	terminated = true; // set the flag to true indicating the client wants to logout
 	}
 	}

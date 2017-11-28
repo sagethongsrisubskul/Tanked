@@ -192,7 +192,7 @@ public class Inputs
 					if(Settings.playerType == C.SERVER)
 						NetworkControl.exitServer();
 					else
-						NetworkControl.exitClient();
+						Commands.sendClientExitsCommand(Settings.playerID);
 					}
 				else if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.launchGameButton))
 					{

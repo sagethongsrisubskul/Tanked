@@ -3,13 +3,14 @@ import java.io.PrintWriter;
 /* This class is to handle the networking of the game. */
 public class NetworkControl
 	{
-	public static NetworkServerMain serverMain = new NetworkServerMain();
+	public static NetworkServerMain serverMain;
 	public static NetworkClientMain clientMain;
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called when a player clicks on button to host a game */
 	public static void setupServer()
 		{
 		System.out.printf("setupServer\n");
+		serverMain = new NetworkServerMain();
 		serverMain.start();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
@@ -24,26 +25,15 @@ public class NetworkControl
 	/* This method is called when a server clicks on button to leave game or closes application */
 	public static void exitServer()
 		{
-		System.out.printf("exitServer\n");
-		/// When server exits:
-		// Close all sockets
-		// Both server and clients settings reset
-		// Both server and clients return to main screen
-
-//		int i;
-//		Settings.playerType = C.UNDECIDED;
-//		Settings.numberActivePlayers = 0;
-//		for(i = 0; i < C.MAX_PLAYERS; i++)
-//			{
-//			Settings.playerName[i] = Strings.defaultName + (i + 1);
-//			}
-//		StateControl.enterState(StateControl.STATE_MAIN);
+		StateControl.exitProgram();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called when a client clicks on button to leave game or closes application */
-	public static void exitClient()
+	public static void exitClient(int clientID)
 		{
-		System.out.printf("exitClient\n");
+		System.out.printf("exitClient: %d\n", clientID);
+//		NetworkServerReadThread.terminated = true;
+
 		/// When a client exits:
 		// Socket closed to client
 		// Client's settings reset

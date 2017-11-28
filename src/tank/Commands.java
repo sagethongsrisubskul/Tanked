@@ -30,11 +30,23 @@ public class Commands
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'M')
 				Settings.mapSelected = Character.getNumericValue(string.charAt(3));
 			else if(string.charAt(1) == 'L' && string.charAt(2) == 'G') launchGame();
+			else if(string.charAt(1) == 'S' && string.charAt(2) == 'E') NetworkControl.exitServer();
+			else if(string.charAt(1) == 'C' && string.charAt(2) == 'E') NetworkControl.exitClient(Character.getNumericValue(string.charAt(3)));
 			}
 		else /// String is a chat message
 			{
 			NetworkControl.displayMessage(string);
 			}
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void sendClientExitsCommand(int clientID)
+		{
+		NetworkControl.sendToAll("~CE" + Integer.toString(clientID));
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void sendServerExitsCommand()
+		{
+		NetworkControl.sendToClients("~SE");
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void playerJoins(String string)

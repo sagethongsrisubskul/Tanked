@@ -22,6 +22,7 @@ public class NetworkServerMain extends Thread
 		{
 		System.out.printf("ServerMain: Error init socket:\n" + e.toString());
 		e.printStackTrace();
+		return;
 		}
 	// initialize the socket:
 	NetworkControl.successServer();
@@ -47,4 +48,5 @@ public class NetworkServerMain extends Thread
 			}
 		}
 	}
+	/*-----------------------------------------------------------------------------------------------------*/
 	}
