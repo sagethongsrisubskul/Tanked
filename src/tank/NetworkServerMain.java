@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashSet;
 public class NetworkServerMain extends Thread
 	{
@@ -10,7 +11,7 @@ public class NetworkServerMain extends Thread
 	Socket socketClient; // declare a socket representing the socketClient
 	NetworkServerWriteThread writeThread; // declare a write thread
 	NetworkServerClientThread clientThread;
-	public static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
+	public static ArrayList<PrintWriter> writers = new ArrayList<PrintWriter>();
 	/*-----------------------------------------------------------------------------------------------------*/
 	public void run() // start the socket
 	{
