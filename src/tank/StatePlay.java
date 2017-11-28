@@ -6,10 +6,13 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.tiled.TiledMap;
+
 public class StatePlay extends BasicGameState
 	{
 	Tank tank;
 	PlayGame playGame;
+	TiledMap map;
 	int elapsedTime;
 	int hours;
 	int minutes;
@@ -35,6 +38,7 @@ public class StatePlay extends BasicGameState
 		StateControl.addCurrentState(getID());
 		Settings.currentScreenWidth = Settings.playScreenWidth;
 		Settings.currentScreenHeight = Settings.playScreenHeight;
+		map = new TiledMap(Filenames.maps[Settings.mapSelected]);
 		DisplaysStatePlay.positionDisplays();
 		GameStats.initGameStats();
 		}
@@ -43,6 +47,7 @@ public class StatePlay extends BasicGameState
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 		{
 		DisplaysStatePlay.renderDisplays(g);
+		map.render(0, 0);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
