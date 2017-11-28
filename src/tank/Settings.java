@@ -56,7 +56,7 @@ public class Settings
 		int i;
 		for(i = 0; i < C.MAX_PLAYERS; i++)
 			{
-			playerName[i] = "Player" + (i);
+			playerName[i] = Strings.defaultName + (i);
 			playerTeamColors[i] = i;
 			}
 		}
