@@ -30,8 +30,17 @@ public class NetworkServerReadThread extends Thread // class for reading input f
 		}
 	catch (Exception e) // if there was a problem...
 		{
-		System.out.printf("ServerReadThread Error:\n" + e.toString());
-		e.printStackTrace();
+		//System.out.printf("ServerReadThread Error:\n" + e.toString());
+		//e.printStackTrace();
+		System.out.println("ServerReadThread: Client Disconnected");
+		try {
+			//closeSocket();
+			bufferedReader.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		terminated = true;
 		return;
 		}

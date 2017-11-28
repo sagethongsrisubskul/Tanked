@@ -1,4 +1,5 @@
 package tank;
+import java.io.IOException;
 import java.io.PrintWriter;
 /* This class is to handle the networking of the game. */
 public class NetworkControl
@@ -106,7 +107,8 @@ public class NetworkControl
 		System.out.printf("sendToClients: %s\n", string);
 		for(PrintWriter writer : NetworkServerMain.writers)
 			{
-			writer.println(string);
+			if(writer.checkError()==false)
+				writer.println(string);
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/

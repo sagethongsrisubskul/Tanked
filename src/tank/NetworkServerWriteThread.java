@@ -36,12 +36,14 @@ public class NetworkServerWriteThread extends Thread
 		{
 		for(PrintWriter writer : NetworkServerMain.writers)
 			{
-			writer.close();
+				writer.close();
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void closeWriter(int clientID)
 		{
-
+			NetworkServerMain.writers.get(clientID).close();
+			NetworkServerMain.writers.remove(clientID);
+			
 		}
 	}
