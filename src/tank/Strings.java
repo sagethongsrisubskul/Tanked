@@ -70,24 +70,12 @@ public class Strings
 		"freesounds.org"
 	};
 	public static final String gameControlsText = String.format("" +
-
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
+		"W: Forwards\n" +
+		"S: Reverse\n" +
+		"A: rotate left\n" +
+		"D: rotate right\n" +
+		"Mouse: Aim turret\n" +
+		"LMB: Fire\n" +
 		"");
 	public static final String gamePlayText = String.format("" +
 
