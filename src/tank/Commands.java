@@ -31,9 +31,11 @@ public class Commands
 				Settings.winCondition = Character.getNumericValue(string.charAt(3));
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'M')
 				Settings.mapSelected = Character.getNumericValue(string.charAt(3));
+			else if(string.charAt(1) == 'G' && string.charAt(2) == 'P') Settings.numberActivePlayers = Character.getNumericValue(string.charAt(3));
 			else if(string.charAt(1) == 'L' && string.charAt(2) == 'G') launchGame();
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'E') NetworkControl.exitServer();
 			else if(string.charAt(1) == 'C' && string.charAt(2) == 'E') NetworkControl.exitClient(Character.getNumericValue(string.charAt(3)));
+
 			}
 		else /// String is a chat message
 			{
@@ -53,16 +55,37 @@ public class Commands
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void playerJoins(String string)
 		{
-		int n;
-		n = Character.getNumericValue(string.charAt(3));
-		Settings.numberActivePlayers = n + 1;
+		int i;
+		int activeIDs[] = new int[C.MAX_PLAYERS];
+		int firstOpenID = -1;
+		Settings.numberActivePlayers = 1;
+		for(i = 0; i < C.MAX_PLAYERS; i++)
+			{
+			activeIDs[i] = Character.getNumericValue(string.charAt(i + 3));
+			if(activeIDs[i] == C.YES)
+				Settings.numberActivePlayers++;
+			}
+
+//		Settings.numberActivePlayers = activeIDs + 1;
 		if(Settings.playerType == C.UNDECIDED) Settings.playerType = C.CLIENT;
-		if(Settings.playerID == -1) Settings.playerID = n;
+		for(i = 1; i < C.MAX_PLAYERS; i++)
+			{
+			if(activeIDs[i] == C.NO)
+				{
+				firstOpenID = i;
+				Settings.activeIDs[i] = C.YES;
+				if(Settings.playerID == C.NO_ID)
+					Settings.playerID = i;
+				break;
+				}
+			}
+		Settings.activeIDs[0] = C.YES;
 		if(StateControl.currentState != StateControl.STATE_LOBBY)
 			{
 			StateControl.enterState(StateControl.STATE_LOBBY);
 			}
-		NetworkControl.displayMessage(Settings.playerName[n] + " has joined the game");
+		NetworkControl.displayMessage(Settings.playerName[firstOpenID] + " has joined the game");
+		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerID, Settings.playerName[Settings.playerID]);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void launchGame()
@@ -100,6 +123,11 @@ public class Commands
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
+	public static void sendGetPlayersCommand(int numActivePlayers)
+		{
+		NetworkControl.sendToAll("~GP" + numActivePlayers);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
 	public static void sendLaunchGameCommand()
 		{
 		NetworkControl.sendToAll("~LG");
@@ -107,7 +135,13 @@ public class Commands
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void sendPlayerJoinedCommand()
 		{
-		NetworkControl.sendToAll("~PJ" + Settings.numberActivePlayers);
+		int i;
+		String string = "~PJ";
+		for(i = 0; i < C.MAX_PLAYERS; i++)
+			{
+			string += Settings.activeIDs[i];
+			}
+		NetworkControl.sendToAll(string);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void sendNameChangeCommand(String string)

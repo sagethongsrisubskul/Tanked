@@ -12,7 +12,7 @@ public class DisplaysStatePlay
 	/// Spacings:
 	public static int margin = 10;
 	public static int miniMapBorder = 5;
-	public static int healthbarWidth = 15;
+	public static int healthBarWidth = 15;
 	public static int powerupBorder = 1;
 	public static int powerupWidth;
 	public static int powerupHeight = 100;
@@ -92,7 +92,7 @@ public class DisplaysStatePlay
 		map.x = mapArea.x;
 		map.y = mapArea.y;
 		/// Healthbar:
-		healthBarArea.x = Settings.currentScreenWidth - margin - healthbarWidth;
+		healthBarArea.x = Settings.currentScreenWidth - margin - healthBarWidth;
 		healthBarArea.y = miniMapArea.endY + 1;
 		healthBarArea.endX = Settings.currentScreenWidth - margin;
 		healthBarArea.endY = Settings.currentScreenHeight - margin;
@@ -152,7 +152,7 @@ public class DisplaysStatePlay
 		healthBarArea.colorSection(g, healthBarColor);
 		setHealthStartY();
 		g.setColor(healthColor);
-		g.fillRect(healthBarArea.x, healthStartY, healthbarWidth + 1, healthBarArea.endY - healthStartY + 1);
+		g.fillRect(healthBarArea.x, healthStartY, healthBarWidth + 1, healthBarArea.endY - healthStartY + 1);
 		/// Powerups:
 		powerupTotalArea.colorSection(g, powerupBackgroundColor);
 		for(i = 0; i < powerupArea.length; i++)
