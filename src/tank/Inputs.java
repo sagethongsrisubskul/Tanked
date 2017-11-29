@@ -41,6 +41,26 @@ public class Inputs
 			if(input.isKeyPressed(Input.KEY_ENTER))
 				StateControl.enterState(StateControl.STATE_MAIN);
 			}
+		
+			int movement=0;
+			int rotation=0;
+		
+			if(input.isKeyPressed(Input.KEY_W)){
+				movement++;
+			}
+			if(input.isKeyPressed(Input.KEY_S)){
+				movement--;
+			}
+			if(input.isKeyPressed(Input.KEY_A)){
+				rotation++;
+			}
+			if(input.isKeyPressed(Input.KEY_D)){
+				rotation--;
+			}
+			//send movemet and rotation here
+			
+			//mouse position to be implemented
+			
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processScreenAdjustment(Input input)
