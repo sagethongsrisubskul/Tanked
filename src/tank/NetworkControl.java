@@ -1,4 +1,5 @@
 package tank;
+import java.io.IOException;
 import java.io.PrintWriter;
 /* This class is to handle the networking of the game. */
 public class NetworkControl
@@ -32,41 +33,45 @@ public class NetworkControl
 	public static void exitClient(int clientID)
 		{
 		System.out.printf("exitClient: %d\n", clientID);
-//		NetworkServerReadThread.terminated = true;
-
-		/// When a client exits:
-		// Socket closed to client
-		// Client's settings reset
-		// Client returns to main screen
-		// All other active players should reflect that the client has left the game
-
+		StateControl.exitProgram();
+//		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerID, Settings.playerName[Settings.playerID]);
+//		displayMessage(Settings.playerName[clientID] + " has left the game");
+//
+//		if(Settings.playerID == clientID)
+//			{
+//			StateControl.exitProgram();
+//			}
+//		else if(Settings.playerType == C.SERVER)
+//			{
+//			NetworkServerWriteThread.closeWriter(clientID);
+//			}
+//
+//		Settings.activeIDs[clientID] = C.NO;
+//		Settings.playerName[clientID] = Strings.defaultName + clientID;
 //		Settings.numberActivePlayers--;
-//		Settings.playerType = C.UNDECIDED;
-//		try
-//			{
-//			serverMain.clientThread.readThread.closeSocket();
-//			}
-//		catch (IOException e)
-//			{
-//			e.printStackTrace();
-//			}
-//		displayMessage(Settings.playerName[Settings.playerID] + " has left the game");
-//		Settings.playerName[Settings.playerID] = Strings.defaultName + Settings.playerID;
-//		StateControl.enterState(StateControl.STATE_MAIN);
+//		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerID, Settings.playerName[Settings.playerID]);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	/* Call this method when the player is successful in hosting a game */
+	/* The server will all this method when he is successful in hosting a game */
 	public static void successServer()
 		{
 		System.out.printf("successServer\n");
 		Settings.playerType = C.SERVER;
 		Settings.numberActivePlayers++;
 		Settings.playerID = 0;
+		Settings.activeIDs[0] = C.YES;
 		StateControl.enterState(StateControl.STATE_LOBBY);
 		displayMessage(Settings.playerName[Settings.playerID] + " is hosting the game");
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	/* The server will call this method when a client successful joins the game */
+	/* The server will call this method when a client successful joins but there is no more room in the game */
+	public static void rejectClientJoin()
+		{
+//		System.out.printf("rejectClientJoin\n");
+//		Commands.sendGetPlayersCommand(Settings.numberActivePlayers);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	/* The server will call this method when a client successful joins the game and there is room */
 	public static void successClient()
 		{
 		System.out.printf("successClient\n");
@@ -90,8 +95,8 @@ public class NetworkControl
 		if(Settings.playerType == C.SERVER)
 			{
 			/// A server will process the command on his side and then send the command to all clients
-			Commands.processCommand(string);
 			sendToClients(string);
+			Commands.processCommand(string);
 			}
 		else
 			{
@@ -106,7 +111,8 @@ public class NetworkControl
 		System.out.printf("sendToClients: %s\n", string);
 		for(PrintWriter writer : NetworkServerMain.writers)
 			{
-			writer.println(string);
+			if(writer.checkError()==false)
+				writer.println(string);
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/

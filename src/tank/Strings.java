@@ -55,6 +55,9 @@ public class Strings
 		"This is a description of map 3.\nThis is a description of map 3.\nThis is a description of map 3.\nThis is a description of map 3.",
 	};
 	/*-----------------------------------------------------------------------------------------------------*/
+	/// Play State:
+	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible", "Invisible"};
+	/*-----------------------------------------------------------------------------------------------------*/
 	/// Help State:
 	public static final String gameControls = "Game Controls";
 	public static final String gameplay = "Gameplay";
@@ -64,31 +67,22 @@ public class Strings
 	public static final String licensesText[] = {
 		"https://github.com/bjorn/tiled/blob/master/LICENSE.GPL",
 		"http://pngimg.com/download/1308",
-		"fontspace.com",
-		"opengameart.org",
+		"http://www.fontspace.com/",
+		"https://opengameart.org/",
 		"http://www.reinerstilesets.de/lizenz/",
-		"freesounds.org"
+		"https://freesound.org/",
+		"https://www.iconspng.com/"
 	};
+	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gameControlsText = String.format("" +
-
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
-		"Help info game controls text. Help info game controls text. \nHelp info game controls text. Help info game controls text. Help info game controls text. " +
+		"W: Forwards\n" +
+		"S: Reverse\n" +
+		"A: rotate left\n" +
+		"D: rotate right\n" +
+		"Mouse: Aim turret\n" +
+		"LMB: Fire\n" +
 		"");
+	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gamePlayText = String.format("" +
 
 		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +

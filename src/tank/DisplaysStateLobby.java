@@ -197,7 +197,7 @@ public class DisplaysStateLobby
 			}
 		/// Minimap:
 		map.renderString();
-		settingTextFont.drawString(map.getEndX() + 10, map.y, Integer.toString(Settings.mapSelected + 1), settingTextColor);
+		settingTextFont.drawString(map.getEndX() + 10, map.y, Integer.toString(Settings.mapSelected + 1) + " (" + Filenames.mapSize[Settings.mapSelected][0] + "x" + Filenames.mapSize[Settings.mapSelected][1] + ")", settingTextColor);
 		miniMap[Settings.mapSelected].renderImage();
 		prevButton.renderImage();
 		prevIcon.renderImage();

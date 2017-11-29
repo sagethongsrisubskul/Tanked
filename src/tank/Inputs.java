@@ -36,6 +36,11 @@ public class Inputs
 				DisplaysPopupBox.initPopup(C.POPUP_CHAT);
 				}
 			}
+		else if(StateControl.currentState == StateControl.STATE_PLAY)
+			{
+			if(input.isKeyPressed(Input.KEY_ENTER))
+				StateControl.enterState(StateControl.STATE_MAIN);
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processScreenAdjustment(Input input)
@@ -257,7 +262,7 @@ public class Inputs
 	/* STATE PLAY +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		else if(StateControl.currentState == StateControl.STATE_PLAY)
 			{
-			processNavigationalClick();
+//			processNavigationalClick();
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/

@@ -71,15 +71,9 @@ public class Image
 		return (int)((Settings.currentScreenHeight - (height * this.scale)) / 2);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public int getCenterX()
-		{
-		return x + (width / 2);
-		}
+	public int getCenterX() {return x + ((getEndX() - x) / 2);}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public int getCenterY()
-		{
-		return y + (height / 2);
-		}
+	public int getCenterY() {return y + ((getEndY() - y) / 2);}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public int centerStringX(TrueTypeFont trueTypeFont, String string)
 		{
@@ -106,4 +100,5 @@ public class Image
 		{
 		trueTypeFont.drawString(centerStringX(trueTypeFont, string), centerStringY(trueTypeFont, string), string, color);
 		}
+	/*-----------------------------------------------------------------------------------------------------*/
 	}

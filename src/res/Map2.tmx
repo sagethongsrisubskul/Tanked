@@ -1,55 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="17" tilewidth="32" tileheight="32" nextobjectid="9">
- <tileset firstgid="1" name="grund iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="grund iso tileset.png" width="1024" height="1024"/>
- </tileset>
- <tileset firstgid="1025" name="creekbridges AA tileset" tilewidth="32" tileheight="32" tilecount="512" columns="16">
-  <image source="creekbridges AA tileset.png" width="512" height="1024"/>
- </tileset>
- <tileset firstgid="1537" name="grund 2 iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="grund 2 iso tileset.png" width="1024" height="1024"/>
- </tileset>
- <tileset firstgid="2561" name="road iso tileset" tilewidth="32" tileheight="32" tilecount="512" columns="16">
-  <image source="road iso tileset.png" width="512" height="1024"/>
- </tileset>
- <tileset firstgid="3073" name="small stonewall iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="small stonewall iso tileset.png" width="1024" height="1024"/>
- </tileset>
- <tileset firstgid="4097" name="rocks iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="rocks iso tileset.png" width="1024" height="1024"/>
- </tileset>
- <tileset firstgid="5121" name="cavestuff addon iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="cavestuff addon iso tileset.png" width="1024" height="1024"/>
- </tileset>
- <tileset firstgid="6145" name="bushes tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="bushes tileset.png" width="1024" height="1024"/>
- </tileset>
- <tileset firstgid="7169" name="railroad track-snackbar iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="railroad track-snackbar iso tileset.png" width="1024" height="1024"/>
- </tileset>
- <layer name="Ground1" width="25" height="17">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA8XTP27CMBQG8C+JlKFD6QUoHKJiKpC1B6BTgUi9QaWWpUMuAXNOUkyPgGBhaS7QO/QLrlPbOImVpcNPRvnzvhc/MwshZhJeQ6RrqeDvorz2SzjWjBJtRS9AfhUANq0OVpcZdp3MyjJ8w52xkv3jje4ipCeuju9wZRlr3TeUNry/lnXxESLfchU0iqramatnS2PGS2j6ooL6dEsDGrZn1M7CnoduTBOaUiKvGfN1uQ7OM/HOmNOClpS2z8Q4f3ZOzTsX59LHDf6yuHdQfN//Bz5nrfLJ/4TS8JxrL+1nRD/mWaQBDeNqPmLH2spDBFGT5dO3GLPuhKaUyIzsnetzZFJZXfZwznoLWlJKezo4MpROOaz3FEOUVP1jQ0aHnPO+3LO+ri2D+1aeCZ/+c9W36v3o+R2+GY/MGNFBy9HzfgCUew3hpAYAAA==
-  </data>
- </layer>
- <layer name="Ground2" width="25" height="17">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgIB6UcDE0FANxERC7cTEwANkgMaoDRqCZTEDMCsRsWMxXEWVgUBWlrR0uQPNdqWxHowgDQ5MIQr6JQvOx2bEQaP4iJDsW0cCOnUAzdwHxbiDeg8V8RTLsRLfjJtCMW0B8G4jvYDHPkQp2/ASa8QuIfwPxHyqEEzY7jgLj4hgQtwJxmwhh/eTY8RRo7jMgXgrEy2hkBy3AYLXDToaB4a0wwwFa2hEHtCNehlgbyLOjDmh+PQl2eHEzHPCEYAcg24HadkgCzbYCYksIdgCyHRS4CYczAPVDrI+kBgAA
-  </data>
- </layer>
- <layer name="Walls" width="25" height="17">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgQABXFgYGNyB2B2IPFgaagFCguWFAHA7EETjsSOFnOJAMxLRxAQS4AM13prEdnnwMBzz4aGuHJtB8DRrbAQyrBmBYNdDSDmCcNyRTaMdwSTew8Ab654ELBCcA2QnUtAMW3kD8wBmCE5KpbAcRbhgW8TWaB2kLAAs6FpykBgAA
-  </data>
- </layer>
- <layer name="Objects1" width="25" height="17">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAWjYOiD9cL0te+tMEMDtc0E+WEDjf1xHmj+BTqFFTCMGNYC8TqofUD/JVBinowUQwMwfA4AzTkAMx8EzgLpc1Tyk40U/nil1A/o4D3Q3R+gbgf6ZwEpen9JMjD8BuI/ksSpB4UXyI73JNgjJcXAIC0FDnsU8Bdo5z80e5Hj+gMJdlgBzbaWAoc9CpAF8uWAGACmubi2pAYAAA==
-  </data>
- </layer>
- <layer name="Objects2" width="25" height="17">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAWjYBQQAu+EaWp2AzY7LlDJzj+SEPPpAWB++IDk9g80DDtaAgcZ3HJAfy6ghh0JOOygVtyDQIMMZtqidnpegMMfsLRNCQAA51EBFKQGAAA=
-  </data>
+<map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="25" height="17" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" source="../Tank/tankMasterTileset.tsx"/>
+ <layer name="Tile Layer 1" width="25" height="17">
+  <data encoding="csv">
+28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,
+54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,
+80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,
+106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,
+132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,
+158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,
+184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,
+210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,
+236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,
+262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,
+288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,
+314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337,338,
+340,341,342,343,344,345,346,347,348,349,350,351,352,353,354,355,356,357,358,359,360,361,362,363,364,
+366,367,368,369,370,371,372,373,374,375,376,377,378,379,380,381,382,383,384,385,386,387,388,389,390,
+392,393,394,395,396,397,398,399,400,401,402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,
+418,419,420,421,422,423,424,425,426,427,428,429,430,431,432,433,434,435,436,437,438,439,440,441,442,
+444,445,446,447,448,449,450,451,452,453,454,455,456,457,458,459,460,461,462,463,464,465,466,467,468
+</data>
  </layer>
 </map>
