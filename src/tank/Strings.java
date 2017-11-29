@@ -73,6 +73,7 @@ public class Strings
 		"https://freesound.org/",
 		"https://www.iconspng.com/"
 	};
+	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gameControlsText = String.format("" +
 		"W: Forwards\n" +
 		"S: Reverse\n" +
@@ -81,6 +82,7 @@ public class Strings
 		"Mouse: Aim turret\n" +
 		"LMB: Fire\n" +
 		"");
+	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gamePlayText = String.format("" +
 
 		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +

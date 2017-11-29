@@ -11,40 +11,42 @@ public class NetworkServerReadThread extends Thread // class for reading input f
 	public static boolean terminated = false; // declare a flag indicating whether the socket (that buffered reader is reading from has closed
 	/*-----------------------------------------------------------------------------------------------------*/
 	NetworkServerReadThread(Socket s) // constructor for the class
-	{
-	this.socket = s; // assign the socket to the socket given in the argument for the constructor
-	}
+		{
+		this.socket = s; // assign the socket to the socket given in the argument for the constructor
+		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public void run() // upon starting the thread...
-	{
-	try
 		{
-		bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream())); // initialize buffered reader
-		while(terminated == false && (stringTemp = bufferedReader.readLine()) != null) // while the socketClient has not logged out...
+		try
 			{
-			Commands.processCommand(stringTemp);
-			NetworkControl.sendToClients(stringTemp);
+			bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream())); // initialize buffered reader
+			while(terminated == false && (stringTemp = bufferedReader.readLine()) != null) // while the socketClient has not logged out...
+				{
+				Commands.processCommand(stringTemp);
+				NetworkControl.sendToClients(stringTemp);
 //			NetworkControl.processCommandServer(stringTemp);
+				}
+			closeSocket();
 			}
-		closeSocket();
+		catch (Exception e) // if there was a problem...
+			{
+			//System.out.printf("ServerReadThread Error:\n" + e.toString());
+			//e.printStackTrace();
+			Commands.sendClientExitsCommand(Settings.playerID);
+			System.out.println("ServerReadThread: Client Disconnected");
+			try
+				{
+				//closeSocket();
+				bufferedReader.close();
+				}
+			catch (IOException e1)
+				{
+				e1.printStackTrace();
+				}
+			terminated = true;
+			return;
+			}
 		}
-	catch (Exception e) // if there was a problem...
-		{
-		//System.out.printf("ServerReadThread Error:\n" + e.toString());
-		//e.printStackTrace();
-		System.out.println("ServerReadThread: Client Disconnected");
-		try {
-			//closeSocket();
-			bufferedReader.close();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		terminated = true;
-		return;
-		}
-	}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public void closeSocket() throws IOException
 		{

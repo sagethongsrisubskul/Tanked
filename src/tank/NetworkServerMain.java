@@ -4,7 +4,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashSet;
 public class NetworkServerMain extends Thread
 	{
 	ServerSocket serverSocket; // declare a socket socket
@@ -39,7 +38,10 @@ public class NetworkServerMain extends Thread
 			clientThread = new NetworkServerClientThread(socketClient);
 			clientThread.start();
 			writers.add(new PrintWriter(socketClient.getOutputStream(), true));
-			NetworkControl.successClient();
+			if(Settings.numberActivePlayers < C.MAX_PLAYERS)
+				NetworkControl.successClient();
+			else
+				NetworkControl.rejectClientJoin();
 			}
 		catch (Exception e) // if there was a problem...
 			{
