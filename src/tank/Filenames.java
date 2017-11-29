@@ -23,7 +23,7 @@ public class Filenames
 	public final static String buttonRectangle = "res/ButtonRectangle.png";
 	public final static String buttonSquare = "res/ButtonSquare.png";
 	/// Maps:
-	public final static String maps[] = {"res/Map1.tmx", "res/Map2.tmx", "res/Map2.tmx"};
+	public final static String maps[] = {"res/Map1.tmx", "res/Map2.tmx", "res/Map3.tmx"};
 	public final static int mapSize[][] = {{640,640},{800,544},{1600,1088}};
 	public final static String tilesets[] = {"res/Maptiles.tsx", "res/tankMasterTileset.tsx", "res/tankMasterTileset.tsx"};
 	public final static String tilesetImages[] = {"res/tiles.png", "res/tankMaster2.png", "res/tankMaster2.png"};
