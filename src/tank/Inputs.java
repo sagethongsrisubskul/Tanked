@@ -36,6 +36,36 @@ public class Inputs
 				DisplaysPopupBox.initPopup(C.POPUP_CHAT);
 				}
 			}
+		else if(StateControl.currentState == StateControl.STATE_PLAY)
+			{
+			if(input.isKeyPressed(Input.KEY_ENTER))
+				StateControl.enterState(StateControl.STATE_MAIN);
+			}
+		
+			int movement=0;
+			int rotation=0;
+		
+			if(input.isKeyDown(Input.KEY_W)){
+				movement++;
+			}
+			if(input.isKeyDown(Input.KEY_S)){
+				movement--;
+			}
+			if(input.isKeyDown(Input.KEY_A)){
+				rotation--;
+			}
+			if(input.isKeyDown(Input.KEY_D)){
+				rotation++;
+			}
+			//send movement and rotation here
+			
+			//debugging for rotation and movement
+			/*if(rotation!=0||movement!=0){
+				System.out.println("Rotation: "+rotation);
+				System.out.println("Movement: "+movement);
+			}*/
+			//mouse position to be implemented
+			
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processScreenAdjustment(Input input)
@@ -257,7 +287,7 @@ public class Inputs
 	/* STATE PLAY +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		else if(StateControl.currentState == StateControl.STATE_PLAY)
 			{
-			processNavigationalClick();
+//			processNavigationalClick();
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/

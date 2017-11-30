@@ -1,55 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="25" height="17" tilewidth="32" tileheight="32" nextobjectid="9">
- <tileset firstgid="1" name="grund iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="grund iso tileset.png" width="1024" height="1024"/>
- </tileset>
- <tileset firstgid="1025" name="creekbridges AA tileset" tilewidth="32" tileheight="32" tilecount="512" columns="16">
-  <image source="creekbridges AA tileset.png" width="512" height="1024"/>
- </tileset>
- <tileset firstgid="1537" name="grund 2 iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="grund 2 iso tileset.png" width="1024" height="1024"/>
- </tileset>
- <tileset firstgid="2561" name="road iso tileset" tilewidth="32" tileheight="32" tilecount="512" columns="16">
-  <image source="road iso tileset.png" width="512" height="1024"/>
- </tileset>
- <tileset firstgid="3073" name="small stonewall iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="small stonewall iso tileset.png" width="1024" height="1024"/>
- </tileset>
- <tileset firstgid="4097" name="rocks iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="rocks iso tileset.png" width="1024" height="1024"/>
- </tileset>
- <tileset firstgid="5121" name="cavestuff addon iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="cavestuff addon iso tileset.png" width="1024" height="1024"/>
- </tileset>
- <tileset firstgid="6145" name="bushes tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="bushes tileset.png" width="1024" height="1024"/>
- </tileset>
- <tileset firstgid="7169" name="railroad track-snackbar iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
-  <image source="railroad track-snackbar iso tileset.png" width="1024" height="1024"/>
- </tileset>
- <layer name="Ground1" width="25" height="17">
+<map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="25" height="17" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" source="tankMasterBL.tsx"/>
+ <layer name="Tile Layer 1" width="25" height="17">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA8XTP27CMBQG8C+JlKFD6QUoHKJiKpC1B6BTgUi9QaWWpUMuAXNOUkyPgGBhaS7QO/QLrlPbOImVpcNPRvnzvhc/MwshZhJeQ6RrqeDvorz2SzjWjBJtRS9AfhUANq0OVpcZdp3MyjJ8w52xkv3jje4ipCeuju9wZRlr3TeUNry/lnXxESLfchU0iqramatnS2PGS2j6ooL6dEsDGrZn1M7CnoduTBOaUiKvGfN1uQ7OM/HOmNOClpS2z8Q4f3ZOzTsX59LHDf6yuHdQfN//Bz5nrfLJ/4TS8JxrL+1nRD/mWaQBDeNqPmLH2spDBFGT5dO3GLPuhKaUyIzsnetzZFJZXfZwznoLWlJKezo4MpROOaz3FEOUVP1jQ0aHnPO+3LO+ri2D+1aeCZ/+c9W36v3o+R2+GY/MGNFBy9HzfgCUew3hpAYAAA==
-  </data>
- </layer>
- <layer name="Ground2" width="25" height="17">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgIB6UcDE0FANxERC7cTEwANkgMaoDRqCZTEDMCsRsWMxXEWVgUBWlrR0uQPNdqWxHowgDQ5MIQr6JQvOx2bEQaP4iJDsW0cCOnUAzdwHxbiDeg8V8RTLsRLfjJtCMW0B8G4jvYDHPkQp2/ASa8QuIfwPxHyqEEzY7jgLj4hgQtwJxmwhh/eTY8RRo7jMgXgrEy2hkBy3AYLXDToaB4a0wwwFa2hEHtCNehlgbyLOjDmh+PQl2eHEzHPCEYAcg24HadkgCzbYCYksIdgCyHRS4CYczAPVDrI+kBgAA
-  </data>
- </layer>
- <layer name="Walls" width="25" height="17">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgQABXFgYGNyB2B2IPFgaagFCguWFAHA7EETjsSOFnOJAMxLRxAQS4AM13prEdnnwMBzz4aGuHJtB8DRrbAQyrBmBYNdDSDmCcNyRTaMdwSTew8Ab654ELBCcA2QnUtAMW3kD8wBmCE5KpbAcRbhgW8TWaB2kLAAs6FpykBgAA
-  </data>
- </layer>
- <layer name="Objects1" width="25" height="17">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAWjYOiD9cL0te+tMEMDtc0E+WEDjf1xHmj+BTqFFTCMGNYC8TqofUD/JVBinowUQwMwfA4AzTkAMx8EzgLpc1Tyk40U/nil1A/o4D3Q3R+gbgf6ZwEpen9JMjD8BuI/ksSpB4UXyI73JNgjJcXAIC0FDnsU8Bdo5z80e5Hj+gMJdlgBzbaWAoc9CpAF8uWAGACmubi2pAYAAA==
-  </data>
- </layer>
- <layer name="Objects2" width="25" height="17">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAWjYBQQAu+EaWp2AzY7LlDJzj+SEPPpAWB++IDk9g80DDtaAgcZ3HJAfy6ghh0JOOygVtyDQIMMZtqidnpegMMfsLRNCQAA51EBFKQGAAA=
+   H4sIAAAAAAAACw3DA4wQAAAAwA/Ltm3btm3btm3btm3btu1lu267ixMQEBDXeMY3gQlNZGKTmNRkJjeFKU1latOY1nSmN4MZzWRms5jN7OYwp7nMbR7zms/8FrCghSxsEYtazOKWsKSlLG0Zy1rOCla0kpWtYlWrWd0a1rSWta1jXetZ3wY2tJGNbWJTm9ncFraytW1sazvb28GOdrKzXexqN7vbw572srd97Gs/+zvAgQ5yiEMd5nBHONJRjnaMYx3neCc40UlOdopTneZ0ZzjTWc52jvOc7wIXusjFLnGpy1zuCle6ytWuca3rXO8GN7rJzW5xq9vc4U53uds97nWf+z3gQQ952CMe9ZjHPeFJT3naM571nOe94CUve8WrXvO6N7zpLW97x7ve874PfOgjH/vEpz7zuS986Stf+8a3vvO9H/zoJz/7xa9+87s//Okvf/vHv/4zIBAGNohBDWZwQxjSUIY2jGENZ3gjGNFIRjaKUY1mdGMY01jGNo5xjWcCE5rIxCYxqclMbgpTmsrUpjGt6UxvBjOaycxmMavZzG4Oc5nbPOY1n/ktYEELWdgiFrWYxS1hSUtZ2jKWtZzlrWBFK1nFqlazujWsaS1rW8e61rO+DWxoIxvbxKY2s7ktbGkrW9vGdra3gx3tZGe72NVudreHPe1lb/vY1372d4ADHeRghzjUYY5wpKMc7RjHOs7xTnCik5zsFKc6zenOcKaznO0c5zrP+S5wkYtd4lKXudwVrnSVq13jWte53g1udJOb3eJWt7ndHe50l3vc6z73e8CDHvKwRzzqMY97wpOe8rRnPOs5z3vBi17yslf8D6LV+hqkBgAA
   </data>
  </layer>
 </map>
