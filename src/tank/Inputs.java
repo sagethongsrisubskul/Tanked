@@ -45,20 +45,25 @@ public class Inputs
 			int movement=0;
 			int rotation=0;
 		
-			if(input.isKeyPressed(Input.KEY_W)){
+			if(input.isKeyDown(Input.KEY_W)){
 				movement++;
 			}
-			if(input.isKeyPressed(Input.KEY_S)){
+			if(input.isKeyDown(Input.KEY_S)){
 				movement--;
 			}
-			if(input.isKeyPressed(Input.KEY_A)){
+			if(input.isKeyDown(Input.KEY_A)){
 				rotation++;
 			}
-			if(input.isKeyPressed(Input.KEY_D)){
+			if(input.isKeyDown(Input.KEY_D)){
 				rotation--;
 			}
-			//send movemet and rotation here
+			//send movement and rotation here
 			
+			//debugging for rotation and movement
+			/*if(rotation!=0||movement!=0){
+				System.out.println("Rotation: "+rotation);
+				System.out.println("Movement: "+movement);
+			}*/
 			//mouse position to be implemented
 			
 		}
