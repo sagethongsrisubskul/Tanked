@@ -52,10 +52,10 @@ public class Inputs
 				movement--;
 			}
 			if(input.isKeyDown(Input.KEY_A)){
-				rotation++;
+				rotation--;
 			}
 			if(input.isKeyDown(Input.KEY_D)){
-				rotation--;
+				rotation++;
 			}
 			//send movement and rotation here
 			
