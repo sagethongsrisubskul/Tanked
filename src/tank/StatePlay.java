@@ -1,4 +1,6 @@
 package tank;
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,9 +13,13 @@ public class StatePlay extends BasicGameState
 	Tank tank;
 	PlayGame playGame = new PlayGame();
 	public static int elapsedTime;
+	public static boolean powerupflag=false;
+	public static int powerx=0;//power ups x location
+	public static int powery=0;//power ups y location
 	public static int hours;
 	public static int minutes;
 	public static int seconds;
+	public static int powerupindex=0;
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
@@ -44,7 +50,13 @@ public class StatePlay extends BasicGameState
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 		{
-		DisplaysStatePlay.renderDisplays(g);
+			DisplaysStatePlay.renderDisplays(g);
+			
+			if(powerupflag==true) {
+				//render power up at location
+				g.drawImage(ResourceManager.getImage(Filenames.powerupIcons[powerupindex]).getScaledCopy(.35f), powerx, powery);
+			}
+		
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -54,6 +66,7 @@ public class StatePlay extends BasicGameState
 		Inputs.processKeyboardInput(input);
 		input.clearKeyPressedRecord();
 		updateTime(delta);
+		
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -68,6 +81,7 @@ public class StatePlay extends BasicGameState
 	/*-----------------------------------------------------------------------------------------------------*/
 	public void updateTime(int delta)
 		{
+		
 		elapsedTime += delta;
 		if(elapsedTime >= 1000)
 			{
@@ -84,5 +98,41 @@ public class StatePlay extends BasicGameState
 			hours++;
 			minutes = 0;
 			}
+		
+		if(Settings.playerType==C.SERVER) {
+		/*	
+			Still to do:
+			1.) Check when tank collides with powerx and powery. If so then set power on tank. Remove power from map.
+			***DONE***2.) Rescale images of power ups on screen
+			3.) need to scale the random numbers for each bounds of map ??map coords??
+			4.) Change time for spawn
+		*/
+			
+		//handle powerup timers
+			int xcoord=0;
+			int ycoord=0;
+			int index=0;
+			if((seconds==5) && powerupflag==false) {
+				//spawn power ups on map
+				//make rand coordinates
+				xcoord=ThreadLocalRandom.current().nextInt(0, 300 + 1);
+				ycoord=ThreadLocalRandom.current().nextInt(0, 300 + 1);
+				index=ThreadLocalRandom.current().nextInt(0,5+1);
+				//send to clients
+				NetworkControl.sendToAll("~PT"+xcoord+","+ycoord+","+index);
+				//powerupflag=true;
+			}
+				
+			if((seconds==10) && powerupflag == true) {
+				//delete power up on screen if not picked up
+				//send to clients
+				NetworkControl.sendToAll("~PF");
+				//powerupflag=false;
+			}
+			//end of power up timers
 		}
+		
+		
+		}
+		
 	}

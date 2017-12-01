@@ -35,6 +35,8 @@ public class Commands
 			else if(string.charAt(1) == 'L' && string.charAt(2) == 'G') launchGame();
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'E') NetworkControl.exitServer();
 			else if(string.charAt(1) == 'C' && string.charAt(2) == 'E') NetworkControl.exitClient(Character.getNumericValue(string.charAt(3)));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='T') powerups(true,string.substring(3,string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='F') powerups(false,"");
 
 			}
 		else /// String is a chat message
@@ -185,4 +187,46 @@ public class Commands
 		NetworkControl.sendToAll("~SW" + Settings.winCondition);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
+		//method for changing status of power ups
+		public static void powerups(boolean bool,String string) {
+				String xcoord="";
+				String ycoord="";
+				int index=0;
+				int stringsplit=0;
+				if(bool==true) {
+					//StatePlay.powerupflag=true;
+					for(int i=0;i<string.length();i++) {//grab x coord from string
+						if(string.charAt(i)!=',') {
+							xcoord=xcoord+string.charAt(i);
+						}
+						else {
+							stringsplit=i+1;
+							break;
+						}
+					}
+					
+					for(int i=stringsplit;i<string.length();i++) {//grab y coord from string
+						if(string.charAt(i)!=',') {
+							ycoord=ycoord + string.charAt(i);
+						}
+						else {
+							stringsplit=i+1;
+							break;
+						}
+					}
+					
+					index=Character.getNumericValue(string.charAt(stringsplit));
+					//System.out.println("X:" +xcoord + " Y:" + ycoord + " Index:" + index );
+					StatePlay.powerx=Integer.parseInt(xcoord);//get int from string
+					StatePlay.powery=Integer.parseInt(ycoord);//get int from string
+					StatePlay.powerupflag=true;
+					StatePlay.powerupindex=index;
+					
+				}
+				else if(bool==false) {
+					StatePlay.powerupflag=false;
+				}
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	
 	}
