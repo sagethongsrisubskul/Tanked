@@ -14,6 +14,7 @@ public class StatePlay extends BasicGameState
 	public static int hours;
 	public static int minutes;
 	public static int seconds;
+	public static tankentity tank1;
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
@@ -39,12 +40,14 @@ public class StatePlay extends BasicGameState
 		DisplaysStatePlay.positionDisplays();
 		GameStats.initGameStats();
 		elapsedTime = hours = minutes = seconds = 0;
+		tank1=new tankentity(50,50);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 		{
 		DisplaysStatePlay.renderDisplays(g);
+		tank1.render(g);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override

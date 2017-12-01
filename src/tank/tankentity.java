@@ -15,7 +15,7 @@ public class tankentity extends Entity {
 	public tankentity(final float x, final float y){
 		super(x,y);
 		
-		addImageWithBoundingBox(ResourceManager.getImage(Filenames.tank_r).getScaledCopy(0.1f));
+		addImageWithBoundingBox(ResourceManager.getImage(Filenames.tank_r).getScaledCopy(0.05f));
 		
 	}
 

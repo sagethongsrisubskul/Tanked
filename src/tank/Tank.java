@@ -3,6 +3,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import jig.Entity;
 
 public class Tank extends StateBasedGame
 	{
@@ -11,6 +12,7 @@ public class Tank extends StateBasedGame
 	public Tank(String title)
 		{
 		super(title);
+		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
