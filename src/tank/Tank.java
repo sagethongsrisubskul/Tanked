@@ -12,7 +12,7 @@ public class Tank extends StateBasedGame
 	public Tank(String title)
 		{
 		super(title);
-		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
+		Entity.setCoarseGrainedCollisionBoundary(Entity.CIRCLE);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
