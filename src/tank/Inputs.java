@@ -6,6 +6,9 @@ public class Inputs
 	static int i;
 	public static int xMouse;
 	public static int yMouse;
+	
+	public static int movement;
+	public static int rotation;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processKeyboardInput(Input input)
 		{
@@ -42,8 +45,8 @@ public class Inputs
 				StateControl.enterState(StateControl.STATE_MAIN);
 			}
 		
-			int movement=0;
-			int rotation=0;
+			movement=0;
+			rotation=0;
 		
 			if(input.isKeyDown(Input.KEY_W)){
 				movement++;
