@@ -13,7 +13,7 @@ public class tankentity extends Entity {
 	private int rotation;
 	
 	private turretentity turret;
-	
+	/*-----------------------------------------------------------------------------------------------------*/
 	public tankentity(final float x, final float y,final char team){
 		super(x,y);
 		
@@ -44,9 +44,8 @@ public class tankentity extends Entity {
 		hullangle=0;
 		turretangle=0;
 		//addImageWithBoundingBox(ResourceManager.getImage(Filenames.turret_r).getScaledCopy(0.05f));
-		
 	}
-
+	/*-----------------------------------------------------------------------------------------------------*/
 	public void update(final int delta){
 		translate(velocity.scale(delta*0.1f));
 		
@@ -54,11 +53,11 @@ public class tankentity extends Entity {
 		hullangle=this.getRotation();
 		turret.update(delta);
 	}
-	
+	/*-----------------------------------------------------------------------------------------------------*/
 	public double getTurretAngle(){
 		return turretangle;
 	}
-	
+	/*-----------------------------------------------------------------------------------------------------*/
 	public void aimTurret(float x2,float y2){
 		float x1=this.getX();
 		float y1=this.getY();
@@ -67,9 +66,8 @@ public class tankentity extends Entity {
 		float y=y2-y1;
 		
 		turretangle=(180f/Math.PI)*Math.atan2(x,-y);
-		
 	}
-	
+	/*-----------------------------------------------------------------------------------------------------*/
 	public void control(int movement, int rotation){
 		this.movement=movement;
 		this.rotation=rotation;
@@ -80,9 +78,8 @@ public class tankentity extends Entity {
 		velocity=new Vector(movement*(float)Math.sin(hullangle*(Math.PI/180.0f)),-movement*(float)Math.cos(hullangle*(Math.PI/180.0f)));
 		
 	}
-	
+	/*-----------------------------------------------------------------------------------------------------*/
 	public turretentity getTurret(){
 		return turret;
 	}
-	
 }

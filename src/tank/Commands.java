@@ -114,8 +114,8 @@ public class Commands
 		int end = 0; /// Ending index of name
 		while(true)
 			{
-			characters = Character.getNumericValue(string.charAt(current));
-			start = current + 1;
+			characters = (Character.getNumericValue(string.charAt(current)) * 10) + Character.getNumericValue(string.charAt(current + 1));
+			start = current + 2;
 			end = start + characters;
 //			System.out.printf("char = %d, start = %d, end = %d, name = %s\n", characters, start, end, string.substring(start, end));
 			Settings.playerName[names] = string.substring(start, end);
@@ -159,6 +159,8 @@ public class Commands
 		string += (Settings.numberActivePlayers + 1);
 		for(i = 0; i < Settings.numberActivePlayers; i++)
 			{
+			if(Settings.playerName[i].length() < 10) /// Adds a leading zero if name length is less than 10
+				string += "0";
 			string += Settings.playerName[i].length();
 			string += Settings.playerName[i];
 			}
