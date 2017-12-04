@@ -15,6 +15,11 @@ public class StatePlay extends BasicGameState
 	public static int minutes;
 	public static int seconds;
 	public static tankentity tank1;
+	public static boolean powerupflag=false;
+	public static int powerx=0;//power ups x location
+	public static int powery=0;//power ups y location
+	public static int powerupindex=0;
+	public static Powerups powerupentity;
 	
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -66,6 +71,18 @@ public class StatePlay extends BasicGameState
 		tank1.control(Inputs.movement, Inputs.rotation);
 		tank1.aimTurret(Inputs.xMouse, Inputs.yMouse);
 		tank1.update(delta);
+		Powerups.powerstatus();
+		
+		/*
+		 * if(powerupentity.collides(tankentity)){
+		 * 		Network.sendToAll("~PF");
+		 * 		//handle tank power up
+		 * 		if(powerupindex==0){
+		 * 			//method for tank power up??
+		 * 		}
+		 * 
+		 * }
+		 */
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
