@@ -3,6 +3,8 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+
+import jig.Entity;
 public class Tank extends StateBasedGame
 	{
 	public static AppGameContainer application;
@@ -10,6 +12,7 @@ public class Tank extends StateBasedGame
 	public Tank(String title)
 		{
 		super(title);
+		
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override

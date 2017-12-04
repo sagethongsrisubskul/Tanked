@@ -20,6 +20,8 @@ public class StatePlay extends BasicGameState
 	public static int minutes;
 	public static int seconds;
 	public static int powerupindex=0;
+	public static Powerups powerupentity;
+	
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
@@ -52,10 +54,8 @@ public class StatePlay extends BasicGameState
 		{
 			DisplaysStatePlay.renderDisplays(g);
 			
-			if(powerupflag==true) {
-				//render power up at location
-				g.drawImage(ResourceManager.getImage(Filenames.powerupIcons[powerupindex]).getScaledCopy(.35f), powerx, powery);
-			}
+			
+			
 		
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
@@ -66,6 +66,18 @@ public class StatePlay extends BasicGameState
 		Inputs.processKeyboardInput(input);
 		input.clearKeyPressedRecord();
 		updateTime(delta);
+		Powerups.powerstatus();
+		
+		/*
+		 * if(powerupentity.collides(tankentity)){
+		 * 		Network.sendToAll("~PF");
+		 * 		//handle tank power up
+		 * 		if(powerupindex==0){
+		 * 			//method for tank power up??
+		 * 		}
+		 * 
+		 * }
+		 */
 		
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
@@ -99,14 +111,14 @@ public class StatePlay extends BasicGameState
 			minutes = 0;
 			}
 		
-		if(Settings.playerType==C.SERVER) {
+		/*if(Settings.playerType==C.SERVER) {
 		/*	
 			Still to do:
 			1.) Check when tank collides with powerx and powery. If so then set power on tank. Remove power from map.
 			***DONE***2.) Rescale images of power ups on screen
 			3.) need to scale the random numbers for each bounds of map ??map coords??
 			4.) Change time for spawn
-		*/
+		
 			
 		//handle powerup timers
 			int xcoord=0;
@@ -131,6 +143,7 @@ public class StatePlay extends BasicGameState
 			}
 			//end of power up timers
 		}
+	*/
 		
 		
 		}

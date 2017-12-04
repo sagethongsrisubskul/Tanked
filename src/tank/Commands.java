@@ -219,8 +219,9 @@ public class Commands
 					//System.out.println("X:" +xcoord + " Y:" + ycoord + " Index:" + index );
 					StatePlay.powerx=Integer.parseInt(xcoord);//get int from string
 					StatePlay.powery=Integer.parseInt(ycoord);//get int from string
-					StatePlay.powerupflag=true;
 					StatePlay.powerupindex=index;
+					StatePlay.powerupentity= new Powerups(StatePlay.powerx,StatePlay.powery);
+					StatePlay.powerupflag=true;
 					
 				}
 				else if(bool==false) {
