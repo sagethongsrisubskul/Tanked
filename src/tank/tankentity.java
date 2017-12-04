@@ -1,7 +1,5 @@
 package tank;
-
 import jig.Entity;
-import jig.ResourceManager;
 import jig.Vector;
 
 public class tankentity extends Entity {
@@ -20,16 +18,24 @@ public class tankentity extends Entity {
 		super(x,y);
 		
 		switch(team){
-			case 'r': addImageWithBoundingBox(ResourceManager.getImage(Filenames.tank_r).getScaledCopy(0.25f));
+			case 'r':
+				ResourceManager.loadImage(Filenames.tank_r);
+				addImageWithBoundingBox(ResourceManager.getImage(Filenames.tank_r).getScaledCopy(0.25f));
 			break;
 			
-			case 'g': addImageWithBoundingBox(ResourceManager.getImage(Filenames.tank_g).getScaledCopy(0.25f));
+			case 'g':
+				ResourceManager.loadImage(Filenames.tank_g);
+				addImageWithBoundingBox(ResourceManager.getImage(Filenames.tank_g).getScaledCopy(0.25f));
 			break;
 			
-			case 'b': addImageWithBoundingBox(ResourceManager.getImage(Filenames.tank_b).getScaledCopy(0.25f));
+			case 'b':
+				ResourceManager.loadImage(Filenames.tank_b);
+				addImageWithBoundingBox(ResourceManager.getImage(Filenames.tank_b).getScaledCopy(0.25f));
 			break;
 			
-			case 'y': addImageWithBoundingBox(ResourceManager.getImage(Filenames.tank_y).getScaledCopy(0.25f));
+			case 'y':
+				ResourceManager.loadImage(Filenames.tank_y);
+				addImageWithBoundingBox(ResourceManager.getImage(Filenames.tank_y).getScaledCopy(0.25f));
 			break;
 		}
 		
