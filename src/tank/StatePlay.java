@@ -15,11 +15,12 @@ public class StatePlay extends BasicGameState
 	public static int minutes;
 	public static int seconds;
 	public static tankentity tank1;
-	public static boolean powerupflag=false;
-	public static int powerx=0;//power ups x location
-	public static int powery=0;//power ups y location
-	public static int powerupindex=0;
-	public static Powerups powerupentity;
+//	public static boolean powerupFlag=false;
+//	public static int powerx=0;//power ups x location
+//	public static int powery=0;//power ups y location
+//	public static int powerupIndex=0;
+	public static Powerups powerupEntity;
+//	public static int powerupElapsedTime = 0;
 	
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -55,6 +56,13 @@ public class StatePlay extends BasicGameState
 		DisplaysStatePlay.renderDisplays(g);
 		tank1.render(g);
 		tank1.getTurret().render(g);
+
+		if(powerupEntity.powerupFlag ==true) {
+		//render power up at location
+		//g.drawImage(ResourceManager.getImage(Filenames.powerupIcons[powerupIndex]).getScaledCopy(.35f), powerx, powery);
+		powerupEntity.render(g);
+		//powerupEntity.
+		}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -71,13 +79,13 @@ public class StatePlay extends BasicGameState
 		tank1.control(Inputs.movement, Inputs.rotation);
 		tank1.aimTurret(Inputs.xMouse, Inputs.yMouse);
 		tank1.update(delta);
-		Powerups.powerstatus();
+		Powerups.sendPowerupStatus();
 		
 		/*
-		 * if(powerupentity.collides(tankentity)){
+		 * if(powerupEntity.collides(tankentity)){
 		 * 		Network.sendToAll("~PF");
 		 * 		//handle tank power up
-		 * 		if(powerupindex==0){
+		 * 		if(powerupIndex==0){
 		 * 			//method for tank power up??
 		 * 		}
 		 * 
@@ -101,6 +109,7 @@ public class StatePlay extends BasicGameState
 		if(elapsedTime >= 1000)
 			{
 			seconds++;
+			processPowerupTime();
 			elapsedTime -= 1000;
 			}
 		if(seconds == 60)
@@ -112,6 +121,25 @@ public class StatePlay extends BasicGameState
 			{
 			hours++;
 			minutes = 0;
+			}
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	/* This will method will be called every second and will decrement any activated timed powerups by one second */
+	public void processPowerupTime()
+		{
+		int i, j;
+		Powerups.powerupElapsedTime++;
+		for(i = 0; i < C.MAX_PLAYERS; i++) /// Cycle through all players
+			{
+			for(j = 0; j < Strings.powerups.length; j++) /// Cycle through all powerups
+				{
+				if(Powerups.timePowerup[i][j] > 0)
+					{
+					if(Powerups.timePowerup[i][j] == 1) /// If the powerup is about to expire
+						Powerups.powerupDeactivation(i, j); /// Deactivate powerup
+					Powerups.timePowerup[i][j]--;
+					}
+				}
 			}
 		}
 	}

@@ -5,8 +5,6 @@ public class Settings
 	{
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Gameplay:
-	public static int powerupInterval = 5;
-	public static int powerupDuration = 15;
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Network:
 	public static int portnumber = 1201;
