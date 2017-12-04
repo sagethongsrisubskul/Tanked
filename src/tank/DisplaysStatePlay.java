@@ -173,6 +173,14 @@ public class DisplaysStatePlay
 		score.trueTypeFont.drawString(powerupArea[powerupArea.length - 1].centerStringX(scoreFont, Integer.toString(GameStats.score[Settings.playerID])), score.y, Integer.toString(GameStats.score[Settings.playerID]), score.color);
 		power.trueTypeFont.drawString(power.x, power.y, "P: " + Integer.toString(GameStats.power[Settings.playerID]) + "/" + Integer.toString(GameStats.maxPower), power.color);
 		speed.trueTypeFont.drawString(speed.x, speed.y, "S: " + Integer.toString(GameStats.speed[Settings.playerID]) + "/" + Integer.toString(GameStats.maxSpeed), speed.color);
+		
+		if(StatePlay.powerupflag==true) {
+			//render power up at location
+			//g.drawImage(ResourceManager.getImage(Filenames.powerupIcons[powerupindex]).getScaledCopy(.35f), powerx, powery);
+			StatePlay.powerupentity.render(g);
+			//powerupentity.
+		}
+		
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void setHealthStartY()
