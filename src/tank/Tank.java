@@ -3,6 +3,8 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import jig.Entity;
+
 public class Tank extends StateBasedGame
 	{
 	public static AppGameContainer application;
@@ -10,6 +12,7 @@ public class Tank extends StateBasedGame
 	public Tank(String title)
 		{
 		super(title);
+		Entity.setCoarseGrainedCollisionBoundary(Entity.CIRCLE);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -38,6 +41,14 @@ public class Tank extends StateBasedGame
 		ResourceManager.loadImage(Filenames.navRew);
 		ResourceManager.loadImage(Filenames.arrowNext);
 		ResourceManager.loadImage(Filenames.arrowPrev);
+		ResourceManager.loadImage(Filenames.tank_r);
+		ResourceManager.loadImage(Filenames.tank_b);
+		ResourceManager.loadImage(Filenames.tank_g);
+		ResourceManager.loadImage(Filenames.tank_y);
+		ResourceManager.loadImage(Filenames.turret_r);
+		ResourceManager.loadImage(Filenames.turret_b);
+		ResourceManager.loadImage(Filenames.turret_g);
+		ResourceManager.loadImage(Filenames.turret_y);
 		ResourceManager.loadSound(Filenames.buttonClick);
 //		for(i = 0; i < Filenames.maps.length; i++)
 //			ResourceManager.loadImage(Filenames.maps[i]);

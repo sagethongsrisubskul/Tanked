@@ -14,6 +14,8 @@ public class StatePlay extends BasicGameState
 	public static int hours;
 	public static int minutes;
 	public static int seconds;
+	public static tankentity tank1;
+	
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
@@ -39,12 +41,15 @@ public class StatePlay extends BasicGameState
 		DisplaysStatePlay.positionDisplays();
 		GameStats.initGameStats();
 		elapsedTime = hours = minutes = seconds = 0;
+		tank1=new tankentity(200,200,'r');
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 		{
 		DisplaysStatePlay.renderDisplays(g);
+		tank1.render(g);
+		tank1.getTurret().render(g);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -53,7 +58,14 @@ public class StatePlay extends BasicGameState
 		Input input = container.getInput();
 		Inputs.processKeyboardInput(input);
 		input.clearKeyPressedRecord();
+		
+		Inputs.xMouse=input.getMouseX();
+		Inputs.yMouse=input.getMouseY();
+		
 		updateTime(delta);
+		tank1.control(Inputs.movement, Inputs.rotation);
+		tank1.aimTurret(Inputs.xMouse, Inputs.yMouse);
+		tank1.update(delta);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
