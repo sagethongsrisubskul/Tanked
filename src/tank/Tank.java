@@ -41,6 +41,7 @@ public class Tank extends StateBasedGame
 		ResourceManager.loadImage(Filenames.navRew);
 		ResourceManager.loadImage(Filenames.arrowNext);
 		ResourceManager.loadImage(Filenames.arrowPrev);
+		System.out.printf("getting tank resources\n");
 		ResourceManager.loadImage(Filenames.tank_r);
 		ResourceManager.loadImage(Filenames.tank_b);
 		ResourceManager.loadImage(Filenames.tank_g);
