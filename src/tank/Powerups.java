@@ -57,7 +57,6 @@ public class Powerups extends Entity
 				int ycoord = ThreadLocalRandom.current().nextInt(0, 300 + 1);
 				int index = ThreadLocalRandom.current().nextInt(0, Filenames.powerupIcons.length);
 				NetworkControl.sendToAll("~PT" + xcoord + "," + ycoord + "," + index);
-				sendPowerupCollision(index);
 				//powerupFlag=true;
 				}
 			if((powerupElapsedTime == powerupInterval + powerupDuration) && powerupFlag == true)
