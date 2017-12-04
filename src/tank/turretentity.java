@@ -13,16 +13,16 @@ public class turretentity extends Entity{
 		
 		this.parent=parent;
 		switch(team){
-			case 'r': addImageWithBoundingBox(ResourceManager.getImage(Filenames.turret_r).getScaledCopy(0.05f));
+			case 'r': addImageWithBoundingBox(ResourceManager.getImage(Filenames.turret_r).getScaledCopy(0.25f));
 			break;
 			
-			case 'g': addImageWithBoundingBox(ResourceManager.getImage(Filenames.turret_g).getScaledCopy(0.05f));
+			case 'g': addImageWithBoundingBox(ResourceManager.getImage(Filenames.turret_g).getScaledCopy(0.25f));
 			break;
 			
-			case 'b': addImageWithBoundingBox(ResourceManager.getImage(Filenames.turret_b).getScaledCopy(0.05f));
+			case 'b': addImageWithBoundingBox(ResourceManager.getImage(Filenames.turret_b).getScaledCopy(0.25f));
 			break;
 			
-			case 'y': addImageWithBoundingBox(ResourceManager.getImage(Filenames.turret_y).getScaledCopy(0.05f));
+			case 'y': addImageWithBoundingBox(ResourceManager.getImage(Filenames.turret_y).getScaledCopy(0.25f));
 			break;
 		}
 		
