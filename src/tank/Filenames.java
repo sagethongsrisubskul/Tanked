@@ -41,5 +41,12 @@ public class Filenames
 	public final static String turret_b="res/turret_b.png";
 	public final static String turret_y="res/turret_y.png";
 	/// Powerups:
-	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png", "res/powerupInvisible.png"};
+	/// To change, add, or remove powerups, change the 3 arrays:
+	/// 1) Filenames.powerupIcons
+	/// 2) Strings.powerups
+	/// 3) Powerups.powerupType
+	/// Finally change the inputs in Inputs.processKeyboardInput for StatePlay
+
+//	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png", "res/powerupInvisible.png"};
+	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png"};
 	}

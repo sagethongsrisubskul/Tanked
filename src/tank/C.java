@@ -46,7 +46,7 @@ public class C
 	public static final int CLIENT = 2;
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Powerup type:
-	public static final int COLLECTIBLE = 0;
+	public static final int CONSUMABLE = 0;
 	public static final int TIMED = 1;
 	public static final int PERMANENT = 2;
 	}

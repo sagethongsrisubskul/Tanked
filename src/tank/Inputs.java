@@ -6,7 +6,6 @@ public class Inputs
 	static int i;
 	public static int xMouse;
 	public static int yMouse;
-	
 	public static int movement;
 	public static int rotation;
 	/*-----------------------------------------------------------------------------------------------------*/
@@ -41,34 +40,56 @@ public class Inputs
 			}
 		else if(StateControl.currentState == StateControl.STATE_PLAY)
 			{
-			if(input.isKeyPressed(Input.KEY_ENTER))
-				StateControl.enterState(StateControl.STATE_MAIN);
-			}
-		
-			movement=0;
-			rotation=0;
-		
-			if(input.isKeyDown(Input.KEY_W)){
+//			if(input.isKeyPressed(Input.KEY_ENTER))
+//				StateControl.enterState(StateControl.STATE_MAIN);
+			/// Tank movement
+			movement = 0;
+			rotation = 0;
+			if(input.isKeyDown(Input.KEY_W))
+				{
 				movement++;
-			}
-			if(input.isKeyDown(Input.KEY_S)){
+				}
+			if(input.isKeyDown(Input.KEY_S))
+				{
 				movement--;
-			}
-			if(input.isKeyDown(Input.KEY_A)){
+				}
+			if(input.isKeyDown(Input.KEY_A))
+				{
 				rotation--;
-			}
-			if(input.isKeyDown(Input.KEY_D)){
+				}
+			if(input.isKeyDown(Input.KEY_D))
+				{
 				rotation++;
-			}
+				}
 			//send movement and rotation here
-			
 			//debugging for rotation and movement
 			/*if(rotation!=0||movement!=0){
 				System.out.println("Rotation: "+rotation);
 				System.out.println("Movement: "+movement);
 			}*/
 			//mouse position to be implemented
-			
+			/// Powerup activated:
+			if(input.isKeyPressed(Input.KEY_1)) /// Health
+				{
+				Powerups.sendPowerupActivation(0);
+				}
+			else if(input.isKeyPressed(Input.KEY_2)) /// Mine
+				{
+				Powerups.sendPowerupActivation(1);
+				}
+			else if(input.isKeyPressed(Input.KEY_3)) /// Speed
+				{
+				Powerups.sendPowerupActivation(2);
+				}
+			else if(input.isKeyPressed(Input.KEY_4)) /// Power
+				{
+				Powerups.sendPowerupActivation(3);
+				}
+			else if(input.isKeyPressed(Input.KEY_5)) /// Invincible
+				{
+				Powerups.sendPowerupActivation(4);
+				}
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processScreenAdjustment(Input input)
@@ -222,10 +243,8 @@ public class Inputs
 				else if(withinCoordinates(DisplaysStateLobby.leaveGameButton))
 					{
 					playClick();
-					if(Settings.playerType == C.SERVER)
-						NetworkControl.exitServer();
-					else
-						Commands.sendClientExitsCommand(Settings.playerID);
+					if(Settings.playerType == C.SERVER) NetworkControl.exitServer();
+					else Commands.sendClientExitsCommand(Settings.playerID);
 					}
 				else if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.launchGameButton))
 					{
@@ -236,16 +255,14 @@ public class Inputs
 					{
 					playClick();
 					Settings.mapSelected--;
-					if(Settings.mapSelected < 0)
-						Settings.mapSelected = Filenames.miniMap.length - 1;
+					if(Settings.mapSelected < 0) Settings.mapSelected = Filenames.miniMap.length - 1;
 					Commands.sendSetMapCommand();
 					}
 				else if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.nextButton))
 					{
 					playClick();
 					Settings.mapSelected++;
-					if(Settings.mapSelected == Filenames.miniMap.length)
-						Settings.mapSelected = 0;
+					if(Settings.mapSelected == Filenames.miniMap.length) Settings.mapSelected = 0;
 					Commands.sendSetMapCommand();
 					}
 				}
@@ -291,6 +308,14 @@ public class Inputs
 		else if(StateControl.currentState == StateControl.STATE_PLAY)
 			{
 //			processNavigationalClick();
+			for(i = 0; i < Strings.powerups.length; i++)
+				{
+				if(withinCoordinates(DisplaysStatePlay.powerupArea[i])) /// Health
+					{
+					playClick();
+					Powerups.sendPowerupActivation(i);
+					}
+				}
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/

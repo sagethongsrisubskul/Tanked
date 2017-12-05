@@ -4,6 +4,8 @@ import org.newdawn.slick.Color;
 public class Settings
 	{
 	/*-----------------------------------------------------------------------------------------------------*/
+	/// Gameplay:
+	/*-----------------------------------------------------------------------------------------------------*/
 	/// Network:
 	public static int portnumber = 1201;
 	/*-----------------------------------------------------------------------------------------------------*/
@@ -13,8 +15,8 @@ public class Settings
 	public static int playerID = C.NO_ID; /// ID of the player
 	public static int activeIDs[] = new int[C.MAX_PLAYERS];
 	public static String playerName[] = new String[C.MAX_PLAYERS]; /// As players join, they can log in with a name
-	public static int maxCharactersName = 9;
-	public static String sampleMaxName = "123456789";
+	public static int maxCharactersName = 12;
+	public static String sampleMaxName = "123456789012";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Map:
 	public static int mapSelected = 0;

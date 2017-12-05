@@ -56,7 +56,8 @@ public class Strings
 	};
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Play State:
-	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible", "Invisible"};
+//	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible", "Invisible"};
+	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible"};
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Help State:
 	public static final String gameControls = "Game Controls";
