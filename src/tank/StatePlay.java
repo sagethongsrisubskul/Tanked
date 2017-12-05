@@ -46,7 +46,7 @@ public class StatePlay extends BasicGameState
 		StateControl.addCurrentState(getID());
 		Settings.currentScreenWidth = Settings.playScreenWidth;
 		Settings.currentScreenHeight = Settings.playScreenHeight;
-		DisplaysStatePlay.tiledMap = new Map(Filenames.maps[Settings.mapSelected], 0, 0);
+		DisplaysStatePlay.tiledMap = new Map(Filenames.maps[Settings.mapSelected], 10, 125);
 		DisplaysStatePlay.positionDisplays();
 		GameStats.initGameStats();
 		elapsedTime = hours = minutes = seconds = 0;

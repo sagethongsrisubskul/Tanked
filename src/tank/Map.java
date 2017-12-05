@@ -55,6 +55,10 @@ public class Map extends TiledMap {
 	public void render() {
 		super.render(xPos, yPos);
 	}
+
+    public void render(int sX, int sY, int width, int height) {
+        super.render(xPos, yPos, sX, sY, width, height);
+    }
 	
 	public int getXWidthMax() {
 		return xPos + pixelWidth;

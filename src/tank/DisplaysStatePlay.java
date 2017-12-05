@@ -147,7 +147,9 @@ public class DisplaysStatePlay
 		/// Border & maps:
 		g.setColor(backgroundColor);
 		g.fillRect(0, 0, Settings.currentScreenWidth, Settings.currentScreenHeight);
-		map.renderImage();
+		/// Tiled Map:
+		tiledMap.render(0,0,30,19);
+		//map.renderImage();
 		bottomMargin.colorSection(g, backgroundColor);
 		rightMargin.colorSection(g, backgroundColor);
 		miniMapArea.colorSection(g, miniMapColor);
@@ -177,8 +179,7 @@ public class DisplaysStatePlay
 		score.trueTypeFont.drawString(powerupArea[powerupArea.length - 1].centerStringX(scoreFont, Integer.toString(GameStats.score[Settings.playerID])), score.y, Integer.toString(GameStats.score[Settings.playerID]), score.color);
 		power.trueTypeFont.drawString(power.x, power.y, "P: " + Integer.toString(GameStats.power[Settings.playerID]) + "/" + Integer.toString(GameStats.maxPower), power.color);
 		speed.trueTypeFont.drawString(speed.x, speed.y, "S: " + Integer.toString(GameStats.speed[Settings.playerID]) + "/" + Integer.toString(GameStats.maxSpeed), speed.color);
-		/// Tiled Map:
-		tiledMap.render();
+
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void setHealthStartY()
