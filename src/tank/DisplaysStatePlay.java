@@ -166,9 +166,9 @@ public class DisplaysStatePlay
 			{
 			mainFont.drawString(powerupArea[i].centerStringX(mainFont, Integer.toString(i + 1)), powerupArea[i].y + powerupPadding, Integer.toString(i + 1), mainColor);
 			powerupStrings[i].renderString();
-			mainFont.drawString(powerupIcon[i].getEndX() + powerupPadding, powerupIcon[i].getEndY() - powerupPadding - mainFont.getHeight(), "x " + Integer.toString(GameStats.numPowerups[Settings.playerID][i]), mainColor);
-			if(GameStats.powerupType[i] == C.TIMED)
-				mainFont.drawString(powerupArea[i].centerStringX(mainFont, Integer.toString(GameStats.timePowerup[Settings.playerID][i])), powerupArea[i].endY - powerupPadding - mainFont.getHeight(), Integer.toString(GameStats.timePowerup[Settings.playerID][i]), mainColor);
+			mainFont.drawString(powerupIcon[i].getEndX() + powerupPadding, powerupIcon[i].getEndY() - powerupPadding - mainFont.getHeight(), "x " + Integer.toString(Powerups.numPowerups[Settings.playerID][i]), mainColor);
+			if(Powerups.powerupType[i] == C.TIMED)
+				mainFont.drawString(powerupArea[i].centerStringX(mainFont, Integer.toString(Powerups.timePowerup[Settings.playerID][i])), powerupArea[i].endY - powerupPadding - mainFont.getHeight(), Integer.toString(Powerups.timePowerup[Settings.playerID][i]), mainColor);
 			}
 		for(i = 0; i < powerupIcon.length; i++)
 			powerupIcon[i].renderImage();

@@ -35,6 +35,10 @@ public class Commands
 			else if(string.charAt(1) == 'L' && string.charAt(2) == 'G') launchGame();
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'E') NetworkControl.exitServer();
 			else if(string.charAt(1) == 'C' && string.charAt(2) == 'E') NetworkControl.exitClient(Character.getNumericValue(string.charAt(3)));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='A') Powerups.powerupActivation(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='C') Powerups.powerupCollision(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='T') Powerups.processPowerupCommand(true,string.substring(3,string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='F') Powerups.processPowerupCommand(false,"");
 
 			}
 		else /// String is a chat message
@@ -85,7 +89,7 @@ public class Commands
 			StateControl.enterState(StateControl.STATE_LOBBY);
 			}
 		NetworkControl.displayMessage(Settings.playerName[firstOpenID] + " has joined the game");
-		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerID, Settings.playerName[Settings.playerID]);
+//		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerID, Settings.playerName[Settings.playerID]);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void launchGame()
@@ -112,8 +116,8 @@ public class Commands
 		int end = 0; /// Ending index of name
 		while(true)
 			{
-			characters = Character.getNumericValue(string.charAt(current));
-			start = current + 1;
+			characters = (Character.getNumericValue(string.charAt(current)) * 10) + Character.getNumericValue(string.charAt(current + 1));
+			start = current + 2;
 			end = start + characters;
 //			System.out.printf("char = %d, start = %d, end = %d, name = %s\n", characters, start, end, string.substring(start, end));
 			Settings.playerName[names] = string.substring(start, end);
@@ -157,6 +161,8 @@ public class Commands
 		string += (Settings.numberActivePlayers + 1);
 		for(i = 0; i < Settings.numberActivePlayers; i++)
 			{
+			if(Settings.playerName[i].length() < 10) /// Adds a leading zero if name length is less than 10
+				string += "0";
 			string += Settings.playerName[i].length();
 			string += Settings.playerName[i];
 			}
@@ -185,4 +191,5 @@ public class Commands
 		NetworkControl.sendToAll("~SW" + Settings.winCondition);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
+
 	}

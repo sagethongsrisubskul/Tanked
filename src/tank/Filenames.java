@@ -31,6 +31,22 @@ public class Filenames
 //	public final static String tilesetImages[] = {"res/tiles.png", "res/tankMasterTL.png", "res/tankMaster2.png"};
 	public final static String miniMap[] = {"res/miniMap1.jpg", "res/miniMap2.jpg", "res/miniMap3.jpg"};
 	public final static String map2 = "res/Map2.jpg";
+	/// Tanks:
+	public final static String tank_r="res/tank_r.png";
+	public final static String tank_g="res/tank_g.png";
+	public final static String tank_b="res/tank_b.png";
+	public final static String tank_y="res/tank_y.png";
+	public final static String turret_r="res/turret_r.png";
+	public final static String turret_g="res/turret_g.png";
+	public final static String turret_b="res/turret_b.png";
+	public final static String turret_y="res/turret_y.png";
 	/// Powerups:
-	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png", "res/powerupInvisible.png"};
+	/// To change, add, or remove powerups, change the 3 arrays:
+	/// 1) Filenames.powerupIcons
+	/// 2) Strings.powerups
+	/// 3) Powerups.powerupType
+	/// Finally change the inputs in Inputs.processKeyboardInput for StatePlay
+
+//	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png", "res/powerupInvisible.png"};
+	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png"};
 	}
