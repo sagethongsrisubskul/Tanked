@@ -80,17 +80,7 @@ public class StatePlay extends BasicGameState
 		tank1.aimTurret(Inputs.xMouse, Inputs.yMouse);
 		tank1.update(delta);
 		Powerups.sendPowerupStatus();
-		
-		/*
-		 * if(powerupEntity.collides(tankentity)){
-		 * 		Network.sendToAll("~PF");
-		 * 		//handle tank power up
-		 * 		if(powerupIndex==0){
-		 * 			//method for tank power up??
-		 * 		}
-		 * 
-		 * }
-		 */
+		Powerups.CheckPowerUpCollision();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override

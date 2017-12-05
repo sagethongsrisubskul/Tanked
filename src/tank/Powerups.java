@@ -70,6 +70,38 @@ public class Powerups extends Entity
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
+	//checks for collision with power ups on map
+	public static void CheckPowerUpCollision() {
+		if(powerupFlag==true) {
+			if(StatePlay.powerupEntity.collides(StatePlay.tank1)!=null){
+				//handle tank power up
+		  		
+		  		if(Powerups.powerupIndex==0){ //if health power up
+		  			//increment the number of health packs
+		  			Powerups.sendPowerupCollision(Powerups.powerupIndex);
+		  		}
+		  		else if(Powerups.powerupIndex==1) {//if mine power up
+		  			//increment the number of mine power ups 
+		  			Powerups.sendPowerupCollision(Powerups.powerupIndex);
+		  		}
+		  		else if(Powerups.powerupIndex==2) {//if speed
+		  			//increment the number of speed power ups
+		  			Powerups.sendPowerupCollision(Powerups.powerupIndex);
+		  		}
+		  		else if(Powerups.powerupIndex==3) {//if power
+		  			//increment the number of power power ups
+		  			Powerups.sendPowerupCollision(Powerups.powerupIndex);
+		  		}
+		  		else if(Powerups.powerupIndex==4) {//if invincibility
+		  			//increment the number of invincibility power ups
+		  			Powerups.sendPowerupCollision(Powerups.powerupIndex);
+		  		}
+		  		NetworkControl.sendToAll("~PF");
+		  
+		  }
+		}
+	}
+	/*-----------------------------------------------------------------------------------------------------*/
 	/* When a player collides with a powerup on the screen, that player should call this method */
 	public static void sendPowerupCollision(int powerupIndex)
 		{
