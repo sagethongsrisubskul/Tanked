@@ -82,4 +82,8 @@ public class tankentity extends Entity {
 	public turretentity getTurret(){
 		return turret;
 	}
+	
+	public static void ParseMouseCoords(String string) {
+		
+	}
 }

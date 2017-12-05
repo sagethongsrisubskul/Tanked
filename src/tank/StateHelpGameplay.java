@@ -51,8 +51,8 @@ public class StateHelpGameplay extends BasicGameState
 	@Override
 	public void mouseClicked(int button, int x, int y, int numClicked)
 		{
-		Inputs.xMouse = x;
-		Inputs.yMouse = y;
+		Inputs.localxMouse = x;
+		Inputs.localyMouse = y;
 		Inputs.processMouseInput();
 		}
 	}

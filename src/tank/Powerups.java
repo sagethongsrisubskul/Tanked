@@ -73,7 +73,7 @@ public class Powerups extends Entity
 	//checks for collision with power ups on map
 	public static void CheckPowerUpCollision() {
 		if(powerupFlag==true) {
-			if(StatePlay.powerupEntity.collides(StatePlay.tank1)!=null){
+			if(StatePlay.powerupEntity.collides(StatePlay.tanks[Settings.playerID])!=null){
 				//handle tank power up
 		  		
 		  		if(Powerups.powerupIndex==0){ //if health power up

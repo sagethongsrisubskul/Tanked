@@ -4,10 +4,15 @@ import org.newdawn.slick.Input;
 public class Inputs
 	{
 	static int i;
-	public static int xMouse;
-	public static int yMouse;
-	public static int movement;
-	public static int rotation;
+	public static int localxMouse;
+	public static int localyMouse;
+	public static int localmovement;
+	public static int localrotation;
+	public static int xMouse[] = new int[4];
+	public static int yMouse[] = new int[4];
+	public static int movement[] = new int[4];
+	public static int rotation[] = new int[4];
+	
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processKeyboardInput(Input input)
 		{
@@ -43,23 +48,35 @@ public class Inputs
 //			if(input.isKeyPressed(Input.KEY_ENTER))
 //				StateControl.enterState(StateControl.STATE_MAIN);
 			/// Tank movement
-			movement = 0;
-			rotation = 0;
+			for(int i=0;i<Settings.numberActivePlayers;i++) {
+				movement[i] = 0;
+				rotation[i] = 0;
+			}
+			
 			if(input.isKeyDown(Input.KEY_W))
 				{
-				movement++;
+				movement[Settings.playerID]++;
+				
+				//send playerid movement++
+				//NetworkControl.sendtoall("PM,playerid,playermovement);
+				NetworkControl.sendToAll("~PM"+Settings.playerID+movement[Settings.playerID]);
 				}
 			if(input.isKeyDown(Input.KEY_S))
 				{
-				movement--;
+				movement[Settings.playerID]--;
+				NetworkControl.sendToAll("~PM"+Settings.playerID+movement[Settings.playerID]);
 				}
 			if(input.isKeyDown(Input.KEY_A))
 				{
-				rotation--;
+				rotation[Settings.playerID]--;
+				
+				NetworkControl.sendToAll("~PR"+Settings.playerID+rotation[Settings.playerID]);
 				}
 			if(input.isKeyDown(Input.KEY_D))
 				{
-				rotation++;
+				rotation[Settings.playerID]++;
+				
+				NetworkControl.sendToAll("~PR"+Settings.playerID+rotation[Settings.playerID]);
 				}
 			//send movement and rotation here
 			//debugging for rotation and movement
@@ -397,20 +414,20 @@ public class Inputs
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static boolean withinCoordinates(Image image)
 		{
-		if(xMouse > image.x && xMouse < image.getEndX() && yMouse > image.y && yMouse < image.getEndY())
+		if(localxMouse > image.x && localxMouse < image.getEndX() && localyMouse > image.y && localyMouse < image.getEndY())
 			return true;
 		return false;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static boolean withinCoordinates(Area area)
 		{
-		if(xMouse > area.x && xMouse < area.endX && yMouse > area.y && yMouse < area.endY) return true;
+		if(localxMouse > area.x && localxMouse < area.endX && localyMouse > area.y && localyMouse < area.endY) return true;
 		return false;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static boolean withinCoordinates(int x, int y, int endX, int endY)
 		{
-		if(xMouse > x && xMouse < endX && yMouse > y && yMouse < endY) return true;
+		if(localxMouse > x && localxMouse < endX && localyMouse > y && localyMouse < endY) return true;
 		return false;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
