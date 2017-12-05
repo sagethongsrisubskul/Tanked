@@ -2,7 +2,6 @@ package tank;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.tiled.TiledMap;
 
 /* This class is for displaying all the displayables in the state. A state will call the positionDisplays
  * method during the enter method of the state. This will recalculate the position of the displays based
@@ -58,7 +57,7 @@ public class DisplaysStatePlay
 	public static StringsDisplay speed = new StringsDisplay("", mainFont, speedColor, 0, 0);
 
 	/// Tiled Map:
-	public static TiledMap tiledMap;
+	public static Map tiledMap;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initDisplays()
 		{
@@ -179,7 +178,7 @@ public class DisplaysStatePlay
 		power.trueTypeFont.drawString(power.x, power.y, "P: " + Integer.toString(GameStats.power[Settings.playerID]) + "/" + Integer.toString(GameStats.maxPower), power.color);
 		speed.trueTypeFont.drawString(speed.x, speed.y, "S: " + Integer.toString(GameStats.speed[Settings.playerID]) + "/" + Integer.toString(GameStats.maxSpeed), speed.color);
 		/// Tiled Map:
-		tiledMap.render(0,0);
+		tiledMap.render();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void setHealthStartY()
