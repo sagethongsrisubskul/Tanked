@@ -37,8 +37,8 @@ public class Commands
 			else if(string.charAt(1) == 'C' && string.charAt(2) == 'E') NetworkControl.exitClient(Character.getNumericValue(string.charAt(3)));
 			else if(string.charAt(1)=='P' && string.charAt(2)=='A') Powerups.powerupActivation(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)));
 			else if(string.charAt(1)=='P' && string.charAt(2)=='C') Powerups.powerupCollision(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)));
-			else if(string.charAt(1)=='P' && string.charAt(2)=='T') Powerups.processPowerupCommand(true,string.substring(3,string.length()));
-			else if(string.charAt(1)=='P' && string.charAt(2)=='F') Powerups.processPowerupCommand(false,"");
+			else if(string.charAt(1)=='P' && string.charAt(2)=='T') Powerups.powerupTrueCommand(string.substring(3,string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='F') Powerups.powerupFalseCommand();
 
 			}
 		else /// String is a chat message

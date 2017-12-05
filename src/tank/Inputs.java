@@ -378,11 +378,6 @@ public class Inputs
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processNavigationalClick()
 		{
-//		if(withinCoordinates(DisplaysNavigationalButtons.buttonHome))
-//			{
-//			playClick();
-//			enterState(StateControl.STATE_MAIN);
-//			}
 		if(withinCoordinates(DisplaysNavigationalButtons.buttonBack))
 			{
 			playClick();
