@@ -7,7 +7,8 @@ import jig.Vector;
 public class turretentity extends Entity{
 
 	private tankentity parent;
-	
+
+	/*-----------------------------------------------------------------------------------------------------*/
 	public turretentity(final float x, final float y,final char team, tankentity parent){
 		super(x,y);
 		
@@ -35,7 +36,7 @@ public class turretentity extends Entity{
 		}
 		
 	}
-	
+	/*-----------------------------------------------------------------------------------------------------*/
 	public void update(final int delta){
 		this.setPosition(parent.getPosition());
 		this.setRotation(parent.getTurretAngle());

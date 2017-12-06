@@ -35,9 +35,19 @@ public class Commands
 			else if(string.charAt(1) == 'L' && string.charAt(2) == 'G') launchGame();
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'E') NetworkControl.exitServer();
 			else if(string.charAt(1) == 'C' && string.charAt(2) == 'E') NetworkControl.exitClient(Character.getNumericValue(string.charAt(3)));
-			else if(string.charAt(1)=='P' && string.charAt(2)=='T') powerups(true,string.substring(3,string.length()));
-			else if(string.charAt(1)=='P' && string.charAt(2)=='F') powerups(false,"");
-
+			else if(string.charAt(1)=='P' && string.charAt(2)=='A') Powerups.powerupActivation(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='C') Powerups.powerupCollision(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='T') Powerups.powerupTrueCommand(string.substring(3,string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='F') Powerups.powerupFalseCommand();
+			else if(string.charAt(1)=='P' && string.charAt(2)=='M') Inputs.movement[Character.getNumericValue(string.charAt(3))]=Character.getNumericValue(string.charAt(4));
+			else if(string.charAt(1)=='P'&& string.charAt(2)=='R') Inputs.rotation[Character.getNumericValue(string.charAt(3))]=Character.getNumericValue(string.charAt(4));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='X') 
+				Inputs.xMouse[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4,string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2) == 'Y')
+				Inputs.yMouse[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4,string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='V') Inputs.xpos[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4, string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='B') Inputs.ypos[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4, string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='H') Inputs.hullangle[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4, string.length()));
 			}
 		else /// String is a chat message
 			{
@@ -87,7 +97,7 @@ public class Commands
 			StateControl.enterState(StateControl.STATE_LOBBY);
 			}
 		NetworkControl.displayMessage(Settings.playerName[firstOpenID] + " has joined the game");
-		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerID, Settings.playerName[Settings.playerID]);
+//		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerID, Settings.playerName[Settings.playerID]);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void launchGame()
@@ -114,8 +124,8 @@ public class Commands
 		int end = 0; /// Ending index of name
 		while(true)
 			{
-			characters = Character.getNumericValue(string.charAt(current));
-			start = current + 1;
+			characters = (Character.getNumericValue(string.charAt(current)) * 10) + Character.getNumericValue(string.charAt(current + 1));
+			start = current + 2;
 			end = start + characters;
 //			System.out.printf("char = %d, start = %d, end = %d, name = %s\n", characters, start, end, string.substring(start, end));
 			Settings.playerName[names] = string.substring(start, end);
@@ -159,6 +169,8 @@ public class Commands
 		string += (Settings.numberActivePlayers + 1);
 		for(i = 0; i < Settings.numberActivePlayers; i++)
 			{
+			if(Settings.playerName[i].length() < 10) /// Adds a leading zero if name length is less than 10
+				string += "0";
 			string += Settings.playerName[i].length();
 			string += Settings.playerName[i];
 			}
@@ -187,47 +199,5 @@ public class Commands
 		NetworkControl.sendToAll("~SW" + Settings.winCondition);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-		//method for changing status of power ups
-		public static void powerups(boolean bool,String string) {
-				String xcoord="";
-				String ycoord="";
-				int index=0;
-				int stringsplit=0;
-				if(bool==true) {
-					//StatePlay.powerupflag=true;
-					for(int i=0;i<string.length();i++) {//grab x coord from string
-						if(string.charAt(i)!=',') {
-							xcoord=xcoord+string.charAt(i);
-						}
-						else {
-							stringsplit=i+1;
-							break;
-						}
-					}
-					
-					for(int i=stringsplit;i<string.length();i++) {//grab y coord from string
-						if(string.charAt(i)!=',') {
-							ycoord=ycoord + string.charAt(i);
-						}
-						else {
-							stringsplit=i+1;
-							break;
-						}
-					}
-					
-					index=Character.getNumericValue(string.charAt(stringsplit));
-					//System.out.println("X:" +xcoord + " Y:" + ycoord + " Index:" + index );
-					StatePlay.powerx=Integer.parseInt(xcoord);//get int from string
-					StatePlay.powery=Integer.parseInt(ycoord);//get int from string
-					StatePlay.powerupindex=index;
-					StatePlay.powerupentity= new Powerups(StatePlay.powerx,StatePlay.powery);
-					StatePlay.powerupflag=true;
-					
-				}
-				else if(bool==false) {
-					StatePlay.powerupflag=false;
-				}
-		}
-	/*-----------------------------------------------------------------------------------------------------*/
-	
+
 	}

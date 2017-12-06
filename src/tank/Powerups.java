@@ -1,63 +1,196 @@
 package tank;
-
 import jig.Entity;
-import jig.ResourceManager;
-import jig.Vector;
 
 import java.util.concurrent.ThreadLocalRandom;
-
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.StateBasedGame;
-
-public class Powerups extends Entity{
-	
-	public Powerups(final float x, final float y) {
-		super(x,y);
-	ResourceManager.loadImage(Filenames.powerupIcons[StatePlay.powerupindex]);
-	addImageWithBoundingBox(ResourceManager.getImage(Filenames.powerupIcons[StatePlay.powerupindex]).getScaledCopy(.35f));
-	}
-	
-	public static void powerstatus() {
-		if(Settings.playerType==C.SERVER) {
-			/*	
-				Still to do:
-				1.) Check when tank collides with powerx and powery. If so then set power on tank. Remove power from map.
-				***DONE***
-				2.) Rescale images of power ups on screen
-				3.) need to scale the random numbers for each bounds of map ??map coords??
-				4.) Change time for spawn
-			*/
-				
-			//handle powerup timers
-				int xcoord=0;
-				int ycoord=0;
-				int index=0;
-				if((StatePlay.seconds==5) && StatePlay.powerupflag==false) {
-					//spawn power ups on map
-					//make rand coordinates
-					xcoord=ThreadLocalRandom.current().nextInt(0, 300 + 1);
-					ycoord=ThreadLocalRandom.current().nextInt(0, 300 + 1);
-					index=ThreadLocalRandom.current().nextInt(0,5+1);
-					//send to clients
-					NetworkControl.sendToAll("~PT"+xcoord+","+ycoord+","+index);
-					//powerupflag=true;
+/// Powerups:
+/// To change, add, or remove powerups, change the 3 arrays:
+/// 1) Filenames.powerupIcons
+/// 2) Strings.powerups
+/// 3) Powerups.powerupType
+/// Adjust static final variables in C class
+/// Finally change the inputs in Inputs.processKeyboardInput for StatePlay
+public class Powerups extends Entity
+	{
+	/// Powerup display:
+	public static boolean powerupFlag = false; /// Controls the presence of the powerup on the screen
+	public static float iconScale = .2f;
+	public static int powerx = 0; // powerups x location
+	public static int powery = 0; // powerups y location
+	/// Powerup life cycle:
+	public static int powerupElapsedTime = 0; /// The time in seconds the powerup is on its cycle
+	public static int powerupInterval = 10; /// The interval in seconds a powerup will appear after the previous disappeared
+	public static int powerupDuration = 10; /// The seconds the powerup will remain on the screen
+	/// Powerup coord
+	public static int powerupIndex = 0; /// The index of the powerup image in Filenames
+	/// Powerup statuses:
+//	public static int powerupType[] = {C.CONSUMABLE, C.CONSUMABLE, C.TIMED, C.TIMED, C.TIMED, C.TIMED}; /// Every powerup has a type (CONSUMABLE, TIMED, OR PERMANENT)
+	public static int powerupType[] = {C.CONSUMABLE, C.CONSUMABLE, C.TIMED, C.TIMED, C.TIMED}; /// Every powerup has a type (CONSUMABLE, TIMED, OR PERMANENT)
+	public static int numPowerups[][] = new int[C.MAX_PLAYERS][Strings.powerups.length]; /// The amount of collectible powerupIcons the player has
+	public static int timePowerup[][] = new int[C.MAX_PLAYERS][Strings.powerups.length]; /// How many seconds are left till timed powerup is unactive
+	/// Powerup values:
+	public static int healthIncrease = (int) (GameStats.maxHealthBase * 0.10); /// How much health is restored when activating the health powerup
+	public static int mineDamage = (int) (GameStats.maxHealthBase * 0.10); /// How much damage colliding with a mine will do
+	public static int speedBurst = 3; /// How much additional speed when activating the speed powerup
+	public static int powerBurst = 3; /// How much additional power when activating the power powerup
+	public static int invincibleActivated[] = new int[C.MAX_PLAYERS];
+	public static int speedBurstTime = 30;
+	public static int powerBurstTime = 30;
+	public static int invincibleBurstTime = 30;
+	/*-----------------------------------------------------------------------------------------------------*/
+	public Powerups(final float x, final float y)
+		{
+		super(x, y);
+		ResourceManager.loadImage(Filenames.powerupIcons[powerupIndex]);
+		addImageWithBoundingBox(ResourceManager.getImage(Filenames.powerupIcons[powerupIndex]).getScaledCopy(iconScale));
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	/* Sends powerup display command if user is the server and the powerup display cycle has begun */
+	public static void sendPowerupStatus()
+		{
+		if(Settings.playerType == C.SERVER)
+			{
+			if((powerupElapsedTime == powerupInterval) && powerupFlag == false)
+				{
+				int xcoord = ThreadLocalRandom.current().nextInt(0, 300 + 1);
+				int ycoord = ThreadLocalRandom.current().nextInt(0, 300 + 1);
+				int index = ThreadLocalRandom.current().nextInt(0, Filenames.powerupIcons.length);
+				NetworkControl.sendToAll("~PT" + xcoord + "," + ycoord + "," + index);
 				}
-					
-				if((StatePlay.seconds==10) && StatePlay.powerupflag == true) {
-					//delete power up on screen if not picked up
-					//send to clients
-					NetworkControl.sendToAll("~PF");
-					//powerupflag=false;
+			if((powerupElapsedTime == powerupInterval + powerupDuration) && powerupFlag == true)
+				{
+				NetworkControl.sendToAll("~PF");
 				}
-				//end of power up timers
 			}
-	}
-	
-	
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	/* Checks for collision with the displayed powerup */
+	public static void checkPowerupCollision()
+		{
+			for(int i=0;i<Settings.numberActivePlayers;i++) {
+				if(powerupFlag == true && StatePlay.powerupEntity.collides(StatePlay.tanks[i]) != null)
+					{
+					tank.ResourceManager.getSound(Filenames.ding).play();
+					NetworkControl.sendToAll("~PC" + Settings.playerID + powerupIndex);
+					NetworkControl.sendToAll("~PF");
+					}	
+				}
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	/* This method is called for every user to process someone colliding with a powerup */
+	public static void powerupCollision(int playerID, int powerupIndex)
+		{
+		numPowerups[playerID][powerupIndex]++;
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	/* When a player activates a powerup, that player should call this method */
+	public static void sendPowerupActivation(int powerupIndex)
+		{
+		if(numPowerups[Settings.playerID][powerupIndex] > 0) /// Only activates if player has one in their inventory
+			NetworkControl.sendToAll("~PA" + Settings.playerID + powerupIndex);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	/* This method is called for every user to process someone activating a powerup */
+	public static void powerupActivation(int playerID, int powerupIndex)
+		{
+		if(powerupIndex == 0) /// Health
+			{
+			/// Add health but not to exceed max health:
+			GameStats.health[playerID] = (GameStats.health[playerID] + healthIncrease) > GameStats.maxHealth[playerID] ? GameStats.maxHealth[playerID] : (GameStats.health[playerID] + healthIncrease);
+			}
+		else if(powerupIndex == 1) /// Mine
+			{
+			//TODO render mine on the map
+			}
+		else if(powerupIndex == 2) /// Speed
+			{
+			/// Increase speed but not to exceed max speed:
+			GameStats.speed[playerID] = (GameStats.speed[playerID] + speedBurst) > GameStats.maxSpeed ? GameStats.maxSpeed : (GameStats.speed[playerID] + speedBurst);
+			timePowerup[playerID][powerupIndex] += speedBurstTime;
+			}
+		else if(powerupIndex == 3) /// Power
+			{
+			/// Increase power but not to exceed max power:
+			GameStats.power[playerID] = (GameStats.power[playerID] + powerBurst) > GameStats.maxPower ? GameStats.maxPower : (GameStats.power[playerID] + powerBurst);
+			timePowerup[playerID][powerupIndex] += powerBurstTime;
+			}
+		else if(powerupIndex == 4) /// Invincible
+			{
+			invincibleActivated[playerID] = C.YES;
+			timePowerup[playerID][powerupIndex] += invincibleBurstTime;
+			}
+		numPowerups[playerID][powerupIndex]--; /// Remove one from inventory
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	/* This method will be called for every user once an activated powerup's timer hits zero */
+	public static void powerupDeactivation(int playerID, int powerupIndex)
+		{
+		if(powerupIndex == 2) /// Speed
+			{
+			GameStats.speed[playerID] -= speedBurst;
+			}
+		else if(powerupIndex == 3) /// Power
+			{
+			GameStats.power[playerID] -= powerBurst;
+			}
+		else if(powerupIndex == 4) /// Invincible
+			{
+			invincibleActivated[playerID] = C.NO;
+			}
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	/* This method should be called for every user when someone collides with an enemy mine */
+	public static void mineCollision(int playerID)
+		{
+		/// Decrease health but not to exceed zero:
+		GameStats.health[playerID] = (GameStats.health[playerID] - mineDamage) < 0 ? 0 : (GameStats.health[playerID] - mineDamage);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	/* Process the powerup command from the network. Used to display of the powerup and its status */
+	public static void powerupTrueCommand(String string)
+		{
+		String xcoord = "";
+		String ycoord = "";
+		int index = 0;
+		int stringsplit = 0;
 
-}
+		for(int i = 0; i < string.length(); i++)
+			{//grab x coord from string
+			if(string.charAt(i) != ',')
+				{
+				xcoord = xcoord + string.charAt(i);
+				}
+			else
+				{
+				stringsplit = i + 1;
+				break;
+				}
+			}
+		for(int i = stringsplit; i < string.length(); i++)
+			{//grab y coord from string
+			if(string.charAt(i) != ',')
+				{
+				ycoord = ycoord + string.charAt(i);
+				}
+			else
+				{
+				stringsplit = i + 1;
+				break;
+				}
+			}
+		index = Character.getNumericValue(string.charAt(stringsplit));
+		//System.out.println("X:" +xcoord + " Y:" + ycoord + " Index:" + index );
+		powerx = Integer.parseInt(xcoord);//get int from string
+		powery = Integer.parseInt(ycoord);//get int from string
+		powerupIndex = index;
+		StatePlay.powerupEntity = new Powerups(Powerups.powerx, Powerups.powery);
+		powerupFlag = true;
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	/* Process the powerup command from the network. Used to erase the display of the powerup and its status */
+	public static void powerupFalseCommand()
+		{
+		powerupFlag = false;
+		powerupElapsedTime = 0;
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	}

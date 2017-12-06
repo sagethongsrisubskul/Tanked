@@ -63,11 +63,11 @@ public class StateMain extends BasicGameState
 	@Override
 	public void mouseClicked(int button, int x, int y, int numClicked)
 		{
-		Inputs.xMouse = x;
-		Inputs.yMouse = y;
+		Inputs.localxMouse = x;
+		Inputs.localyMouse = y;
 		Inputs.processMouseInput();
-		Inputs.xMouse = -1;
-		Inputs.yMouse = -1;
+		Inputs.localxMouse = -1;
+		Inputs.localyMouse = -1;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 //	@Override

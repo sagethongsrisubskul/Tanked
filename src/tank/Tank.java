@@ -41,7 +41,6 @@ public class Tank extends StateBasedGame
 		ResourceManager.loadImage(Filenames.navRew);
 		ResourceManager.loadImage(Filenames.arrowNext);
 		ResourceManager.loadImage(Filenames.arrowPrev);
-		System.out.printf("getting tank resources\n");
 		ResourceManager.loadImage(Filenames.tank_r);
 		ResourceManager.loadImage(Filenames.tank_b);
 		ResourceManager.loadImage(Filenames.tank_g);
@@ -51,6 +50,11 @@ public class Tank extends StateBasedGame
 		ResourceManager.loadImage(Filenames.turret_g);
 		ResourceManager.loadImage(Filenames.turret_y);
 		ResourceManager.loadSound(Filenames.buttonClick);
+		ResourceManager.loadSound(Filenames.ding);
+		ResourceManager.loadSound(Filenames.fire);
+		ResourceManager.loadSound(Filenames.shoot);
+		ResourceManager.loadSound(Filenames.engine);
+		ResourceManager.loadSound(Filenames.explosion);
 //		for(i = 0; i < Filenames.maps.length; i++)
 //			ResourceManager.loadImage(Filenames.maps[i]);
 		ResourceManager.loadImage(Filenames.map2);

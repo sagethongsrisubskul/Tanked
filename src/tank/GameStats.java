@@ -24,12 +24,6 @@ public class GameStats
 	public static int speed[] = new int[C.MAX_PLAYERS];
 	public static int score[] = new int[C.MAX_PLAYERS];
 	public static int level[] = new int[C.MAX_PLAYERS];
-	/// The amount of collectible powerupIcons the player has:
-	public static int numPowerups[][] = new int[C.MAX_PLAYERS][Strings.powerups.length];
-	/// Every powerup has a type (COLLECTIBLE, TIMED, OR PERMANENT):
-	public static int powerupType[] = {C.COLLECTIBLE, C.COLLECTIBLE, C.TIMED, C.TIMED, C.TIMED, C.TIMED};
-	/// How many seconds are left till timed powerup is unactive:
-	public static int timePowerup[][] = new int[C.MAX_PLAYERS][Strings.powerups.length];
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initGameStats()
 		{

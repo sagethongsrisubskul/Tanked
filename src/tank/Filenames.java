@@ -18,6 +18,11 @@ public class Filenames
 	public final static String arrowNext = "res/Arrow_next.png";
 	public final static String arrowPrev = "res/Arrow_prev.png";
 	/// Sounds:
+	public final static String ding = "res/ding.wav";
+	public final static String fire = "res/fire.wav";
+	public final static String explosion = "res/explosion.wav";
+	public final static String engine = "res/engine.wav";
+	public final static String shoot = "res/shoot.wav";
 	public final static String buttonClick = "res/buttonClick.wav";
 	/// Buttons:
 	public final static String buttonRectangle = "res/ButtonRectangle.png";
@@ -40,6 +45,7 @@ public class Filenames
 	public final static String turret_g="res/turret_g.png";
 	public final static String turret_b="res/turret_b.png";
 	public final static String turret_y="res/turret_y.png";
-	/// Powerups:
-	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png", "res/powerupInvisible.png"};
+
+	//	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png", "res/powerupInvisible.png"};
+	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png"};
 	}
