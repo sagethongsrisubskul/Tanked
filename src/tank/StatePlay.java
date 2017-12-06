@@ -6,6 +6,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
+import jig.Vector;
 public class StatePlay extends BasicGameState
 	{
 	Tank tank;
@@ -21,6 +23,10 @@ public class StatePlay extends BasicGameState
 //	public static int powerupIndex=0;
 	public static Powerups powerupEntity;
 //	public static int powerupElapsedTime = 0;
+	public int x=0;
+	public int y=0;
+	public int timer=0;
+	
 	
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -91,15 +97,38 @@ public class StatePlay extends BasicGameState
 		
 		//Inputs.xMouse[Settings.playerID]=input.getMouseX();
 		//Inputs.yMouse[Settings.playerID]=input.getMouseY();
-		NetworkControl.sendToAll("~PX"+Settings.playerID+input.getMouseX());
-		NetworkControl.sendToAll("~PY"+Settings.playerID+input.getMouseY());
-		System.out.println("X: "+Inputs.xMouse[Settings.playerID]+" Y: "+Inputs.yMouse[Settings.playerID]);
+		if(timer>=10) {
+			NetworkControl.sendToAll("~PX"+Settings.playerID+input.getMouseX());
+			NetworkControl.sendToAll("~PY"+Settings.playerID+input.getMouseY());
+			x=(int) tanks[Settings.playerID].getX();
+			y=(int) tanks[Settings.playerID].getY();
+			NetworkControl.sendToAll("~PV"+Settings.playerID+x);
+			NetworkControl.sendToAll("~PB"+Settings.playerID+y);
+			timer=0;
+		}
+		
+		timer+=delta;
 		updateTime(delta);
+		
+		for(int i=0;i<Settings.numberActivePlayers;i++) {
+			Inputs.vectors[i]=new Vector(Inputs.xpos[i],Inputs.ypos[i]);
+		}
 		//System.out.println(Settings.playerID);
 		for(int i=0;i<Settings.numberActivePlayers;i++) {
-			tanks[i].control(Inputs.movement[i], Inputs.rotation[i]);
-			tanks[i].aimTurret(Inputs.xMouse[i], Inputs.yMouse[i]);
-			tanks[i].update(delta);
+			if(i==Settings.playerID) {
+				tanks[i].control(Inputs.movement[i], Inputs.rotation[i]);
+				tanks[i].aimTurret(Inputs.xMouse[i], Inputs.yMouse[i]);
+				tanks[i].update(delta,i);
+			}
+			
+			if(i!=Settings.playerID) {
+				tanks[i].control(Inputs.movement[i],Inputs.rotation[i]);
+				tanks[i].setRotation(Inputs.hullangle[i]);
+				tanks[i].aimTurret(Inputs.xMouse[i], Inputs.yMouse[i]);
+				tanks[i].setPosition(Inputs.vectors[i]);
+				tanks[i].update(delta,i);
+				
+			}
 		}
 		Powerups.sendPowerupStatus();
 		Powerups.CheckPowerUpCollision();

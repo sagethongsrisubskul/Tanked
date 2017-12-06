@@ -45,7 +45,9 @@ public class Commands
 				Inputs.xMouse[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4,string.length()));
 			else if(string.charAt(1)=='P' && string.charAt(2) == 'Y')
 				Inputs.yMouse[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4,string.length()));
-
+			else if(string.charAt(1)=='P' && string.charAt(2)=='V') Inputs.xpos[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4, string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='B') Inputs.ypos[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4, string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='H') Inputs.hullangle[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4, string.length()));
 			}
 		else /// String is a chat message
 			{

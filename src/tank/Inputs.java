@@ -1,5 +1,7 @@
 package tank;
 import org.newdawn.slick.Input;
+
+import jig.Vector;
 /* This class is for handling any keyboard or mouse click inputs */
 public class Inputs
 	{
@@ -12,6 +14,10 @@ public class Inputs
 	public static int yMouse[] = new int[4];
 	public static int movement[] = new int[4];
 	public static int rotation[] = new int[4];
+	public static int xpos[] = new int[4];
+	public static int ypos[] = new int[4];
+	public static int hullangle[] = new int[4];
+	public static Vector vectors[]=new Vector[4];
 	
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processKeyboardInput(Input input)
