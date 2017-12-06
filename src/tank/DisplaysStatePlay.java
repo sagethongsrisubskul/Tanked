@@ -148,7 +148,7 @@ public class DisplaysStatePlay
 		g.setColor(backgroundColor);
 		g.fillRect(0, 0, Settings.currentScreenWidth, Settings.currentScreenHeight);
 		/// Tiled Map:
-		tiledMap.render(0,0,30,19);
+		tiledMap.render(25,5);
 		//map.renderImage();
 		bottomMargin.colorSection(g, backgroundColor);
 		rightMargin.colorSection(g, backgroundColor);

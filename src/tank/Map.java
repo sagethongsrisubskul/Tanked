@@ -8,6 +8,9 @@ import org.newdawn.slick.tiled.TiledMap;
 import jig.Vector;
 
 public class Map extends TiledMap {
+	private static int renderTileWidth = 30;
+	private static int renderTileHeight = 19;
+
 	private int xPos;
 	private int yPos;
 	private int pixelWidth;
@@ -56,8 +59,13 @@ public class Map extends TiledMap {
 		super.render(xPos, yPos);
 	}
 
-    public void render(int sX, int sY, int width, int height) {
-        super.render(xPos, yPos, sX, sY, width, height);
+    public void render(int tileOffsetX, int tileOffsetY) {
+		if(super.width - tileOffsetX < renderTileWidth)
+			tileOffsetX = super.width - renderTileWidth;
+		if(super.height - tileOffsetY < renderTileHeight)
+			tileOffsetY = super.height - renderTileHeight;
+
+        super.render(xPos, yPos, tileOffsetX, tileOffsetY, renderTileWidth, renderTileHeight);
     }
 	
 	public int getXWidthMax() {
@@ -67,6 +75,10 @@ public class Map extends TiledMap {
 	public int getYHeightMax() {
 		return yPos + pixelHeight;
 	}
+
+	public int getMapWidth() { return pixelWidth; }
+
+	public int getMapHeight() { return pixelHeight; }
 
 	public Vector getTileLocation(tankentity e) {
 		float x = (float) (Math.floor((e.getX() - this.xPos) / this.tileWidth));
