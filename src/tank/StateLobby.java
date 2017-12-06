@@ -58,8 +58,8 @@ public class StateLobby extends BasicGameState
 	@Override
 	public void mouseClicked(int button, int x, int y, int numClicked)
 		{
-		Inputs.xMouse = x;
-		Inputs.yMouse = y;
+		Inputs.localxMouse = x;
+		Inputs.localyMouse = y;
 		Inputs.processMouseInput();
 		//Playing around with sending messages
 		//Send mouse coords over the sever to socketClient

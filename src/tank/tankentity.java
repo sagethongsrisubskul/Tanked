@@ -8,6 +8,7 @@ public class tankentity extends Entity {
 	
 	private Vector worldpos;
 	private double hullangle;
+	private int angle=0;
 	private double turretangle;
 	private int movement;
 	private int rotation;
@@ -46,11 +47,13 @@ public class tankentity extends Entity {
 		//addImageWithBoundingBox(ResourceManager.getImage(Filenames.turret_r).getScaledCopy(0.05f));
 	}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public void update(final int delta){
+	public void update(final int delta,int i){
 		translate(velocity.scale(delta*0.1f));
 		
 		this.setRotation(this.getRotation()+rotation*1.2f);
 		hullangle=this.getRotation();
+		angle=(int) this.getRotation();
+		NetworkControl.sendToAll("~PH"+i+angle);
 		turret.update(delta);
 	}
 	/*-----------------------------------------------------------------------------------------------------*/
@@ -82,4 +85,6 @@ public class tankentity extends Entity {
 	public turretentity getTurret(){
 		return turret;
 	}
+	
+	
 }

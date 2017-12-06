@@ -37,9 +37,17 @@ public class Commands
 			else if(string.charAt(1) == 'C' && string.charAt(2) == 'E') NetworkControl.exitClient(Character.getNumericValue(string.charAt(3)));
 			else if(string.charAt(1)=='P' && string.charAt(2)=='A') Powerups.powerupActivation(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)));
 			else if(string.charAt(1)=='P' && string.charAt(2)=='C') Powerups.powerupCollision(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)));
-			else if(string.charAt(1)=='P' && string.charAt(2)=='T') Powerups.processPowerupCommand(true,string.substring(3,string.length()));
-			else if(string.charAt(1)=='P' && string.charAt(2)=='F') Powerups.processPowerupCommand(false,"");
-
+			else if(string.charAt(1)=='P' && string.charAt(2)=='T') Powerups.powerupTrueCommand(string.substring(3,string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='F') Powerups.powerupFalseCommand();
+			else if(string.charAt(1)=='P' && string.charAt(2)=='M') Inputs.movement[Character.getNumericValue(string.charAt(3))]=Character.getNumericValue(string.charAt(4));
+			else if(string.charAt(1)=='P'&& string.charAt(2)=='R') Inputs.rotation[Character.getNumericValue(string.charAt(3))]=Character.getNumericValue(string.charAt(4));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='X') 
+				Inputs.xMouse[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4,string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2) == 'Y')
+				Inputs.yMouse[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4,string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='V') Inputs.xpos[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4, string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='B') Inputs.ypos[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4, string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='H') Inputs.hullangle[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4, string.length()));
 			}
 		else /// String is a chat message
 			{
