@@ -7,7 +7,7 @@ public class tankentity extends Entity {
 	private Vector velocity;
 	
 	private Vector worldpos;
-	public double hullangle;
+	private double hullangle;
 	private int angle=0;
 	private double turretangle;
 	private int movement;
@@ -51,6 +51,7 @@ public class tankentity extends Entity {
 		translate(velocity.scale(delta*0.1f));
 		
 		this.setRotation(this.getRotation()+rotation*1.2f);
+		hullangle=this.getRotation();
 		angle=(int) this.getRotation();
 		NetworkControl.sendToAll("~PH"+i+angle);
 		turret.update(delta);
