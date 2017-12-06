@@ -13,13 +13,13 @@ public class Powerups extends Entity
 	{
 	/// Powerup display:
 	public static boolean powerupFlag = false; /// Controls the presence of the powerup on the screen
-	public static float iconScale = .18f;
+	public static float iconScale = .2f;
 	public static int powerx = 0; // powerups x location
 	public static int powery = 0; // powerups y location
 	/// Powerup life cycle:
 	public static int powerupElapsedTime = 0; /// The time in seconds the powerup is on its cycle
-	public static int powerupInterval = 5; /// The interval in seconds a powerup will appear after the previous disappeared
-	public static int powerupDuration = 30; /// The seconds the powerup will remain on the screen
+	public static int powerupInterval = 10; /// The interval in seconds a powerup will appear after the previous disappeared
+	public static int powerupDuration = 10; /// The seconds the powerup will remain on the screen
 	/// Powerup coord
 	public static int powerupIndex = 0; /// The index of the powerup image in Filenames
 	/// Powerup statuses:
@@ -66,12 +66,14 @@ public class Powerups extends Entity
 	/* Checks for collision with the displayed powerup */
 	public static void checkPowerupCollision()
 		{
-		if(powerupFlag == true && StatePlay.powerupEntity.collides(StatePlay.tank1) != null)
-			{
-			tank.ResourceManager.getSound(Filenames.ding).play();
-			NetworkControl.sendToAll("~PC" + Settings.playerID + powerupIndex);
-			NetworkControl.sendToAll("~PF");
-			}
+			for(int i=0;i<Settings.numberActivePlayers;i++) {
+				if(powerupFlag == true && StatePlay.powerupEntity.collides(StatePlay.tanks[i]) != null)
+					{
+					tank.ResourceManager.getSound(Filenames.ding).play();
+					NetworkControl.sendToAll("~PC" + Settings.playerID + powerupIndex);
+					NetworkControl.sendToAll("~PF");
+					}	
+				}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called for every user to process someone colliding with a powerup */
