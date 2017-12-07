@@ -26,7 +26,7 @@ public class StatePlay extends BasicGameState
 	public int x=0;
 	public int y=0;
 	public int timer=0;
-	
+	public static int gamePaused = C.NO;
 	
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -68,7 +68,8 @@ public class StatePlay extends BasicGameState
 				tanks[i]=new tankentity(200,200,'y');
 			}
 		}
-		
+		for(int i=0;i<5;i++)
+		Powerups.numPowerups[Settings.playerID][i] = 3;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -108,7 +109,8 @@ public class StatePlay extends BasicGameState
 		}
 		
 		timer+=delta;
-		updateTime(delta);
+		if(gamePaused == C.NO)
+			updateTime(delta);
 		
 		for(int i=0;i<Settings.numberActivePlayers;i++) {
 			Inputs.vectors[i]=new Vector(Inputs.xpos[i],Inputs.ypos[i]);
@@ -178,7 +180,7 @@ public class StatePlay extends BasicGameState
 					{
 					if(Powerups.timePowerup[i][j] == 1) /// If the powerup is about to expire
 						Powerups.powerupDeactivation(i, j); /// Deactivate powerup
-					Powerups.timePowerup[i][j]--;
+					Powerups.timePowerup[i][j]--; /// Decrement one second off the powerup's time
 					}
 				}
 			}

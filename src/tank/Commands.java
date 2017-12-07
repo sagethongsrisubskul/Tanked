@@ -16,7 +16,7 @@ public class Commands
 	public static void processCommand(String string)
 		{
 		int n;
-		System.out.printf("processCommand: %s\n", string);
+//		System.out.printf("processCommand: %s\n", string);
 		if(string.charAt(0) == '~') /// String is a command
 			{
 			if(string.charAt(1) == 'P' && string.charAt(2) == 'J')
@@ -48,6 +48,7 @@ public class Commands
 			else if(string.charAt(1)=='P' && string.charAt(2)=='V') Inputs.xpos[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4, string.length()));
 			else if(string.charAt(1)=='P' && string.charAt(2)=='B') Inputs.ypos[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4, string.length()));
 			else if(string.charAt(1)=='P' && string.charAt(2)=='H') Inputs.hullangle[Character.getNumericValue(string.charAt(3))]=Integer.parseInt(string.substring(4, string.length()));
+			else if(string.charAt(1)=='P' && string.charAt(2)=='G') StatePlay.gamePaused = 1 - StatePlay.gamePaused; /// Toggles
 			}
 		else /// String is a chat message
 			{
@@ -116,7 +117,7 @@ public class Commands
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void setNames(String string)
 		{
-		System.out.printf("setNames: %s\n", string);
+//		System.out.printf("setNames: %s\n", string);
 		int names = 0; /// Number of names
 		int characters = 0; /// Number of characters in name
 		int current = 0; /// Current index position

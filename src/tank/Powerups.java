@@ -27,6 +27,7 @@ public class Powerups extends Entity
 	public static int powerupType[] = {C.CONSUMABLE, C.CONSUMABLE, C.TIMED, C.TIMED, C.TIMED}; /// Every powerup has a type (CONSUMABLE, TIMED, OR PERMANENT)
 	public static int numPowerups[][] = new int[C.MAX_PLAYERS][Strings.powerups.length]; /// The amount of collectible powerupIcons the player has
 	public static int timePowerup[][] = new int[C.MAX_PLAYERS][Strings.powerups.length]; /// How many seconds are left till timed powerup is unactive
+	public static int numActivatedPowerups[][] = new int[C.MAX_PLAYERS][Strings.powerups.length]; /// The number of activated powerups at any given time
 	/// Powerup values:
 	public static int healthIncrease = (int) (GameStats.maxHealthBase * 0.10); /// How much health is restored when activating the health powerup
 	public static int mineDamage = (int) (GameStats.maxHealthBase * 0.10); /// How much damage colliding with a mine will do
@@ -106,17 +107,20 @@ public class Powerups extends Entity
 			/// Increase speed but not to exceed max speed:
 			GameStats.speed[playerID] = (GameStats.speed[playerID] + speedBurst) > GameStats.maxSpeed ? GameStats.maxSpeed : (GameStats.speed[playerID] + speedBurst);
 			timePowerup[playerID][powerupIndex] += speedBurstTime;
+			numActivatedPowerups [playerID][powerupIndex]++;
 			}
 		else if(powerupIndex == 3) /// Power
 			{
 			/// Increase power but not to exceed max power:
 			GameStats.power[playerID] = (GameStats.power[playerID] + powerBurst) > GameStats.maxPower ? GameStats.maxPower : (GameStats.power[playerID] + powerBurst);
 			timePowerup[playerID][powerupIndex] += powerBurstTime;
+			numActivatedPowerups [playerID][powerupIndex]++;
 			}
 		else if(powerupIndex == 4) /// Invincible
 			{
 			invincibleActivated[playerID] = C.YES;
 			timePowerup[playerID][powerupIndex] += invincibleBurstTime;
+			numActivatedPowerups [playerID][powerupIndex]++;
 			}
 		numPowerups[playerID][powerupIndex]--; /// Remove one from inventory
 		}
@@ -124,18 +128,24 @@ public class Powerups extends Entity
 	/* This method will be called for every user once an activated powerup's timer hits zero */
 	public static void powerupDeactivation(int playerID, int powerupIndex)
 		{
-		if(powerupIndex == 2) /// Speed
+		int n;
+		if(powerupIndex == C.POWERUP_SPEED)
 			{
-			GameStats.speed[playerID] -= speedBurst;
+			/// Decrement powerup by the number of activated powerups but not less than the base
+			GameStats.speed[playerID] -= numActivatedPowerups [playerID][powerupIndex] * speedBurst;
+			GameStats.speed[playerID] = GameStats.speed[playerID] < GameStats.speedBase ? GameStats.speedBase : GameStats.speed[playerID];
 			}
-		else if(powerupIndex == 3) /// Power
+		else if(powerupIndex == C.POWERUP_POWER)
 			{
-			GameStats.power[playerID] -= powerBurst;
+			/// Decrement powerup by the number of activated powerups but not less than the base
+			GameStats.power[playerID] -= numActivatedPowerups [playerID][powerupIndex] * powerBurst;
+			GameStats.power[playerID] = GameStats.power[playerID] < GameStats.powerBase ? GameStats.powerBase : GameStats.power[playerID];
 			}
-		else if(powerupIndex == 4) /// Invincible
+		else if(powerupIndex == C.POWERUP_INVINCIBLE)
 			{
 			invincibleActivated[playerID] = C.NO;
 			}
+		numActivatedPowerups [playerID][powerupIndex] = 0;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method should be called for every user when someone collides with an enemy mine */

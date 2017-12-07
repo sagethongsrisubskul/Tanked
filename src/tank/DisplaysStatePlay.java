@@ -173,6 +173,10 @@ public class DisplaysStatePlay
 		score.trueTypeFont.drawString(powerupArea[powerupArea.length - 1].centerStringX(scoreFont, Integer.toString(GameStats.score[Settings.playerID])), score.y, Integer.toString(GameStats.score[Settings.playerID]), score.color);
 		power.trueTypeFont.drawString(power.x, power.y, "P: " + Integer.toString(GameStats.power[Settings.playerID]) + "/" + Integer.toString(GameStats.maxPower), power.color);
 		speed.trueTypeFont.drawString(speed.x, speed.y, "S: " + Integer.toString(GameStats.speed[Settings.playerID]) + "/" + Integer.toString(GameStats.maxSpeed), speed.color);
+		if(StatePlay.gamePaused == C.YES)
+			{
+			DisplaysMessagePopup.renderMessage(g, Strings.gamePaused, C.CENTER, C.CENTER, 10, Fonts.fontCourier15BTTF, Color.black, Color.white);
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void setHealthStartY()
