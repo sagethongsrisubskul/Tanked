@@ -80,43 +80,21 @@ public class Strings
 	};
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gameControlsText = String.format("" +
-		"W:     Forwards\n" +
-		"S:     Reverse\n" +
-		"A:     Rotate tank left\n" +
-		"D:     Rotate tank right\n" +
+		"W    : Forwards\n" +
+		"S    : Reverse\n" +
+		"A    : Rotate tank left\n" +
+		"D    : Rotate tank right\n" +
 		"Mouse: Aim turret\n" +
-		"LMB:   Fire\n\n" +
+		"LMB  : Fire\n\n" +
 
-		"#:     Number keys activate powerups\n" +
-		"F#:    Function keys add powerup to inventory (cheat)\n" +
+		"#    : Number keys activate powerups\n" +
+		"F#   : Function keys add powerup to inventory (cheat)\n" +
 		"Space: Pause/Unpause game\n" +
 		"Enter: Brings up message box (Type slowly :-)\n" +
 		"");
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gamePlayText = String.format("" +
-
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"");
+		"GamePlay\n");
 	// @formatter:on
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Keyboard shortcuts:

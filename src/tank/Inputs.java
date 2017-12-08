@@ -40,11 +40,6 @@ public class Inputs
 				{
 				DisplaysPopupBox.finalizeMessage();
 				}
-			else if(StateControl.currentState == StateControl.STATE_PLAY && input.isKeyPressed(Input.KEY_SPACE))
-				{
-				DisplaysPopupBox.popupEnd();
-				NetworkControl.sendToAll("~GP");
-				}
 			}
 		else if(StateControl.currentState == StateControl.STATE_LOBBY)
 			{
