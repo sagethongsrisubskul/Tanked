@@ -38,7 +38,7 @@ public class C
 	/// Win condition:
 	public static final int DEATHMATCH = 0;
 	public static final int PROTECT_BASE = 1;
-	public static final int DESTRUCTION = 2;
+	public static final int HIGH_SCORE = 2;
 	public static final int FIND_RELIC = 3;
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Player type:
