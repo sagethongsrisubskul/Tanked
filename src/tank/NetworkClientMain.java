@@ -23,7 +23,7 @@ public class NetworkClientMain extends Thread
 		readThread = new NetworkClientReadThread(socket); // initialize the read thread and pass the socket socket
 		readThread.start(); // start the read thread
 		printWriter = new PrintWriter(socket.getOutputStream(), true);
-		System.out.printf("Client joined game\n");
+//		System.out.printf("Client joined game\n");
 		}
 	catch (Exception e)  // if there was a problem...
 		{

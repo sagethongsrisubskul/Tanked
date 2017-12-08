@@ -59,6 +59,9 @@ public class Strings
 //	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible", "Invisible"};
 	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible"};
 	public static final String gamePaused = "Game Paused";
+	public static final String gameOver = "Game Over";
+	public static final String colors[] = {"Red", "Yellow", "Green", "Blue"};
+	public static final String wins = " Team Wins!";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Help State:
 	public static final String gameControls = "Game Controls";
