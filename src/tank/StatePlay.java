@@ -18,7 +18,8 @@ public class StatePlay extends BasicGameState
 	public static int hours;
 	public static int minutes;
 	public static int seconds;
-	public static int highScoreTimer = 30;
+	public static int highScoreTimer; /// Seconds
+	public static int highScoreTimerOptions[] = {1, 5, 10, 15, 20, 30}; /// Minutes
 	public static tankentity tanks[] = new tankentity[4];
 	//	public static boolean powerupFlag=false;
 //	public static int powerx=0;//power ups x location
@@ -76,6 +77,7 @@ public class StatePlay extends BasicGameState
 				}
 			}
 		GameStats.recordNumberTeams();
+		highScoreTimer = 60 * highScoreTimerOptions[Settings.highScoreTimerIndex];
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override

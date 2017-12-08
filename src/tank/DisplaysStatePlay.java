@@ -65,6 +65,7 @@ public class DisplaysStatePlay
 	public static StringsDisplay score = new StringsDisplay("", scoreFont, scoreColor, 0, 0);
 	public static StringsDisplay power = new StringsDisplay("", mainFont, powerColor, 0, 0);
 	public static StringsDisplay speed = new StringsDisplay("", mainFont, speedColor, 0, 0);
+	public static StringsDisplay winCondition = new StringsDisplay("", scoreFont, scoreColor, 0, 0);
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initDisplays()
 		{
@@ -152,6 +153,10 @@ public class DisplaysStatePlay
 		messageArea.endX = Settings.currentScreenWidth - messageAreaMargin;
 		messageArea.y = messageY;
 		messageArea.endY = messageArea.y + messageAreaHeight;
+		///
+		winCondition.string = Strings.winConditionTypes[Settings.winCondition];
+		winCondition.x = powerupArea[powerupArea.length - 1].centerStringX(scoreFont, winCondition.string);
+		winCondition.y = speed.getEndY() + powerupPadding;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void renderDisplays(Graphics g)
@@ -194,6 +199,8 @@ public class DisplaysStatePlay
 		score.trueTypeFont.drawString(powerupArea[powerupArea.length - 1].centerStringX(scoreFont, Integer.toString(GameStats.score[Settings.playerID])), score.y, Integer.toString(GameStats.score[Settings.playerID]), score.color);
 		power.trueTypeFont.drawString(power.x, power.y, "P: " + Integer.toString(GameStats.power[Settings.playerID]) + "/" + Integer.toString(GameStats.maxPower), power.color);
 		speed.trueTypeFont.drawString(speed.x, speed.y, "S: " + Integer.toString(GameStats.speed[Settings.playerID]) + "/" + Integer.toString(GameStats.maxSpeed), speed.color);
+		/// Win condition
+		winCondition.renderString();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void setHealthStartY()

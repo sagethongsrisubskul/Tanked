@@ -255,20 +255,6 @@ public class Inputs
 			if(DisplaysPopupBox.popupDisplayed == C.YES) processPopupClick();
 			else
 				{
-				for(i = 0; i < C.MAX_PLAYERS; i++)
-					{
-					if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.buttonColor[i]))
-						{
-						playClick();
-						Settings.playerTeamColors[i] = getNextColor(i);
-						Commands.sendSetColorsCommand();
-						}
-					else if(Settings.playerID == i && withinCoordinates(DisplaysStateLobby.nameButton))
-						{
-						playClick();
-						DisplaysPopupBox.initPopup(C.POPUP_NAME);
-						}
-					}
 				if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.winConditionButton))
 					{
 					playClick();
@@ -305,6 +291,31 @@ public class Inputs
 					Settings.mapSelected++;
 					if(Settings.mapSelected == Filenames.miniMap.length) Settings.mapSelected = 0;
 					Commands.sendSetMapCommand();
+					}
+				else if(Settings.playerType == C.SERVER && Settings.winCondition == C.HIGH_SCORE && withinCoordinates(DisplaysStateLobby.highScoreTimerButton))
+					{
+					playClick();
+					Settings.highScoreTimerIndex++;
+					if(Settings.highScoreTimerIndex == StatePlay.highScoreTimerOptions.length)
+						Settings.highScoreTimerIndex = 0;
+					Commands.sendSetWinConditionCommand();
+					}
+				else
+					{
+					for(i = 0; i < C.MAX_PLAYERS; i++)
+						{
+						if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.buttonColor[i]))
+							{
+							playClick();
+							Settings.playerTeamColors[i] = getNextColor(i);
+							Commands.sendSetColorsCommand();
+							}
+						else if(Settings.playerID == i && withinCoordinates(DisplaysStateLobby.nameButton))
+							{
+							playClick();
+							DisplaysPopupBox.initPopup(C.POPUP_NAME);
+							}
+						}
 					}
 				}
 			}

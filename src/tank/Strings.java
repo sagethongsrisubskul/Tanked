@@ -28,14 +28,16 @@ public class Strings
 	public static final String leaveGame = "Leave Game";
 	public static final String launchGame = "Launch Game";
 	public static final String pressEnter = "Press <Enter> to send chat message";
+	public static final String minutes = "Minutes";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Setup Win Conditions State:
 	public static final String winCondition = "Win Condition";
 	public static final String deathmatch = "Deathmatch";
-	public static final String protectBase = "Protect Base";
 	public static final String highScore = "High Score";
+	public static final String protectBase = "Protect Base";
 	public static final String findRelic = "Find Relic";
-	public static final String winConditionTypes[] = {deathmatch, protectBase, highScore, findRelic};
+//	public static final String winConditionTypes[] = {deathmatch, highScore, protectBase, findRelic};
+	public static final String winConditionTypes[] = {deathmatch, highScore};
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Popup:
 	public static final String enterName = "Enter Name:";
@@ -109,9 +111,10 @@ public class Strings
 			"WIN CONDITIONS\n\n" +
 
 			"%s: Be the last tank/team standing!\n" +
-			"%s: Destroy your enemies' base. Have the last remaining base standing to win!\n" +
 			"%s: Tanks do not die. Have the top score when the timer goes out!\n" +
-			"%s: Find the hidden relic to win!\n\n" +
+//			"%s: Destroy your enemies' base. Have the last remaining base standing to win!\n" +
+//			"%s: Find the hidden relic to win!\n" +
+			"\n" +
 
 			"POWERUPS\n\n" +
 
@@ -132,7 +135,8 @@ public class Strings
 
 			"",
 		gameTitle, C.MAX_PLAYERS,
-		winConditionTypes[0], winConditionTypes[1], winConditionTypes[2], winConditionTypes[3],
+		winConditionTypes[0], winConditionTypes[1],
+//		winConditionTypes[2], winConditionTypes[3],
 		powerups[0], Powerups.healthIncrease,
 		powerups[1], Powerups.mineDamage,
 		powerups[2], Powerups.speedBurst, Powerups.speedBurstTime,
