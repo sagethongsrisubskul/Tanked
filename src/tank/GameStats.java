@@ -19,6 +19,12 @@ public class GameStats
 	public static int speedBase = 5;
 	public static int scoreBase = 0;
 	public static int levelBase = 1;
+	///
+	public static int scoreDamageInflicted = 1;
+	public static int scoreDamageIncurred = -1;
+	public static int scorePowerupCollected = 250;
+	public static int scorePowerupActivated = -100;
+	///
 	public static int maxHealth[] = new int[C.MAX_PLAYERS];
 	public static int health[] = new int[C.MAX_PLAYERS];
 	public static int armor[] = new int[C.MAX_PLAYERS];

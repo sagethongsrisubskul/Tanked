@@ -8,7 +8,9 @@ import java.util.concurrent.ThreadLocalRandom;
 /// 2) Strings.powerups
 /// 3) Powerups.powerupType
 /// Adjust static final variables in C class
-/// Finally change the inputs in Inputs.processKeyboardInput for StatePlay
+/// Change the inputs in Inputs.processKeyboardInput for StatePlay
+/// Adjust gameplay text in Strings class
+
 public class Powerups extends Entity
 	{
 	/// Powerup display:
