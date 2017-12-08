@@ -9,6 +9,7 @@ public class C
 	public static final int MAX_PLAYERS = 4;
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Universal switches:
+	public static final int INVALID = -1;
 	public static final int OFF = 0;
 	public static final int ON = 1;
 	public static final int FALSE = 0;

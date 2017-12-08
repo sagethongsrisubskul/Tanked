@@ -26,7 +26,7 @@ public class StatePlay extends BasicGameState
 	public int x=0;
 	public int y=0;
 	public int timer=0;
-	
+	public static int gamePaused = C.NO;
 	
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -45,6 +45,7 @@ public class StatePlay extends BasicGameState
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException
 		{
+		int i;
 		AppGameContainer gc = (AppGameContainer) container;
 		gc.setDisplayMode(Settings.playScreenWidth, Settings.playScreenHeight, false);
 		StateControl.addCurrentState(getID());
@@ -53,8 +54,8 @@ public class StatePlay extends BasicGameState
 		DisplaysStatePlay.positionDisplays();
 		GameStats.initGameStats();
 		elapsedTime = hours = minutes = seconds = 0;
-		System.out.println(Settings.numberActivePlayers);
-		for(int i=0;i<Settings.numberActivePlayers;i++) {
+
+		for(i=0;i<Settings.numberActivePlayers;i++) {
 			if(Settings.playerTeamColors[i]==C.RED) {
 				tanks[i]=new tankentity(200,200,'r');
 			}
@@ -68,7 +69,7 @@ public class StatePlay extends BasicGameState
 				tanks[i]=new tankentity(200,200,'y');
 			}
 		}
-		
+		GameStats.recordNumberTeams();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -93,45 +94,55 @@ public class StatePlay extends BasicGameState
 		{
 		Input input = container.getInput();
 		Inputs.processKeyboardInput(input);
+		if(DisplaysPopupBox.popupDisplayed == C.YES)
+			{
+			if(DisplaysPopupBox.charactersEntered < DisplaysPopupBox.maxCharacters)
+				{
+				DisplaysPopupBox.getPopupInput(input);
+				}
+			}
 		input.clearKeyPressedRecord();
-		
 		//Inputs.xMouse[Settings.playerID]=input.getMouseX();
 		//Inputs.yMouse[Settings.playerID]=input.getMouseY();
-		if(timer>=10) {
-			NetworkControl.sendToAll("~PX"+Settings.playerID+input.getMouseX());
-			NetworkControl.sendToAll("~PY"+Settings.playerID+input.getMouseY());
-			x=(int) tanks[Settings.playerID].getX();
-			y=(int) tanks[Settings.playerID].getY();
-			NetworkControl.sendToAll("~PV"+Settings.playerID+x);
-			NetworkControl.sendToAll("~PB"+Settings.playerID+y);
-			timer=0;
-		}
-		
-		timer+=delta;
-		updateTime(delta);
-		
-		for(int i=0;i<Settings.numberActivePlayers;i++) {
-			Inputs.vectors[i]=new Vector(Inputs.xpos[i],Inputs.ypos[i]);
-		}
-		//System.out.println(Settings.playerID);
-		for(int i=0;i<Settings.numberActivePlayers;i++) {
-			if(i==Settings.playerID) {
-				tanks[i].control(Inputs.movement[i], Inputs.rotation[i]);
-				tanks[i].aimTurret(Inputs.xMouse[i], Inputs.yMouse[i]);
-				tanks[i].update(delta,i);
+		if(GameStats.gameOver == C.NO && GameStats.health[Settings.playerID] > 0)
+			{
+			if(timer >= 10)
+				{
+				NetworkControl.sendToAll("~PX" + Settings.playerID + input.getMouseX());
+				NetworkControl.sendToAll("~PY" + Settings.playerID + input.getMouseY());
+				x = (int) tanks[Settings.playerID].getX();
+				y = (int) tanks[Settings.playerID].getY();
+				NetworkControl.sendToAll("~PV" + Settings.playerID + x);
+				NetworkControl.sendToAll("~PB" + Settings.playerID + y);
+				timer = 0;
+				}
+			timer += delta;
+			if(gamePaused == C.NO) updateTime(delta);
+			for(int i = 0; i < Settings.numberActivePlayers; i++)
+				{
+				Inputs.vectors[i] = new Vector(Inputs.xpos[i], Inputs.ypos[i]);
+				}
+			//System.out.println(Settings.playerID);
+			for(int i = 0; i < Settings.numberActivePlayers; i++)
+				{
+				if(i == Settings.playerID)
+					{
+					tanks[i].control(Inputs.movement[i], Inputs.rotation[i]);
+					tanks[i].aimTurret(Inputs.xMouse[i], Inputs.yMouse[i]);
+					tanks[i].update(delta, i);
+					}
+				if(i != Settings.playerID)
+					{
+					tanks[i].control(Inputs.movement[i], Inputs.rotation[i]);
+					tanks[i].setRotation(Inputs.hullangle[i]);
+					tanks[i].aimTurret(Inputs.xMouse[i], Inputs.yMouse[i]);
+					tanks[i].setPosition(Inputs.vectors[i]);
+					tanks[i].update(delta, i);
+					}
+				}
+			Powerups.sendPowerupStatus();
+			Powerups.checkPowerupCollision();
 			}
-			
-			if(i!=Settings.playerID) {
-				tanks[i].control(Inputs.movement[i],Inputs.rotation[i]);
-				tanks[i].setRotation(Inputs.hullangle[i]);
-				tanks[i].aimTurret(Inputs.xMouse[i], Inputs.yMouse[i]);
-				tanks[i].setPosition(Inputs.vectors[i]);
-				tanks[i].update(delta,i);
-				
-			}
-		}
-		Powerups.sendPowerupStatus();
-		Powerups.checkPowerupCollision();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -178,7 +189,7 @@ public class StatePlay extends BasicGameState
 					{
 					if(Powerups.timePowerup[i][j] == 1) /// If the powerup is about to expire
 						Powerups.powerupDeactivation(i, j); /// Deactivate powerup
-					Powerups.timePowerup[i][j]--;
+					Powerups.timePowerup[i][j]--; /// Decrement one second off the powerup's time
 					}
 				}
 			}

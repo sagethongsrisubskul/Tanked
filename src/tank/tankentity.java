@@ -48,9 +48,9 @@ public class tankentity extends Entity {
 	}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public void update(final int delta,int i){
-		translate(velocity.scale(delta*0.1f));
+		translate(velocity.scale(delta*(float)(.01 * GameStats.speed[Settings.playerID])));
 		
-		this.setRotation(this.getRotation()+rotation*1.2f);
+		this.setRotation(this.getRotation()+(float)rotation*GameStats.speed[Settings.playerID]);
 		hullangle=this.getRotation();
 		angle=(int) this.getRotation();
 		NetworkControl.sendToAll("~PH"+i+angle);

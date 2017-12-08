@@ -9,6 +9,7 @@ public class DisplaysStatePlay
 	{
 	static int i;
 	public static int healthStartY = 0;
+	public static int numMessages = 0;
 	/// Spacings:
 	public static int margin = 10;
 	public static int miniMapBorder = 5;
@@ -17,6 +18,11 @@ public class DisplaysStatePlay
 	public static int powerupWidth;
 	public static int powerupHeight = 100;
 	public static int powerupPadding = 2;
+	public static int messageAreaHeight = 200;
+	public static int messageAreaMargin = 20;
+	public static int messageAreaPadding = 10;
+	public static int pausePopupY = 400;
+	public static int messageY = pausePopupY + 100;
 	/// psw (percentage of screen width):
 	public static float pswMiniMap = .2f;
 	public static float pswMap = 1.2f;
@@ -25,6 +31,7 @@ public class DisplaysStatePlay
 	public static TrueTypeFont mainFont = Fonts.fontCourier11BTTF;
 	public static TrueTypeFont timeFont = Fonts.fontCourier10BTTF;
 	public static TrueTypeFont scoreFont = Fonts.fontCourier13BTTF;
+	public static TrueTypeFont messageTextFont = Fonts.fontCourier11BTTF;
 	/// Colors:
 	public static Color mainColor = Color.white;
 	public static Color timeColor = Color.white;
@@ -37,7 +44,10 @@ public class DisplaysStatePlay
 	public static Color scoreColor = Color.green;
 	public static Color powerColor = Color.red;
 	public static Color speedColor = Color.red;
+	public static Color messageBackgroundColor = Color.black;
+	public static Color messageTextColor = Color.white;
 	/// Areas:
+	public static Area messageArea = new Area();
 	public static Area mapArea = new Area();
 	public static Area healthBarArea = new Area();
 	public static Area miniMapArea = new Area();
@@ -136,6 +146,11 @@ public class DisplaysStatePlay
 		power.y = score.getEndY() + powerupPadding;
 		speed.x = powerupArea[powerupArea.length - 1].centerStringX(mainFont, "12/12");
 		speed.y = power.getEndY() + powerupPadding;
+		/// Message area:
+		messageArea.x = messageAreaMargin;
+		messageArea.endX = Settings.currentScreenWidth - messageAreaMargin;
+		messageArea.y = messageY;
+		messageArea.endY = messageArea.y + messageAreaHeight;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void renderDisplays(Graphics g)
@@ -173,6 +188,27 @@ public class DisplaysStatePlay
 		score.trueTypeFont.drawString(powerupArea[powerupArea.length - 1].centerStringX(scoreFont, Integer.toString(GameStats.score[Settings.playerID])), score.y, Integer.toString(GameStats.score[Settings.playerID]), score.color);
 		power.trueTypeFont.drawString(power.x, power.y, "P: " + Integer.toString(GameStats.power[Settings.playerID]) + "/" + Integer.toString(GameStats.maxPower), power.color);
 		speed.trueTypeFont.drawString(speed.x, speed.y, "S: " + Integer.toString(GameStats.speed[Settings.playerID]) + "/" + Integer.toString(GameStats.maxSpeed), speed.color);
+		if(GameStats.gameOver == C.YES)
+			{
+			DisplaysMessagePopup.renderMessage(g, Strings.colors[GameStats.winningTeam] + Strings.wins, C.CENTER, C.CENTER, 10, Fonts.fontCourier20BTTF, Color.black, Color.white);
+			}
+		else if(StatePlay.gamePaused == C.YES)
+			{
+			DisplaysMessagePopup.renderMessage(g, Strings.gamePaused, C.CENTER, pausePopupY, 10, Fonts.fontCourier15BTTF, Color.black, Color.white);
+			messageArea.colorSection(g, messageBackgroundColor);
+			for(i=0;i<Strings.networkMessages.length;i++)
+				{
+				messageTextFont.drawString(messageArea.x + messageAreaPadding, messageArea.y + messageAreaPadding + (i * 10), Strings.networkMessages[i], messageTextColor);
+				}
+			if(DisplaysPopupBox.popupDisplayed == C.YES)
+				{
+				DisplaysPopupBox.renderPopup(g);
+				}
+			}
+		else if(GameStats.health[Settings.playerID] <= 0)
+			{
+			DisplaysMessagePopup.renderMessage(g, Strings.gameOver, C.CENTER, C.CENTER, 10, Fonts.fontCourier20BTTF, Color.black, Color.white);
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void setHealthStartY()

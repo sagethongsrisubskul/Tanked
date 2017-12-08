@@ -17,8 +17,7 @@ public class Inputs
 	public static int xpos[] = new int[4];
 	public static int ypos[] = new int[4];
 	public static int hullangle[] = new int[4];
-	public static Vector vectors[]=new Vector[4];
-	
+	public static Vector vectors[] = new Vector[4];
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processKeyboardInput(Input input)
 		{
@@ -41,6 +40,11 @@ public class Inputs
 				{
 				DisplaysPopupBox.finalizeMessage();
 				}
+			else if(StateControl.currentState == StateControl.STATE_PLAY && input.isKeyPressed(Input.KEY_SPACE))
+				{
+				DisplaysPopupBox.popupEnd();
+				NetworkControl.sendToAll("~GP");
+				}
 			}
 		else if(StateControl.currentState == StateControl.STATE_LOBBY)
 			{
@@ -51,66 +55,70 @@ public class Inputs
 			}
 		else if(StateControl.currentState == StateControl.STATE_PLAY)
 			{
-//			if(input.isKeyPressed(Input.KEY_ENTER))
-//				StateControl.enterState(StateControl.STATE_MAIN);
-			/// Tank movement
-			for(int i=0;i<Settings.numberActivePlayers;i++) {
-				movement[i] = 0;
-				rotation[i] = 0;
-			}
-			
-			if(input.isKeyDown(Input.KEY_W))
+			if(GameStats.gameOver == C.NO && GameStats.health[Settings.playerID] > 0)
 				{
-				movement[Settings.playerID]++;
-				
-				//send playerid movement++
-				//NetworkControl.sendtoall("PM,playerid,playermovement);
-				NetworkControl.sendToAll("~PM"+Settings.playerID+movement[Settings.playerID]);
-				}
-			if(input.isKeyDown(Input.KEY_S))
-				{
-				movement[Settings.playerID]--;
-				NetworkControl.sendToAll("~PM"+Settings.playerID+movement[Settings.playerID]);
-				}
-			if(input.isKeyDown(Input.KEY_A))
-				{
-				rotation[Settings.playerID]--;
-				
-				NetworkControl.sendToAll("~PR"+Settings.playerID+rotation[Settings.playerID]);
-				}
-			if(input.isKeyDown(Input.KEY_D))
-				{
-				rotation[Settings.playerID]++;
-				
-				NetworkControl.sendToAll("~PR"+Settings.playerID+rotation[Settings.playerID]);
-				}
-			//send movement and rotation here
-			//debugging for rotation and movement
+				if(input.isKeyPressed(Input.KEY_SPACE))
+					NetworkControl.sendToAll("~GP");
+				if(StatePlay.gamePaused == C.NO) /// Only allows input if game is not paused
+					{
+					/// Tank movement
+					for(int i = 0; i < Settings.numberActivePlayers; i++)
+						{
+						movement[i] = 0;
+						rotation[i] = 0;
+						}
+					if(input.isKeyDown(Input.KEY_W))
+						{
+						movement[Settings.playerID]++;
+						//send playerid movement++
+						//NetworkControl.sendtoall("PM,playerid,playermovement);
+						NetworkControl.sendToAll("~PM" + Settings.playerID + movement[Settings.playerID]);
+						}
+					if(input.isKeyDown(Input.KEY_S))
+						{
+						movement[Settings.playerID]--;
+						NetworkControl.sendToAll("~PM" + Settings.playerID + movement[Settings.playerID]);
+						}
+					if(input.isKeyDown(Input.KEY_A))
+						{
+						rotation[Settings.playerID]--;
+						NetworkControl.sendToAll("~PR" + Settings.playerID + rotation[Settings.playerID]);
+						}
+					if(input.isKeyDown(Input.KEY_D))
+						{
+						rotation[Settings.playerID]++;
+						NetworkControl.sendToAll("~PR" + Settings.playerID + rotation[Settings.playerID]);
+						}
+					//send movement and rotation here
+					//debugging for rotation and movement
 			/*if(rotation!=0||movement!=0){
 				System.out.println("Rotation: "+rotation);
 				System.out.println("Movement: "+movement);
 			}*/
-			//mouse position to be implemented
-			/// Powerup activated:
-			if(input.isKeyPressed(Input.KEY_1)) /// Health
-				{
-				Powerups.sendPowerupActivation(0);
-				}
-			else if(input.isKeyPressed(Input.KEY_2)) /// Mine
-				{
-				Powerups.sendPowerupActivation(1);
-				}
-			else if(input.isKeyPressed(Input.KEY_3)) /// Speed
-				{
-				Powerups.sendPowerupActivation(2);
-				}
-			else if(input.isKeyPressed(Input.KEY_4)) /// Power
-				{
-				Powerups.sendPowerupActivation(3);
-				}
-			else if(input.isKeyPressed(Input.KEY_5)) /// Invincible
-				{
-				Powerups.sendPowerupActivation(4);
+					//mouse position to be implemented
+					/// Powerup activated:
+					if(input.isKeyPressed(Input.KEY_1)) Powerups.sendPowerupActivation(C.POWERUP_HEALTH);
+					else if(input.isKeyPressed(Input.KEY_2)) Powerups.sendPowerupActivation(C.POWERUP_MINE);
+					else if(input.isKeyPressed(Input.KEY_3)) Powerups.sendPowerupActivation(C.POWERUP_SPEED);
+					else if(input.isKeyPressed(Input.KEY_4)) Powerups.sendPowerupActivation(C.POWERUP_POWER);
+					else if(input.isKeyPressed(Input.KEY_5)) Powerups.sendPowerupActivation(C.POWERUP_INVINCIBLE);
+//					else if(input.isKeyPressed(Input.KEY_6)) Powerups.sendPowerupActivation(C.POWERUP_INVISIBLE);
+					/// Cheat keys:
+					else if(input.isKeyPressed(Input.KEY_F1)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_HEALTH);
+					else if(input.isKeyPressed(Input.KEY_F2)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_MINE);
+					else if(input.isKeyPressed(Input.KEY_F3)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_SPEED);
+					else if(input.isKeyPressed(Input.KEY_F4)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_POWER);
+					else if(input.isKeyPressed(Input.KEY_F5)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_INVINCIBLE);
+//					else if(input.isKeyPressed(Input.KEY_F6))
+//						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_INVISIBLE);
+					}
+				else /// Game is paused
+					{
+					if(input.isKeyPressed((Input.KEY_ENTER)))
+						{
+						DisplaysPopupBox.initPopup(C.POPUP_CHAT);
+						}
+					}
 				}
 			}
 		}
@@ -197,7 +205,7 @@ public class Inputs
 				}
 			else
 				{
-				System.out.printf("currentHeight = %d\n", Settings.currentScreenHeight);
+//				System.out.printf("currentHeight = %d\n", Settings.currentScreenHeight);
 				if(Settings.currentScreenHeight >= (Settings.minMainScreenHeight + Settings.screenAdjustment))
 					{
 					Settings.currentScreenHeight -= Settings.screenAdjustment;
@@ -331,12 +339,23 @@ public class Inputs
 		else if(StateControl.currentState == StateControl.STATE_PLAY)
 			{
 //			processNavigationalClick();
-			for(i = 0; i < Strings.powerups.length; i++)
+			if(GameStats.gameOver == C.NO && GameStats.health[Settings.playerID] > 0)
 				{
-				if(withinCoordinates(DisplaysStatePlay.powerupArea[i])) /// Health
+				if(StatePlay.gamePaused == C.NO) /// Only allows input if game is not paused
 					{
-					playClick();
-					Powerups.sendPowerupActivation(i);
+					for(i = 0; i < Strings.powerups.length; i++)
+						{
+						if(withinCoordinates(DisplaysStatePlay.powerupArea[i])) /// Health
+							{
+							playClick();
+							Powerups.sendPowerupActivation(i);
+							}
+						}
+					if(withinCoordinates(DisplaysStatePlay.mapArea))
+						{
+						//TODO handle projectile
+						ResourceManager.getSound(Filenames.fire).play();
+						}
 					}
 				}
 			}
@@ -422,7 +441,8 @@ public class Inputs
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static boolean withinCoordinates(Area area)
 		{
-		if(localxMouse > area.x && localxMouse < area.endX && localyMouse > area.y && localyMouse < area.endY) return true;
+		if(localxMouse > area.x && localxMouse < area.endX && localyMouse > area.y && localyMouse < area.endY)
+			return true;
 		return false;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
