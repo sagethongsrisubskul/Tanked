@@ -10,7 +10,7 @@ public class NetworkControl
 	/* This method is called when a player clicks on button to host a game */
 	public static void setupServer()
 		{
-		System.out.printf("setupServer\n");
+//		System.out.printf("setupServer\n");
 		serverMain = new NetworkServerMain();
 		serverMain.start();
 		}
@@ -18,7 +18,7 @@ public class NetworkControl
 	/* This method is called when a player clicks on button to join a game and enters an ip address to connect to*/
 	public static void setupClient(String ipAddress)
 		{
-		System.out.printf("setupClient: ipAddress = %s\n", ipAddress);
+//		System.out.printf("setupClient: ipAddress = %s\n", ipAddress);
 		clientMain = new NetworkClientMain(ipAddress);
 		clientMain.start();
 		}
@@ -32,7 +32,7 @@ public class NetworkControl
 	/* This method is called when a client clicks on button to leave game or closes application */
 	public static void exitClient(int clientID)
 		{
-		System.out.printf("exitClient: %d\n", clientID);
+//		System.out.printf("exitClient: %d\n", clientID);
 		StateControl.exitProgram();
 //		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerID, Settings.playerName[Settings.playerID]);
 //		displayMessage(Settings.playerName[clientID] + " has left the game");
@@ -55,7 +55,7 @@ public class NetworkControl
 	/* The server will all this method when he is successful in hosting a game */
 	public static void successServer()
 		{
-		System.out.printf("successServer\n");
+//		System.out.printf("successServer\n");
 		Settings.playerType = C.SERVER;
 		Settings.numberActivePlayers++;
 		Settings.playerID = 0;
@@ -74,7 +74,7 @@ public class NetworkControl
 	/* The server will call this method when a client successful joins the game and there is room */
 	public static void successClient()
 		{
-		System.out.printf("successClient\n");
+//		System.out.printf("successClient\n");
 		Commands.sendPlayerJoinedCommand();
 		Commands.sendSetNamesCommand();
 		Commands.sendSetWinConditionCommand();
@@ -91,7 +91,7 @@ public class NetworkControl
 	/* Call this method to send a command or a chat message to everyone */
 	public static void sendToAll(String string)
 		{
-		System.out.printf("sendToAll: %s\n", string);
+//		System.out.printf("sendToAll: %s\n", string);
 		if(Settings.playerType == C.SERVER)
 			{
 			/// A server will process the command on his side and then send the command to all clients
@@ -108,7 +108,7 @@ public class NetworkControl
 	/* This method is called to send commands and messages to all the clients */
 	public static void sendToClients(String string)
 		{
-		System.out.printf("sendToClients: %s\n", string);
+//		System.out.printf("sendToClients: %s\n", string);
 		for(PrintWriter writer : NetworkServerMain.writers)
 			{
 			if(writer.checkError()==false)
@@ -119,7 +119,7 @@ public class NetworkControl
 	/* This method is called to send commands and messages to the server */
 	public static void sendToServer(String string)
 		{
-		System.out.printf("sendToServer: %s\n", string);
+//		System.out.printf("sendToServer: %s\n", string);
 		NetworkClientMain.printWriter.println(string);
 		}
 	}

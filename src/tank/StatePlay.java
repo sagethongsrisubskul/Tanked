@@ -6,7 +6,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.tiled.TiledMap;
+import jig.Vector;
 
 public class StatePlay extends BasicGameState
 	{
@@ -16,14 +16,18 @@ public class StatePlay extends BasicGameState
 	public static int hours;
 	public static int minutes;
 	public static int seconds;
-	public static tankentity tank1;
+	public static tankentity tanks[]=new tankentity[4];
 //	public static boolean powerupFlag=false;
 //	public static int powerx=0;//power ups x location
 //	public static int powery=0;//power ups y location
 //	public static int powerupIndex=0;
 	public static Powerups powerupEntity;
 //	public static int powerupElapsedTime = 0;
-	
+	public int x=0;
+	public int y=0;
+	public int timer=0;
+	public static int gamePaused = C.NO;
+
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
@@ -41,6 +45,7 @@ public class StatePlay extends BasicGameState
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException
 		{
+		int i;
 		AppGameContainer gc = (AppGameContainer) container;
 		gc.setDisplayMode(Settings.playScreenWidth, Settings.playScreenHeight, false);
 		StateControl.addCurrentState(getID());
@@ -50,17 +55,34 @@ public class StatePlay extends BasicGameState
 		DisplaysStatePlay.positionDisplays();
 		GameStats.initGameStats();
 		elapsedTime = hours = minutes = seconds = 0;
-		tank1=new tankentity(200,200,'r');
+
+		for(i=0;i<Settings.numberActivePlayers;i++) {
+			if(Settings.playerTeamColors[i]==C.RED) {
+				tanks[i]=new tankentity(200,200,'r');
+			}
+			else if(Settings.playerTeamColors[i]==C.BLUE) {
+				tanks[i]=new tankentity(200,200,'b');
+			}
+			else if(Settings.playerTeamColors[i]==C.GREEN) {
+				tanks[i]=new tankentity(200,200,'g');
+			}
+			else if(Settings.playerTeamColors[i]==C.YELLOW) {
+				tanks[i]=new tankentity(200,200,'y');
+			}
+		}
+		GameStats.recordNumberTeams();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 		{
 		DisplaysStatePlay.renderDisplays(g);
-		tank1.render(g);
-		tank1.getTurret().render(g);
+		for(int i=0;i<Settings.numberActivePlayers;i++) {
+			tanks[i].render(g);
+			tanks[i].getTurret().render(g);
+		}
 
-		if(powerupEntity.powerupFlag ==true) {
+		if(Powerups.powerupFlag ==true) {
 		//render power up at location
 		//g.drawImage(ResourceManager.getImage(Filenames.powerupIcons[powerupIndex]).getScaledCopy(.35f), powerx, powery);
 		powerupEntity.render(g);
@@ -74,36 +96,57 @@ public class StatePlay extends BasicGameState
 		Input input = container.getInput();
 		Inputs.processKeyboardInput(input);
 		input.clearKeyPressedRecord();
-		
-		Inputs.xMouse=input.getMouseX();
-		Inputs.yMouse=input.getMouseY();
-		
-		updateTime(delta);
-		tank1.control(Inputs.movement, Inputs.rotation);
-		tank1.aimTurret(Inputs.xMouse, Inputs.yMouse);
-		tank1.update(delta);
-		Powerups.sendPowerupStatus();
-		
-		/*
-		 * if(powerupEntity.collides(tankentity)){
-		 * 		Network.sendToAll("~PF");
-		 * 		//handle tank power up
-		 * 		if(powerupIndex==0){
-		 * 			//method for tank power up??
-		 * 		}
-		 * 
-		 * }
-		 */
+		//Inputs.xMouse[Settings.playerID]=input.getMouseX();
+		//Inputs.yMouse[Settings.playerID]=input.getMouseY();
+		if(GameStats.gameOver == C.NO && GameStats.health[Settings.playerID] > 0)
+			{
+			if(timer >= 10)
+				{
+				NetworkControl.sendToAll("~PX" + Settings.playerID + input.getMouseX());
+				NetworkControl.sendToAll("~PY" + Settings.playerID + input.getMouseY());
+				x = (int) tanks[Settings.playerID].getX();
+				y = (int) tanks[Settings.playerID].getY();
+				NetworkControl.sendToAll("~PV" + Settings.playerID + x);
+				NetworkControl.sendToAll("~PB" + Settings.playerID + y);
+				timer = 0;
+				}
+			timer += delta;
+			if(gamePaused == C.NO) updateTime(delta);
+			for(int i = 0; i < Settings.numberActivePlayers; i++)
+				{
+				Inputs.vectors[i] = new Vector(Inputs.xpos[i], Inputs.ypos[i]);
+				}
+			//System.out.println(Settings.playerID);
+			for(int i = 0; i < Settings.numberActivePlayers; i++)
+				{
+				if(i == Settings.playerID)
+					{
+					tanks[i].control(Inputs.movement[i], Inputs.rotation[i]);
+					tanks[i].aimTurret(Inputs.xMouse[i], Inputs.yMouse[i]);
+					tanks[i].update(delta, i);
+					}
+				if(i != Settings.playerID)
+					{
+					tanks[i].control(Inputs.movement[i], Inputs.rotation[i]);
+					tanks[i].setRotation(Inputs.hullangle[i]);
+					tanks[i].aimTurret(Inputs.xMouse[i], Inputs.yMouse[i]);
+					tanks[i].setPosition(Inputs.vectors[i]);
+					tanks[i].update(delta, i);
+					}
+				}
+			Powerups.sendPowerupStatus();
+			Powerups.checkPowerupCollision();
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public void mouseClicked(int button, int x, int y, int numClicked)
 		{
-		Inputs.xMouse = x;
-		Inputs.yMouse = y;
+		Inputs.localxMouse = x;
+		Inputs.localyMouse = y;
 		Inputs.processMouseInput();
-		Inputs.xMouse = -1;
-		Inputs.yMouse = -1;
+		Inputs.localxMouse = -1;
+		Inputs.localyMouse = -1;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public void updateTime(int delta)
@@ -140,7 +183,7 @@ public class StatePlay extends BasicGameState
 					{
 					if(Powerups.timePowerup[i][j] == 1) /// If the powerup is about to expire
 						Powerups.powerupDeactivation(i, j); /// Deactivate powerup
-					Powerups.timePowerup[i][j]--;
+					Powerups.timePowerup[i][j]--; /// Decrement one second off the powerup's time
 					}
 				}
 			}

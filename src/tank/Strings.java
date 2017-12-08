@@ -58,6 +58,10 @@ public class Strings
 	/// Play State:
 //	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible", "Invisible"};
 	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible"};
+	public static final String gamePaused = "Game Paused";
+	public static final String gameOver = "Game Over";
+	public static final String colors[] = {"Red", "Yellow", "Green", "Blue"};
+	public static final String wins = " Team Wins!";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Help State:
 	public static final String gameControls = "Game Controls";
@@ -76,12 +80,17 @@ public class Strings
 	};
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gameControlsText = String.format("" +
-		"W: Forwards\n" +
-		"S: Reverse\n" +
-		"A: rotate left\n" +
-		"D: rotate right\n" +
+		"W:     Forwards\n" +
+		"S:     Reverse\n" +
+		"A:     Rotate tank left\n" +
+		"D:     Rotate tank right\n" +
 		"Mouse: Aim turret\n" +
-		"LMB: Fire\n" +
+		"LMB:   Fire\n\n" +
+
+		"#:     Number keys activate powerups\n" +
+		"F#:    Function keys add powerup to inventory (cheat)\n" +
+		"Space: Pause/Unpause game\n" +
+
 		"");
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gamePlayText = String.format("" +

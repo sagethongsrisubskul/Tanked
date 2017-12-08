@@ -2,7 +2,6 @@ package tank;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
-
 /* This class is for displaying all the displayables in the state. A state will call the positionDisplays
  * method during the enter method of the state. This will recalculate the position of the displays based
  * on the current screen size. The state will call the renderDisplays method during in the render method.*/
@@ -179,7 +178,18 @@ public class DisplaysStatePlay
 		score.trueTypeFont.drawString(powerupArea[powerupArea.length - 1].centerStringX(scoreFont, Integer.toString(GameStats.score[Settings.playerID])), score.y, Integer.toString(GameStats.score[Settings.playerID]), score.color);
 		power.trueTypeFont.drawString(power.x, power.y, "P: " + Integer.toString(GameStats.power[Settings.playerID]) + "/" + Integer.toString(GameStats.maxPower), power.color);
 		speed.trueTypeFont.drawString(speed.x, speed.y, "S: " + Integer.toString(GameStats.speed[Settings.playerID]) + "/" + Integer.toString(GameStats.maxSpeed), speed.color);
-
+		if(GameStats.gameOver == C.YES)
+			{
+			DisplaysMessagePopup.renderMessage(g, Strings.colors[GameStats.winningTeam] + Strings.wins, C.CENTER, C.CENTER, 10, Fonts.fontCourier20BTTF, Color.black, Color.white);
+			}
+		else if(StatePlay.gamePaused == C.YES)
+			{
+			DisplaysMessagePopup.renderMessage(g, Strings.gamePaused, C.CENTER, C.CENTER, 10, Fonts.fontCourier15BTTF, Color.black, Color.white);
+			}
+		else if(GameStats.health[Settings.playerID] <= 0)
+			{
+			DisplaysMessagePopup.renderMessage(g, Strings.gameOver, C.CENTER, C.CENTER, 10, Fonts.fontCourier20BTTF, Color.black, Color.white);
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void setHealthStartY()
