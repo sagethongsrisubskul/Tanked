@@ -46,7 +46,13 @@ public class Commands
 				GameStats.gameOver = C.YES;
 				}
 			else if(string.charAt(1) == 'G' && string.charAt(2) == 'P')
+				{
 				StatePlay.gamePaused = 1 - StatePlay.gamePaused; /// Toggles
+				if(DisplaysPopupBox.popupDisplayed == C.YES)
+					{
+					DisplaysPopupBox.popupEnd();
+					}
+				}
 			/// Powerups:
 			else if(string.charAt(1) == 'P' && string.charAt(2) == 'A') /// Powerup activated
 				Powerups.powerupActivation(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)));
@@ -218,7 +224,7 @@ public class Commands
 		NetworkControl.sendToAll("~SW" + Settings.winCondition);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static int charactersToInteger(char ... c)
+	public static int charactersToInteger(char... c)
 		{
 		if(c.length == 0)
 			{
@@ -227,10 +233,8 @@ public class Commands
 		int i;
 		int multiplier = 1;
 		int result = 0;
-
 		for(i = 0; i < c.length; i++)
 			System.out.printf("CharToInteger: %c\n", c[i]);
-
 		for(i = c.length - 1; i >= 0; i--)
 			{
 			result += multiplier * Character.getNumericValue(c[i]);

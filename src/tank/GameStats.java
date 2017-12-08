@@ -63,16 +63,7 @@ public class GameStats
 			else /// player is dead
 				playerDead[i] = C.YES;
 			}
-
-//		System.out.printf("ID %d ----------------------------------\n", Settings.playerID);
-//		for(i = 0; i < Settings.numberActivePlayers; i++)
-//			System.out.printf("PlayerDead[%d] = %d\n", i, playerDead[i]);
-//		for(i = 0; i < numActive; i++)
-//			System.out.printf("ActivePlayers[%d] = %d\n", i, activePlayers[i]);
-//		for(i = 0; i < Settings.numberActivePlayers; i++)
-//			System.out.printf("PlayerColor[%d] = %d\n", i, Settings.playerTeamColors[i]);
-
-		/// Selects lone survivor if any:
+	/// Selects lone survivor if any:
 		if(numActive == 1)
 			{
 			for(i = 0; i < Settings.numberActivePlayers; i++)

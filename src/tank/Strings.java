@@ -58,7 +58,7 @@ public class Strings
 	/// Play State:
 //	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible", "Invisible"};
 	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible"};
-	public static final String gamePaused = "Game Paused";
+	public static final String gamePaused = "Game Paused - Press <Enter> to Send Message";
 	public static final String gameOver = "Game Over";
 	public static final String colors[] = {"Red", "Yellow", "Green", "Blue"};
 	public static final String wins = " Team Wins!";
@@ -90,7 +90,7 @@ public class Strings
 		"#:     Number keys activate powerups\n" +
 		"F#:    Function keys add powerup to inventory (cheat)\n" +
 		"Space: Pause/Unpause game\n" +
-
+		"Enter: Brings up message box (Type slowly :-)\n" +
 		"");
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gamePlayText = String.format("" +

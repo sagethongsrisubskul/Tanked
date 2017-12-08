@@ -40,6 +40,11 @@ public class Inputs
 				{
 				DisplaysPopupBox.finalizeMessage();
 				}
+			else if(StateControl.currentState == StateControl.STATE_PLAY && input.isKeyPressed(Input.KEY_SPACE))
+				{
+				DisplaysPopupBox.popupEnd();
+				NetworkControl.sendToAll("~GP");
+				}
 			}
 		else if(StateControl.currentState == StateControl.STATE_LOBBY)
 			{
@@ -52,7 +57,8 @@ public class Inputs
 			{
 			if(GameStats.gameOver == C.NO && GameStats.health[Settings.playerID] > 0)
 				{
-				if(input.isKeyPressed(Input.KEY_SPACE)) NetworkControl.sendToAll("~GP");
+				if(input.isKeyPressed(Input.KEY_SPACE))
+					NetworkControl.sendToAll("~GP");
 				if(StatePlay.gamePaused == C.NO) /// Only allows input if game is not paused
 					{
 					/// Tank movement
@@ -96,20 +102,22 @@ public class Inputs
 					else if(input.isKeyPressed(Input.KEY_3)) Powerups.sendPowerupActivation(C.POWERUP_SPEED);
 					else if(input.isKeyPressed(Input.KEY_4)) Powerups.sendPowerupActivation(C.POWERUP_POWER);
 					else if(input.isKeyPressed(Input.KEY_5)) Powerups.sendPowerupActivation(C.POWERUP_INVINCIBLE);
-//			else if(input.isKeyPressed(Input.KEY_6)) Powerups.sendPowerupActivation(C.POWERUP_INVISIBLE);
+//					else if(input.isKeyPressed(Input.KEY_6)) Powerups.sendPowerupActivation(C.POWERUP_INVISIBLE);
 					/// Cheat keys:
 					else if(input.isKeyPressed(Input.KEY_F1)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_HEALTH);
 					else if(input.isKeyPressed(Input.KEY_F2)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_MINE);
 					else if(input.isKeyPressed(Input.KEY_F3)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_SPEED);
 					else if(input.isKeyPressed(Input.KEY_F4)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_POWER);
 					else if(input.isKeyPressed(Input.KEY_F5)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_INVINCIBLE);
-					else if(input.isKeyPressed(Input.KEY_ENTER))
-					{
-					GameStats.health[Settings.playerID] = 0; /// debug
-					GameStats.sendPlayerDamageCommand(Settings.playerID, 1000);
+//					else if(input.isKeyPressed(Input.KEY_F6))
+//						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_INVISIBLE);
 					}
-//			else if(input.isKeyPressed(Input.KEY_F6))
-//				NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_INVISIBLE);
+				else /// Game is paused
+					{
+					if(input.isKeyPressed((Input.KEY_ENTER)))
+						{
+						DisplaysPopupBox.initPopup(C.POPUP_CHAT);
+						}
 					}
 				}
 			}

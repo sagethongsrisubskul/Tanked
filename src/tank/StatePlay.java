@@ -94,6 +94,13 @@ public class StatePlay extends BasicGameState
 		{
 		Input input = container.getInput();
 		Inputs.processKeyboardInput(input);
+		if(DisplaysPopupBox.popupDisplayed == C.YES)
+			{
+			if(DisplaysPopupBox.charactersEntered < DisplaysPopupBox.maxCharacters)
+				{
+				DisplaysPopupBox.getPopupInput(input);
+				}
+			}
 		input.clearKeyPressedRecord();
 		//Inputs.xMouse[Settings.playerID]=input.getMouseX();
 		//Inputs.yMouse[Settings.playerID]=input.getMouseY();
