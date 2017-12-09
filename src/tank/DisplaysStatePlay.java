@@ -56,8 +56,8 @@ public class DisplaysStatePlay
 	public static StringsDisplay speed = new StringsDisplay("", mainFont, speedColor, 0, 0);
 
 	/// Tiled Map:
-	public static Map tiledMap;
 	public static Camera camera;
+
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initDisplays()
 		{
@@ -147,11 +147,34 @@ public class DisplaysStatePlay
 		/// Border & maps:
 		g.setColor(backgroundColor);
 		g.fillRect(0, 0, Settings.currentScreenWidth, Settings.currentScreenHeight);
-		/// Tiled Map:
-		//tiledMap.render(25,5);
-        camera.render(g);
-		//map.renderImage();
 		bottomMargin.colorSection(g, backgroundColor);
+
+		/// Begin World Rendering:
+		g.translate(camera.xPos + camera.pixelOffsetX, camera.yPos + camera.pixelOffsetY);
+		g.setClip(camera.viewport);
+
+		camera.render(g);
+
+		/// Tanks:
+		for(int i=0;i<Settings.numberActivePlayers;i++) {
+			StatePlay.tanks[i].render(g);
+			StatePlay.tanks[i].getTurret().render(g);
+		}
+
+
+		/// Powerups:
+		if(Powerups.powerupFlag ==true) {
+			//render power up at location
+			//g.drawImage(ResourceManager.getImage(Filenames.powerupIcons[powerupIndex]).getScaledCopy(.35f), powerx, powery);
+			StatePlay.powerupEntity.render(g);
+			//powerupEntity.
+		}
+
+		//g.translate(-camera.pixelOffsetX, -camera.pixelOffsetY);
+		g.clearClip();
+		g.resetTransform();
+		/// End World Rendering
+
 		rightMargin.colorSection(g, backgroundColor);
 		miniMapArea.colorSection(g, miniMapColor);
 		miniMap.renderImage();

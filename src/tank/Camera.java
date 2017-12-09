@@ -26,8 +26,8 @@ public class Camera
     int tileOffsetX;
     int tileOffsetY;
 
-    int pixelOffsetX;
-    int pixelOffsetY;
+    public int pixelOffsetX;
+    public int pixelOffsetY;
 
     public Camera(String mapPath, final int x, final int y) throws SlickException
         {
@@ -56,8 +56,8 @@ public class Camera
 
     public void update(tankentity player, int delta)
         {
-        int x = -(int)player.getX();
-        int y = -(int)player.getY();
+        int x = -(int)player.getX() + (viewportWidth / 2);
+        int y = -(int)player.getY() + (viewportHeight / 2);
         x = Math.min(0, x);
         y = Math.min(0, y);
 
@@ -71,11 +71,11 @@ public class Camera
 
     public void render(Graphics g)
         {
-        g.setClip(viewport);
-        //map.render(xPos + pixelOffsetX, yPos + pixelOffsetY, tileOffsetX, tileOffsetY, viewportTileWidth + 1, viewportTileHeight + 1);
-        map.render(xPos + pixelOffsetX, yPos + pixelOffsetY);
 
-        g.clearClip();
+        //map.render(xPos + pixelOffsetX, yPos + pixelOffsetY, tileOffsetX, tileOffsetY, viewportTileWidth + 1, viewportTileHeight + 1);
+        //map.render(xPos + pixelOffsetX, yPos + pixelOffsetY);
+        map.render(0, 0);
+
 
         }
 

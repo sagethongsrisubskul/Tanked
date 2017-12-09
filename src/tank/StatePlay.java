@@ -51,9 +51,8 @@ public class StatePlay extends BasicGameState
 		StateControl.addCurrentState(getID());
 		Settings.currentScreenWidth = Settings.playScreenWidth;
 		Settings.currentScreenHeight = Settings.playScreenHeight;
-		DisplaysStatePlay.tiledMap = new Map(Filenames.maps[Settings.mapSelected], 10, 125);
-		DisplaysStatePlay.camera = new Camera(Filenames.maps[Settings.mapSelected], 10, 125);
 		DisplaysStatePlay.positionDisplays();
+		DisplaysStatePlay.camera = new Camera(Filenames.maps[Settings.mapSelected], 10, 125);
 		GameStats.initGameStats();
 		elapsedTime = hours = minutes = seconds = 0;
 
@@ -78,17 +77,6 @@ public class StatePlay extends BasicGameState
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 		{
 		DisplaysStatePlay.renderDisplays(g);
-		for(int i=0;i<Settings.numberActivePlayers;i++) {
-			tanks[i].render(g);
-			tanks[i].getTurret().render(g);
-		}
-
-		if(Powerups.powerupFlag ==true) {
-		//render power up at location
-		//g.drawImage(ResourceManager.getImage(Filenames.powerupIcons[powerupIndex]).getScaledCopy(.35f), powerx, powery);
-		powerupEntity.render(g);
-		//powerupEntity.
-		}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
