@@ -57,6 +57,7 @@ public class DisplaysStatePlay
 
 	/// Tiled Map:
 	public static Map tiledMap;
+	public static Camera camera;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initDisplays()
 		{
@@ -147,7 +148,8 @@ public class DisplaysStatePlay
 		g.setColor(backgroundColor);
 		g.fillRect(0, 0, Settings.currentScreenWidth, Settings.currentScreenHeight);
 		/// Tiled Map:
-		tiledMap.render(25,5);
+		//tiledMap.render(25,5);
+        camera.render(g);
 		//map.renderImage();
 		bottomMargin.colorSection(g, backgroundColor);
 		rightMargin.colorSection(g, backgroundColor);

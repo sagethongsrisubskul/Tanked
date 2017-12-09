@@ -52,6 +52,7 @@ public class StatePlay extends BasicGameState
 		Settings.currentScreenWidth = Settings.playScreenWidth;
 		Settings.currentScreenHeight = Settings.playScreenHeight;
 		DisplaysStatePlay.tiledMap = new Map(Filenames.maps[Settings.mapSelected], 10, 125);
+		DisplaysStatePlay.camera = new Camera(Filenames.maps[Settings.mapSelected], 10, 125);
 		DisplaysStatePlay.positionDisplays();
 		GameStats.initGameStats();
 		elapsedTime = hours = minutes = seconds = 0;
@@ -137,6 +138,7 @@ public class StatePlay extends BasicGameState
 			Powerups.sendPowerupStatus();
 			Powerups.checkPowerupCollision();
 			}
+		DisplaysStatePlay.camera.update(tanks[Settings.playerID], delta);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
