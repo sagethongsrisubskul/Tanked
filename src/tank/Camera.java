@@ -56,8 +56,16 @@ public class Camera
 
     public void update(tankentity player, int delta)
         {
-        pixelOffsetX = Math.min(0, -(int)player.getX());
-        pixelOffsetY = Math.min(0, -(int)player.getY());
+        int x = -(int)player.getX();
+        int y = -(int)player.getY();
+        x = Math.min(0, x);
+        y = Math.min(0, y);
+
+        x = Math.max(x, -(worldWitdth - Settings.mainScreenWidth));
+        y = Math.max(y, -(worldHeight - Settings.mainScreenHeight));
+
+        pixelOffsetX = x;
+        pixelOffsetY = y;
         }
 
 
