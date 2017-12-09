@@ -53,7 +53,7 @@ public class Settings
 	public static int playerTeamColors[] = new int[C.MAX_PLAYERS];
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static int winCondition = C.DEATHMATCH;
-
+	public static int highScoreTimerIndex = 3;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initSettings()
 		{

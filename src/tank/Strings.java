@@ -28,14 +28,16 @@ public class Strings
 	public static final String leaveGame = "Leave Game";
 	public static final String launchGame = "Launch Game";
 	public static final String pressEnter = "Press <Enter> to send chat message";
+	public static final String minutes = "Minutes";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Setup Win Conditions State:
 	public static final String winCondition = "Win Condition";
 	public static final String deathmatch = "Deathmatch";
+	public static final String highScore = "High Score";
 	public static final String protectBase = "Protect Base";
-	public static final String destruction = "Destruction";
 	public static final String findRelic = "Find Relic";
-	public static final String winConditionTypes[] = {deathmatch, protectBase, destruction, findRelic};
+//	public static final String winConditionTypes[] = {deathmatch, highScore, protectBase, findRelic};
+	public static final String winConditionTypes[] = {deathmatch, highScore};
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Popup:
 	public static final String enterName = "Enter Name:";
@@ -58,7 +60,7 @@ public class Strings
 	/// Play State:
 //	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible", "Invisible"};
 	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible"};
-	public static final String gamePaused = "Game Paused";
+	public static final String gamePaused = "Game Paused - Press <Enter> to Send Message";
 	public static final String gameOver = "Game Over";
 	public static final String colors[] = {"Red", "Yellow", "Green", "Blue"};
 	public static final String wins = " Team Wins!";
@@ -80,43 +82,68 @@ public class Strings
 	};
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gameControlsText = String.format("" +
-		"W:     Forwards\n" +
-		"S:     Reverse\n" +
-		"A:     Rotate tank left\n" +
-		"D:     Rotate tank right\n" +
+		"W    : Forwards\n" +
+		"S    : Reverse\n" +
+		"A    : Rotate tank left\n" +
+		"D    : Rotate tank right\n" +
 		"Mouse: Aim turret\n" +
-		"LMB:   Fire\n\n" +
+		"LMB  : Fire\n\n" +
 
-		"#:     Number keys activate powerups\n" +
-		"F#:    Function keys add powerup to inventory (cheat)\n" +
+		"#    : Number keys activate powerups\n" +
+		"F#   : Function keys add powerup to inventory (cheat)\n" +
 		"Space: Pause/Unpause game\n" +
-
+		"Enter: Brings up message box (Type slowly :-)\n" +
 		"");
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gamePlayText = String.format("" +
+			"GAMEPLAY\n\n" +
 
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"Help info gameplay text. Help info gameplay text. \nHelp info gameplay text. Help info gameplay text. Help info gameplay text. " +
-		"");
+			"Welcome to %s!\n" +
+			"This game is a networked tank game for up to %d players. Teams can be assigned, represented by a color. " +
+			"For controls, see Help section for controls.\n\n" +
+
+			"NETWORK\n\n" +
+
+			"To host a game, simply click on host game." +
+			"To join a game, click join game and enter the IP address of the host who is running the game. The host " +
+			"can modify the game settings and launch when ready.\n\n" +
+
+			"WIN CONDITIONS\n\n" +
+
+			"%s: Be the last tank/team standing!\n" +
+			"%s: Tanks do not die. Have the top score when the timer goes out!\n" +
+//			"%s: Destroy your enemies' base. Have the last remaining base standing to win!\n" +
+//			"%s: Find the hidden relic to win!\n" +
+			"\n" +
+
+			"POWERUPS\n\n" +
+
+			"%s: Adds %d health\n" +
+			"%s: Plants a mine on the map only your team can see. Does %d damage.\n" +
+			"%s: Increases tank speed by %d for %d seconds\n" +
+			"%s: Increases tank power by %d for %d seconds\n" +
+			"%s: Cannot be harmed for %d seconds\n\n" +
+
+			"SCORE\n\n" +
+
+			"Score is calculated as follows:\n\n" +
+
+			"%d point(s) for every 1 point damage you inflict\n" +
+			"%d point(s) for every 1 point damage you incur\n" +
+			"%d point(s) for every powerup you collect\n" +
+			"%d point(s) for every powerup you activate\n" +
+
+			"",
+		gameTitle, C.MAX_PLAYERS,
+		winConditionTypes[0], winConditionTypes[1],
+//		winConditionTypes[2], winConditionTypes[3],
+		powerups[0], Powerups.healthIncrease,
+		powerups[1], Powerups.mineDamage,
+		powerups[2], Powerups.speedBurst, Powerups.speedBurstTime,
+		powerups[3], Powerups.powerBurst, Powerups.powerBurstTime,
+		powerups[4], Powerups.invincibleBurstTime,
+		GameStats.scoreDamageInflicted, GameStats.scoreDamageIncurred, GameStats.scorePowerupCollected, GameStats.scorePowerupActivated
+	);
 	// @formatter:on
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Keyboard shortcuts:

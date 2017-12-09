@@ -68,7 +68,7 @@ public class DisplaysPopupBox
 		else if(type == C.POPUP_IP_ADDRESS)
 			{
 			title.string = Strings.enterIPAddress;
-			maxCharacters = 12;
+			maxCharacters = 25;
 			innerFillWidth = 300;
 			enterWidth = 125;
 			}

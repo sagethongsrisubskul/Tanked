@@ -19,6 +19,7 @@ public class Tank extends StateBasedGame
 	public void initStatesList(GameContainer container) throws SlickException
 		{
 		int i;
+		addState(new StateSplash());
 		addState(new StateMain());
 		addState(new StateLobby());
 		addState(new StateHelpMain());
@@ -27,6 +28,7 @@ public class Tank extends StateBasedGame
 		addState(new StateHelpCredits());
 		addState(new StatePlay());
 		addState(new StateChangeScreenSize());
+		ResourceManager.loadImage(Filenames.WSUV);
 		ResourceManager.loadImage(Filenames.title);
 		ResourceManager.loadImage(Filenames.logo);
 		ResourceManager.loadImage(Filenames.camoBackground);

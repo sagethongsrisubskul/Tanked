@@ -2,6 +2,9 @@ package tank;
 /* This class is for holding all the filenames for the resources */
 public class Filenames
 	{
+	///Splash
+	public final static String WSUV = "res/wsuv.png";
+	
 	/// Title & logo:
 	public final static String title = "res/Title.png";
 	public final static String logo = "res/Logo.png";
@@ -45,7 +48,8 @@ public class Filenames
 	public final static String turret_g="res/turret_g.png";
 	public final static String turret_b="res/turret_b.png";
 	public final static String turret_y="res/turret_y.png";
-
+	/// Projectiles:
+	public final static String shot="res/shot.png";
 	//	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png", "res/powerupInvisible.png"};
 	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png"};
 	}

@@ -9,6 +9,7 @@ public class DisplaysStatePlay
 	{
 	static int i;
 	public static int healthStartY = 0;
+	public static int numMessages = 0;
 	/// Spacings:
 	public static int margin = 10;
 	public static int miniMapBorder = 5;
@@ -17,6 +18,12 @@ public class DisplaysStatePlay
 	public static int powerupWidth;
 	public static int powerupHeight = 100;
 	public static int powerupPadding = 2;
+	public static int messageAreaHeight = 200;
+	public static int messageAreaMargin = 20;
+	public static int messageAreaPadding = 10;
+	public static int pausePopupY = 400;
+	public static int messageY = pausePopupY + 100;
+	public static int highScorePadding = 20;
 	/// psw (percentage of screen width):
 	public static float pswMiniMap = .2f;
 	public static float pswMap = 1.2f;
@@ -25,6 +32,7 @@ public class DisplaysStatePlay
 	public static TrueTypeFont mainFont = Fonts.fontCourier11BTTF;
 	public static TrueTypeFont timeFont = Fonts.fontCourier10BTTF;
 	public static TrueTypeFont scoreFont = Fonts.fontCourier13BTTF;
+	public static TrueTypeFont messageTextFont = Fonts.fontCourier11BTTF;
 	/// Colors:
 	public static Color mainColor = Color.white;
 	public static Color timeColor = Color.white;
@@ -37,7 +45,10 @@ public class DisplaysStatePlay
 	public static Color scoreColor = Color.green;
 	public static Color powerColor = Color.red;
 	public static Color speedColor = Color.red;
+	public static Color messageBackgroundColor = Color.black;
+	public static Color messageTextColor = Color.white;
 	/// Areas:
+	public static Area messageArea = new Area();
 	public static Area mapArea = new Area();
 	public static Area healthBarArea = new Area();
 	public static Area miniMapArea = new Area();
@@ -54,6 +65,7 @@ public class DisplaysStatePlay
 	public static StringsDisplay score = new StringsDisplay("", scoreFont, scoreColor, 0, 0);
 	public static StringsDisplay power = new StringsDisplay("", mainFont, powerColor, 0, 0);
 	public static StringsDisplay speed = new StringsDisplay("", mainFont, speedColor, 0, 0);
+    public static StringsDisplay winCondition = new StringsDisplay("", scoreFont, scoreColor, 0, 0);
 
 	/// Tiled Map:
 	public static Camera camera;
@@ -140,6 +152,15 @@ public class DisplaysStatePlay
 		power.y = score.getEndY() + powerupPadding;
 		speed.x = powerupArea[powerupArea.length - 1].centerStringX(mainFont, "12/12");
 		speed.y = power.getEndY() + powerupPadding;
+		/// Message area:
+		messageArea.x = messageAreaMargin;
+		messageArea.endX = Settings.currentScreenWidth - messageAreaMargin;
+		messageArea.y = messageY;
+		messageArea.endY = messageArea.y + messageAreaHeight;
+		///
+		winCondition.string = Strings.winConditionTypes[Settings.winCondition];
+		winCondition.x = powerupArea[powerupArea.length - 1].centerStringX(scoreFont, winCondition.string);
+		winCondition.y = speed.getEndY() + powerupPadding;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void renderDisplays(Graphics g)
@@ -199,22 +220,17 @@ public class DisplaysStatePlay
 			powerupIcon[i].renderImage();
 		/// Time:
 		timeFont.drawString(time.x, time.y, String.format("%02d:%02d:%02d", StatePlay.hours, StatePlay.minutes, StatePlay.seconds), timeColor);
+		if(Settings.winCondition == C.HIGH_SCORE)
+			{
+			timeFont.drawString(powerupArea[powerupArea.length - 1].centerStringX(timeFont, Strings.gameOver + ":"), time.y - (2 * timeFont.getHeight()), Strings.gameOver + ":", timeColor);
+			timeFont.drawString(powerupArea[powerupArea.length - 1].centerStringX(timeFont, Integer.toString(StatePlay.highScoreTimer)), time.y - timeFont.getHeight(), Integer.toString(StatePlay.highScoreTimer), timeColor);
+			}
 		/// Score, power, speed:
 		score.trueTypeFont.drawString(powerupArea[powerupArea.length - 1].centerStringX(scoreFont, Integer.toString(GameStats.score[Settings.playerID])), score.y, Integer.toString(GameStats.score[Settings.playerID]), score.color);
 		power.trueTypeFont.drawString(power.x, power.y, "P: " + Integer.toString(GameStats.power[Settings.playerID]) + "/" + Integer.toString(GameStats.maxPower), power.color);
 		speed.trueTypeFont.drawString(speed.x, speed.y, "S: " + Integer.toString(GameStats.speed[Settings.playerID]) + "/" + Integer.toString(GameStats.maxSpeed), speed.color);
-		if(GameStats.gameOver == C.YES)
-			{
-			DisplaysMessagePopup.renderMessage(g, Strings.colors[GameStats.winningTeam] + Strings.wins, C.CENTER, C.CENTER, 10, Fonts.fontCourier20BTTF, Color.black, Color.white);
-			}
-		else if(StatePlay.gamePaused == C.YES)
-			{
-			DisplaysMessagePopup.renderMessage(g, Strings.gamePaused, C.CENTER, C.CENTER, 10, Fonts.fontCourier15BTTF, Color.black, Color.white);
-			}
-		else if(GameStats.health[Settings.playerID] <= 0)
-			{
-			DisplaysMessagePopup.renderMessage(g, Strings.gameOver, C.CENTER, C.CENTER, 10, Fonts.fontCourier20BTTF, Color.black, Color.white);
-			}
+		/// Win condition
+		winCondition.renderString();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void setHealthStartY()
