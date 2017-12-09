@@ -22,4 +22,5 @@ public class Fonts
 	public static TrueTypeFont fontCourier14BTTF = new TrueTypeFont((new Font("Courier New", Font.BOLD, 14)), true);
 	public static TrueTypeFont fontCourier15TTF = new TrueTypeFont((new Font("Courier New", Font.PLAIN, 15)), true);
 	public static TrueTypeFont fontCourier15BTTF = new TrueTypeFont((new Font("Courier New", Font.BOLD, 15)), true);
+	public static TrueTypeFont fontCourier20BTTF = new TrueTypeFont((new Font("Courier New", Font.BOLD, 20)), true);
 	}

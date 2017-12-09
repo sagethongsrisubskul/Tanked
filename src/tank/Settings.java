@@ -12,6 +12,7 @@ public class Settings
 	/// Players:
 	public static int playerType = C.UNDECIDED; /// Choices are undecided, socket, and socketClient
 	public static int numberActivePlayers = 0; /// As players join game, this variable will change
+	public static int numberTeams = 0;
 	public static int playerID = C.NO_ID; /// ID of the player
 	public static int activeIDs[] = new int[C.MAX_PLAYERS];
 	public static String playerName[] = new String[C.MAX_PLAYERS]; /// As players join, they can log in with a name
@@ -52,7 +53,7 @@ public class Settings
 	public static int playerTeamColors[] = new int[C.MAX_PLAYERS];
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static int winCondition = C.DEATHMATCH;
-
+	public static int highScoreTimerIndex = 3;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initSettings()
 		{

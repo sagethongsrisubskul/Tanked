@@ -9,6 +9,7 @@ public class C
 	public static final int MAX_PLAYERS = 4;
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Universal switches:
+	public static final int INVALID = -1;
 	public static final int OFF = 0;
 	public static final int ON = 1;
 	public static final int FALSE = 0;
@@ -36,8 +37,8 @@ public class C
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Win condition:
 	public static final int DEATHMATCH = 0;
-	public static final int PROTECT_BASE = 1;
-	public static final int DESTRUCTION = 2;
+	public static final int HIGH_SCORE = 1;
+	public static final int PROTECT_BASE = 2;
 	public static final int FIND_RELIC = 3;
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Player type:

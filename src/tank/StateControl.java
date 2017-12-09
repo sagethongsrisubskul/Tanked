@@ -13,6 +13,7 @@ public class StateControl
 	public static final int STATE_PLAY = 6;
 	public static final int STATE_CHANGE_SCREEN_SIZE = 7;
 	public static final int NUM_STATES = 8;
+	public static final int STATE_SPLASH = 9;
 	/// States:
 	public static int previousState = STATE_MAIN;
 	public static int currentState = STATE_MAIN;
