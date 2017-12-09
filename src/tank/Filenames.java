@@ -2,6 +2,9 @@ package tank;
 /* This class is for holding all the filenames for the resources */
 public class Filenames
 	{
+	///Splash
+	public final static String WSUV = "res/wsuv.png";
+	
 	/// Title & logo:
 	public final static String title = "res/Title.png";
 	public final static String logo = "res/Logo.png";
