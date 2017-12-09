@@ -70,6 +70,7 @@ public class Tank extends StateBasedGame
 
 		try
 			{
+			jig.Entity.antiAliasing = false;
 			appGameContainer = new AppGameContainer(new Tank(Strings.gameTitle));
 			appGameContainer.setDisplayMode(Settings.mainScreenWidth, Settings.mainScreenHeight, false);
 			application = appGameContainer;
