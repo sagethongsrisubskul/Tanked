@@ -1,5 +1,6 @@
 package tank;
 import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -12,22 +13,24 @@ public class StatePlay extends BasicGameState
 	{
 	Tank tank;
 	PlayGame playGame = new PlayGame();
+	static int i;
 	public static int elapsedTime;
 	public static int hours;
 	public static int minutes;
 	public static int seconds;
-	public static tankentity tanks[]=new tankentity[4];
-//	public static boolean powerupFlag=false;
+	public static int highScoreTimer; /// Seconds
+	public static int highScoreTimerOptions[] = {1, 5, 10, 15, 20, 30}; /// Minutes
+	public static tankentity tanks[] = new tankentity[4];
+	//	public static boolean powerupFlag=false;
 //	public static int powerx=0;//power ups x location
 //	public static int powery=0;//power ups y location
 //	public static int powerupIndex=0;
 	public static Powerups powerupEntity;
-//	public static int powerupElapsedTime = 0;
-	public int x=0;
-	public int y=0;
-	public int timer=0;
+	//	public static int powerupElapsedTime = 0;
+	public int x = 0;
+	public int y = 0;
+	public int timer = 0;
 	public static int gamePaused = C.NO;
-	
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
@@ -54,39 +57,66 @@ public class StatePlay extends BasicGameState
 		DisplaysStatePlay.positionDisplays();
 		GameStats.initGameStats();
 		elapsedTime = hours = minutes = seconds = 0;
-
-		for(i=0;i<Settings.numberActivePlayers;i++) {
-			if(Settings.playerTeamColors[i]==C.RED) {
-				tanks[i]=new tankentity(200,200,'r');
+		for(i = 0; i < Settings.numberActivePlayers; i++)
+			{
+			if(Settings.playerTeamColors[i] == C.RED)
+				{
+				tanks[i] = new tankentity(200, 200, 'r');
+				}
+			else if(Settings.playerTeamColors[i] == C.BLUE)
+				{
+				tanks[i] = new tankentity(200, 200, 'b');
+				}
+			else if(Settings.playerTeamColors[i] == C.GREEN)
+				{
+				tanks[i] = new tankentity(200, 200, 'g');
+				}
+			else if(Settings.playerTeamColors[i] == C.YELLOW)
+				{
+				tanks[i] = new tankentity(200, 200, 'y');
+				}
 			}
-			else if(Settings.playerTeamColors[i]==C.BLUE) {
-				tanks[i]=new tankentity(200,200,'b');
-			}
-			else if(Settings.playerTeamColors[i]==C.GREEN) {
-				tanks[i]=new tankentity(200,200,'g');
-			}
-			else if(Settings.playerTeamColors[i]==C.YELLOW) {
-				tanks[i]=new tankentity(200,200,'y');
-			}
-		}
 		GameStats.recordNumberTeams();
+		highScoreTimer = 60 * highScoreTimerOptions[Settings.highScoreTimerIndex];
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 		{
 		DisplaysStatePlay.renderDisplays(g);
-		for(int i=0;i<Settings.numberActivePlayers;i++) {
+		for(i = 0; i < Settings.numberActivePlayers; i++)
+			{
 			tanks[i].render(g);
 			tanks[i].getTurret().render(g);
-		}
-
-		if(Powerups.powerupFlag ==true) {
-		//render power up at location
-		//g.drawImage(ResourceManager.getImage(Filenames.powerupIcons[powerupIndex]).getScaledCopy(.35f), powerx, powery);
-		powerupEntity.render(g);
-		//powerupEntity.
-		}
+			}
+		if(Powerups.powerupFlag == true)
+			{
+			//render power up at location
+			//g.drawImage(ResourceManager.getImage(Filenames.powerupIcons[powerupIndex]).getScaledCopy(.35f), powerx, powery);
+			powerupEntity.render(g);
+			//powerupEntity.
+			}
+		if(GameStats.gameOver == C.YES)
+			{
+			DisplaysMessagePopup.renderMessage(g, Strings.colors[GameStats.winningTeam] + Strings.wins, C.CENTER, C.CENTER, 10, Fonts.fontCourier20BTTF, Color.black, Color.white);
+			}
+		else if(StatePlay.gamePaused == C.YES)
+			{
+			DisplaysMessagePopup.renderMessage(g, Strings.gamePaused, C.CENTER, DisplaysStatePlay.pausePopupY, 10, Fonts.fontCourier15BTTF, Color.black, Color.white);
+			DisplaysStatePlay.messageArea.colorSection(g, DisplaysStatePlay.messageBackgroundColor);
+			for(i = 0; i < Strings.networkMessages.length; i++)
+				{
+				DisplaysStatePlay.messageTextFont.drawString(DisplaysStatePlay.messageArea.x + DisplaysStatePlay.messageAreaPadding, DisplaysStatePlay.messageArea.y + DisplaysStatePlay.messageAreaPadding + (i * 10), Strings.networkMessages[i], DisplaysStatePlay.messageTextColor);
+				}
+			if(DisplaysPopupBox.popupDisplayed == C.YES)
+				{
+				DisplaysPopupBox.renderPopup(g);
+				}
+			}
+		else if(GameStats.health[Settings.playerID] <= 0)
+			{
+			DisplaysMessagePopup.renderMessage(g, Strings.gameOver, C.CENTER, C.CENTER, 10, Fonts.fontCourier20BTTF, Color.black, Color.white);
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -161,6 +191,11 @@ public class StatePlay extends BasicGameState
 		if(elapsedTime >= 1000)
 			{
 			seconds++;
+			if(Settings.winCondition == C.HIGH_SCORE)
+				{
+				highScoreTimer--;
+				if(highScoreTimer == 0) GameStats.checkWinCondition();
+				}
 			processPowerupTime();
 			elapsedTime -= 1000;
 			}

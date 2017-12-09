@@ -19,6 +19,12 @@ public class GameStats
 	public static int speedBase = 5;
 	public static int scoreBase = 0;
 	public static int levelBase = 1;
+	///
+	public static int scoreDamageInflicted = 1;
+	public static int scoreDamageIncurred = -1;
+	public static int scorePowerupCollected = 250;
+	public static int scorePowerupActivated = -100;
+	///
 	public static int maxHealth[] = new int[C.MAX_PLAYERS];
 	public static int health[] = new int[C.MAX_PLAYERS];
 	public static int armor[] = new int[C.MAX_PLAYERS];
@@ -47,59 +53,73 @@ public class GameStats
 		{
 		int i;
 		int winTeam = -1;
-		int numActive = 0;
-		int playerDead[] = new int[Settings.numberActivePlayers];
-		int activePlayers[] = new int[Settings.numberActivePlayers];
-		/// Flags dead and active players:
-		for(i = 0; i < Settings.numberActivePlayers; i++)
+		if(Settings.winCondition == C.DEATHMATCH)
 			{
-			if(health[i] != 0) /// If player is alive
-				{
-				activePlayers[numActive] = i; /// Stores the ID of the active player
-				numActive++;
-				if(numActive >= (Settings.numberActivePlayers + 2) - Settings.numberTeams) /// Formula to determine impossibility of game being over
-					return;
-				}
-			else /// player is dead
-				playerDead[i] = C.YES;
-			}
-	/// Selects lone survivor if any:
-		if(numActive == 1)
-			{
+			int numActive = 0;
+			int playerDead[] = new int[Settings.numberActivePlayers];
+			int activePlayers[] = new int[Settings.numberActivePlayers];
+			/// Flags dead and active players:
 			for(i = 0; i < Settings.numberActivePlayers; i++)
 				{
-				if(playerDead[i] == C.NO)
+				if(health[i] != 0) /// If player is alive
 					{
-					NetworkControl.sendToAll("~GO" + Settings.playerTeamColors[i]);
-					return;
+					activePlayers[numActive] = i; /// Stores the ID of the active player
+					numActive++;
+					if(numActive >= (Settings.numberActivePlayers + 2) - Settings.numberTeams) /// Formula to determine impossibility of game being over
+						return;
+					}
+				else /// player is dead
+					playerDead[i] = C.YES;
+				}
+			/// Selects lone survivor if any:
+			if(numActive == 1)
+				{
+				for(i = 0; i < Settings.numberActivePlayers; i++)
+					{
+					if(playerDead[i] == C.NO)
+						{
+						NetworkControl.sendToAll("~GO" + Settings.playerTeamColors[i]);
+						return;
+						}
 					}
 				}
-			}
-		/// Selects lone surviving team if any:
-		else
-			{
-			for(i = 0; i < numActive; i++)
+			/// Selects lone surviving team if any:
+			else
 				{
-				if(i == numActive - 1)
-					break;
-				if(Settings.playerTeamColors[activePlayers[0]] != Settings.playerTeamColors[activePlayers[i+1]])
+				for(i = 0; i < numActive; i++)
 					{
+					if(i == numActive - 1) break;
+					if(Settings.playerTeamColors[activePlayers[0]] != Settings.playerTeamColors[activePlayers[i + 1]])
+						{
 //					System.out.printf("Game active: comparison: color[%d] %d vs. color[%d] %d\n", activePlayers[0], Settings.playerTeamColors[activePlayers[0]], activePlayers[i+1], Settings.playerTeamColors[activePlayers[i+1]]);
-					return; /// Comparison of team colors do not match, game is still active
-					}
-				else
-					{
+						return; /// Comparison of team colors do not match, game is still active
+						}
+					else
+						{
 //					System.out.printf("Possible Win: comparison: color[%d] %d vs. color[%d] %d\n", activePlayers[0], Settings.playerTeamColors[activePlayers[0]], activePlayers[i+1], Settings.playerTeamColors[activePlayers[i+1]]);
-					winTeam = Settings.playerTeamColors[activePlayers[0]]; /// Records matching color in case all comparisons are equal
+						winTeam = Settings.playerTeamColors[activePlayers[0]]; /// Records matching color in case all comparisons are equal
+						}
+					}
+				NetworkControl.sendToAll("~GO" + winTeam);
+				}
+			}
+		else if(Settings.winCondition == C.HIGH_SCORE)
+			{
+			int highScore = -1;
+			for(i = 0; i < Settings.numberActivePlayers; i++)
+				{
+				if(highScore < GameStats.score[i])
+					{
+					highScore = GameStats.score[i];
+					winTeam = i;
 					}
 				}
 			NetworkControl.sendToAll("~GO" + winTeam);
 			}
-
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* A player calls this method when he receives damage */
-	public static void sendPlayerDamageCommand(int playerID, int damage)
+	public static void sendPlayerDamageCommand(int attackerID, int defenderID, int damage)
 		{
 		String sendString = "";
 		String damageString = Integer.toString(damage);
@@ -110,24 +130,30 @@ public class GameStats
 		else if(damageString.length() == 3)
 			sendString = "0";
 		sendString += Integer.toString(damage);
-		NetworkControl.sendToAll("~PD" + playerID + sendString);
+		NetworkControl.sendToAll("~PD" + attackerID + defenderID + sendString);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called via the network to process a player taking damage */
-	public static void playerDamage(int playerID, int damage)
+	public static void playerDamage(int attackerID, int defenderID, int damage)
 		{
-//		System.out.printf("Player %d takes %d damage\n", playerID, damage);
-		int i;
-//		for(i=0;i<Settings.numberActivePlayers;i++)
-//			System.out.printf("Player %d health = %d\n", i, health[i]);
-		GameStats.health[playerID] -= damage;
-		if(GameStats.health[playerID] <= 0)
+		if(Settings.winCondition == C.DEATHMATCH)
 			{
-			GameStats.health[playerID] = 0;
-			GameStats.checkWinCondition();
+			GameStats.health[defenderID] -= damage;
+			if(GameStats.health[defenderID] <= 0)
+				{
+				GameStats.health[defenderID] = 0;
+				GameStats.checkWinCondition();
+				}
 			}
-		}
+		else if(Settings.winCondition == C.HIGH_SCORE)
+			{
+			/// No damage done in high score mode
+			}
+		score[defenderID] += scoreDamageIncurred * damage;
+		if(attackerID != C.INVALID) /// If damage came from a player and not a mine
+			score[attackerID] += scoreDamageInflicted * damage;
 
+		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void recordNumberTeams()
 		{

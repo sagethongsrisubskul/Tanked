@@ -34,7 +34,10 @@ public class Commands
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'C') /// Setup colors
 				setColors(string.substring(3, string.length()));
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'W') /// Setup win conditions
+				{
 				Settings.winCondition = Character.getNumericValue(string.charAt(3));
+				Settings.highScoreTimerIndex = Character.getNumericValue(string.charAt(4));
+				}
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'M') /// Setup map selected
 				Settings.mapSelected = Character.getNumericValue(string.charAt(3));
 			/// General game commands:
@@ -80,7 +83,9 @@ public class Commands
 				Inputs.yMouse[Character.getNumericValue(string.charAt(3))] = Integer.parseInt(string.substring(4, string.length()));
 			/// Gameplay:
 			else if(string.charAt(1) == 'P' && string.charAt(2) == 'D') /// Player damage
-				GameStats.playerDamage(Character.getNumericValue(string.charAt(3)), charactersToInteger(string.charAt(4), string.charAt(5), string.charAt(6), string.charAt(7)));
+				GameStats.playerDamage(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)), charactersToInteger(string.charAt(5), string.charAt(6), string.charAt(7), string.charAt(8)));
+			else if(string.charAt(1) == 'M' && string.charAt(2) == 'C') /// Mine collision
+				Powerups.mineCollision(Character.getNumericValue(string.charAt(3)));
 			}
 		else /// String is a chat message
 			{
@@ -221,7 +226,7 @@ public class Commands
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void sendSetWinConditionCommand()
 		{
-		NetworkControl.sendToAll("~SW" + Settings.winCondition);
+		NetworkControl.sendToAll("~SW" + Settings.winCondition + Settings.highScoreTimerIndex);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static int charactersToInteger(char... c)
