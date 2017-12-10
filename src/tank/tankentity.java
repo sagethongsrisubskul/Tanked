@@ -3,6 +3,8 @@ import jig.Entity;
 import jig.Vector;
 
 public class tankentity extends Entity {
+
+	public enum Edge {Top, Bottom, Left, Right, None};
 	
 	private Vector velocity;
 	
@@ -85,6 +87,19 @@ public class tankentity extends Entity {
 	public turretentity getTurret(){
 		return turret;
 	}
-	
-	
+
+	/*-----------------------------------------------------------------------------------------------------*/
+	public Edge collideWorldEdge(){
+		if(this.getX() >= (DisplaysStatePlay.camera.worldWitdth - this.getCoarseGrainedWidth() / 2))
+			return Edge.Right;
+		else if(this.getX() <= ( this.getCoarseGrainedWidth() / 2))
+			return Edge.Left;
+		else if(this.getY() >= (DisplaysStatePlay.camera.worldHeight -this.getCoarseGrainedHeight() / 2))
+			return Edge.Bottom;
+		else if(this.getY() <= ( this.getCoarseGrainedHeight() / 2))
+			return Edge.Top;
+		else
+			return Edge.None;
+	}
+
 }
