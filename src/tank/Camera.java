@@ -61,8 +61,8 @@ public class Camera
         x = Math.min(0, x);
         y = Math.min(0, y);
 
-        x = Math.max(x, -(worldWitdth - Settings.mainScreenWidth));
-        y = Math.max(y, -(worldHeight - Settings.mainScreenHeight));
+        x = Math.max(x, -(worldWitdth - viewportWidth));
+        y = Math.max(y, -(worldHeight - viewportHeight));
 
         pixelOffsetX = x;
         pixelOffsetY = y;
