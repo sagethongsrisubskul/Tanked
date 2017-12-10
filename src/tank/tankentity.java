@@ -67,7 +67,7 @@ public class tankentity extends Entity {
 		
 		float x=x2-x1;
 		float y=y2-y1;
-		
+
 		turretangle=(180f/Math.PI)*Math.atan2(x,-y);
 	}
 	/*-----------------------------------------------------------------------------------------------------*/

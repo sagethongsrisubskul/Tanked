@@ -65,7 +65,11 @@ public class DisplaysStatePlay
 	public static StringsDisplay score = new StringsDisplay("", scoreFont, scoreColor, 0, 0);
 	public static StringsDisplay power = new StringsDisplay("", mainFont, powerColor, 0, 0);
 	public static StringsDisplay speed = new StringsDisplay("", mainFont, speedColor, 0, 0);
-	public static StringsDisplay winCondition = new StringsDisplay("", scoreFont, scoreColor, 0, 0);
+    public static StringsDisplay winCondition = new StringsDisplay("", scoreFont, scoreColor, 0, 0);
+
+	/// Tiled Map:
+	public static Camera camera;
+
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initDisplays()
 		{
@@ -164,8 +168,43 @@ public class DisplaysStatePlay
 		/// Border & maps:
 		g.setColor(backgroundColor);
 		g.fillRect(0, 0, Settings.currentScreenWidth, Settings.currentScreenHeight);
-		map.renderImage();
 		bottomMargin.colorSection(g, backgroundColor);
+
+		/// Begin World Rendering:
+		g.translate(camera.xPos + camera.pixelOffsetX, camera.yPos + camera.pixelOffsetY);
+		g.setClip(camera.viewport);
+
+		camera.render(g);
+
+		/// Tanks:
+		for(int i=0;i<Settings.numberActivePlayers;i++) {
+			StatePlay.tanks[i].render(g);
+			StatePlay.tanks[i].getTurret().render(g);
+		}
+
+
+		/// Powerups:
+		if(Powerups.powerupFlag ==true) {
+			//render power up at location
+			//g.drawImage(ResourceManager.getImage(Filenames.powerupIcons[powerupIndex]).getScaledCopy(.35f), powerx, powery);
+			StatePlay.powerupEntity.render(g);
+			//powerupEntity.
+		}
+
+		//g.translate(-camera.pixelOffsetX, -camera.pixelOffsetY);
+		g.clearClip();
+		g.resetTransform();
+		/// End World Rendering
+
+//		g.drawString("MouseX: " + (Inputs.xMouse[Settings.playerID] - camera.xPos - camera.pixelOffsetX), 10, 200);
+//		g.drawString("MouseY: " + (Inputs.yMouse[Settings.playerID] - camera.yPos - camera.pixelOffsetY), 10, 210);
+//
+//		g.drawString("TurretX: " + StatePlay.tanks[Settings.playerID].getX(), 10, 230);
+//		g.drawString("TurretY: " + StatePlay.tanks[Settings.playerID].getY(), 10, 240);
+//
+//		g.drawString("pixelOffsetX: " + (camera.xPos + (float)camera.pixelOffsetX), 10, 250);
+//		g.drawString("pixelOffsetY: " + (camera.yPos + (float)camera.pixelOffsetY), 10, 260);
+
 		rightMargin.colorSection(g, backgroundColor);
 		miniMapArea.colorSection(g, miniMapColor);
 		miniMap.renderImage();

@@ -7,8 +7,10 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-
 import jig.Vector;
+
+import static tank.DisplaysStatePlay.camera;
+
 public class StatePlay extends BasicGameState
 	{
 	Tank tank;
@@ -31,6 +33,7 @@ public class StatePlay extends BasicGameState
 	public int y = 0;
 	public int timer = 0;
 	public static int gamePaused = C.NO;
+
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
@@ -55,6 +58,7 @@ public class StatePlay extends BasicGameState
 		Settings.currentScreenWidth = Settings.playScreenWidth;
 		Settings.currentScreenHeight = Settings.playScreenHeight;
 		DisplaysStatePlay.positionDisplays();
+		camera = new Camera(Filenames.maps[Settings.mapSelected], 10, 125);
 		GameStats.initGameStats();
 		elapsedTime = hours = minutes = seconds = 0;
 		for(i = 0; i < Settings.numberActivePlayers; i++)
@@ -84,18 +88,7 @@ public class StatePlay extends BasicGameState
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 		{
 		DisplaysStatePlay.renderDisplays(g);
-		for(i = 0; i < Settings.numberActivePlayers; i++)
-			{
-			tanks[i].render(g);
-			tanks[i].getTurret().render(g);
-			}
-		if(Powerups.powerupFlag == true)
-			{
-			//render power up at location
-			//g.drawImage(ResourceManager.getImage(Filenames.powerupIcons[powerupIndex]).getScaledCopy(.35f), powerx, powery);
-			powerupEntity.render(g);
-			//powerupEntity.
-			}
+
 		if(GameStats.gameOver == C.YES)
 			{
 			DisplaysMessagePopup.renderMessage(g, Strings.colors[GameStats.winningTeam] + Strings.wins, C.CENTER, C.CENTER, 10, Fonts.fontCourier20BTTF, Color.black, Color.white);
@@ -138,8 +131,8 @@ public class StatePlay extends BasicGameState
 			{
 			if(timer >= 10)
 				{
-				NetworkControl.sendToAll("~PX" + Settings.playerID + input.getMouseX());
-				NetworkControl.sendToAll("~PY" + Settings.playerID + input.getMouseY());
+				NetworkControl.sendToAll("~PX" + Settings.playerID + (input.getMouseX() - camera.xPos - camera.pixelOffsetX));
+				NetworkControl.sendToAll("~PY" + Settings.playerID + (input.getMouseY() - camera.yPos - camera.pixelOffsetY));
 				x = (int) tanks[Settings.playerID].getX();
 				y = (int) tanks[Settings.playerID].getY();
 				NetworkControl.sendToAll("~PV" + Settings.playerID + x);
@@ -173,6 +166,7 @@ public class StatePlay extends BasicGameState
 			Powerups.sendPowerupStatus();
 			Powerups.checkPowerupCollision();
 			}
+		camera.update(tanks[Settings.playerID], delta);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
