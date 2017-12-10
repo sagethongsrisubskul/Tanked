@@ -8,6 +8,7 @@ import jig.Entity;
 public class Tank extends StateBasedGame
 	{
 	public static AppGameContainer application;
+	public static boolean DEBUG = false;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public Tank(String title)
 		{

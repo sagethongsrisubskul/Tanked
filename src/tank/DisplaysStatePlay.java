@@ -2,6 +2,10 @@ package tank;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
+
+import javax.swing.plaf.nimbus.State;
+import java.util.Set;
+
 /* This class is for displaying all the displayables in the state. A state will call the positionDisplays
  * method during the enter method of the state. This will recalculate the position of the displays based
  * on the current screen size. The state will call the renderDisplays method during in the render method.*/
@@ -196,14 +200,21 @@ public class DisplaysStatePlay
 		g.resetTransform();
 		/// End World Rendering
 
-//		g.drawString("MouseX: " + (Inputs.xMouse[Settings.playerID] - camera.xPos - camera.pixelOffsetX), 10, 200);
-//		g.drawString("MouseY: " + (Inputs.yMouse[Settings.playerID] - camera.yPos - camera.pixelOffsetY), 10, 210);
-//
-//		g.drawString("TurretX: " + StatePlay.tanks[Settings.playerID].getX(), 10, 230);
-//		g.drawString("TurretY: " + StatePlay.tanks[Settings.playerID].getY(), 10, 240);
-//
-//		g.drawString("pixelOffsetX: " + (camera.xPos + (float)camera.pixelOffsetX), 10, 250);
-//		g.drawString("pixelOffsetY: " + (camera.yPos + (float)camera.pixelOffsetY), 10, 260);
+		if(Tank.DEBUG)
+			{
+			g.drawString("Debug: " + Tank.DEBUG, 10, 140);
+			g.drawString("MouseX: " + (Inputs.xMouse[Settings.playerID] - camera.xPos - camera.pixelOffsetX), 10, 160);
+			g.drawString("MouseY: " + (Inputs.yMouse[Settings.playerID] - camera.yPos - camera.pixelOffsetY), 10, 180);
+
+			g.drawString("TankX: " + StatePlay.tanks[Settings.playerID].getX(), 10, 200);
+			g.drawString("TankY: " + StatePlay.tanks[Settings.playerID].getY(), 10, 220);
+
+			g.drawString("pixelOffsetX: " + (camera.xPos + (float) camera.pixelOffsetX), 10, 240);
+			g.drawString("pixelOffsetY: " + (camera.yPos + (float) camera.pixelOffsetY), 10, 260);
+			g.drawString("worldWidth: " + camera.worldWitdth, 10, 280);
+			g.drawString("worldHeight: " + camera.worldHeight, 10, 300);
+			g.drawString("Edge: " + StatePlay.tanks[Settings.playerID].collideWorldEdge(), 10, 320);
+			}
 
 		rightMargin.colorSection(g, backgroundColor);
 		miniMapArea.colorSection(g, miniMapColor);
