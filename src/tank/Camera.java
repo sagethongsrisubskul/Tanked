@@ -8,14 +8,12 @@ import org.newdawn.slick.tiled.TiledMap;
 public class Camera
     {
 
-    private static int viewportTileWidth = 30;
-    private static int viewportTileHeight = 19;
     TiledMap map;
     int worldWitdth;
     int worldHeight;
     Rectangle viewport;
-    int viewportWidth;
-    int viewportHeight;
+    int viewportWidth = 960;
+    int viewportHeight = 616;
 
     int xPos;
     int yPos;
@@ -40,9 +38,6 @@ public class Camera
 
         worldWitdth = map.getWidth() * tileWidth;
         worldHeight = map.getHeight() * tileHeight;
-
-        viewportWidth = viewportTileWidth * tileWidth;
-        viewportHeight = viewportTileHeight * tileHeight;
 
         viewport = new Rectangle(xPos, yPos, viewportWidth, viewportHeight);
 
