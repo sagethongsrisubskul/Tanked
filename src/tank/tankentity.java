@@ -62,12 +62,12 @@ public class tankentity extends Entity {
 	}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public void aimTurret(float x2,float y2){
-		float x1=this.getX();
-		float y1=this.getY();
+		float x1=this.getX() + DisplaysStatePlay.camera.xPos;
+		float y1=this.getY() + DisplaysStatePlay.camera.yPos;
 		
 		float x=x2-x1;
 		float y=y2-y1;
-		
+
 		turretangle=(180f/Math.PI)*Math.atan2(x,-y);
 	}
 	/*-----------------------------------------------------------------------------------------------------*/
