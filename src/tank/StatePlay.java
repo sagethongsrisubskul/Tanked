@@ -9,6 +9,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import jig.Vector;
 
+import static tank.DisplaysStatePlay.camera;
+
 public class StatePlay extends BasicGameState
 	{
 	Tank tank;
@@ -56,7 +58,7 @@ public class StatePlay extends BasicGameState
 		Settings.currentScreenWidth = Settings.playScreenWidth;
 		Settings.currentScreenHeight = Settings.playScreenHeight;
 		DisplaysStatePlay.positionDisplays();
-		DisplaysStatePlay.camera = new Camera(Filenames.maps[Settings.mapSelected], 10, 125);
+		camera = new Camera(Filenames.maps[Settings.mapSelected], 10, 125);
 		GameStats.initGameStats();
 		elapsedTime = hours = minutes = seconds = 0;
 		for(i = 0; i < Settings.numberActivePlayers; i++)
@@ -129,8 +131,8 @@ public class StatePlay extends BasicGameState
 			{
 			if(timer >= 10)
 				{
-				NetworkControl.sendToAll("~PX" + Settings.playerID + input.getMouseX());
-				NetworkControl.sendToAll("~PY" + Settings.playerID + input.getMouseY());
+				NetworkControl.sendToAll("~PX" + Settings.playerID + (input.getMouseX() - camera.xPos - camera.pixelOffsetX));
+				NetworkControl.sendToAll("~PY" + Settings.playerID + (input.getMouseY() - camera.yPos - camera.pixelOffsetY));
 				x = (int) tanks[Settings.playerID].getX();
 				y = (int) tanks[Settings.playerID].getY();
 				NetworkControl.sendToAll("~PV" + Settings.playerID + x);
@@ -164,7 +166,7 @@ public class StatePlay extends BasicGameState
 			Powerups.sendPowerupStatus();
 			Powerups.checkPowerupCollision();
 			}
-		DisplaysStatePlay.camera.update(tanks[Settings.playerID], delta);
+		camera.update(tanks[Settings.playerID], delta);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override

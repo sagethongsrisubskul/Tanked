@@ -196,6 +196,15 @@ public class DisplaysStatePlay
 		g.resetTransform();
 		/// End World Rendering
 
+//		g.drawString("MouseX: " + (Inputs.xMouse[Settings.playerID] - camera.xPos - camera.pixelOffsetX), 10, 200);
+//		g.drawString("MouseY: " + (Inputs.yMouse[Settings.playerID] - camera.yPos - camera.pixelOffsetY), 10, 210);
+//
+//		g.drawString("TurretX: " + StatePlay.tanks[Settings.playerID].getX(), 10, 230);
+//		g.drawString("TurretY: " + StatePlay.tanks[Settings.playerID].getY(), 10, 240);
+//
+//		g.drawString("pixelOffsetX: " + (camera.xPos + (float)camera.pixelOffsetX), 10, 250);
+//		g.drawString("pixelOffsetY: " + (camera.yPos + (float)camera.pixelOffsetY), 10, 260);
+
 		rightMargin.colorSection(g, backgroundColor);
 		miniMapArea.colorSection(g, miniMapColor);
 		miniMap.renderImage();
