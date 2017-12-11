@@ -63,7 +63,6 @@ public class DisplaysStatePlay
 	public static Area powerupArea[] = new Area[Strings.powerups.length + 1];
 	/// Objects:
 	public static Image miniMap = new Image(Filenames.miniMap[Settings.mapSelected], 0, 0, pswMiniMap);
-	public static Image map = new Image(Filenames.map2, 0, 0, pswMap);
 	public static Image powerupIcon[] = new Image[Filenames.powerupIcons.length];
 	public static StringsDisplay time = new StringsDisplay("", timeFont, timeColor, 0, 0);
 	public static StringsDisplay powerupStrings[] = new StringsDisplay[Strings.powerups.length];
@@ -109,9 +108,6 @@ public class DisplaysStatePlay
 		miniMap.x = miniMapArea.x + miniMapBorder;
 		miniMap.y = miniMapArea.y + miniMapBorder;
 		miniMap.filename = Filenames.miniMap[Settings.mapSelected];
-		/// Map: (for placeholder display purposes)
-		map.x = mapArea.x;
-		map.y = mapArea.y;
 		/// Healthbar:
 		healthBarArea.x = Settings.currentScreenWidth - margin - healthBarWidth;
 		healthBarArea.y = miniMapArea.endY + 1;

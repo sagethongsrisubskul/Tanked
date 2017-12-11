@@ -32,13 +32,8 @@ public class Filenames
 	public final static String buttonSquare = "res/ButtonSquare.png";
 	/// Maps:
 	public final static String maps[] = {"res/Map1.tmx", "res/Map2.tmx", "res/Map3.tmx"};
-	public final static int mapSize[][] = {{640,640},{800,544},{1600,1088}};
-
-//	public final static String tilesets[] = {"res/Maptiles.tsx", "res/tankMasterTL.tsx"};
-//	public final static String tilesetsMap3[] = {"res/tankMasterTL.tsx", "res/tankMasterTR.tsx", "res/tankMasterBL.tsx", "res/tankMasterBR.tsx"};
-//	public final static String tilesetImages[] = {"res/tiles.png", "res/tankMasterTL.png", "res/tankMaster2.png"};
+	public final static int mapSize[][] = {{1280,1280},{1600,1088},{1600,1088}};
 	public final static String miniMap[] = {"res/miniMap1.jpg", "res/miniMap2.jpg", "res/miniMap3.jpg"};
-	public final static String map2 = "res/Map2.jpg";
 	/// Tanks:
 	public final static String tank_r="res/tank_r.png";
 	public final static String tank_g="res/tank_g.png";
