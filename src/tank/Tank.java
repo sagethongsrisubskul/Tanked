@@ -1,18 +1,22 @@
+// Done:
 //TODO beer powerup *DONE
 //TODO cheat code for max powerups *DONE
 //TODO set a cap on max powerups *DONE
-//
+//TODO fix gray lines in map3 *DONE
+
+// Left to do:
 //TODO powerups appear on the very corner of the map, not able to see all of it or collide with it
 //TODO tanks run over each other
 //TODO sync player damage for mines
 //TODO mine activation cooldown
-//TODO minimap powerup spawn locator (place small dot on minimap to indicate where the powerup is spawned)
 //TODO projectiles
 //TODO map collision with walls
 //TODO explosion animations
-//TODO weight powerup spawns (e.g. beer and invincible should appear less often than say health)
 //TODO fix tank moving if moving while pause is pressed
-//TODO fix gray lines in map3
+
+// If time:
+//TODO weighted powerup spawns? (e.g. beer and invincible should appear less often than say health)
+//TODO minimap powerup spawn locator? (place small dot on minimap to indicate where the powerup is spawned)
 
 package tank;
 import org.newdawn.slick.AppGameContainer;

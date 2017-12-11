@@ -27,8 +27,8 @@ public class Powerups extends Entity
 	public static int minePlayer = 0;
 	/// Powerup life cycle:
 	public static int powerupElapsedTime = 0; /// The time in seconds the powerup is on its cycle
-	public static int powerupInterval = 1; /// The interval in seconds a powerup will appear after the previous disappeared
-	public static int powerupDuration = 15; /// The seconds the powerup will remain on the screen
+	public static int powerupInterval = 20; /// The interval in seconds a powerup will appear after the previous disappeared
+	public static int powerupDuration = 20; /// The seconds the powerup will remain on the screen
 	/// Powerup coord
 	public static int powerupIndex = 0; /// The index of the powerup image in Filenames
 	/// Powerup statuses:
@@ -46,11 +46,11 @@ public class Powerups extends Entity
 	public static int beerSpeedIncreaseCumulative[] = new int[C.MAX_PLAYERS];
 	public static int beerPowerIncreaseCumulative[] = new int[C.MAX_PLAYERS];
 	/// Powerup times:
-	public static int speedBurstTime = 10; /// Speed powerup time in seconds
-	public static int powerBurstTime = 10; /// Power powerup time in seconds
-	public static int invincibleBurstTime = 10; /// Invincible powerup time in seconds
-	public static int beerTime = 5; /// Beer powerup time in seconds
-	public static int beerRecoveryTime = 10; ///
+	public static int speedBurstTime = 30; /// Speed powerup time in seconds
+	public static int powerBurstTime = 30; /// Power powerup time in seconds
+	public static int invincibleBurstTime = 15; /// Invincible powerup time in seconds
+	public static int beerTime = 20; /// Beer powerup time in seconds
+	public static int beerRecoveryTime = 30; ///
 	/// Powerup increases/decreases:
 	public static int healthIncrease = (int) (GameStats.maxHealthBase * 0.10); /// How much health is restored when activating the health powerup
 	public static int mineDamage = (int) (GameStats.maxHealthBase * 0.10); /// How much damage colliding with a mine will do
