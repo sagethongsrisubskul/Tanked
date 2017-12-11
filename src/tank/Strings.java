@@ -3,6 +3,9 @@ package tank;
 public class Strings
 	{
 	/*-----------------------------------------------------------------------------------------------------*/
+	/// Splash State:
+	public static final String cs447 = "CS447 FINAL PROJECT";
+	/*-----------------------------------------------------------------------------------------------------*/
 	/// Main State:
 	public static final String gameTitle = "Tank";
 	public static final String authorsList[] = {"Samuel Riesterer", "Benjamin DeCamp", "Sage Thongsrisubskul", "Tyler Coy"};
