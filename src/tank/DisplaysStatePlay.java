@@ -203,8 +203,8 @@ public class DisplaysStatePlay
 		if(Tank.DEBUG)
 			{
 			g.drawString("Debug: " + Tank.DEBUG, 10, 140);
-			g.drawString("MouseX: " + (Inputs.xMouse[Settings.playerID] - camera.xPos - camera.pixelOffsetX), 10, 160);
-			g.drawString("MouseY: " + (Inputs.yMouse[Settings.playerID] - camera.yPos - camera.pixelOffsetY), 10, 180);
+			g.drawString("MouseX: " + (Inputs.xMouse[Settings.playerID] - camera.pixelOffsetX), 10, 160);
+			g.drawString("MouseY: " + (Inputs.yMouse[Settings.playerID] - camera.pixelOffsetY), 10, 180);
 
 			g.drawString("TankX: " + StatePlay.tanks[Settings.playerID].getX(), 10, 200);
 			g.drawString("TankY: " + StatePlay.tanks[Settings.playerID].getY(), 10, 220);
