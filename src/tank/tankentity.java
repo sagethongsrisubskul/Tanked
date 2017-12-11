@@ -3,6 +3,8 @@ import jig.Entity;
 import jig.Vector;
 
 public class tankentity extends Entity {
+
+	public enum Edge {Top, Bottom, Left, Right, TopRight, TopLeft, BottomLeft, BottomRight, None};
 	
 	private Vector velocity;
 	
@@ -67,24 +69,101 @@ public class tankentity extends Entity {
 		
 		float x=x2-x1;
 		float y=y2-y1;
-		
+
 		turretangle=(180f/Math.PI)*Math.atan2(x,-y);
 	}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public void control(int movement, int rotation){
-		this.movement=movement;
-		this.rotation=rotation;
+	public void control(int mov, int rot){
+		this.movement=mov;
+		this.rotation=rot;
 		
 		//why aren't these working?
 		//velocity.setX(movement*(float)Math.sin(rotation*(180/Math.PI)));
 		//velocity.setY(movement*(float)Math.cos(rotation*(180/Math.PI)));
-		velocity=new Vector(movement*(float)Math.sin(hullangle*(Math.PI/180.0f)),-movement*(float)Math.cos(hullangle*(Math.PI/180.0f)));
-		
+		//velocity=new Vector(movement*(float)Math.sin(hullangle*(Math.PI/180.0f)),-movement*(float)Math.cos(hullangle*(Math.PI/180.0f)));
+
+		float x = movement*(float)Math.sin(hullangle*(Math.PI/180.0f));
+		float y = -movement*(float)Math.cos(hullangle*(Math.PI/180.0f));
+
+		switch(collideWorldEdge())
+		{
+			case Top:
+				if(y < 0)
+					y = 0;
+				break;
+			case TopLeft:
+				if(y < 0)
+					y = 0;
+				if(x < 0)
+					x = 0;
+				break;
+			case TopRight:
+				if(y < 0)
+					y = 0;
+				if(x > 0)
+					x = 0;
+				break;
+			case Bottom:
+				if(y > 0)
+					y = 0;
+				break;
+			case BottomLeft:
+				if(y > 0)
+					y = 0;
+				if(x < 0)
+					x = 0;
+				break;
+			case BottomRight:
+				if(y > 0)
+					y = 0;
+				if(x > 0)
+					x = 0;
+				break;
+			case Left:
+				if(x < 0)
+					x = 0;
+				break;
+			case Right:
+				if(x > 0)
+					x = 0;
+				break;
+		}
+
+		velocity = new Vector(x, y);
+
+
 	}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public turretentity getTurret(){
 		return turret;
 	}
-	
-	
+
+	/*-----------------------------------------------------------------------------------------------------*/
+	public Edge collideWorldEdge(){
+		if(this.getX() >= (DisplaysStatePlay.camera.worldWitdth - this.getCoarseGrainedWidth() / 2))
+			{
+			if(this.getY() >= (DisplaysStatePlay.camera.worldHeight -this.getCoarseGrainedHeight() / 2))
+				return Edge.BottomRight;
+			else if(this.getY() <= ( this.getCoarseGrainedHeight() / 2))
+				return Edge.TopRight;
+			else
+				return Edge.Right;
+			}
+		else if(this.getX() <= ( this.getCoarseGrainedWidth() / 2))
+			{
+			if(this.getY() >= (DisplaysStatePlay.camera.worldHeight -this.getCoarseGrainedHeight() / 2))
+				return Edge.BottomLeft;
+			else if(this.getY() <= ( this.getCoarseGrainedHeight() / 2))
+				return Edge.TopLeft;
+			else
+				return Edge.Left;
+			}
+		else if(this.getY() >= (DisplaysStatePlay.camera.worldHeight -this.getCoarseGrainedHeight() / 2))
+			return Edge.Bottom;
+		else if(this.getY() <= ( this.getCoarseGrainedHeight() / 2))
+			return Edge.Top;
+		else
+			return Edge.None;
+	}
+
 }
