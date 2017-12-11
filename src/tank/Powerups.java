@@ -3,6 +3,7 @@ import jig.Entity;
 
 import static tank.DisplaysStatePlay.camera;
 
+import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 /// Powerups:
 /// To change, add, or remove powerups, change the 3 arrays:
@@ -58,8 +59,8 @@ public class Powerups extends Entity
 			{
 			if((powerupElapsedTime == powerupInterval) && powerupFlag == false)
 				{
-				int xcoord = ThreadLocalRandom.current().nextInt(0, 300 + 1);
-				int ycoord = ThreadLocalRandom.current().nextInt(0, 300 + 1);
+				int xcoord = ThreadLocalRandom.current().nextInt(50,  (DisplaysStatePlay.camera.worldWitdth-50)+ 1);
+				int ycoord = ThreadLocalRandom.current().nextInt(50, (DisplaysStatePlay.camera.worldHeight-50)+ 1);
 				int index = ThreadLocalRandom.current().nextInt(0, Filenames.powerupIcons.length);
 				NetworkControl.sendToAll("~PT" + xcoord + "," + ycoord + "," + index);
 				}
@@ -235,13 +236,21 @@ public class Powerups extends Entity
 	}
 	
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void CheckMineCollision() {
-		for(int i=0;i<StatePlay.mines.size();i++) {
-			if(StatePlay.mines.get(i).collides(StatePlay.tanks[Settings.playerID])!=null) {
-				if(StatePlay.mines.get(i).playerID!=Settings.playerTeamColors[Settings.playerID]) {
+	public static void CheckMineCollision(int delta) {
+		int i=0;
+		for(Iterator<projectile> iterator = StatePlay.mines.iterator();iterator.hasNext();) {
+			projectile minetest=iterator.next();
+			
+			if(minetest.collides(StatePlay.tanks[Settings.playerID])!=null) {
+				if(minetest.playerID!=Settings.playerTeamColors[Settings.playerID]) {
 					NetworkControl.sendToAll("~RM"+i);
-					GameStats.health[Settings.playerID]-=50;
+					GameStats.health[Settings.playerID]-=mineDamage;
 				}
+			}
+			i++;
+			minetest.lifetime-=delta;
+			if(minetest.lifetime<=0) {
+				iterator.remove();
 			}
 		}
 	}

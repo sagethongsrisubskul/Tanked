@@ -68,19 +68,48 @@ public class StatePlay extends BasicGameState
 			{
 			if(Settings.playerTeamColors[i] == C.RED)
 				{
-				tanks[i] = new tankentity(200, 200, 'r');
+					if(i==0)
+						tanks[i] = new tankentity(200, 200, 'r');
+					else if(i==1)
+						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200, 200, 'r');
+					else if(i==2)
+						tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight-200, 'r');
+					else if(i==3)
+						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200,DisplaysStatePlay.camera.worldHeight-200, 'r');
+						
 				}
 			else if(Settings.playerTeamColors[i] == C.BLUE)
 				{
-				tanks[i] = new tankentity(200, 200, 'b');
+					if(i==0)
+						tanks[i] = new tankentity(200, 200, 'b');
+					else if(i==1)
+						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200, 200, 'b');
+					else if(i==2)
+						tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight-200, 'b');
+					else if(i==3)
+					tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200,DisplaysStatePlay.camera.worldHeight-200, 'b');
 				}
 			else if(Settings.playerTeamColors[i] == C.GREEN)
 				{
-				tanks[i] = new tankentity(200, 200, 'g');
+					if(i==0)
+						tanks[i] = new tankentity(200, 200, 'g');
+					else if(i==1)
+						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200, 200, 'g');
+					else if(i==2)
+						tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight-200, 'g');
+					else if(i==3)
+						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200,DisplaysStatePlay.camera.worldHeight-200, 'g');
 				}
 			else if(Settings.playerTeamColors[i] == C.YELLOW)
 				{
-				tanks[i] = new tankentity(200, 200, 'y');
+					if(i==0)
+						tanks[i] = new tankentity(200, 200, 'y');
+					else if(i==1)
+						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200, 200, 'y');
+					else if(i==2)
+						tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight-200, 'y');
+					else if(i==3)
+						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200,DisplaysStatePlay.camera.worldHeight-200, 'y');
 				}
 			}
 		GameStats.recordNumberTeams();
@@ -169,7 +198,7 @@ public class StatePlay extends BasicGameState
 				}
 			Powerups.sendPowerupStatus();
 			Powerups.checkPowerupCollision();
-			Powerups.CheckMineCollision();
+			Powerups.CheckMineCollision(delta);
 			}
 		camera.update(tanks[Settings.playerID], delta);
 		}
