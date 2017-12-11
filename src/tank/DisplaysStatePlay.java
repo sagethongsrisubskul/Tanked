@@ -12,6 +12,7 @@ import java.util.Set;
 public class DisplaysStatePlay
 	{
 	static int i;
+	public static boolean renderMiniMap = true;
 	public static int healthStartY = 0;
 	public static int numMessages = 0;
 	/// Spacings:
@@ -217,8 +218,13 @@ public class DisplaysStatePlay
 			}
 
 		rightMargin.colorSection(g, backgroundColor);
-		miniMapArea.colorSection(g, miniMapColor);
-		miniMap.renderImage();
+
+		if(renderMiniMap)
+			{
+			miniMapArea.colorSection(g, miniMapColor);
+			miniMap.renderImage();
+			}
+
 		/// Healthbar:
 		healthBarArea.colorSection(g, healthBarColor);
 		setHealthStartY();

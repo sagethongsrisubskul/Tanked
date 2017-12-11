@@ -64,6 +64,8 @@ public class Inputs
 				{
 				if(input.isKeyPressed(Input.KEY_F12))
 					Tank.DEBUG = !Tank.DEBUG;
+				if(input.isKeyPressed(Input.KEY_M))
+					DisplaysStatePlay.renderMiniMap = !DisplaysStatePlay.renderMiniMap;
 				if(input.isKeyPressed(Input.KEY_SPACE))
 					NetworkControl.sendToAll("~GP");
 				if(StatePlay.gamePaused == C.NO) /// Only allows input if game is not paused
