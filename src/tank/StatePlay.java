@@ -12,6 +12,7 @@ import jig.Vector;
 import static tank.DisplaysStatePlay.camera;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class StatePlay extends BasicGameState
 	{
@@ -256,5 +257,18 @@ public class StatePlay extends BasicGameState
 					}
 				}
 			}
+		}
+	
+	public static void removemines(int i) {
+		int x=0;
+		int deletemine=i;
+	
+		for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); ) {
+			projectile whichmine = iterator.next();
+			if(x==deletemine) {
+				iterator.remove();
+			}
+			x++;
+		}
 		}
 	}

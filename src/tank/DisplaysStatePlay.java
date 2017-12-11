@@ -4,6 +4,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
 
 import javax.swing.plaf.nimbus.State;
+
+import java.util.Iterator;
 import java.util.Set;
 
 /* This class is for displaying all the displayables in the state. A state will call the positionDisplays
@@ -183,8 +185,14 @@ public class DisplaysStatePlay
 		
 		//Mines
 		if(StatePlay.mines.isEmpty()==false) {
-			for(projectile mine : StatePlay.mines) {
-				mine.render(g);
+			try {
+				for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); ) {
+					projectile mine=iterator.next();
+					mine.render(g);
+				}
+			}
+			catch(Exception e) {
+				
 			}
 		}
 
