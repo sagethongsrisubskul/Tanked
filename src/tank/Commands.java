@@ -87,8 +87,10 @@ public class Commands
 			/// Gameplay:
 			else if(string.charAt(1) == 'P' && string.charAt(2) == 'D') /// Player damage
 				GameStats.playerDamage(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)), charactersToInteger(string.charAt(5), string.charAt(6), string.charAt(7), string.charAt(8)));
-			else if(string.charAt(1) == 'M' && string.charAt(2) == 'C') /// Mine collision
+			else if(string.charAt(1) == 'M' && string.charAt(2) == 'C') { /// Mine collision
 				Powerups.mineCollision(Character.getNumericValue(string.charAt(3)));
+				StatePlay.removemines(Integer.parseInt(string.substring(4,string.length())));
+			}
 			}
 		else /// String is a chat message
 			{

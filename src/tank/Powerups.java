@@ -57,8 +57,8 @@ public class Powerups extends Entity
 			{
 			if((powerupElapsedTime == powerupInterval) && powerupFlag == false)
 				{
-				int xcoord = ThreadLocalRandom.current().nextInt(50, (DisplaysStatePlay.camera.worldWitdth - 50) + 1);
-				int ycoord = ThreadLocalRandom.current().nextInt(50, (DisplaysStatePlay.camera.worldHeight - 50) + 1);
+				int xcoord = ThreadLocalRandom.current().nextInt(200, (DisplaysStatePlay.camera.worldWitdth - 200) + 1);
+				int ycoord = ThreadLocalRandom.current().nextInt(200, (DisplaysStatePlay.camera.worldHeight - 200) + 1);
 				int index = ThreadLocalRandom.current().nextInt(0, Filenames.powerupIcons.length);
 				NetworkControl.sendToAll("~PT" + xcoord + "," + ycoord + "," + index);
 				}
@@ -166,7 +166,7 @@ public class Powerups extends Entity
 	public static void sendMineCollision(int playerID, int mineID)
 		{
 		ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeMineDetonation);
-		StatePlay.mines.remove(mineID);
+		//StatePlay.mines.remove(mineID);
 		/// Decrease health but not to exceed zero:
 		NetworkControl.sendToAll("~MC" + playerID + mineID);
 		}
@@ -174,7 +174,7 @@ public class Powerups extends Entity
 	/* This method should be called for every user when someone collides with an enemy mine */
 	public static void mineCollision(int playerID)
 		{
-		GameStats.sendPlayerDamageCommand(C.INVALID, playerID, mineDamage);
+		//GameStats.sendPlayerDamageCommand(C.INVALID, playerID, mineDamage);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* Process the powerup command from the network. Used to display of the powerup and its status */
@@ -236,6 +236,7 @@ public class Powerups extends Entity
 	public static void CheckMineCollision(int delta)
 		{
 		int mineID = 0;
+		try {
 		for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
 			{
 			projectile minetest = iterator.next();
@@ -243,9 +244,12 @@ public class Powerups extends Entity
 				{
 				if(minetest.playerID != Settings.playerTeamColors[Settings.playerID])
 					{
+					//StatePlay.removemines(mineID);
+					StatePlay.mines.remove(mineID);
 					sendMineCollision(Settings.playerID, mineID);
 					}
 				}
+			
 			mineID++;
 			minetest.lifetime -= delta;
 			if(minetest.lifetime <= 0)
@@ -254,5 +258,12 @@ public class Powerups extends Entity
 				}
 			}
 		}
+		catch(Exception e) {
+			
+		}
+		
+		}
 	/*-----------------------------------------------------------------------------------------------------*/
+	
+		
 	}
