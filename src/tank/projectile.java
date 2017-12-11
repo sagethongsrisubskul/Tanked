@@ -7,7 +7,7 @@ public class projectile extends Entity{
 	private Vector acceleration;
 	private Vector worldpos;
 	private double angle;
-	private int lifetime;
+	public int lifetime;
 	public int playerID=0;
 
 	//x,y=coordinates, r=angle,mv=muzzle velocity, l=lifetime
