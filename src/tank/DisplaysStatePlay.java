@@ -179,12 +179,21 @@ public class DisplaysStatePlay
 		g.setClip(camera.viewport);
 
 		camera.render(g);
+		
+		//Mines
+		if(StatePlay.mines.isEmpty()==false) {
+			for(projectile mine : StatePlay.mines) {
+				mine.render(g);
+			}
+		}
 
 		/// Tanks:
 		for(int i=0;i<Settings.numberActivePlayers;i++) {
 			StatePlay.tanks[i].render(g);
 			StatePlay.tanks[i].getTurret().render(g);
 		}
+		
+		
 
 
 		/// Powerups:

@@ -1,6 +1,8 @@
 package tank;
 import jig.Entity;
 
+import static tank.DisplaysStatePlay.camera;
+
 import java.util.concurrent.ThreadLocalRandom;
 /// Powerups:
 /// To change, add, or remove powerups, change the 3 arrays:
@@ -17,6 +19,9 @@ public class Powerups extends Entity
 	public static float iconScale = .2f;
 	public static int powerx = 0; // powerups x location
 	public static int powery = 0; // powerups y location
+	public static int minex = 0;
+	public static int miney = 0;
+	public static int mineplayer=0;
 	/// Powerup life cycle:
 	public static int powerupElapsedTime = 0; /// The time in seconds the powerup is on its cycle
 	public static int powerupInterval = 10; /// The interval in seconds a powerup will appear after the previous disappeared
@@ -108,6 +113,7 @@ public class Powerups extends Entity
 		else if(powerupIndex == 1) /// Mine
 			{
 			//TODO render mine on the map
+				StatePlay.mines.add(new projectile(minex,miney,0,0,mineplayer));
 			}
 		else if(powerupIndex == 2) /// Speed
 			{
@@ -219,4 +225,25 @@ public class Powerups extends Entity
 		powerupElapsedTime = 0;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
+	public static void SendMineCord() {
+		int x = (int) StatePlay.tanks[Settings.playerID].getX();
+		int y = (int) StatePlay.tanks[Settings.playerID].getY();
+		NetworkControl.sendToAll("~MAX" + x);
+		NetworkControl.sendToAll("~MAY" + y);
+		NetworkControl.sendToAll("~MAP"+ Settings.playerTeamColors[Settings.playerID]);
+		
+	}
+	
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void CheckMineCollision() {
+		for(int i=0;i<StatePlay.mines.size();i++) {
+			if(StatePlay.mines.get(i).collides(StatePlay.tanks[Settings.playerID])!=null) {
+				if(StatePlay.mines.get(i).playerID!=Settings.playerTeamColors[Settings.playerID]) {
+					NetworkControl.sendToAll("~RM"+i);
+					GameStats.health[Settings.playerID]-=50;
+				}
+			}
+		}
+	}
+	
 	}

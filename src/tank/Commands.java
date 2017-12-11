@@ -57,6 +57,9 @@ public class Commands
 					}
 				}
 			/// Powerups:
+			else if(string.charAt(1)=='M' && string.charAt(2) == 'A' && string.charAt(3) =='X') Powerups.minex=Integer.parseInt(string.substring(4,string.length()));
+			else if(string.charAt(1)=='M' && string.charAt(2) == 'A' && string.charAt(3) =='Y') Powerups.miney=Integer.parseInt(string.substring(4,string.length()));
+			else if(string.charAt(1)=='M' && string.charAt(2) == 'A' && string.charAt(3) =='P') Powerups.mineplayer=Character.getNumericValue(string.charAt(4));
 			else if(string.charAt(1) == 'P' && string.charAt(2) == 'A') /// Powerup activated
 				Powerups.powerupActivation(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)));
 			else if(string.charAt(1) == 'P' && string.charAt(2) == 'C') /// Powerup collision
@@ -86,6 +89,7 @@ public class Commands
 				GameStats.playerDamage(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)), charactersToInteger(string.charAt(5), string.charAt(6), string.charAt(7), string.charAt(8)));
 			else if(string.charAt(1) == 'M' && string.charAt(2) == 'C') /// Mine collision
 				Powerups.mineCollision(Character.getNumericValue(string.charAt(3)));
+			else if(string.charAt(1)=='R' && string.charAt(2)=='M') StatePlay.mines.remove(Character.getNumericValue(string.charAt(3)));
 			}
 		else /// String is a chat message
 			{
