@@ -115,7 +115,10 @@ public class Inputs
 					//mouse position to be implemented
 					/// Powerup activated:
 					if(input.isKeyPressed(Input.KEY_1)) Powerups.sendPowerupActivation(C.POWERUP_HEALTH);
-					else if(input.isKeyPressed(Input.KEY_2)) Powerups.sendPowerupActivation(C.POWERUP_MINE);
+					else if(input.isKeyPressed(Input.KEY_2)) {
+						Powerups.SendMineCord();
+						Powerups.sendPowerupActivation(C.POWERUP_MINE);
+					}
 					else if(input.isKeyPressed(Input.KEY_3)) Powerups.sendPowerupActivation(C.POWERUP_SPEED);
 					else if(input.isKeyPressed(Input.KEY_4)) Powerups.sendPowerupActivation(C.POWERUP_POWER);
 					else if(input.isKeyPressed(Input.KEY_5)) Powerups.sendPowerupActivation(C.POWERUP_INVINCIBLE);

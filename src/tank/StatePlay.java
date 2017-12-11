@@ -11,6 +11,8 @@ import jig.Vector;
 
 import static tank.DisplaysStatePlay.camera;
 
+import java.util.ArrayList;
+
 public class StatePlay extends BasicGameState
 	{
 	Tank tank;
@@ -23,14 +25,15 @@ public class StatePlay extends BasicGameState
 	public static int highScoreTimer; /// Seconds
 	public static int highScoreTimerOptions[] = {1, 5, 10, 15, 20, 30}; /// Minutes
 	public static tankentity tanks[] = new tankentity[4];
+	public static ArrayList<projectile> mines = new ArrayList<projectile>();
 	//	public static boolean powerupFlag=false;
 //	public static int powerx=0;//power ups x location
 //	public static int powery=0;//power ups y location
 //	public static int powerupIndex=0;
 	public static Powerups powerupEntity;
 	//	public static int powerupElapsedTime = 0;
-	public int x = 0;
-	public int y = 0;
+	public static int x = 0;
+	public static int y = 0;
 	public int timer = 0;
 	public static int gamePaused = C.NO;
 
@@ -88,6 +91,7 @@ public class StatePlay extends BasicGameState
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 		{
 		DisplaysStatePlay.renderDisplays(g);
+		
 
 		if(GameStats.gameOver == C.YES)
 			{
@@ -165,6 +169,7 @@ public class StatePlay extends BasicGameState
 				}
 			Powerups.sendPowerupStatus();
 			Powerups.checkPowerupCollision();
+			Powerups.CheckMineCollision();
 			}
 		camera.update(tanks[Settings.playerID], delta);
 		}

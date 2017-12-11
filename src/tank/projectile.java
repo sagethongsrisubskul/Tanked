@@ -8,6 +8,7 @@ public class projectile extends Entity{
 	private Vector worldpos;
 	private double angle;
 	private int lifetime;
+	public int playerID=0;
 
 	//x,y=coordinates, r=angle,mv=muzzle velocity, l=lifetime
 	public projectile(final float x, final float y, final double r, final float mv, final int l){
@@ -22,6 +23,9 @@ public class projectile extends Entity{
 			lifetime=5000;
 		}else{
 			//is mine
+			ResourceManager.loadImage(Filenames.powerupIcons[1]);
+			addImageWithBoundingBox(ResourceManager.getImage(Filenames.powerupIcons[1]).getScaledCopy(Powerups.iconScale));
+			playerID=l;
 			lifetime=30000;
 		}
 		this.setRotation(angle);
