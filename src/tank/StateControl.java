@@ -4,16 +4,16 @@ public class StateControl
 	{
 	public static Tank tank;
 	public static final int STATE_NONE = -1;
-	public static final int STATE_MAIN = 0;
-	public static final int STATE_LOBBY = 1;
-	public static final int STATE_HELP_MAIN = 2;
-	public static final int STATE_HELP_GAMEPLAY = 3;
-	public static final int STATE_HELP_CONTROLS = 4;
-	public static final int STATE_HELP_CREDITS = 5;
-	public static final int STATE_PLAY = 6;
-	public static final int STATE_CHANGE_SCREEN_SIZE = 7;
-	public static final int NUM_STATES = 8;
-	public static final int STATE_SPLASH = 9;
+	public static final int STATE_SPLASH = 0;
+	public static final int STATE_MAIN = 1;
+	public static final int STATE_LOBBY = 2;
+	public static final int STATE_HELP_MAIN = 3;
+	public static final int STATE_HELP_GAMEPLAY = 4;
+	public static final int STATE_HELP_CONTROLS = 5;
+	public static final int STATE_HELP_CREDITS = 6;
+	public static final int STATE_PLAY = 7;
+	public static final int STATE_CHANGE_SCREEN_SIZE = 8;
+	public static final int NUM_STATES = 9;
 	/// States:
 	public static int previousState = STATE_MAIN;
 	public static int currentState = STATE_MAIN;

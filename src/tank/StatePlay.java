@@ -24,7 +24,7 @@ public class StatePlay extends BasicGameState
 	public static int seconds;
 	public static int highScoreTimer; /// Seconds
 	public static int highScoreTimerOptions[] = {1, 5, 10, 15, 20, 30}; /// Minutes
-	public static tankentity tanks[] = new tankentity[4];
+	public static tankentity tanks[] = new tankentity[C.MAX_PLAYERS];
 	public static ArrayList<projectile> mines = new ArrayList<projectile>();
 	//	public static boolean powerupFlag=false;
 //	public static int powerx=0;//power ups x location

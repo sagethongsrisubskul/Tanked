@@ -2,9 +2,6 @@ package tank;
 import org.newdawn.slick.Input;
 
 import jig.Vector;
-
-import static tank.StatePlay.tanks;
-
 /* This class is for handling any keyboard or mouse click inputs */
 public class Inputs
 	{
@@ -116,7 +113,6 @@ public class Inputs
 					/// Powerup activated:
 					if(input.isKeyPressed(Input.KEY_1)) Powerups.sendPowerupActivation(C.POWERUP_HEALTH);
 					else if(input.isKeyPressed(Input.KEY_2)) {
-						Powerups.SendMineCord();
 						Powerups.sendPowerupActivation(C.POWERUP_MINE);
 					}
 					else if(input.isKeyPressed(Input.KEY_3)) Powerups.sendPowerupActivation(C.POWERUP_SPEED);
@@ -239,7 +235,12 @@ public class Inputs
 	public static void processMouseInput()
 		{
 	/* STATE MAIN +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-		if(StateControl.currentState == StateControl.STATE_MAIN)
+		if(StateControl.currentState == StateControl.STATE_SPLASH)
+			{
+			StateControl.enterState(StateControl.STATE_MAIN);
+			}
+	/* STATE MAIN +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		else if(StateControl.currentState == StateControl.STATE_MAIN)
 			{
 			if(DisplaysPopupBox.popupDisplayed == C.YES) processPopupClick();
 			else
