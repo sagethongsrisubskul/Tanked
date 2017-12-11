@@ -30,6 +30,7 @@ public class DisplaysStateLobby
 	/// psw (percentage of screen width):
 	public static float pswButtonRect = .15f;
 	public static float pswButtonSquare = .06f;
+	public static float pswButtonHighScore = .04f;
 	public static float pswLobbyBackground = 1.5f;
 	public static float pswMap = 0.21f;
 	public static float pswIcon = .04f;
@@ -49,6 +50,7 @@ public class DisplaysStateLobby
 	/// Objects:
 	public static Image lobbyBackground = new Image(Filenames.lobbyBackground, 0, 0, pswLobbyBackground);
 	public static Image winConditionButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
+	public static Image highScoreTimerButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonHighScore);
 	public static Image nameButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
 	public static Image helpButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
 	public static Image leaveGameButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
@@ -57,7 +59,6 @@ public class DisplaysStateLobby
 	public static Image prevIcon = new Image(Filenames.arrowPrev, 0, 0, pswIcon);
 	public static Image nextButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonSquare);
 	public static Image nextIcon = new Image(Filenames.arrowNext, 0, 0, pswIcon);
-	
 	public static Image miniMap[] = new Image[Filenames.miniMap.length];
 	public static StringsDisplay heading = new StringsDisplay(Strings.lobbyHeading, DisplaysHeading.headingFont, DisplaysHeading.headingColor, 0, 0);
 	public static StringsDisplay map = new StringsDisplay(Strings.map, settingTextFont, settingTextColor, 0, 0);
@@ -70,7 +71,7 @@ public class DisplaysStateLobby
 	public static StringsDisplay name = new StringsDisplay(Strings.name, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay team = new StringsDisplay(Strings.team, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay pressEnter = new StringsDisplay(Strings.pressEnter, settingTextFont, settingTextColor, 0, 0);
-
+	public static StringsDisplay minutes = new StringsDisplay(Strings.minutes, settingTextFont, settingTextColor, 0, 0);
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initDisplays()
 		{
@@ -102,6 +103,10 @@ public class DisplaysStateLobby
 		winCondition.y = heading.getEndY() + spaceAfterHeading;
 		winConditionButton.x = winCondition.getEndX() + spaceColumn;
 		winConditionButton.y = winCondition.y;
+		highScoreTimerButton.x = winConditionButton.getEndX() + spaceBetweenColumns;
+		highScoreTimerButton.y = winCondition.y;
+		minutes.x = highScoreTimerButton.getEndX() + spaceBetweenColumns;
+		minutes.y = highScoreTimerButton.centerStringY(minutes.trueTypeFont, minutes.string);
 		/// Player settings:
 		players.x = players.centerStringScreenX();
 		players.y = winConditionButton.getEndY() + spaceAfterIndividualSettings;
@@ -165,7 +170,6 @@ public class DisplaysStateLobby
 		launchGame.x = launchGameButton.centerStringX(launchGame.trueTypeFont, launchGame.string);
 		launchGame.y = launchGameButton.centerStringY(launchGame.trueTypeFont, launchGame.string);
 		}
-
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void renderDisplays(Graphics g)
 		{
@@ -175,6 +179,12 @@ public class DisplaysStateLobby
 		winCondition.renderString();
 		winConditionButton.renderImage();
 		winConditionButton.renderStringInImage(buttonTextFont, Strings.winConditionTypes[Settings.winCondition], buttonTextColor);
+		if(Settings.winCondition == C.HIGH_SCORE)
+			{
+			highScoreTimerButton.renderImage();
+			highScoreTimerButton.renderStringInImage(buttonTextFont, Integer.toString(StatePlay.highScoreTimerOptions[Settings.highScoreTimerIndex]), buttonTextColor);
+			minutes.renderString();
+			}
 		/// Player settings:
 		players.renderString();
 		id.renderString();
@@ -188,9 +198,7 @@ public class DisplaysStateLobby
 			if(i < Settings.numberActivePlayers)
 				{
 				if(i == Settings.playerID)
-					{
 					buttonTextFont.drawString(nameButton.centerStringX(buttonTextFont, Settings.playerName[i]), nameButton.centerStringY(buttonTextFont, Settings.playerName[i]), Settings.playerName[i], buttonTextColor);
-					}
 				else
 					settingTextFont.drawString(name.x, name.getEndY() + ((i + 1) * spaceBetweenRows) + (i * buttonColor[i].getWidth()), Settings.playerName[i], settingTextColor);
 				}
@@ -206,7 +214,7 @@ public class DisplaysStateLobby
 		/// Messages:
 		pressEnter.renderString();
 		messageArea.colorSection(g, messageBackgroundColor);
-		for(i=0;i<Strings.networkMessages.length;i++)
+		for(i = 0; i < Strings.networkMessages.length; i++)
 			{
 //			System.out.printf("message %d = %socket, (%d, %d)\n", i, Strings.networkMessages[i], messageArea.x + messageAreaPadding, messageArea.y + messageAreaPadding + (i * 10));
 			messageTextFont.drawString(messageArea.x + messageAreaPadding, messageArea.y + messageAreaPadding + (i * 10), Strings.networkMessages[i], messageTextColor);
@@ -222,10 +230,7 @@ public class DisplaysStateLobby
 			launchGame.renderString();
 			}
 		/// Popup:
-		if(DisplaysPopupBox.popupDisplayed == C.YES)
-			{
-			DisplaysPopupBox.renderPopup(g);
-			}
+		if(DisplaysPopupBox.popupDisplayed == C.YES) DisplaysPopupBox.renderPopup(g);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void displayMessage(String string)
@@ -240,10 +245,9 @@ public class DisplaysStateLobby
 			int i;
 			for(i = 0; i < Strings.networkMessages.length - 1; i++)
 				{
-				Strings.networkMessages[i] = Strings.networkMessages[i+1];
+				Strings.networkMessages[i] = Strings.networkMessages[i + 1];
 				}
 			Strings.networkMessages[Strings.networkMessages.length - 1] = Strings.networkMessagePrompt + " " + string;
 			}
 		}
-
 	}

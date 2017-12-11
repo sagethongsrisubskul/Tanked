@@ -8,6 +8,7 @@ import jig.Entity;
 public class Tank extends StateBasedGame
 	{
 	public static AppGameContainer application;
+	public static boolean DEBUG = false;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public Tank(String title)
 		{
@@ -19,6 +20,7 @@ public class Tank extends StateBasedGame
 	public void initStatesList(GameContainer container) throws SlickException
 		{
 		int i;
+		addState(new StateSplash());
 		addState(new StateMain());
 		addState(new StateLobby());
 		addState(new StateHelpMain());
@@ -27,6 +29,7 @@ public class Tank extends StateBasedGame
 		addState(new StateHelpCredits());
 		addState(new StatePlay());
 		addState(new StateChangeScreenSize());
+		ResourceManager.loadImage(Filenames.WSUV);
 		ResourceManager.loadImage(Filenames.title);
 		ResourceManager.loadImage(Filenames.logo);
 		ResourceManager.loadImage(Filenames.camoBackground);
@@ -70,6 +73,7 @@ public class Tank extends StateBasedGame
 
 		try
 			{
+			jig.Entity.antiAliasing = false;
 			appGameContainer = new AppGameContainer(new Tank(Strings.gameTitle));
 			appGameContainer.setDisplayMode(Settings.mainScreenWidth, Settings.mainScreenHeight, false);
 			application = appGameContainer;

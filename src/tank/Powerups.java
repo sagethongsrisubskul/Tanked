@@ -1,6 +1,9 @@
 package tank;
 import jig.Entity;
 
+import static tank.DisplaysStatePlay.camera;
+
+import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 /// Powerups:
 /// To change, add, or remove powerups, change the 3 arrays:
@@ -8,7 +11,8 @@ import java.util.concurrent.ThreadLocalRandom;
 /// 2) Strings.powerups
 /// 3) Powerups.powerupType
 /// Adjust static final variables in C class
-/// Finally change the inputs in Inputs.processKeyboardInput for StatePlay
+/// Change the inputs in Inputs.processKeyboardInput for StatePlay
+/// Adjust gameplay text in Strings class
 public class Powerups extends Entity
 	{
 	/// Powerup display:
@@ -16,6 +20,9 @@ public class Powerups extends Entity
 	public static float iconScale = .2f;
 	public static int powerx = 0; // powerups x location
 	public static int powery = 0; // powerups y location
+	public static int minex = 0;
+	public static int miney = 0;
+	public static int mineplayer=0;
 	/// Powerup life cycle:
 	public static int powerupElapsedTime = 0; /// The time in seconds the powerup is on its cycle
 	public static int powerupInterval = 10; /// The interval in seconds a powerup will appear after the previous disappeared
@@ -52,8 +59,8 @@ public class Powerups extends Entity
 			{
 			if((powerupElapsedTime == powerupInterval) && powerupFlag == false)
 				{
-				int xcoord = ThreadLocalRandom.current().nextInt(0, 300 + 1);
-				int ycoord = ThreadLocalRandom.current().nextInt(0, 300 + 1);
+				int xcoord = ThreadLocalRandom.current().nextInt(50,  (DisplaysStatePlay.camera.worldWitdth-50)+ 1);
+				int ycoord = ThreadLocalRandom.current().nextInt(50, (DisplaysStatePlay.camera.worldHeight-50)+ 1);
 				int index = ThreadLocalRandom.current().nextInt(0, Filenames.powerupIcons.length);
 				NetworkControl.sendToAll("~PT" + xcoord + "," + ycoord + "," + index);
 				}
@@ -67,27 +74,33 @@ public class Powerups extends Entity
 	/* Checks for collision with the displayed powerup */
 	public static void checkPowerupCollision()
 		{
-			for(int i=0;i<Settings.numberActivePlayers;i++) {
-				if(powerupFlag == true && StatePlay.powerupEntity.collides(StatePlay.tanks[i]) != null)
-					{
-					tank.ResourceManager.getSound(Filenames.ding).play();
-					NetworkControl.sendToAll("~PC" + Settings.playerID + powerupIndex);
-					NetworkControl.sendToAll("~PF");
-					}	
+		for(int i = 0; i < Settings.numberActivePlayers; i++)
+			{
+			if(powerupFlag == true && StatePlay.powerupEntity.collides(StatePlay.tanks[i]) != null)
+				{
+				tank.ResourceManager.getSound(Filenames.ding).play(1f, Inputs.volumePowerupCollision);
+				NetworkControl.sendToAll("~PC" + Settings.playerID + powerupIndex);
+				NetworkControl.sendToAll("~PF");
 				}
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called for every user to process someone colliding with a powerup */
 	public static void powerupCollision(int playerID, int powerupIndex)
 		{
 		numPowerups[playerID][powerupIndex]++;
+		GameStats.score[playerID] += GameStats.scorePowerupCollected;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* When a player activates a powerup, that player should call this method */
 	public static void sendPowerupActivation(int powerupIndex)
 		{
 		if(numPowerups[Settings.playerID][powerupIndex] > 0) /// Only activates if player has one in their inventory
+			{
+			if(powerupIndex == C.POWERUP_SPEED && ResourceManager.getSound(Filenames.engine).playing()) /// Stops engine sound so pitch can recalibrate
+				ResourceManager.getSound(Filenames.engine).stop();
 			NetworkControl.sendToAll("~PA" + Settings.playerID + powerupIndex);
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called for every user to process someone activating a powerup */
@@ -101,28 +114,30 @@ public class Powerups extends Entity
 		else if(powerupIndex == 1) /// Mine
 			{
 			//TODO render mine on the map
+				StatePlay.mines.add(new projectile(minex,miney,0,0,mineplayer));
 			}
 		else if(powerupIndex == 2) /// Speed
 			{
 			/// Increase speed but not to exceed max speed:
 			GameStats.speed[playerID] = (GameStats.speed[playerID] + speedBurst) > GameStats.maxSpeed ? GameStats.maxSpeed : (GameStats.speed[playerID] + speedBurst);
 			timePowerup[playerID][powerupIndex] += speedBurstTime;
-			numActivatedPowerups [playerID][powerupIndex]++;
+			numActivatedPowerups[playerID][powerupIndex]++;
 			}
 		else if(powerupIndex == 3) /// Power
 			{
 			/// Increase power but not to exceed max power:
 			GameStats.power[playerID] = (GameStats.power[playerID] + powerBurst) > GameStats.maxPower ? GameStats.maxPower : (GameStats.power[playerID] + powerBurst);
 			timePowerup[playerID][powerupIndex] += powerBurstTime;
-			numActivatedPowerups [playerID][powerupIndex]++;
+			numActivatedPowerups[playerID][powerupIndex]++;
 			}
 		else if(powerupIndex == 4) /// Invincible
 			{
 			invincibleActivated[playerID] = C.YES;
 			timePowerup[playerID][powerupIndex] += invincibleBurstTime;
-			numActivatedPowerups [playerID][powerupIndex]++;
+			numActivatedPowerups[playerID][powerupIndex]++;
 			}
 		numPowerups[playerID][powerupIndex]--; /// Remove one from inventory
+		GameStats.score[playerID] += GameStats.scorePowerupActivated;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method will be called for every user once an activated powerup's timer hits zero */
@@ -132,27 +147,36 @@ public class Powerups extends Entity
 		if(powerupIndex == C.POWERUP_SPEED)
 			{
 			/// Decrement powerup by the number of activated powerups but not less than the base
-			GameStats.speed[playerID] -= numActivatedPowerups [playerID][powerupIndex] * speedBurst;
+			GameStats.speed[playerID] -= numActivatedPowerups[playerID][powerupIndex] * speedBurst;
 			GameStats.speed[playerID] = GameStats.speed[playerID] < GameStats.speedBase ? GameStats.speedBase : GameStats.speed[playerID];
 			}
 		else if(powerupIndex == C.POWERUP_POWER)
 			{
 			/// Decrement powerup by the number of activated powerups but not less than the base
-			GameStats.power[playerID] -= numActivatedPowerups [playerID][powerupIndex] * powerBurst;
+			GameStats.power[playerID] -= numActivatedPowerups[playerID][powerupIndex] * powerBurst;
 			GameStats.power[playerID] = GameStats.power[playerID] < GameStats.powerBase ? GameStats.powerBase : GameStats.power[playerID];
 			}
 		else if(powerupIndex == C.POWERUP_INVINCIBLE)
 			{
 			invincibleActivated[playerID] = C.NO;
 			}
-		numActivatedPowerups [playerID][powerupIndex] = 0;
+		numActivatedPowerups[playerID][powerupIndex] = 0;
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	/* This method should be called by the player that runs over an enemy mine */
+	//TODO we will have to create mine objects that hold the ID of the player who set the mine
+	public static void sendMineCollision(int playerID)
+		{
+		ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeMineDetonation);
+		/// Decrease health but not to exceed zero:
+		NetworkControl.sendToAll("~MC" + playerID);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method should be called for every user when someone collides with an enemy mine */
 	public static void mineCollision(int playerID)
 		{
-		/// Decrease health but not to exceed zero:
-		GameStats.health[playerID] = (GameStats.health[playerID] - mineDamage) < 0 ? 0 : (GameStats.health[playerID] - mineDamage);
+		//TODO erase mine from map
+		GameStats.sendPlayerDamageCommand(C.INVALID, playerID, mineDamage);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* Process the powerup command from the network. Used to display of the powerup and its status */
@@ -162,7 +186,6 @@ public class Powerups extends Entity
 		String ycoord = "";
 		int index = 0;
 		int stringsplit = 0;
-
 		for(int i = 0; i < string.length(); i++)
 			{//grab x coord from string
 			if(string.charAt(i) != ',')
@@ -203,4 +226,33 @@ public class Powerups extends Entity
 		powerupElapsedTime = 0;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
+	public static void SendMineCord() {
+		int x = (int) StatePlay.tanks[Settings.playerID].getX();
+		int y = (int) StatePlay.tanks[Settings.playerID].getY();
+		NetworkControl.sendToAll("~MAX" + x);
+		NetworkControl.sendToAll("~MAY" + y);
+		NetworkControl.sendToAll("~MAP"+ Settings.playerTeamColors[Settings.playerID]);
+		
+	}
+	
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void CheckMineCollision(int delta) {
+		int i=0;
+		for(Iterator<projectile> iterator = StatePlay.mines.iterator();iterator.hasNext();) {
+			projectile minetest=iterator.next();
+			
+			if(minetest.collides(StatePlay.tanks[Settings.playerID])!=null) {
+				if(minetest.playerID!=Settings.playerTeamColors[Settings.playerID]) {
+					NetworkControl.sendToAll("~RM"+i);
+					GameStats.health[Settings.playerID]-=mineDamage;
+				}
+			}
+			i++;
+			minetest.lifetime-=delta;
+			if(minetest.lifetime<=0) {
+				iterator.remove();
+			}
+		}
+	}
+	
 	}
