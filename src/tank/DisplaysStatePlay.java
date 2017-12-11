@@ -12,6 +12,7 @@ import java.util.Set;
 public class DisplaysStatePlay
 	{
 	static int i;
+	public static boolean renderMiniMap = true;
 	public static int healthStartY = 0;
 	public static int numMessages = 0;
 	/// Spacings:
@@ -175,12 +176,21 @@ public class DisplaysStatePlay
 		g.setClip(camera.viewport);
 
 		camera.render(g);
+		
+		//Mines
+		if(StatePlay.mines.isEmpty()==false) {
+			for(projectile mine : StatePlay.mines) {
+				mine.render(g);
+			}
+		}
 
 		/// Tanks:
 		for(int i=0;i<Settings.numberActivePlayers;i++) {
 			StatePlay.tanks[i].render(g);
 			StatePlay.tanks[i].getTurret().render(g);
 		}
+		
+		
 
 
 		/// Powerups:
@@ -213,8 +223,13 @@ public class DisplaysStatePlay
 			}
 
 		rightMargin.colorSection(g, backgroundColor);
-		miniMapArea.colorSection(g, miniMapColor);
-		miniMap.renderImage();
+
+		if(renderMiniMap)
+			{
+			miniMapArea.colorSection(g, miniMapColor);
+			miniMap.renderImage();
+			}
+
 		/// Healthbar:
 		healthBarArea.colorSection(g, healthBarColor);
 		setHealthStartY();

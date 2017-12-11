@@ -1,3 +1,7 @@
+//TODO powerups appear on the very corner of the map, not able to see all of it or collide with it
+//TODO tanks run over each other
+
+
 package tank;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;

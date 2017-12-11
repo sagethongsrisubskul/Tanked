@@ -1,6 +1,7 @@
 package tank;
 import jig.Entity;
 
+import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 /// Powerups:
 /// To change, add, or remove powerups, change the 3 arrays:
@@ -17,6 +18,9 @@ public class Powerups extends Entity
 	public static float iconScale = .2f;
 	public static int powerx = 0; // powerups x location
 	public static int powery = 0; // powerups y location
+	public static int minex = 0;
+	public static int miney = 0;
+	public static int minePlayer = 0;
 	/// Powerup life cycle:
 	public static int powerupElapsedTime = 0; /// The time in seconds the powerup is on its cycle
 	public static int powerupInterval = 10; /// The interval in seconds a powerup will appear after the previous disappeared
@@ -53,8 +57,8 @@ public class Powerups extends Entity
 			{
 			if((powerupElapsedTime == powerupInterval) && powerupFlag == false)
 				{
-				int xcoord = ThreadLocalRandom.current().nextInt(0, 300 + 1);
-				int ycoord = ThreadLocalRandom.current().nextInt(0, 300 + 1);
+				int xcoord = ThreadLocalRandom.current().nextInt(50, (DisplaysStatePlay.camera.worldWitdth - 50) + 1);
+				int ycoord = ThreadLocalRandom.current().nextInt(50, (DisplaysStatePlay.camera.worldHeight - 50) + 1);
 				int index = ThreadLocalRandom.current().nextInt(0, Filenames.powerupIcons.length);
 				NetworkControl.sendToAll("~PT" + xcoord + "," + ycoord + "," + index);
 				}
@@ -93,6 +97,8 @@ public class Powerups extends Entity
 			{
 			if(powerupIndex == C.POWERUP_SPEED && ResourceManager.getSound(Filenames.engine).playing()) /// Stops engine sound so pitch can recalibrate
 				ResourceManager.getSound(Filenames.engine).stop();
+			else if(powerupIndex == C.POWERUP_MINE)
+				Powerups.sendMineCoordinates();
 			NetworkControl.sendToAll("~PA" + Settings.playerID + powerupIndex);
 			}
 		}
@@ -107,7 +113,7 @@ public class Powerups extends Entity
 			}
 		else if(powerupIndex == 1) /// Mine
 			{
-			//TODO render mine on the map
+			StatePlay.mines.add(new projectile(minex, miney, 0, 0, minePlayer));
 			}
 		else if(powerupIndex == 2) /// Speed
 			{
@@ -157,18 +163,17 @@ public class Powerups extends Entity
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method should be called by the player that runs over an enemy mine */
-	//TODO we will have to create mine objects that hold the ID of the player who set the mine
-	public static void sendMineCollision(int playerID)
+	public static void sendMineCollision(int playerID, int mineID)
 		{
 		ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeMineDetonation);
+		StatePlay.mines.remove(mineID);
 		/// Decrease health but not to exceed zero:
-		NetworkControl.sendToAll("~MC" + playerID);
+		NetworkControl.sendToAll("~MC" + playerID + mineID);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method should be called for every user when someone collides with an enemy mine */
 	public static void mineCollision(int playerID)
 		{
-		//TODO erase mine from map
 		GameStats.sendPlayerDamageCommand(C.INVALID, playerID, mineDamage);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
@@ -217,6 +222,37 @@ public class Powerups extends Entity
 		{
 		powerupFlag = false;
 		powerupElapsedTime = 0;
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void sendMineCoordinates()
+		{
+		int x = (int) StatePlay.tanks[Settings.playerID].getX();
+		int y = (int) StatePlay.tanks[Settings.playerID].getY();
+		NetworkControl.sendToAll("~MAX" + x);
+		NetworkControl.sendToAll("~MAY" + y);
+		NetworkControl.sendToAll("~MAP" + Settings.playerTeamColors[Settings.playerID]);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void CheckMineCollision(int delta)
+		{
+		int mineID = 0;
+		for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
+			{
+			projectile minetest = iterator.next();
+			if(minetest.collides(StatePlay.tanks[Settings.playerID]) != null)
+				{
+				if(minetest.playerID != Settings.playerTeamColors[Settings.playerID])
+					{
+					sendMineCollision(Settings.playerID, mineID);
+					}
+				}
+			mineID++;
+			minetest.lifetime -= delta;
+			if(minetest.lifetime <= 0)
+				{
+				iterator.remove();
+				}
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	}

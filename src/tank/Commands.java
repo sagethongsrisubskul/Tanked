@@ -57,6 +57,9 @@ public class Commands
 					}
 				}
 			/// Powerups:
+			else if(string.charAt(1)=='M' && string.charAt(2) == 'A' && string.charAt(3) =='X') Powerups.minex=Integer.parseInt(string.substring(4,string.length()));
+			else if(string.charAt(1)=='M' && string.charAt(2) == 'A' && string.charAt(3) =='Y') Powerups.miney=Integer.parseInt(string.substring(4,string.length()));
+			else if(string.charAt(1)=='M' && string.charAt(2) == 'A' && string.charAt(3) =='P') Powerups.minePlayer =Character.getNumericValue(string.charAt(4));
 			else if(string.charAt(1) == 'P' && string.charAt(2) == 'A') /// Powerup activated
 				Powerups.powerupActivation(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)));
 			else if(string.charAt(1) == 'P' && string.charAt(2) == 'C') /// Powerup collision
@@ -238,14 +241,14 @@ public class Commands
 		int i;
 		int multiplier = 1;
 		int result = 0;
-		for(i = 0; i < c.length; i++)
-			System.out.printf("CharToInteger: %c\n", c[i]);
+//		for(i = 0; i < c.length; i++)
+//			System.out.printf("CharToInteger: %c\n", c[i]);
 		for(i = c.length - 1; i >= 0; i--)
 			{
 			result += multiplier * Character.getNumericValue(c[i]);
 			multiplier = multiplier * 10;
 			}
-		System.out.printf("\n result = %d\n", result);
+//		System.out.printf("\n result = %d\n", result);
 		return result;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
