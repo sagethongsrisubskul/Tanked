@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="25" height="17" tilewidth="32" tileheight="32" nextobjectid="1">
- <tileset firstgid="1" source="tankMasterBL.tsx"/>
- <layer name="Tile Layer 1" width="25" height="17">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="50" height="34" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="grund iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
+  <image source="grund iso tileset.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="1025" name="grund 2 iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
+  <image source="grund 2 iso tileset.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="2049" name="railroad track-snackbar iso tileset" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
+  <image source="railroad track-snackbar iso tileset.png" width="1024" height="1024"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="34">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACw3DA4wQAAAAwA/Ltm3btm3btm3btm3btu1lu267ixMQEBDXeMY3gQlNZGKTmNRkJjeFKU1latOY1nSmN4MZzWRms5jN7OYwp7nMbR7zms/8FrCghSxsEYtazOKWsKSlLG0Zy1rOCla0kpWtYlWrWd0a1rSWta1jXetZ3wY2tJGNbWJTm9ncFraytW1sazvb28GOdrKzXexqN7vbw572srd97Gs/+zvAgQ5yiEMd5nBHONJRjnaMYx3neCc40UlOdopTneZ0ZzjTWc52jvOc7wIXusjFLnGpy1zuCle6ytWuca3rXO8GN7rJzW5xq9vc4U53uds97nWf+z3gQQ952CMe9ZjHPeFJT3naM571nOe94CUve8WrXvO6N7zpLW97x7ve874PfOgjH/vEpz7zuS986Stf+8a3vvO9H/zoJz/7xa9+87s//Okvf/vHv/4zIBAGNohBDWZwQxjSUIY2jGENZ3gjGNFIRjaKUY1mdGMY01jGNo5xjWcCE5rIxCYxqclMbgpTmsrUpjGt6UxvBjOaycxmMavZzG4Oc5nbPOY1n/ktYEELWdgiFrWYxS1hSUtZ2jKWtZzlrWBFK1nFqlazujWsaS1rW8e61rO+DWxoIxvbxKY2s7ktbGkrW9vGdra3gx3tZGe72NVudreHPe1lb/vY1372d4ADHeRghzjUYY5wpKMc7RjHOs7xTnCik5zsFKc6zenOcKaznO0c5zrP+S5wkYtd4lKXudwVrnSVq13jWte53g1udJOb3eJWt7ndHe50l3vc6z73e8CDHvKwRzzqMY97wpOe8rRnPOs5z3vBi17yslf8D6LV+hqkBgAA
+   H4sIAAAAAAAAA+3VuU7DMBwG8MQWZ8u5AQMCRk61I0M5Rk41E2yAeAEk2IFngB36BIxMQBFSUfsCsHBIRYI3YILPaiwcy3GD1KROleGnKEoTfZ/9T1qyLauUSCQSLeCRWFZaUoYKaczzG/WclCKn6BO+JB3QWee+qE3ClEYXtaxuSQrSVH9f1Or1GEPecZgwLLdsBVY1FpF/CZYN7+H33tzhWhF2kH8X9mLYg+V/g3c4Rv4TOI1JD77+PL+N3AQu4BIKUo8qfBD9TEZJzl+xa8cHN+s+8hfhns0X+dOG83ba/P83Ts7Pjgxf72bnC/x/6uYv294ObL17cOyFPug3vJOYX96HaRxnYBbmYtSjKs39Gs7XYQM2Y9IjDu/DFfId+uDfJdO+P6If5LuGeeQ7I2px2IdR5H9CxmfIUK88ODT8fRih/rMQxBHk8IwFN7Ms6wp7HXWzEMS5uwdZDSfEHqxDjnozyDPhd43PSka4psrO3KDnbYjvxTCe/S2spaOYCd01Rziq8vNz1uE1pB5DpNZDtZ6qfcj7ZJaz8/WPooOuh7ju/HwAvxuEg396CbmD2EOeD9XMbBn8zQ8yV1wr9dg2tEvSwyxBvldco3r8As57vICQGgAA
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="50" height="34">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3RMQ5AQABE0SllN9yEm3I9DUeg3YbEFES9FEvyXzL9TEYCAAAAAAAAAABvTZU0Z2Z0liCtoXT72+ZOe2aSU0epid/a8kTrDd255e+uLb0/GQr/cgAKK4uNkBoAAA==
   </data>
  </layer>
 </map>
