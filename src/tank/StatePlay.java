@@ -55,6 +55,7 @@ public class StatePlay extends BasicGameState
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException
 		{
 		int i;
+		StateMain.music.fade(1000, 0, true);
 		AppGameContainer gc = (AppGameContainer) container;
 		gc.setDisplayMode(Settings.playScreenWidth, Settings.playScreenHeight, false);
 		StateControl.addCurrentState(getID());

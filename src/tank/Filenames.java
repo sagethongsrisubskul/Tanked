@@ -27,6 +27,7 @@ public class Filenames
 	public final static String engine = "res/engine.wav";
 	public final static String shoot = "res/shoot.wav";
 	public final static String buttonClick = "res/buttonClick.wav";
+	public final static String mainMusic = "res/aws_surp.ogg";
 	/// Buttons:
 	public final static String buttonRectangle = "res/ButtonRectangle.png";
 	public final static String buttonSquare = "res/ButtonSquare.png";

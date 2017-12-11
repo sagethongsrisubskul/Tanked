@@ -81,7 +81,8 @@ public class Strings
 		"https://opengameart.org/",
 		"http://www.reinerstilesets.de/lizenz/",
 		"https://freesound.org/",
-		"https://www.iconspng.com/"
+		"https://www.iconspng.com/",
+		"https://modarchive.org/index.php?faq-licensing"
 	};
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gameControlsText = String.format("" +

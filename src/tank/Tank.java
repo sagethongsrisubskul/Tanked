@@ -78,6 +78,7 @@ public class Tank extends StateBasedGame
 		ResourceManager.loadSound(Filenames.shoot);
 		ResourceManager.loadSound(Filenames.engine);
 		ResourceManager.loadSound(Filenames.explosion);
+		ResourceManager.loadSound(Filenames.mainMusic);
 //		for(i = 0; i < Filenames.maps.length; i++)
 //			ResourceManager.loadImage(Filenames.maps[i]);
 		for(i = 0; i < Filenames.miniMap.length; i++)
