@@ -45,6 +45,6 @@ public class Filenames
 	public final static String turret_y="res/turret_y.png";
 	/// Projectiles:
 	public final static String shot="res/shot.png";
-	//	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png", "res/powerupInvisible.png"};
-	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png"};
+	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png", "res/powerupBeer.png"};
+	//	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png", "res/powerupBeer.png", "res/powerupInvisible.png"};
 	}

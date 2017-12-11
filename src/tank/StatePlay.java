@@ -249,7 +249,7 @@ public class StatePlay extends BasicGameState
 			{
 			for(j = 0; j < Strings.powerups.length; j++) /// Cycle through all powerups
 				{
-				if(Powerups.timePowerup[i][j] > 0)
+				if(Powerups.timePowerup[i][j] > 0) /// If there is at least one second on the timer still
 					{
 					if(Powerups.timePowerup[i][j] == 1) /// If the powerup is about to expire
 						Powerups.powerupDeactivation(i, j); /// Deactivate powerup
