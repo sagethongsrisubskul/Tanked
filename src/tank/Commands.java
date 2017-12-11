@@ -57,6 +57,7 @@ public class Commands
 					}
 				}
 			/// Powerups:
+			else if(string.charAt(1)=='C' && string.charAt(2) == 'M') Powerups.setMaxPowerups(Character.getNumericValue(string.charAt(3)));
 			else if(string.charAt(1)=='M' && string.charAt(2) == 'A' && string.charAt(3) =='X') Powerups.minex=Integer.parseInt(string.substring(4,string.length()));
 			else if(string.charAt(1)=='M' && string.charAt(2) == 'A' && string.charAt(3) =='Y') Powerups.miney=Integer.parseInt(string.substring(4,string.length()));
 			else if(string.charAt(1)=='M' && string.charAt(2) == 'A' && string.charAt(3) =='P') Powerups.minePlayer =Character.getNumericValue(string.charAt(4));
