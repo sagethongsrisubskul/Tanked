@@ -1,10 +1,9 @@
 package tank;
 import jig.Entity;
 
-import static tank.DisplaysStatePlay.camera;
-
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
+
 /// Powerups:
 /// To change, add, or remove powerups, change the 3 arrays:
 /// 1) Filenames.powerupIcons
@@ -13,8 +12,11 @@ import java.util.concurrent.ThreadLocalRandom;
 /// Adjust static final variables in C class
 /// Change the inputs in Inputs.processKeyboardInput for StatePlay
 /// Adjust gameplay text in Strings class
+/// Add the functionality in Powerups.powerupActivation and Powerups.powerupDeactivation
+
 public class Powerups extends Entity
 	{
+	public static int maxPowerups = 99;
 	/// Powerup display:
 	public static boolean powerupFlag = false; /// Controls the presence of the powerup on the screen
 	public static float iconScale = .2f;
@@ -22,28 +24,42 @@ public class Powerups extends Entity
 	public static int powery = 0; // powerups y location
 	public static int minex = 0;
 	public static int miney = 0;
-	public static int mineplayer=0;
+	public static int minePlayer = 0;
 	/// Powerup life cycle:
 	public static int powerupElapsedTime = 0; /// The time in seconds the powerup is on its cycle
-	public static int powerupInterval = 10; /// The interval in seconds a powerup will appear after the previous disappeared
-	public static int powerupDuration = 10; /// The seconds the powerup will remain on the screen
+	public static int powerupInterval = 20; /// The interval in seconds a powerup will appear after the previous disappeared
+	public static int powerupDuration = 20; /// The seconds the powerup will remain on the screen
 	/// Powerup coord
 	public static int powerupIndex = 0; /// The index of the powerup image in Filenames
 	/// Powerup statuses:
 //	public static int powerupType[] = {C.CONSUMABLE, C.CONSUMABLE, C.TIMED, C.TIMED, C.TIMED, C.TIMED}; /// Every powerup has a type (CONSUMABLE, TIMED, OR PERMANENT)
-	public static int powerupType[] = {C.CONSUMABLE, C.CONSUMABLE, C.TIMED, C.TIMED, C.TIMED}; /// Every powerup has a type (CONSUMABLE, TIMED, OR PERMANENT)
+	public static int powerupType[] = {C.CONSUMABLE, C.CONSUMABLE, C.TIMED, C.TIMED, C.TIMED, C.TIMED}; /// Every powerup has a type (CONSUMABLE, TIMED, OR PERMANENT)
 	public static int numPowerups[][] = new int[C.MAX_PLAYERS][Strings.powerups.length]; /// The amount of collectible powerupIcons the player has
 	public static int timePowerup[][] = new int[C.MAX_PLAYERS][Strings.powerups.length]; /// How many seconds are left till timed powerup is unactive
-	public static int numActivatedPowerups[][] = new int[C.MAX_PLAYERS][Strings.powerups.length]; /// The number of activated powerups at any given time
-	/// Powerup values:
+//	public static int numActivatedPowerups[][] = new int[C.MAX_PLAYERS][Strings.powerups.length]; /// The number of activated powerups at any given time
+	/// Powerup modes:
+	public static int isInvincible[] = new int[C.MAX_PLAYERS]; /// This variable will determine if the player takes damage or not
+	public static int invinciblePowerupActivated[] = new int[C.MAX_PLAYERS]; /// This variable is a switch if the player activated invincible (as opposed to the beer powerup)
+	public static int beerMode[] = new int[C.MAX_PLAYERS]; /// Beer is either off, on, or in recovery
+	public static int speedIncreaseCumulative[] = new int[C.MAX_PLAYERS];
+	public static int powerIncreaseCumulative[] = new int[C.MAX_PLAYERS];
+	public static int beerSpeedIncreaseCumulative[] = new int[C.MAX_PLAYERS];
+	public static int beerPowerIncreaseCumulative[] = new int[C.MAX_PLAYERS];
+	/// Powerup times:
+	public static int speedBurstTime = 30; /// Speed powerup time in seconds
+	public static int powerBurstTime = 30; /// Power powerup time in seconds
+	public static int invincibleBurstTime = 15; /// Invincible powerup time in seconds
+	public static int beerTime = 20; /// Beer powerup time in seconds
+	public static int beerRecoveryTime = 30; ///
+	/// Powerup increases/decreases:
 	public static int healthIncrease = (int) (GameStats.maxHealthBase * 0.10); /// How much health is restored when activating the health powerup
 	public static int mineDamage = (int) (GameStats.maxHealthBase * 0.10); /// How much damage colliding with a mine will do
 	public static int speedBurst = 3; /// How much additional speed when activating the speed powerup
 	public static int powerBurst = 3; /// How much additional power when activating the power powerup
-	public static int invincibleActivated[] = new int[C.MAX_PLAYERS];
-	public static int speedBurstTime = 30;
-	public static int powerBurstTime = 30;
-	public static int invincibleBurstTime = 30;
+	public static int beerOnSpeedBurst = 3;
+	public static int beerOnPowerBurst = 3;
+	public static int beerRecoverySpeedDrop = 3;
+	public static int beerRecoveryPowerDrop = 3;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public Powerups(final float x, final float y)
 		{
@@ -59,8 +75,8 @@ public class Powerups extends Entity
 			{
 			if((powerupElapsedTime == powerupInterval) && powerupFlag == false)
 				{
-				int xcoord = ThreadLocalRandom.current().nextInt(50,  (DisplaysStatePlay.camera.worldWitdth-50)+ 1);
-				int ycoord = ThreadLocalRandom.current().nextInt(50, (DisplaysStatePlay.camera.worldHeight-50)+ 1);
+				int xcoord = ThreadLocalRandom.current().nextInt(200, (DisplaysStatePlay.camera.worldWitdth - 200) + 1);
+				int ycoord = ThreadLocalRandom.current().nextInt(200, (DisplaysStatePlay.camera.worldHeight - 200) + 1);
 				int index = ThreadLocalRandom.current().nextInt(0, Filenames.powerupIcons.length);
 				NetworkControl.sendToAll("~PT" + xcoord + "," + ycoord + "," + index);
 				}
@@ -88,8 +104,11 @@ public class Powerups extends Entity
 	/* This method is called for every user to process someone colliding with a powerup */
 	public static void powerupCollision(int playerID, int powerupIndex)
 		{
-		numPowerups[playerID][powerupIndex]++;
 		GameStats.score[playerID] += GameStats.scorePowerupCollected;
+		if(numPowerups[playerID][powerupIndex] < maxPowerups) /// Only adds to inventory if not at cap
+			{
+			numPowerups[playerID][powerupIndex]++;
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* When a player activates a powerup, that player should call this method */
@@ -99,6 +118,8 @@ public class Powerups extends Entity
 			{
 			if(powerupIndex == C.POWERUP_SPEED && ResourceManager.getSound(Filenames.engine).playing()) /// Stops engine sound so pitch can recalibrate
 				ResourceManager.getSound(Filenames.engine).stop();
+			else if(powerupIndex == C.POWERUP_MINE)
+				Powerups.sendMineCoordinates();
 			NetworkControl.sendToAll("~PA" + Settings.playerID + powerupIndex);
 			}
 		}
@@ -106,35 +127,67 @@ public class Powerups extends Entity
 	/* This method is called for every user to process someone activating a powerup */
 	public static void powerupActivation(int playerID, int powerupIndex)
 		{
-		if(powerupIndex == 0) /// Health
+		if(powerupIndex == C.POWERUP_HEALTH)
 			{
 			/// Add health but not to exceed max health:
 			GameStats.health[playerID] = (GameStats.health[playerID] + healthIncrease) > GameStats.maxHealth[playerID] ? GameStats.maxHealth[playerID] : (GameStats.health[playerID] + healthIncrease);
 			}
-		else if(powerupIndex == 1) /// Mine
+		else if(powerupIndex == C.POWERUP_MINE)
 			{
-			//TODO render mine on the map
-				StatePlay.mines.add(new projectile(minex,miney,0,0,mineplayer));
+			StatePlay.mines.add(new projectile(minex, miney, 0, 0, minePlayer));
 			}
-		else if(powerupIndex == 2) /// Speed
+		else if(powerupIndex == C.POWERUP_SPEED)
 			{
 			/// Increase speed but not to exceed max speed:
-			GameStats.speed[playerID] = (GameStats.speed[playerID] + speedBurst) > GameStats.maxSpeed ? GameStats.maxSpeed : (GameStats.speed[playerID] + speedBurst);
+			int n = GameStats.maxSpeed - GameStats.speed[playerID] < speedBurst ? GameStats.maxSpeed - GameStats.speed[playerID] : speedBurst;
+			speedIncreaseCumulative[playerID] += n;
+			GameStats.speed[playerID] += n;
+
 			timePowerup[playerID][powerupIndex] += speedBurstTime;
-			numActivatedPowerups[playerID][powerupIndex]++;
+//			numActivatedPowerups[playerID][powerupIndex]++;
 			}
-		else if(powerupIndex == 3) /// Power
+		else if(powerupIndex == C.POWERUP_POWER)
 			{
 			/// Increase power but not to exceed max power:
-			GameStats.power[playerID] = (GameStats.power[playerID] + powerBurst) > GameStats.maxPower ? GameStats.maxPower : (GameStats.power[playerID] + powerBurst);
+			int n = GameStats.maxPower - GameStats.power[playerID] < powerBurst ? GameStats.maxPower - GameStats.power[playerID] : powerBurst;
+			powerIncreaseCumulative[playerID] += n;
+			GameStats.power[playerID] += n;
 			timePowerup[playerID][powerupIndex] += powerBurstTime;
-			numActivatedPowerups[playerID][powerupIndex]++;
+//			numActivatedPowerups[playerID][powerupIndex]++;
 			}
-		else if(powerupIndex == 4) /// Invincible
+		else if(powerupIndex == C.POWERUP_INVINCIBLE)
 			{
-			invincibleActivated[playerID] = C.YES;
+			isInvincible[playerID] = C.YES;
 			timePowerup[playerID][powerupIndex] += invincibleBurstTime;
-			numActivatedPowerups[playerID][powerupIndex]++;
+			invinciblePowerupActivated[playerID] = C.YES;
+//			numActivatedPowerups[playerID][powerupIndex]++;
+			}
+		else if(powerupIndex == C.POWERUP_BEER)
+			{
+			isInvincible[playerID] = C.YES;
+//			numActivatedPowerups[playerID][powerupIndex]++;
+
+			int s = GameStats.maxSpeed - GameStats.speed[playerID] < beerOnSpeedBurst ? GameStats.maxSpeed - GameStats.speed[playerID] : beerOnSpeedBurst;
+			beerSpeedIncreaseCumulative[playerID] += s;
+			GameStats.speed[playerID] += s;
+			
+			int p = GameStats.maxPower - GameStats.power[playerID] < beerOnPowerBurst ? GameStats.maxPower - GameStats.power[playerID] : beerOnPowerBurst;
+			beerPowerIncreaseCumulative[playerID] += p;
+			GameStats.power[playerID] += p;
+			
+//			GameStats.speed[playerID] = (GameStats.speed[playerID] + beerOnSpeedBurst) > GameStats.maxSpeed ? GameStats.maxSpeed : (GameStats.speed[playerID] + beerOnSpeedBurst);
+//			GameStats.power[playerID] = (GameStats.power[playerID] + beerOnPowerBurst) > GameStats.maxPower ? GameStats.maxPower : (GameStats.power[playerID] + beerOnPowerBurst);
+			if(beerMode[playerID] == C.BEER_RECOVERY) /// If beer is drunk while in recovery mode
+				{
+				timePowerup[playerID][powerupIndex] = beerTime;
+				GameStats.speed[playerID] += beerRecoverySpeedDrop;
+				GameStats.power[playerID] += beerRecoveryPowerDrop;
+				}
+			else
+				{
+				timePowerup[playerID][powerupIndex] += beerTime;
+				}
+			beerMode[playerID] = C.BEER_ON;
 			}
 		numPowerups[playerID][powerupIndex]--; /// Remove one from inventory
 		GameStats.score[playerID] += GameStats.scorePowerupActivated;
@@ -143,40 +196,76 @@ public class Powerups extends Entity
 	/* This method will be called for every user once an activated powerup's timer hits zero */
 	public static void powerupDeactivation(int playerID, int powerupIndex)
 		{
-		int n;
 		if(powerupIndex == C.POWERUP_SPEED)
 			{
 			/// Decrement powerup by the number of activated powerups but not less than the base
-			GameStats.speed[playerID] -= numActivatedPowerups[playerID][powerupIndex] * speedBurst;
-			GameStats.speed[playerID] = GameStats.speed[playerID] < GameStats.speedBase ? GameStats.speedBase : GameStats.speed[playerID];
+			GameStats.speed[playerID] -= speedIncreaseCumulative[playerID];
+			speedIncreaseCumulative[playerID] = 0;
+//			GameStats.speed[playerID] = GameStats.speed[playerID] < GameStats.speedBase ? GameStats.speedBase : GameStats.speed[playerID];
 			}
 		else if(powerupIndex == C.POWERUP_POWER)
 			{
 			/// Decrement powerup by the number of activated powerups but not less than the base
-			GameStats.power[playerID] -= numActivatedPowerups[playerID][powerupIndex] * powerBurst;
-			GameStats.power[playerID] = GameStats.power[playerID] < GameStats.powerBase ? GameStats.powerBase : GameStats.power[playerID];
+			GameStats.power[playerID] -= powerIncreaseCumulative[playerID];
+			powerIncreaseCumulative[playerID] = 0;
+//			GameStats.power[playerID] = GameStats.power[playerID] < GameStats.powerBase ? GameStats.powerBase : GameStats.power[playerID];
 			}
 		else if(powerupIndex == C.POWERUP_INVINCIBLE)
 			{
-			invincibleActivated[playerID] = C.NO;
+			invinciblePowerupActivated[playerID] = C.NO;
+			if(beerMode[playerID] != C.ON)
+				isInvincible[playerID] = C.NO;
 			}
-		numActivatedPowerups[playerID][powerupIndex] = 0;
+		else if(powerupIndex == C.POWERUP_BEER)
+			{
+			if(beerMode[playerID] == C.BEER_ON) /// Beer mode on ends, go to recovery
+				{
+				GameStats.speed[playerID] -= beerSpeedIncreaseCumulative[playerID] + beerRecoverySpeedDrop;
+				GameStats.power[playerID] -= beerPowerIncreaseCumulative[playerID] + beerRecoveryPowerDrop;
+				beerSpeedIncreaseCumulative[playerID] = 0;
+				beerPowerIncreaseCumulative[playerID] = 0;
+//				GameStats.speed[playerID] = GameStats.speed[playerID] - beerRecoverySpeedDrop < 1 ? 1 : GameStats.speed[playerID] - beerRecoverySpeedDrop;
+//				GameStats.power[playerID] = GameStats.power[playerID] - beerRecoveryPowerDrop < 1 ? 1 : GameStats.power[playerID] - beerRecoveryPowerDrop;
+				beerMode[playerID] = C.BEER_RECOVERY;
+				if(invinciblePowerupActivated[playerID] == C.NO) /// If the only invincible activation came from the beer
+					isInvincible[playerID] = C.NO;
+				timePowerup[playerID][powerupIndex] = beerRecoveryTime;
+				}
+			else if(beerMode[playerID] == C.BEER_RECOVERY) /// Beer mode recovery ends, go to normal
+				{
+				GameStats.speed[playerID] += beerRecoverySpeedDrop;
+				GameStats.power[playerID] += beerRecoveryPowerDrop;
+
+//				GameStats.speed[playerID] = GameStats.speed[playerID] + beerRecoverySpeedDrop > GameStats.maxSpeed ? GameStats.maxSpeed : GameStats.speed[playerID] + beerRecoverySpeedDrop;
+//				GameStats.power[playerID] = GameStats.power[playerID] + beerRecoveryPowerDrop > GameStats.maxPower ? GameStats.maxPower : GameStats.power[playerID] + beerRecoveryPowerDrop;
+				beerMode[playerID] = C.BEER_OFF;
+				}
+			}
+//		numActivatedPowerups[playerID][powerupIndex] = 0;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method should be called by the player that runs over an enemy mine */
-	//TODO we will have to create mine objects that hold the ID of the player who set the mine
-	public static void sendMineCollision(int playerID)
+	public static void sendMineCollision(int playerID, int mineID)
 		{
 		ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeMineDetonation);
+		//StatePlay.mines.remove(mineID);
 		/// Decrease health but not to exceed zero:
-		NetworkControl.sendToAll("~MC" + playerID);
+		NetworkControl.sendToAll("~MC" + playerID + mineID);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method should be called for every user when someone collides with an enemy mine */
 	public static void mineCollision(int playerID)
 		{
-		//TODO erase mine from map
-		GameStats.sendPlayerDamageCommand(C.INVALID, playerID, mineDamage);
+		GameStats.sendPlayerDamageCommand(C.MINE, playerID, mineDamage);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void setMaxPowerups(int playerID)
+		{
+		int i;
+		for(i = 0; i < Strings.powerups.length; i++)
+			{
+			numPowerups[playerID][i] = maxPowerups;
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* Process the powerup command from the network. Used to display of the powerup and its status */
@@ -226,33 +315,47 @@ public class Powerups extends Entity
 		powerupElapsedTime = 0;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void SendMineCord() {
+	public static void sendMineCoordinates()
+		{
 		int x = (int) StatePlay.tanks[Settings.playerID].getX();
 		int y = (int) StatePlay.tanks[Settings.playerID].getY();
 		NetworkControl.sendToAll("~MAX" + x);
 		NetworkControl.sendToAll("~MAY" + y);
-		NetworkControl.sendToAll("~MAP"+ Settings.playerTeamColors[Settings.playerID]);
-		
-	}
-	
+		NetworkControl.sendToAll("~MAP" + Settings.playerTeamColors[Settings.playerID]);
+		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void CheckMineCollision(int delta) {
-		int i=0;
-		for(Iterator<projectile> iterator = StatePlay.mines.iterator();iterator.hasNext();) {
-			projectile minetest=iterator.next();
+	public static void CheckMineCollision(int delta)
+		{
+		int mineID = 0;
+		try {
+		for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
+			{
+			projectile minetest = iterator.next();
+			if(minetest.collides(StatePlay.tanks[Settings.playerID]) != null)
+				{
+				if(minetest.playerID != Settings.playerTeamColors[Settings.playerID])
+					{
+					//StatePlay.removemines(mineID);
+					StatePlay.mines.remove(mineID);
+
+					sendMineCollision(Settings.playerID, mineID);
+					}
+				}
 			
-			if(minetest.collides(StatePlay.tanks[Settings.playerID])!=null) {
-				if(minetest.playerID!=Settings.playerTeamColors[Settings.playerID]) {
-					NetworkControl.sendToAll("~RM"+i);
-					GameStats.health[Settings.playerID]-=mineDamage;
+			mineID++;
+			minetest.lifetime -= delta;
+			if(minetest.lifetime <= 0)
+				{
+				iterator.remove();
 				}
 			}
-			i++;
-			minetest.lifetime-=delta;
-			if(minetest.lifetime<=0) {
-				iterator.remove();
-			}
 		}
-	}
+		catch(Exception e) {
+			
+		}
+		
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
 	
+		
 	}

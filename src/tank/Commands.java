@@ -57,9 +57,14 @@ public class Commands
 					}
 				}
 			/// Powerups:
-			else if(string.charAt(1)=='M' && string.charAt(2) == 'A' && string.charAt(3) =='X') Powerups.minex=Integer.parseInt(string.substring(4,string.length()));
-			else if(string.charAt(1)=='M' && string.charAt(2) == 'A' && string.charAt(3) =='Y') Powerups.miney=Integer.parseInt(string.substring(4,string.length()));
-			else if(string.charAt(1)=='M' && string.charAt(2) == 'A' && string.charAt(3) =='P') Powerups.mineplayer=Character.getNumericValue(string.charAt(4));
+			else if(string.charAt(1) == 'C' && string.charAt(2) == 'M')
+				Powerups.setMaxPowerups(Character.getNumericValue(string.charAt(3)));
+			else if(string.charAt(1) == 'M' && string.charAt(2) == 'A' && string.charAt(3) == 'X')
+				Powerups.minex = Integer.parseInt(string.substring(4, string.length()));
+			else if(string.charAt(1) == 'M' && string.charAt(2) == 'A' && string.charAt(3) == 'Y')
+				Powerups.miney = Integer.parseInt(string.substring(4, string.length()));
+			else if(string.charAt(1) == 'M' && string.charAt(2) == 'A' && string.charAt(3) == 'P')
+				Powerups.minePlayer = Character.getNumericValue(string.charAt(4));
 			else if(string.charAt(1) == 'P' && string.charAt(2) == 'A') /// Powerup activated
 				Powerups.powerupActivation(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)));
 			else if(string.charAt(1) == 'P' && string.charAt(2) == 'C') /// Powerup collision
@@ -86,10 +91,21 @@ public class Commands
 				Inputs.yMouse[Character.getNumericValue(string.charAt(3))] = Integer.parseInt(string.substring(4, string.length()));
 			/// Gameplay:
 			else if(string.charAt(1) == 'P' && string.charAt(2) == 'D') /// Player damage
-				GameStats.playerDamage(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)), charactersToInteger(string.charAt(5), string.charAt(6), string.charAt(7), string.charAt(8)));
-			else if(string.charAt(1) == 'M' && string.charAt(2) == 'C') /// Mine collision
+				GameStats.playerDamage(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)), Integer.parseInt(string.substring(5, string.length())));
+			else if(string.charAt(1) == 'M' && string.charAt(2) == 'C')
+				{ /// Mine collision
 				Powerups.mineCollision(Character.getNumericValue(string.charAt(3)));
-			else if(string.charAt(1)=='R' && string.charAt(2)=='M') StatePlay.mines.remove(Character.getNumericValue(string.charAt(3)));
+				StatePlay.removemines(Integer.parseInt(string.substring(4, string.length())));
+				}
+			else if(string.charAt(1)=='P'&&string.charAt(2)=='S')
+				{
+				float px=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getX();
+				float py=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getY();
+				double pr=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getTurretAngle();
+				float mv=10;
+				int l=5000;
+				StatePlay.shots.add(new projectile(px,py,pr,mv,l));
+				}
 			}
 		else /// String is a chat message
 			{
@@ -242,14 +258,14 @@ public class Commands
 		int i;
 		int multiplier = 1;
 		int result = 0;
-		for(i = 0; i < c.length; i++)
-			System.out.printf("CharToInteger: %c\n", c[i]);
+//		for(i = 0; i < c.length; i++)
+//			System.out.printf("CharToInteger: %c\n", c[i]);
 		for(i = c.length - 1; i >= 0; i--)
 			{
 			result += multiplier * Character.getNumericValue(c[i]);
 			multiplier = multiplier * 10;
 			}
-		System.out.printf("\n result = %d\n", result);
+//		System.out.printf("\n result = %d\n", result);
 		return result;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/

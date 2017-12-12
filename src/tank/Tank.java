@@ -1,3 +1,28 @@
+// Done:
+//TODO beer powerup *DONE
+//TODO cheat code for max powerups *DONE
+//TODO set a cap on max powerups *DONE
+//TODO fix gray lines in map3 *DONE
+//TODO sync player damage for mines
+
+// Left to do:
+//TODO powerups appear on the very corner of the map, not able to see all of it or collide with it
+//TODO tanks run over each other
+//TODO mine activation cooldown
+//TODO projectiles
+//TODO map collision with walls
+//TODO explosion animations
+//TODO fix tank moving if moving while pause is pressed
+//TODO tanks can see enemy mines
+//TODO mines disappear after 40 seconds
+//TODO mines will detonate if too close to another mine
+//TODO bug when using beer mixed with speed/power and recovery mode
+
+// If time:
+//TODO colored mines
+//TODO weighted powerup spawns? (e.g. beer and invincible should appear less often than say health)
+//TODO minimap powerup spawn locator? (place small dot on minimap to indicate where the powerup is spawned)
+
 package tank;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -52,15 +77,16 @@ public class Tank extends StateBasedGame
 		ResourceManager.loadImage(Filenames.turret_b);
 		ResourceManager.loadImage(Filenames.turret_g);
 		ResourceManager.loadImage(Filenames.turret_y);
+		ResourceManager.loadImage(Filenames.shot);
 		ResourceManager.loadSound(Filenames.buttonClick);
 		ResourceManager.loadSound(Filenames.ding);
 		ResourceManager.loadSound(Filenames.fire);
 		ResourceManager.loadSound(Filenames.shoot);
 		ResourceManager.loadSound(Filenames.engine);
 		ResourceManager.loadSound(Filenames.explosion);
+		ResourceManager.loadSound(Filenames.mainMusic);
 //		for(i = 0; i < Filenames.maps.length; i++)
 //			ResourceManager.loadImage(Filenames.maps[i]);
-		ResourceManager.loadImage(Filenames.map2);
 		for(i = 0; i < Filenames.miniMap.length; i++)
 			ResourceManager.loadImage(Filenames.miniMap[i]);
 		for(i = 0; i < Filenames.powerupIcons.length; i++)

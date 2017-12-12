@@ -7,6 +7,7 @@ public class C
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Game variables:
 	public static final int MAX_PLAYERS = 4;
+	public static final int MINE = 9; /// Single digit number outside of the MAX_PLAYERS to indicate a mine
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Universal switches:
 	public static final int INVALID = -1;
@@ -56,5 +57,10 @@ public class C
 	public static final int POWERUP_SPEED = 2;
 	public static final int POWERUP_POWER = 3;
 	public static final int POWERUP_INVINCIBLE = 4;
-	public static final int POWERUP_INVISIBLE = 5;
+	public static final int POWERUP_BEER = 5;
+//	public static final int POWERUP_INVISIBLE = 6;
+
+	public static final int BEER_OFF = 0;
+	public static final int BEER_ON = 1;
+	public static final int BEER_RECOVERY = 2;
 	}
