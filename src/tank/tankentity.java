@@ -1,4 +1,5 @@
 package tank;
+import jig.Collision;
 import jig.Entity;
 import jig.Vector;
 
@@ -130,6 +131,21 @@ public class tankentity extends Entity {
 		}
 
 		velocity = new Vector(x, y);
+
+
+		for(int i = 0; i < Settings.numberActivePlayers; i++)
+		{
+			if(i != Settings.playerID)
+			{
+				Collision result = this.collides(StatePlay.tanks[i]);
+				if(result != null)
+				{
+					Vector v = result.getMinPenetration();
+					velocity = v.project(velocity);
+				}
+			}
+		}
+
 
 
 	}
