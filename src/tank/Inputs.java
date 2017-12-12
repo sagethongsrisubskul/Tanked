@@ -68,7 +68,7 @@ public class Inputs
 				if(input.isKeyPressed(Input.KEY_F12))
 					{
 					Tank.DEBUG = !Tank.DEBUG;
-					jig.Entity.setDebug(true);
+					jig.Entity.setDebug(Tank.DEBUG);
 					}
 
 				if(input.isKeyPressed(Input.KEY_M))
