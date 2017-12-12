@@ -102,7 +102,7 @@ public class Commands
 				float px=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getX();
 				float py=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getY();
 				double pr=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getTurretAngle();
-				float mv=1;
+				float mv=10;
 				int l=5000;
 				StatePlay.shots.add(new projectile(px,py,pr,mv,l));
 				}

@@ -77,6 +77,7 @@ public class Tank extends StateBasedGame
 		ResourceManager.loadImage(Filenames.turret_b);
 		ResourceManager.loadImage(Filenames.turret_g);
 		ResourceManager.loadImage(Filenames.turret_y);
+		ResourceManager.loadImage(Filenames.shot);
 		ResourceManager.loadSound(Filenames.buttonClick);
 		ResourceManager.loadSound(Filenames.ding);
 		ResourceManager.loadSound(Filenames.fire);
