@@ -121,16 +121,7 @@ public class GameStats
 	/* A player calls this method when he receives damage */
 	public static void sendPlayerDamageCommand(int attackerID, int defenderID, int damage)
 		{
-		String sendString = "";
-		String damageString = Integer.toString(damage);
-		if(damageString.length() == 1)
-			sendString = "000";
-		else if(damageString.length() == 2)
-			sendString = "00" + Integer.toString(damage);
-		else if(damageString.length() == 3)
-			sendString = "0";
-		sendString += Integer.toString(damage);
-		NetworkControl.sendToAll("~PD" + attackerID + defenderID + sendString);
+		NetworkControl.sendToAll("~PD" + attackerID + defenderID + damage);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called via the network to process a player taking damage */
@@ -150,9 +141,8 @@ public class GameStats
 			/// No damage done in high score mode
 			}
 		score[defenderID] += scoreDamageIncurred * damage;
-		if(attackerID != C.INVALID) /// If damage came from a player and not a mine
+		if(attackerID != C.MINE) /// If damage came from a player and not a mine
 			score[attackerID] += scoreDamageInflicted * damage;
-
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void recordNumberTeams()

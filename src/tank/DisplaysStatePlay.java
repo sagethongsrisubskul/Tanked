@@ -35,6 +35,7 @@ public class DisplaysStatePlay
 	public static TrueTypeFont scoreFont = Fonts.fontCourier13BTTF;
 	public static TrueTypeFont messageTextFont = Fonts.fontCourier11BTTF;
 	/// Colors:
+	public static Color beerRecoveryColor = Color.red;
 	public static Color mainColor = Color.white;
 	public static Color timeColor = Color.white;
 	public static Color backgroundColor = Color.black;
@@ -231,7 +232,12 @@ public class DisplaysStatePlay
 			powerupStrings[i].renderString();
 			mainFont.drawString(powerupIcon[i].getEndX() + powerupPadding, powerupIcon[i].getEndY() - powerupPadding - mainFont.getHeight(), "x " + Integer.toString(Powerups.numPowerups[Settings.playerID][i]), mainColor);
 			if(Powerups.powerupType[i] == C.TIMED)
-				mainFont.drawString(powerupArea[i].centerStringX(mainFont, Integer.toString(Powerups.timePowerup[Settings.playerID][i])), powerupArea[i].endY - powerupPadding - mainFont.getHeight(), Integer.toString(Powerups.timePowerup[Settings.playerID][i]), mainColor);
+				{
+				if(i == C.POWERUP_BEER && Powerups.beerMode[Settings.playerID] == C.BEER_RECOVERY)
+					mainFont.drawString(powerupArea[i].centerStringX(mainFont, Integer.toString(Powerups.timePowerup[Settings.playerID][i])), powerupArea[i].endY - powerupPadding - mainFont.getHeight(), Integer.toString(Powerups.timePowerup[Settings.playerID][i]), beerRecoveryColor);
+				else
+					mainFont.drawString(powerupArea[i].centerStringX(mainFont, Integer.toString(Powerups.timePowerup[Settings.playerID][i])), powerupArea[i].endY - powerupPadding - mainFont.getHeight(), Integer.toString(Powerups.timePowerup[Settings.playerID][i]), mainColor);
+				}
 			}
 		for(i = 0; i < powerupIcon.length; i++)
 			powerupIcon[i].renderImage();

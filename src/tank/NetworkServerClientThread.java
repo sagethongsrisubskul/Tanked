@@ -10,7 +10,7 @@ public class NetworkServerClientThread extends Thread
 		}
 	public void run()
 		{
-		System.out.println("A new client has connected to the server\n"); // print a message to the user of the socket
+//		System.out.println("A new client has connected to the server\n"); // print a message to the user of the socket
 		readThread = new NetworkServerReadThread(socket); // initialize the read thread
 		readThread.start(); // start the read thread
 		}
