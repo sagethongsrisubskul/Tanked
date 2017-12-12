@@ -29,6 +29,12 @@ public class Inputs
 	public static void processKeyboardInput(Input input)
 		{
 //		processScreenAdjustment(input);
+		if(input.isKeyPressed(Input.KEY_F10))
+			{
+			if(StateMain.music.playing())
+				StateMain.music.stop();
+			else StateMain.music.play();
+			}
 		if(DisplaysPopupBox.popupDisplayed == C.YES)
 			{
 			if(input.isKeyDown(Input.KEY_ESCAPE))
@@ -50,7 +56,7 @@ public class Inputs
 			}
 		else if(StateControl.currentState == StateControl.STATE_LOBBY)
 			{
-			if(input.isKeyDown((Input.KEY_ENTER)))
+			if(input.isKeyPressed((Input.KEY_ENTER)))
 				{
 				DisplaysPopupBox.initPopup(C.POPUP_CHAT);
 				}
@@ -117,8 +123,7 @@ public class Inputs
 					else if(input.isKeyPressed(Input.KEY_6)) Powerups.sendPowerupActivation(C.POWERUP_BEER);
 //					else if(input.isKeyPressed(Input.KEY_7)) Powerups.sendPowerupActivation(C.POWERUP_INVISIBLE);
 					/// Cheat keys:
-					else if(input.isKeyPressed(Input.KEY_F11))
-						NetworkControl.sendToAll("~CM" + Settings.playerID);
+					else if(input.isKeyPressed(Input.KEY_F11)) NetworkControl.sendToAll("~CM" + Settings.playerID);
 					else if(input.isKeyPressed(Input.KEY_F1))
 						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_HEALTH);
 					else if(input.isKeyPressed(Input.KEY_F2))
