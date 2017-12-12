@@ -16,6 +16,7 @@
 //TODO tanks can see enemy mines
 //TODO mines disappear after 40 seconds
 //TODO mines will detonate if too close to another mine
+//TODO bug when using beer mixed with speed/power and recovery mode
 
 // If time:
 //TODO colored mines

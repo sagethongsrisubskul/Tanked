@@ -256,7 +256,7 @@ public class Powerups extends Entity
 	/* This method should be called for every user when someone collides with an enemy mine */
 	public static void mineCollision(int playerID)
 		{
-		GameStats.sendPlayerDamageCommand(C.INVALID, playerID, mineDamage);
+		GameStats.sendPlayerDamageCommand(C.MINE, playerID, mineDamage);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void setMaxPowerups(int playerID)
