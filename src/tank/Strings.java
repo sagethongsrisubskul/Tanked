@@ -95,6 +95,7 @@ public class Strings
 
 		"#    : Number keys activate powerups\n" +
 		"F#   : Function keys add powerup to inventory (cheat)\n" +
+		"F10  : Toggle intro music\n" +
 		"F11  : All powerups = max (cheat)\n" +
 		"F12  : Debug mode\n\n" +
 

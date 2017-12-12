@@ -7,6 +7,7 @@ public class C
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Game variables:
 	public static final int MAX_PLAYERS = 4;
+	public static final int MINE = 9; /// Single digit number outside of the MAX_PLAYERS to indicate a mine
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Universal switches:
 	public static final int INVALID = -1;
