@@ -178,6 +178,14 @@ public class DisplaysStatePlay
 				mine.render(g);
 				}
 			}
+		/// Shots:
+		if(StatePlay.shots.isEmpty() == false)
+			{
+			for(projectile i : StatePlay.shots)
+				{
+				i.render(g);
+				}
+			}
 		/// Tanks:
 		for(int i = 0; i < Settings.numberActivePlayers; i++)
 			{
