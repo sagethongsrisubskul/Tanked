@@ -7,7 +7,7 @@ public class Strings
 	public static final String cs447 = "CS447 FINAL PROJECT";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Main State:
-	public static final String gameTitle = "Tank";
+	public static final String gameTitle = "Tanked";
 	public static final String authorsList[] = {"Samuel Riesterer", "Benjamin DeCamp", "Sage Thongsrisubskul", "Tyler Coy"};
 	public static final String hostGame = "Host Game";
 	public static final String exitHost = "Exit Host";
@@ -62,7 +62,7 @@ public class Strings
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Play State:
 //	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible", "Invisible"};
-	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible"};
+	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible", "Beer"};
 	public static final String gamePaused = "Game Paused - Press <Enter> to Send Message";
 	public static final String gameOver = "Game Over";
 	public static final String colors[] = {"Red", "Yellow", "Green", "Blue"};
@@ -81,7 +81,8 @@ public class Strings
 		"https://opengameart.org/",
 		"http://www.reinerstilesets.de/lizenz/",
 		"https://freesound.org/",
-		"https://www.iconspng.com/"
+		"https://www.iconspng.com/",
+		"https://modarchive.org/index.php?faq-licensing"
 	};
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gameControlsText = String.format("" +
@@ -94,6 +95,9 @@ public class Strings
 
 		"#    : Number keys activate powerups\n" +
 		"F#   : Function keys add powerup to inventory (cheat)\n" +
+		"F11  : All powerups = max (cheat)\n" +
+		"F12  : Debug mode\n\n" +
+
 		"Space: Pause/Unpause game\n" +
 		"Enter: Brings up message box (Type slowly :-)\n" +
 		"");
@@ -125,7 +129,8 @@ public class Strings
 			"%s: Plants a mine on the map only your team can see. Does %d damage.\n" +
 			"%s: Increases tank speed by %d for %d seconds\n" +
 			"%s: Increases tank power by %d for %d seconds\n" +
-			"%s: Cannot be harmed for %d seconds\n\n" +
+			"%s: Cannot be harmed for %d seconds\n" +
+			"%s: Invincible and increased stats for %d seconds but low stats afterwards for %d seconds\n\n" +
 
 			"SCORE\n\n" +
 
@@ -145,6 +150,7 @@ public class Strings
 		powerups[2], Powerups.speedBurst, Powerups.speedBurstTime,
 		powerups[3], Powerups.powerBurst, Powerups.powerBurstTime,
 		powerups[4], Powerups.invincibleBurstTime,
+		powerups[5], Powerups.beerTime, Powerups.beerRecoveryTime,
 		GameStats.scoreDamageInflicted, GameStats.scoreDamageIncurred, GameStats.scorePowerupCollected, GameStats.scorePowerupActivated
 	);
 	// @formatter:on

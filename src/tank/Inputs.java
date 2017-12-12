@@ -67,8 +67,7 @@ public class Inputs
 
 				if(input.isKeyPressed(Input.KEY_M))
 					DisplaysStatePlay.renderMiniMap = !DisplaysStatePlay.renderMiniMap;
-				if(input.isKeyPressed(Input.KEY_SPACE))
-					NetworkControl.sendToAll("~GP");
+				if(input.isKeyPressed(Input.KEY_SPACE)) NetworkControl.sendToAll("~GP");
 				if(StatePlay.gamePaused == C.NO) /// Only allows input if game is not paused
 					{
 					/// Tank movement
@@ -81,7 +80,7 @@ public class Inputs
 						{
 						movement[Settings.playerID]++;
 						NetworkControl.sendToAll("~PM" + Settings.playerID + movement[Settings.playerID]);
-						if (!ResourceManager.getSound(Filenames.engine).playing())
+						if(!ResourceManager.getSound(Filenames.engine).playing())
 							ResourceManager.getSound(Filenames.engine).play(pitchEngineBase + GameStats.speed[Settings.playerID] * pitchEngineFactor, volumeEngine);
 						}
 					if(input.isKeyDown(Input.KEY_S))
@@ -116,20 +115,28 @@ public class Inputs
 					//mouse position to be implemented
 					/// Powerup activated:
 					if(input.isKeyPressed(Input.KEY_1)) Powerups.sendPowerupActivation(C.POWERUP_HEALTH);
-					else if(input.isKeyPressed(Input.KEY_2)) {
-						Powerups.sendPowerupActivation(C.POWERUP_MINE);
-					}
+					else if(input.isKeyPressed(Input.KEY_2)) Powerups.sendPowerupActivation(C.POWERUP_MINE);
 					else if(input.isKeyPressed(Input.KEY_3)) Powerups.sendPowerupActivation(C.POWERUP_SPEED);
 					else if(input.isKeyPressed(Input.KEY_4)) Powerups.sendPowerupActivation(C.POWERUP_POWER);
 					else if(input.isKeyPressed(Input.KEY_5)) Powerups.sendPowerupActivation(C.POWERUP_INVINCIBLE);
-//					else if(input.isKeyPressed(Input.KEY_6)) Powerups.sendPowerupActivation(C.POWERUP_INVISIBLE);
+					else if(input.isKeyPressed(Input.KEY_6)) Powerups.sendPowerupActivation(C.POWERUP_BEER);
+//					else if(input.isKeyPressed(Input.KEY_7)) Powerups.sendPowerupActivation(C.POWERUP_INVISIBLE);
 					/// Cheat keys:
-					else if(input.isKeyPressed(Input.KEY_F1)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_HEALTH);
-					else if(input.isKeyPressed(Input.KEY_F2)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_MINE);
-					else if(input.isKeyPressed(Input.KEY_F3)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_SPEED);
-					else if(input.isKeyPressed(Input.KEY_F4)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_POWER);
-					else if(input.isKeyPressed(Input.KEY_F5)) NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_INVINCIBLE);
-//					else if(input.isKeyPressed(Input.KEY_F6))
+					else if(input.isKeyPressed(Input.KEY_F11))
+						NetworkControl.sendToAll("~CM" + Settings.playerID);
+					else if(input.isKeyPressed(Input.KEY_F1))
+						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_HEALTH);
+					else if(input.isKeyPressed(Input.KEY_F2))
+						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_MINE);
+					else if(input.isKeyPressed(Input.KEY_F3))
+						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_SPEED);
+					else if(input.isKeyPressed(Input.KEY_F4))
+						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_POWER);
+					else if(input.isKeyPressed(Input.KEY_F5))
+						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_INVINCIBLE);
+					else if(input.isKeyPressed(Input.KEY_F6))
+						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_BEER);
+//					else if(input.isKeyPressed(Input.KEY_F7))
 //						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_INVISIBLE);
 					}
 				else /// Game is paused

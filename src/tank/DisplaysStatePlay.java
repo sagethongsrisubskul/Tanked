@@ -2,12 +2,6 @@ package tank;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
-
-import javax.swing.plaf.nimbus.State;
-
-import java.util.Iterator;
-import java.util.Set;
-
 /* This class is for displaying all the displayables in the state. A state will call the positionDisplays
  * method during the enter method of the state. This will recalculate the position of the displays based
  * on the current screen size. The state will call the renderDisplays method during in the render method.*/
@@ -47,6 +41,7 @@ public class DisplaysStatePlay
 	public static Color miniMapColor = Color.white;
 	public static Color healthBarColor = Color.white;
 	public static Color healthColor = Color.red;
+	public static Color invincibleHealthColor = Color.blue;
 	public static Color powerupBackgroundColor = Color.white;
 	public static Color powerupColor = Color.black;
 	public static Color scoreColor = Color.green;
@@ -71,11 +66,9 @@ public class DisplaysStatePlay
 	public static StringsDisplay score = new StringsDisplay("", scoreFont, scoreColor, 0, 0);
 	public static StringsDisplay power = new StringsDisplay("", mainFont, powerColor, 0, 0);
 	public static StringsDisplay speed = new StringsDisplay("", mainFont, speedColor, 0, 0);
-    public static StringsDisplay winCondition = new StringsDisplay("", scoreFont, scoreColor, 0, 0);
-
+	public static StringsDisplay winCondition = new StringsDisplay("", scoreFont, scoreColor, 0, 0);
 	/// Tiled Map:
 	public static Camera camera;
-
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initDisplays()
 		{
@@ -172,77 +165,61 @@ public class DisplaysStatePlay
 		g.setColor(backgroundColor);
 		g.fillRect(0, 0, Settings.currentScreenWidth, Settings.currentScreenHeight);
 		bottomMargin.colorSection(g, backgroundColor);
-
 		/// Begin World Rendering:
 		g.translate(camera.xPos + camera.pixelOffsetX, camera.yPos + camera.pixelOffsetY);
 		g.setClip(camera.viewport);
-
 		camera.render(g);
-		
 		//Mines
-		if(StatePlay.mines.isEmpty()==false) {
-			try {
-				for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); ) {
-					projectile mine=iterator.next();
-					mine.render(g);
+		if(StatePlay.mines.isEmpty() == false)
+			{
+			for(projectile mine : StatePlay.mines)
+				{
+				mine.render(g);
 				}
 			}
-			catch(Exception e) {
-				
-			}
-		}
-
 		/// Tanks:
-		for(int i=0;i<Settings.numberActivePlayers;i++) {
+		for(int i = 0; i < Settings.numberActivePlayers; i++)
+			{
 			StatePlay.tanks[i].render(g);
 			StatePlay.tanks[i].getTurret().render(g);
-		}
-		
-		
-
-
+			}
 		/// Powerups:
-		if(Powerups.powerupFlag ==true) {
+		if(Powerups.powerupFlag == true)
+			{
 			//render power up at location
 			//g.drawImage(ResourceManager.getImage(Filenames.powerupIcons[powerupIndex]).getScaledCopy(.35f), powerx, powery);
 			StatePlay.powerupEntity.render(g);
 			//powerupEntity.
-		}
-
+			}
 		//g.translate(-camera.pixelOffsetX, -camera.pixelOffsetY);
 		g.clearClip();
 		g.resetTransform();
 		/// End World Rendering
-
 		if(Tank.DEBUG)
 			{
 			g.setColor(Color.black);
 			g.drawString("Debug: " + Tank.DEBUG, 10, 140);
 			g.drawString("MouseX: " + (Inputs.xMouse[Settings.playerID] - camera.pixelOffsetX), 10, 160);
 			g.drawString("MouseY: " + (Inputs.yMouse[Settings.playerID] - camera.pixelOffsetY), 10, 180);
-
 			g.drawString("TankX: " + StatePlay.tanks[Settings.playerID].getX(), 10, 200);
 			g.drawString("TankY: " + StatePlay.tanks[Settings.playerID].getY(), 10, 220);
-
 			g.drawString("pixelOffsetX: " + (camera.xPos + (float) camera.pixelOffsetX), 10, 240);
 			g.drawString("pixelOffsetY: " + (camera.yPos + (float) camera.pixelOffsetY), 10, 260);
 			g.drawString("worldWidth: " + camera.worldWitdth, 10, 280);
 			g.drawString("worldHeight: " + camera.worldHeight, 10, 300);
 			g.drawString("Edge: " + StatePlay.tanks[Settings.playerID].collideWorldEdge(), 10, 320);
 			}
-
 		rightMargin.colorSection(g, backgroundColor);
-
 		if(renderMiniMap)
 			{
 			miniMapArea.colorSection(g, miniMapColor);
 			miniMap.renderImage();
 			}
-
 		/// Healthbar:
 		healthBarArea.colorSection(g, healthBarColor);
 		setHealthStartY();
-		g.setColor(healthColor);
+		if(Powerups.isInvincible[Settings.playerID] == C.YES) g.setColor(invincibleHealthColor);
+		else g.setColor(healthColor);
 		g.fillRect(healthBarArea.x, healthStartY, healthBarWidth + 1, healthBarArea.endY - healthStartY + 1);
 		/// Powerups:
 		powerupTotalArea.colorSection(g, powerupBackgroundColor);

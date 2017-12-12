@@ -7,13 +7,13 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
 import jig.Vector;
 
 import static tank.DisplaysStatePlay.camera;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
 public class StatePlay extends BasicGameState
 	{
 	Tank tank;
@@ -37,7 +37,6 @@ public class StatePlay extends BasicGameState
 	public static int y = 0;
 	public int timer = 0;
 	public static int gamePaused = C.NO;
-
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
@@ -56,6 +55,7 @@ public class StatePlay extends BasicGameState
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException
 		{
 		int i;
+		StateMain.music.fade(1000, 0, true);
 		AppGameContainer gc = (AppGameContainer) container;
 		gc.setDisplayMode(Settings.playScreenWidth, Settings.playScreenHeight, false);
 		StateControl.addCurrentState(getID());
@@ -69,48 +69,35 @@ public class StatePlay extends BasicGameState
 			{
 			if(Settings.playerTeamColors[i] == C.RED)
 				{
-					if(i==0)
-						tanks[i] = new tankentity(200, 200, 'r');
-					else if(i==1)
-						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200, 200, 'r');
-					else if(i==2)
-						tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight-200, 'r');
-					else if(i==3)
-						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200,DisplaysStatePlay.camera.worldHeight-200, 'r');
-						
+				if(i == 0) tanks[i] = new tankentity(200, 200, 'r');
+				else if(i == 1) tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, 200, 'r');
+				else if(i == 2) tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight - 200, 'r');
+				else if(i == 3)
+					tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, DisplaysStatePlay.camera.worldHeight - 200, 'r');
 				}
 			else if(Settings.playerTeamColors[i] == C.BLUE)
 				{
-					if(i==0)
-						tanks[i] = new tankentity(200, 200, 'b');
-					else if(i==1)
-						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200, 200, 'b');
-					else if(i==2)
-						tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight-200, 'b');
-					else if(i==3)
-					tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200,DisplaysStatePlay.camera.worldHeight-200, 'b');
+				if(i == 0) tanks[i] = new tankentity(200, 200, 'b');
+				else if(i == 1) tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, 200, 'b');
+				else if(i == 2) tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight - 200, 'b');
+				else if(i == 3)
+					tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, DisplaysStatePlay.camera.worldHeight - 200, 'b');
 				}
 			else if(Settings.playerTeamColors[i] == C.GREEN)
 				{
-					if(i==0)
-						tanks[i] = new tankentity(200, 200, 'g');
-					else if(i==1)
-						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200, 200, 'g');
-					else if(i==2)
-						tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight-200, 'g');
-					else if(i==3)
-						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200,DisplaysStatePlay.camera.worldHeight-200, 'g');
+				if(i == 0) tanks[i] = new tankentity(200, 200, 'g');
+				else if(i == 1) tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, 200, 'g');
+				else if(i == 2) tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight - 200, 'g');
+				else if(i == 3)
+					tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, DisplaysStatePlay.camera.worldHeight - 200, 'g');
 				}
 			else if(Settings.playerTeamColors[i] == C.YELLOW)
 				{
-					if(i==0)
-						tanks[i] = new tankentity(200, 200, 'y');
-					else if(i==1)
-						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200, 200, 'y');
-					else if(i==2)
-						tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight-200, 'y');
-					else if(i==3)
-						tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth-200,DisplaysStatePlay.camera.worldHeight-200, 'y');
+				if(i == 0) tanks[i] = new tankentity(200, 200, 'y');
+				else if(i == 1) tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, 200, 'y');
+				else if(i == 2) tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight - 200, 'y');
+				else if(i == 3)
+					tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, DisplaysStatePlay.camera.worldHeight - 200, 'y');
 				}
 			}
 		GameStats.recordNumberTeams();
@@ -121,8 +108,6 @@ public class StatePlay extends BasicGameState
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 		{
 		DisplaysStatePlay.renderDisplays(g);
-		
-
 		if(GameStats.gameOver == C.YES)
 			{
 			DisplaysMessagePopup.renderMessage(g, Strings.colors[GameStats.winningTeam] + Strings.wins, C.CENTER, C.CENTER, 10, Fonts.fontCourier20BTTF, Color.black, Color.white);
@@ -249,7 +234,7 @@ public class StatePlay extends BasicGameState
 			{
 			for(j = 0; j < Strings.powerups.length; j++) /// Cycle through all powerups
 				{
-				if(Powerups.timePowerup[i][j] > 0)
+				if(Powerups.timePowerup[i][j] > 0) /// If there is at least one second on the timer still
 					{
 					if(Powerups.timePowerup[i][j] == 1) /// If the powerup is about to expire
 						Powerups.powerupDeactivation(i, j); /// Deactivate powerup
@@ -258,17 +243,18 @@ public class StatePlay extends BasicGameState
 				}
 			}
 		}
-	
-	public static void removemines(int i) {
-		int x=0;
-		int deletemine=i;
-	
-		for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); ) {
+	public static void removemines(int i)
+		{
+		int x = 0;
+		int deletemine = i;
+		for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
+			{
 			projectile whichmine = iterator.next();
-			if(x==deletemine) {
+			if(x == deletemine)
+				{
 				iterator.remove();
-			}
+				}
 			x++;
-		}
+			}
 		}
 	}
