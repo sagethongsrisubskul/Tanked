@@ -65,7 +65,12 @@ public class Inputs
 			{
 			if(GameStats.gameOver == C.NO && GameStats.health[Settings.playerID] > 0)
 				{
-				if(input.isKeyPressed(Input.KEY_F12)) Tank.DEBUG = !Tank.DEBUG;
+				if(input.isKeyPressed(Input.KEY_F12))
+					{
+					Tank.DEBUG = !Tank.DEBUG;
+					jig.Entity.setDebug(Tank.DEBUG);
+					}
+
 				if(input.isKeyPressed(Input.KEY_M))
 					DisplaysStatePlay.renderMiniMap = !DisplaysStatePlay.renderMiniMap;
 				if(input.isKeyPressed(Input.KEY_SPACE)) NetworkControl.sendToAll("~GP");

@@ -198,6 +198,7 @@ public class DisplaysStatePlay
 		/// End World Rendering
 		if(Tank.DEBUG)
 			{
+			g.setColor(Color.black);
 			g.drawString("Debug: " + Tank.DEBUG, 10, 140);
 			g.drawString("MouseX: " + (Inputs.xMouse[Settings.playerID] - camera.pixelOffsetX), 10, 160);
 			g.drawString("MouseY: " + (Inputs.yMouse[Settings.playerID] - camera.pixelOffsetY), 10, 180);
