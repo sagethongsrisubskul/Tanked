@@ -7,7 +7,7 @@ public class Strings
 	public static final String cs447 = "CS447 FINAL PROJECT";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Main State:
-	public static final String gameTitle = "Tank";
+	public static final String gameTitle = "Tanked";
 	public static final String authorsList[] = {"Samuel Riesterer", "Benjamin DeCamp", "Sage Thongsrisubskul", "Tyler Coy"};
 	public static final String hostGame = "Host Game";
 	public static final String exitHost = "Exit Host";
