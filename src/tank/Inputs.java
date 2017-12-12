@@ -142,7 +142,7 @@ public class Inputs
 					else if(input.isKeyPressed(Input.KEY_F6))
 						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_BEER);
 //					else if(input.isKeyPressed(Input.KEY_F7))
-//						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_INVISIBLE);
+//						NetworkControl.sendToAll("~PC" + Settings.playerTeamColor + C.POWERUP_INVISIBLE);
 					}
 				else /// Game is paused
 					{
@@ -401,7 +401,7 @@ public class Inputs
 						}
 					if(withinCoordinates(DisplaysStatePlay.mapArea))
 						{
-						//TODO handle projectile
+						//TODO handle Projectile
 						ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeFire);
 						NetworkControl.sendToAll("~PS" + Settings.playerID);
 						}

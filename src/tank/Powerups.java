@@ -134,7 +134,7 @@ public class Powerups extends Entity
 			}
 		else if(powerupIndex == C.POWERUP_MINE)
 			{
-			StatePlay.mines.add(new projectile(minex, miney, 0, 0, minePlayer));
+			StatePlay.mines.add(new Projectile(minex, miney, 0, 0, minePlayer));
 			}
 		else if(powerupIndex == C.POWERUP_SPEED)
 			{
@@ -144,7 +144,7 @@ public class Powerups extends Entity
 			GameStats.speed[playerID] += n;
 
 			timePowerup[playerID][powerupIndex] += speedBurstTime;
-//			numActivatedPowerups[playerID][powerupIndex]++;
+//			numActivatedPowerups[playerTeamColor][powerupIndex]++;
 			}
 		else if(powerupIndex == C.POWERUP_POWER)
 			{
@@ -153,19 +153,19 @@ public class Powerups extends Entity
 			powerIncreaseCumulative[playerID] += n;
 			GameStats.power[playerID] += n;
 			timePowerup[playerID][powerupIndex] += powerBurstTime;
-//			numActivatedPowerups[playerID][powerupIndex]++;
+//			numActivatedPowerups[playerTeamColor][powerupIndex]++;
 			}
 		else if(powerupIndex == C.POWERUP_INVINCIBLE)
 			{
 			isInvincible[playerID] = C.YES;
 			timePowerup[playerID][powerupIndex] += invincibleBurstTime;
 			invinciblePowerupActivated[playerID] = C.YES;
-//			numActivatedPowerups[playerID][powerupIndex]++;
+//			numActivatedPowerups[playerTeamColor][powerupIndex]++;
 			}
 		else if(powerupIndex == C.POWERUP_BEER)
 			{
 			isInvincible[playerID] = C.YES;
-//			numActivatedPowerups[playerID][powerupIndex]++;
+//			numActivatedPowerups[playerTeamColor][powerupIndex]++;
 
 			int s = GameStats.maxSpeed - GameStats.speed[playerID] < beerOnSpeedBurst ? GameStats.maxSpeed - GameStats.speed[playerID] : beerOnSpeedBurst;
 			beerSpeedIncreaseCumulative[playerID] += s;
@@ -175,8 +175,8 @@ public class Powerups extends Entity
 			beerPowerIncreaseCumulative[playerID] += p;
 			GameStats.power[playerID] += p;
 			
-//			GameStats.speed[playerID] = (GameStats.speed[playerID] + beerOnSpeedBurst) > GameStats.maxSpeed ? GameStats.maxSpeed : (GameStats.speed[playerID] + beerOnSpeedBurst);
-//			GameStats.power[playerID] = (GameStats.power[playerID] + beerOnPowerBurst) > GameStats.maxPower ? GameStats.maxPower : (GameStats.power[playerID] + beerOnPowerBurst);
+//			GameStats.speed[playerTeamColor] = (GameStats.speed[playerTeamColor] + beerOnSpeedBurst) > GameStats.maxSpeed ? GameStats.maxSpeed : (GameStats.speed[playerTeamColor] + beerOnSpeedBurst);
+//			GameStats.power[playerTeamColor] = (GameStats.power[playerTeamColor] + beerOnPowerBurst) > GameStats.maxPower ? GameStats.maxPower : (GameStats.power[playerTeamColor] + beerOnPowerBurst);
 			if(beerMode[playerID] == C.BEER_RECOVERY) /// If beer is drunk while in recovery mode
 				{
 				timePowerup[playerID][powerupIndex] = beerTime;
@@ -201,14 +201,14 @@ public class Powerups extends Entity
 			/// Decrement powerup by the number of activated powerups but not less than the base
 			GameStats.speed[playerID] -= speedIncreaseCumulative[playerID];
 			speedIncreaseCumulative[playerID] = 0;
-//			GameStats.speed[playerID] = GameStats.speed[playerID] < GameStats.speedBase ? GameStats.speedBase : GameStats.speed[playerID];
+//			GameStats.speed[playerTeamColor] = GameStats.speed[playerTeamColor] < GameStats.speedBase ? GameStats.speedBase : GameStats.speed[playerTeamColor];
 			}
 		else if(powerupIndex == C.POWERUP_POWER)
 			{
 			/// Decrement powerup by the number of activated powerups but not less than the base
 			GameStats.power[playerID] -= powerIncreaseCumulative[playerID];
 			powerIncreaseCumulative[playerID] = 0;
-//			GameStats.power[playerID] = GameStats.power[playerID] < GameStats.powerBase ? GameStats.powerBase : GameStats.power[playerID];
+//			GameStats.power[playerTeamColor] = GameStats.power[playerTeamColor] < GameStats.powerBase ? GameStats.powerBase : GameStats.power[playerTeamColor];
 			}
 		else if(powerupIndex == C.POWERUP_INVINCIBLE)
 			{
@@ -224,8 +224,8 @@ public class Powerups extends Entity
 				GameStats.power[playerID] -= beerPowerIncreaseCumulative[playerID] + beerRecoveryPowerDrop;
 				beerSpeedIncreaseCumulative[playerID] = 0;
 				beerPowerIncreaseCumulative[playerID] = 0;
-//				GameStats.speed[playerID] = GameStats.speed[playerID] - beerRecoverySpeedDrop < 1 ? 1 : GameStats.speed[playerID] - beerRecoverySpeedDrop;
-//				GameStats.power[playerID] = GameStats.power[playerID] - beerRecoveryPowerDrop < 1 ? 1 : GameStats.power[playerID] - beerRecoveryPowerDrop;
+//				GameStats.speed[playerTeamColor] = GameStats.speed[playerTeamColor] - beerRecoverySpeedDrop < 1 ? 1 : GameStats.speed[playerTeamColor] - beerRecoverySpeedDrop;
+//				GameStats.power[playerTeamColor] = GameStats.power[playerTeamColor] - beerRecoveryPowerDrop < 1 ? 1 : GameStats.power[playerTeamColor] - beerRecoveryPowerDrop;
 				beerMode[playerID] = C.BEER_RECOVERY;
 				if(invinciblePowerupActivated[playerID] == C.NO) /// If the only invincible activation came from the beer
 					isInvincible[playerID] = C.NO;
@@ -236,12 +236,12 @@ public class Powerups extends Entity
 				GameStats.speed[playerID] += beerRecoverySpeedDrop;
 				GameStats.power[playerID] += beerRecoveryPowerDrop;
 
-//				GameStats.speed[playerID] = GameStats.speed[playerID] + beerRecoverySpeedDrop > GameStats.maxSpeed ? GameStats.maxSpeed : GameStats.speed[playerID] + beerRecoverySpeedDrop;
-//				GameStats.power[playerID] = GameStats.power[playerID] + beerRecoveryPowerDrop > GameStats.maxPower ? GameStats.maxPower : GameStats.power[playerID] + beerRecoveryPowerDrop;
+//				GameStats.speed[playerTeamColor] = GameStats.speed[playerTeamColor] + beerRecoverySpeedDrop > GameStats.maxSpeed ? GameStats.maxSpeed : GameStats.speed[playerTeamColor] + beerRecoverySpeedDrop;
+//				GameStats.power[playerTeamColor] = GameStats.power[playerTeamColor] + beerRecoveryPowerDrop > GameStats.maxPower ? GameStats.maxPower : GameStats.power[playerTeamColor] + beerRecoveryPowerDrop;
 				beerMode[playerID] = C.BEER_OFF;
 				}
 			}
-//		numActivatedPowerups[playerID][powerupIndex] = 0;
+//		numActivatedPowerups[playerTeamColor][powerupIndex] = 0;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method should be called by the player that runs over an enemy mine */
@@ -324,27 +324,27 @@ public class Powerups extends Entity
 		NetworkControl.sendToAll("~MAP" + Settings.playerTeamColors[Settings.playerID]);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void CheckMineCollision(int delta)
+	public static void checkMineCollision(int delta)
 		{
 		int mineID = 0;
 		try {
-		for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
+		for(Iterator<Projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
 			{
-			projectile minetest = iterator.next();
-			if(minetest.collides(StatePlay.tanks[Settings.playerID]) != null)
+			Projectile mineTest = iterator.next();
+			if(mineTest.collides(StatePlay.tanks[Settings.playerID]) != null)
 				{
-				if(minetest.playerID != Settings.playerTeamColors[Settings.playerID])
+				if(mineTest.playerTeamColor != Settings.playerTeamColors[Settings.playerID])
 					{
-					StatePlay.removemines(mineID);
-					//StatePlay.mines.remove(mineID);
+					//StatePlay.removemines(mineID);
+					StatePlay.mines.remove(mineID);
 
 					sendMineCollision(Settings.playerID, mineID);
 					}
 				}
 			
 			mineID++;
-			minetest.lifetime -= delta;
-			if(minetest.lifetime <= 0)
+			mineTest.lifetime -= delta;
+			if(mineTest.lifetime <= 0)
 				{
 				iterator.remove();
 				}

@@ -34,10 +34,10 @@ public class NetworkControl
 		{
 //		System.out.printf("exitClient: %d\n", clientID);
 		StateControl.exitProgram();
-//		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerID, Settings.playerName[Settings.playerID]);
+//		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerTeamColor, Settings.playerName[Settings.playerTeamColor]);
 //		displayMessage(Settings.playerName[clientID] + " has left the game");
 //
-//		if(Settings.playerID == clientID)
+//		if(Settings.playerTeamColor == clientID)
 //			{
 //			StateControl.exitProgram();
 //			}
@@ -49,7 +49,7 @@ public class NetworkControl
 //		Settings.activeIDs[clientID] = C.NO;
 //		Settings.playerName[clientID] = Strings.defaultName + clientID;
 //		Settings.numberActivePlayers--;
-//		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerID, Settings.playerName[Settings.playerID]);
+//		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerTeamColor, Settings.playerName[Settings.playerTeamColor]);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* The server will all this method when he is successful in hosting a game */

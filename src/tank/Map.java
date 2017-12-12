@@ -80,7 +80,7 @@ public class Map extends TiledMap {
 
 	public int getMapHeight() { return pixelHeight; }
 
-	public Vector getTileLocation(tankentity e) {
+	public Vector getTileLocation(TankEntity e) {
 		float x = (float) (Math.floor((e.getX() - this.xPos) / this.tileWidth));
 		float y = (float) (Math.floor((e.getY() - this.yPos) / this.tileHeight));		
 		

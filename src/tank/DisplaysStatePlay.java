@@ -173,7 +173,7 @@ public class DisplaysStatePlay
 		//Mines
 		if(StatePlay.mines.isEmpty() == false)
 			{
-			for(projectile mine : StatePlay.mines)
+			for(Projectile mine : StatePlay.mines)
 				{
 				mine.render(g);
 				}
@@ -181,7 +181,7 @@ public class DisplaysStatePlay
 		/// Shots:
 		if(StatePlay.shots.isEmpty() == false)
 			{
-			for(projectile i : StatePlay.shots)
+			for(Projectile i : StatePlay.shots)
 				{
 				i.render(g);
 				}
@@ -268,7 +268,7 @@ public class DisplaysStatePlay
 		{
 		double r = 1.0 - ((double) GameStats.health[Settings.playerID] / (double) GameStats.maxHealth[Settings.playerID]);
 		healthStartY = healthBarArea.y + (int) (healthBarArea.getHeight() * r);
-//		System.out.printf("healthMax = %d, health = %d; healthbar = (%d,%d) to (%d,%d) h=%d; r = %f, start = %d, end = %d\n", GameStats.maxHealth[Settings.playerID], GameStats.health[Settings.playerID], healthBarArea.x, healthBarArea.y, healthBarArea.endX, healthBarArea.endY, healthBarArea.getHeight(), r, healthStartY, healthBarArea.getHeight() - healthStartY);
+//		System.out.printf("healthMax = %d, health = %d; healthbar = (%d,%d) to (%d,%d) h=%d; r = %f, start = %d, end = %d\n", GameStats.maxHealth[Settings.playerTeamColor], GameStats.health[Settings.playerTeamColor], healthBarArea.x, healthBarArea.y, healthBarArea.endX, healthBarArea.endY, healthBarArea.getHeight(), r, healthStartY, healthBarArea.getHeight() - healthStartY);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	}

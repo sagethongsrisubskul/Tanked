@@ -4,22 +4,27 @@
 //TODO set a cap on max powerups *DONE
 //TODO fix gray lines in map3 *DONE
 //TODO sync player damage for mines
+//TODO bug when using beer mixed with speed/power and recovery mode *DONE
+//TODO colored mines *DONE
+//TODO mines disappear after 40 seconds *DONE
+//TODO fix tank moving if movign while pause is pressed *DONE
+
+// Check:
+//TODO powerups appear on the very corner of the map, not able to see all of it or collide with it
 
 // Left to do:
-//TODO powerups appear on the very corner of the map, not able to see all of it or collide with it
-//TODO tanks run over each other
-//TODO mine activation cooldown
-//TODO projectiles
+//TODO mines will detonate together if too close
+//TODO mines will stay on screen after detonation if friendly mine
+//TODO tank collision smoothing
+//TODO Projectile collisions
 //TODO map collision with walls
 //TODO explosion animations
-//TODO fix tank moving if moving while pause is pressed
 //TODO tanks can see enemy mines
-//TODO mines disappear after 40 seconds
 //TODO mines will detonate if too close to another mine
-//TODO bug when using beer mixed with speed/power and recovery mode
 
 // If time:
-//TODO colored mines
+//TODO Terrains (sounds)
+//TODO play clank when tanks collide
 //TODO weighted powerup spawns? (e.g. beer and invincible should appear less often than say health)
 //TODO minimap powerup spawn locator? (place small dot on minimap to indicate where the powerup is spawned)
 
@@ -78,6 +83,7 @@ public class Tank extends StateBasedGame
 		ResourceManager.loadImage(Filenames.turret_g);
 		ResourceManager.loadImage(Filenames.turret_y);
 		ResourceManager.loadImage(Filenames.shot);
+		ResourceManager.loadSound(Filenames.clank);
 		ResourceManager.loadSound(Filenames.buttonClick);
 		ResourceManager.loadSound(Filenames.ding);
 		ResourceManager.loadSound(Filenames.fire);
@@ -91,6 +97,8 @@ public class Tank extends StateBasedGame
 			ResourceManager.loadImage(Filenames.miniMap[i]);
 		for(i = 0; i < Filenames.powerupIcons.length; i++)
 			ResourceManager.loadImage(Filenames.powerupIcons[i]);
+		for(i = 0; i < Filenames.mines.length; i++)
+			ResourceManager.loadImage(Filenames.mines[i]);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void main(String[] args)
