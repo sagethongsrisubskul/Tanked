@@ -403,6 +403,7 @@ public class Inputs
 						{
 						//TODO handle projectile
 						ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeFire);
+						NetworkControl.sendToAll("~PS" + Settings.playerID);
 						}
 					}
 				}
