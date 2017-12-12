@@ -97,6 +97,15 @@ public class Commands
 				Powerups.mineCollision(Character.getNumericValue(string.charAt(3)));
 				StatePlay.removemines(Integer.parseInt(string.substring(4, string.length())));
 				}
+			else if(string.charAt(1)=='P'&&string.charAt(2)=='S')
+				{
+				float px=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getX();
+				float py=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getY();
+				double pr=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getTurretAngle();
+				float mv=10;
+				int l=5000;
+				StatePlay.shots.add(new projectile(px,py,pr,mv,l));
+				}
 			}
 		else /// String is a chat message
 			{

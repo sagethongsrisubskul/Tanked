@@ -27,6 +27,7 @@ public class StatePlay extends BasicGameState
 	public static int highScoreTimerOptions[] = {1, 5, 10, 15, 20, 30}; /// Minutes
 	public static tankentity tanks[] = new tankentity[C.MAX_PLAYERS];
 	public static ArrayList<projectile> mines = new ArrayList<projectile>();
+	public static ArrayList<projectile> shots = new ArrayList<projectile>();
 	//	public static boolean powerupFlag=false;
 //	public static int powerx=0;//power ups x location
 //	public static int powery=0;//power ups y location
@@ -182,6 +183,11 @@ public class StatePlay extends BasicGameState
 					tanks[i].update(delta, i);
 					}
 				}
+			
+			for(projectile i :shots){
+				i.update(delta);
+			}
+			
 			Powerups.sendPowerupStatus();
 			Powerups.checkPowerupCollision();
 			Powerups.CheckMineCollision(delta);
