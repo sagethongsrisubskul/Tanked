@@ -2,12 +2,12 @@ package tank;
 
 import jig.Entity;
 import jig.ResourceManager;
-public class TurretEntity extends Entity{
+public class turretentity extends Entity{
 
-	private TankEntity parent;
+	private tankentity parent;
 
 	/*-----------------------------------------------------------------------------------------------------*/
-	public TurretEntity(final float x, final float y, final char team, TankEntity parent){
+	public turretentity(final float x, final float y, final char team, tankentity parent){
 		super(x,y);
 		
 		this.parent=parent;

@@ -25,9 +25,9 @@ public class StatePlay extends BasicGameState
 	public static int seconds;
 	public static int highScoreTimer; /// Seconds
 	public static int highScoreTimerOptions[] = {1, 5, 10, 15, 20, 30}; /// Minutes
-	public static TankEntity tanks[] = new TankEntity[C.MAX_PLAYERS];
-	public static ArrayList<Projectile> mines = new ArrayList<Projectile>();
-	public static ArrayList<Projectile> shots = new ArrayList<Projectile>();
+	public static tankentity tanks[] = new tankentity[C.MAX_PLAYERS];
+	public static ArrayList<projectile> mines = new ArrayList<projectile>();
+	public static ArrayList<projectile> shots = new ArrayList<projectile>();
 	//	public static boolean powerupFlag=false;
 //	public static int powerx=0;//power ups x location
 //	public static int powery=0;//power ups y location
@@ -70,35 +70,35 @@ public class StatePlay extends BasicGameState
 			{
 			if(Settings.playerTeamColors[i] == C.RED)
 				{
-				if(i == 0) tanks[i] = new TankEntity(200, 200, 'r');
-				else if(i == 1) tanks[i] = new TankEntity(DisplaysStatePlay.camera.worldWitdth - 200, 200, 'r');
-				else if(i == 2) tanks[i] = new TankEntity(200, DisplaysStatePlay.camera.worldHeight - 200, 'r');
+				if(i == 0) tanks[i] = new tankentity(200, 200, 'r');
+				else if(i == 1) tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, 200, 'r');
+				else if(i == 2) tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight - 200, 'r');
 				else if(i == 3)
-					tanks[i] = new TankEntity(DisplaysStatePlay.camera.worldWitdth - 200, DisplaysStatePlay.camera.worldHeight - 200, 'r');
+					tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, DisplaysStatePlay.camera.worldHeight - 200, 'r');
 				}
 			else if(Settings.playerTeamColors[i] == C.BLUE)
 				{
-				if(i == 0) tanks[i] = new TankEntity(200, 200, 'b');
-				else if(i == 1) tanks[i] = new TankEntity(DisplaysStatePlay.camera.worldWitdth - 200, 200, 'b');
-				else if(i == 2) tanks[i] = new TankEntity(200, DisplaysStatePlay.camera.worldHeight - 200, 'b');
+				if(i == 0) tanks[i] = new tankentity(200, 200, 'b');
+				else if(i == 1) tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, 200, 'b');
+				else if(i == 2) tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight - 200, 'b');
 				else if(i == 3)
-					tanks[i] = new TankEntity(DisplaysStatePlay.camera.worldWitdth - 200, DisplaysStatePlay.camera.worldHeight - 200, 'b');
+					tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, DisplaysStatePlay.camera.worldHeight - 200, 'b');
 				}
 			else if(Settings.playerTeamColors[i] == C.GREEN)
 				{
-				if(i == 0) tanks[i] = new TankEntity(200, 200, 'g');
-				else if(i == 1) tanks[i] = new TankEntity(DisplaysStatePlay.camera.worldWitdth - 200, 200, 'g');
-				else if(i == 2) tanks[i] = new TankEntity(200, DisplaysStatePlay.camera.worldHeight - 200, 'g');
+				if(i == 0) tanks[i] = new tankentity(200, 200, 'g');
+				else if(i == 1) tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, 200, 'g');
+				else if(i == 2) tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight - 200, 'g');
 				else if(i == 3)
-					tanks[i] = new TankEntity(DisplaysStatePlay.camera.worldWitdth - 200, DisplaysStatePlay.camera.worldHeight - 200, 'g');
+					tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, DisplaysStatePlay.camera.worldHeight - 200, 'g');
 				}
 			else if(Settings.playerTeamColors[i] == C.YELLOW)
 				{
-				if(i == 0) tanks[i] = new TankEntity(200, 200, 'y');
-				else if(i == 1) tanks[i] = new TankEntity(DisplaysStatePlay.camera.worldWitdth - 200, 200, 'y');
-				else if(i == 2) tanks[i] = new TankEntity(200, DisplaysStatePlay.camera.worldHeight - 200, 'y');
+				if(i == 0) tanks[i] = new tankentity(200, 200, 'y');
+				else if(i == 1) tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, 200, 'y');
+				else if(i == 2) tanks[i] = new tankentity(200, DisplaysStatePlay.camera.worldHeight - 200, 'y');
 				else if(i == 3)
-					tanks[i] = new TankEntity(DisplaysStatePlay.camera.worldWitdth - 200, DisplaysStatePlay.camera.worldHeight - 200, 'y');
+					tanks[i] = new tankentity(DisplaysStatePlay.camera.worldWitdth - 200, DisplaysStatePlay.camera.worldHeight - 200, 'y');
 				}
 			}
 		GameStats.recordNumberTeams();
@@ -185,7 +185,7 @@ public class StatePlay extends BasicGameState
 						tanks[i].update(delta, i);
 						}
 					}
-				for(Projectile i : shots)
+				for(projectile i : shots)
 					{
 					i.update(delta);
 					}
@@ -251,13 +251,14 @@ public class StatePlay extends BasicGameState
 				}
 			}
 		}
+	/*-----------------------------------------------------------------------------------------------------*/
 	public static void removemines(int i)
 		{
 		int x = 0;
 		int deletemine = i;
-		for(Iterator<Projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
+		for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
 			{
-			Projectile whichmine = iterator.next();
+			projectile whichmine = iterator.next();
 			if(x == deletemine)
 				{
 				iterator.remove();
@@ -265,4 +266,5 @@ public class StatePlay extends BasicGameState
 			x++;
 			}
 		}
+	/*-----------------------------------------------------------------------------------------------------*/
 	}

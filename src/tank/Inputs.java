@@ -401,7 +401,7 @@ public class Inputs
 						}
 					if(withinCoordinates(DisplaysStatePlay.mapArea))
 						{
-						//TODO handle Projectile
+						//TODO handle projectile
 						ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeFire);
 						NetworkControl.sendToAll("~PS" + Settings.playerID);
 						}

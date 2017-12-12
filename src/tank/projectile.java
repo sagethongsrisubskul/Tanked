@@ -1,7 +1,7 @@
 package tank;
 import jig.Entity;
 import jig.Vector;
-public class Projectile extends Entity
+public class projectile extends Entity
 	{
 	private Vector velocity;
 	private Vector acceleration;
@@ -10,7 +10,7 @@ public class Projectile extends Entity
 	public int lifetime;
 	public int playerTeamColor = 0;
 	//x,y=coordinates, r=angle,mv=muzzle velocity, l=lifetime
-	public Projectile(final float x, final float y, final double r, final float mv, final int l)
+	public projectile(final float x, final float y, final double r, final float mv, final int l)
 		{
 		super(x, y);
 		angle = r;

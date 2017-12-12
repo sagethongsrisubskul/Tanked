@@ -2,7 +2,7 @@ package tank;
 import jig.Collision;
 import jig.Entity;
 import jig.Vector;
-public class TankEntity extends Entity
+public class tankentity extends Entity
 	{
 	public enum Edge
 		{
@@ -17,10 +17,10 @@ public class TankEntity extends Entity
 	private double turretangle;
 	private int movement;
 	private int rotation;
-	private TurretEntity turret;
+	private turretentity turret;
 	private Collision collisionResult;
 	/*-----------------------------------------------------------------------------------------------------*/
-	public TankEntity(final float x, final float y, final char team)
+	public tankentity(final float x, final float y, final char team)
 		{
 		super(x, y);
 		switch (team)
@@ -42,7 +42,7 @@ public class TankEntity extends Entity
 				addImageWithBoundingBox(ResourceManager.getImage(Filenames.tank_y).getScaledCopy(0.25f));
 				break;
 			}
-		turret = new TurretEntity(x, y, team, this);
+		turret = new turretentity(x, y, team, this);
 		velocity = new Vector(0.0f, 0.0f);
 		hullangle = 0;
 		turretangle = 0;
@@ -129,7 +129,7 @@ public class TankEntity extends Entity
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public TurretEntity getTurret()
+	public turretentity getTurret()
 		{
 		return turret;
 		}

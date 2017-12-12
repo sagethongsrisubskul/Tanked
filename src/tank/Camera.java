@@ -49,7 +49,7 @@ public class Camera
 
         }
 
-    public void update(TankEntity player, int delta)
+    public void update(tankentity player, int delta)
         {
         int x = -(int)player.getX() + (viewportWidth / 2);
         int y = -(int)player.getY() + (viewportHeight / 2);

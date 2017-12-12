@@ -24,6 +24,10 @@ public class Filenames
 	public final static String ding = "res/ding.wav";
 	public final static String fire = "res/fire.wav";
 	public final static String explosion = "res/explosion.wav";
+	public final static String explosion2 = "res/explosion2.wav";
+	public final static String explosion3 = "res/explosion3.wav";
+	public final static String explosion4 = "res/explosion4.wav";
+	public final static String explosion5 = "res/explosion5.wav";
 	public final static String engine = "res/engine.wav";
 	public final static String shoot = "res/shoot.wav";
 	public final static String buttonClick = "res/buttonClick.wav";

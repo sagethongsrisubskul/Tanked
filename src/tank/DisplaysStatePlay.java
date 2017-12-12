@@ -173,7 +173,7 @@ public class DisplaysStatePlay
 		//Mines
 		if(StatePlay.mines.isEmpty() == false)
 			{
-			for(Projectile mine : StatePlay.mines)
+			for(projectile mine : StatePlay.mines)
 				{
 				mine.render(g);
 				}
@@ -181,7 +181,7 @@ public class DisplaysStatePlay
 		/// Shots:
 		if(StatePlay.shots.isEmpty() == false)
 			{
-			for(Projectile i : StatePlay.shots)
+			for(projectile i : StatePlay.shots)
 				{
 				i.render(g);
 				}

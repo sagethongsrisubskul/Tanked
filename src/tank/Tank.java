@@ -16,7 +16,7 @@
 //TODO mines will detonate together if too close
 //TODO mines will stay on screen after detonation if friendly mine
 //TODO tank collision smoothing
-//TODO Projectile collisions
+//TODO projectile collisions
 //TODO map collision with walls
 //TODO explosion animations
 //TODO tanks can see enemy mines
@@ -90,6 +90,10 @@ public class Tank extends StateBasedGame
 		ResourceManager.loadSound(Filenames.shoot);
 		ResourceManager.loadSound(Filenames.engine);
 		ResourceManager.loadSound(Filenames.explosion);
+		ResourceManager.loadSound(Filenames.explosion2);
+		ResourceManager.loadSound(Filenames.explosion3);
+		ResourceManager.loadSound(Filenames.explosion4);
+		ResourceManager.loadSound(Filenames.explosion5);
 		ResourceManager.loadSound(Filenames.mainMusic);
 //		for(i = 0; i < Filenames.maps.length; i++)
 //			ResourceManager.loadImage(Filenames.maps[i]);

@@ -134,7 +134,7 @@ public class Powerups extends Entity
 			}
 		else if(powerupIndex == C.POWERUP_MINE)
 			{
-			StatePlay.mines.add(new Projectile(minex, miney, 0, 0, minePlayer));
+			StatePlay.mines.add(new projectile(minex, miney, 0, 0, minePlayer));
 			}
 		else if(powerupIndex == C.POWERUP_SPEED)
 			{
@@ -247,7 +247,7 @@ public class Powerups extends Entity
 	/* This method should be called by the player that runs over an enemy mine */
 	public static void sendMineCollision(int playerID, int mineID)
 		{
-		ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeMineDetonation);
+		ResourceManager.getSound(Filenames.explosion2).play(1, Inputs.volumeMineDetonation);
 		//StatePlay.mines.remove(mineID);
 		/// Decrease health but not to exceed zero:
 		NetworkControl.sendToAll("~MC" + playerID + mineID);
@@ -328,14 +328,14 @@ public class Powerups extends Entity
 		{
 		int mineID = 0;
 		try {
-		for(Iterator<Projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
+		for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
 			{
-			Projectile mineTest = iterator.next();
+			projectile mineTest = iterator.next();
 			if(mineTest.collides(StatePlay.tanks[Settings.playerID]) != null)
 				{
 				if(mineTest.playerTeamColor != Settings.playerTeamColors[Settings.playerID])
 					{
-					//StatePlay.removemines(mineID);
+//					StatePlay.removemines(mineID);
 					StatePlay.mines.remove(mineID);
 
 					sendMineCollision(Settings.playerID, mineID);
