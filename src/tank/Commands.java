@@ -48,23 +48,20 @@ public class Commands
 				GameStats.winningTeam = Character.getNumericValue(string.charAt(3));
 				GameStats.gameOver = C.YES;
 				}
-			else if(string.charAt(1) == 'G' && string.charAt(2) == 'P')
+			else if(string.charAt(1) == 'G' && string.charAt(2) == 'P') /// Game paused
 				{
 				StatePlay.gamePaused = 1 - StatePlay.gamePaused; /// Toggles
 				ResourceManager.getSound(Filenames.engine).stop();
-				if(DisplaysPopupBox.popupDisplayed == C.YES)
-					{
-					DisplaysPopupBox.popupEnd();
-					}
+				if(DisplaysPopupBox.popupDisplayed == C.YES) DisplaysPopupBox.popupEnd();
 				}
 			/// Powerups:
-			else if(string.charAt(1) == 'C' && string.charAt(2) == 'M')
+			else if(string.charAt(1) == 'C' && string.charAt(2) == 'M') /// Cheat mode
 				Powerups.setMaxPowerups(Character.getNumericValue(string.charAt(3)));
-			else if(string.charAt(1) == 'M' && string.charAt(2) == 'A' && string.charAt(3) == 'X')
+			else if(string.charAt(1) == 'M' && string.charAt(2) == 'A' && string.charAt(3) == 'X') /// Mine x coordinate
 				Powerups.minex = Integer.parseInt(string.substring(4, string.length()));
-			else if(string.charAt(1) == 'M' && string.charAt(2) == 'A' && string.charAt(3) == 'Y')
+			else if(string.charAt(1) == 'M' && string.charAt(2) == 'A' && string.charAt(3) == 'Y') /// Mine y coordinate
 				Powerups.miney = Integer.parseInt(string.substring(4, string.length()));
-			else if(string.charAt(1) == 'M' && string.charAt(2) == 'A' && string.charAt(3) == 'P')
+			else if(string.charAt(1) == 'M' && string.charAt(2) == 'A' && string.charAt(3) == 'P') /// Mine player ID
 				Powerups.minePlayer = Character.getNumericValue(string.charAt(4));
 			else if(string.charAt(1) == 'P' && string.charAt(2) == 'A') /// Powerup activated
 				Powerups.powerupActivation(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)));
@@ -93,23 +90,24 @@ public class Commands
 			/// Gameplay:
 			else if(string.charAt(1) == 'P' && string.charAt(2) == 'D') /// Player damage
 				GameStats.playerDamage(Character.getNumericValue(string.charAt(3)), Character.getNumericValue(string.charAt(4)), Integer.parseInt(string.substring(5, string.length())));
-			else if(string.charAt(1) == 'M' && string.charAt(2) == 'C')
+			else if(string.charAt(1) == 'M' && string.charAt(2) == 'C') /// Mine collision
 				{ /// Mine collision
 				Powerups.mineCollision(Character.getNumericValue(string.charAt(3)));
 				StatePlay.removemines(Integer.parseInt(string.substring(4, string.length())));
 				}
-			else if(string.charAt(1)=='P'&&string.charAt(2)=='S')
+			else if(string.charAt(1) == 'P' && string.charAt(2) == 'S') /// Player shot
 				{
-				float px=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getX();
-				float py=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getY();
-				double pr=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getTurretAngle();
-				float mv=10;
+				float px = StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getX();
+				float py = StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getY();
+				double pr = StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getTurretAngle();
+				float mv = 10;
 				//int l=5000;
-				StatePlay.shots.add(new projectile(px,py,pr,mv,Settings.playerTeamColors[Character.getNumericValue(string.charAt(3))]));
+				StatePlay.shots.add(new projectile(px, py, pr, mv, Settings.playerTeamColors[Character.getNumericValue(string.charAt(3))]));
 				}
-			else if(string.charAt(1)=='R' && string.charAt(2)=='S') {
-				StatePlay.removeshot(Integer.parseInt(string.substring(3,string.length())));
-			}
+			else if(string.charAt(1) == 'R' && string.charAt(2) == 'S') /// Remove shot
+				{
+				StatePlay.removeshot(Integer.parseInt(string.substring(3, string.length())));
+				}
 			}
 		else /// String is a chat message
 			{

@@ -21,10 +21,10 @@ public class Inputs
 	public static float pitchEngineBase = .5f;
 	public static float pitchEngineFactor = .05f;
 	public static float volumeEngine = .7f;
-	public static float volumePowerupCollision = .5f;
-	public static float volumeFire = 1f;
-	public static float volumeMineDetonation = 1.5f;
-	public static float volumeExplosion = 1f;
+	public static float volumePowerupCollision = .4f;
+	public static float volumeFire = .4f;
+	public static float volumeMineDetonation = 3.5f;
+	public static float volumeExplosion = .7f;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processKeyboardInput(Input input)
 		{
@@ -401,7 +401,6 @@ public class Inputs
 						}
 					if(withinCoordinates(DisplaysStatePlay.mapArea))
 						{
-						//TODO handle projectile
 						ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeFire);
 						NetworkControl.sendToAll("~PS" + Settings.playerID);
 						}

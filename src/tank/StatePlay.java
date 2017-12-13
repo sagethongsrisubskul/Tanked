@@ -38,8 +38,8 @@ public class StatePlay extends BasicGameState
 	public static int y = 0;
 	public int timer = 0;
 	public static int gamePaused = C.NO;
-	public static int shotnumber=0;
-	public static int minenumber=0;
+	public static int shotnumber = 0;
+	public static int minenumber = 0;
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
@@ -147,6 +147,8 @@ public class StatePlay extends BasicGameState
 				}
 			}
 		input.clearKeyPressedRecord();
+
+		DisplaysStatePlay.updateExplosions();
 		//Inputs.xMouse[Settings.playerTeamColor]=input.getMouseX();
 		//Inputs.yMouse[Settings.playerTeamColor]=input.getMouseY();
 		if(GameStats.gameOver == C.NO && GameStats.health[Settings.playerID] > 0)
@@ -257,7 +259,6 @@ public class StatePlay extends BasicGameState
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void removemines(int i)
 		{
-		
 		int deletemine = i;
 		for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
 			{
@@ -266,44 +267,43 @@ public class StatePlay extends BasicGameState
 				{
 				iterator.remove();
 				}
-			
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void CheckProjectileCollision(int delta) {
+	public static void CheckProjectileCollision(int delta)
+		{
 		int shotID = 0;
-		try {
-		for(Iterator<projectile> iterator = StatePlay.shots.iterator(); iterator.hasNext(); )
+		try
 			{
-			projectile shotTest = iterator.next();
-			if(shotTest.collides(StatePlay.tanks[Settings.playerID]) != null)
+			for(Iterator<projectile> iterator = StatePlay.shots.iterator(); iterator.hasNext(); )
 				{
-				if(shotTest.playerTeamColor != Settings.playerTeamColors[Settings.playerID])
+				projectile shotTest = iterator.next();
+				if(shotTest.collides(StatePlay.tanks[Settings.playerID]) != null)
 					{
-					//removeshot(shotID);
-					//StatePlay.shots.remove(shotID);
-
-					//sendMineCollision(Settings.playerID, shotID);
-					NetworkControl.sendToAll("~RS"+shotTest.shotnumber);
-					GameStats.sendPlayerDamageCommand(shotTest.playerTeamColor, Settings.playerID, 20);
+					if(shotTest.playerTeamColor != Settings.playerTeamColors[Settings.playerID])
+						{
+						//removeshot(shotID);
+						//StatePlay.shots.remove(shotID);
+						//sendMineCollision(Settings.playerID, shotID);
+						NetworkControl.sendToAll("~RS" + shotTest.shotnumber);
+						GameStats.sendPlayerDamageCommand(shotTest.playerTeamColor, Settings.playerID, GameStats.missileDamage);
+						}
+					}
+				shotID++;
+				shotTest.lifetime -= delta;
+				if(shotTest.lifetime <= 0)
+					{
+					removeshot(shotTest.shotnumber);
 					}
 				}
-			
-			shotID++;
-			shotTest.lifetime -= delta;
-			if(shotTest.lifetime <= 0)
-				{
-				removeshot(shotTest.shotnumber);
-				}
+			}
+		catch (Exception e)
+			{
 			}
 		}
-		catch(Exception e) {
-			
-		}
-	}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void removeshot(int i) {
-		
+	public static void removeshot(int i)
+		{
 		int deleteshot = i;
 		for(Iterator<projectile> iterator = StatePlay.shots.iterator(); iterator.hasNext(); )
 			{
@@ -312,10 +312,6 @@ public class StatePlay extends BasicGameState
 				{
 				iterator.remove();
 				}
-		
 			}
-	
-	
-	}
-	
+		}
 	}

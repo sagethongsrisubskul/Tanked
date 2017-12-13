@@ -32,6 +32,8 @@ public class GameStats
 	public static int speed[] = new int[C.MAX_PLAYERS];
 	public static int score[] = new int[C.MAX_PLAYERS];
 	public static int level[] = new int[C.MAX_PLAYERS];
+
+	public static int missileDamage = 10;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initGameStats()
 		{
@@ -129,6 +131,8 @@ public class GameStats
 	public static void playerDamage(int attackerID, int defenderID, int damage)
 		{
 //		System.out.printf("playerDamage %d against %d for %d damage\n", attackerID, defenderID, damage);
+		ResourceManager.getSound(Filenames.explosion).play(1, Inputs.volumeExplosion);
+		DisplaysStatePlay.drawMissileExplosion(defenderID);
 		if(Settings.winCondition == C.DEATHMATCH)
 			{
 			GameStats.health[defenderID] -= damage;

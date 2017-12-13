@@ -1,7 +1,11 @@
 package tank;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 /* This class is for displaying all the displayables in the state. A state will call the positionDisplays
  * method during the enter method of the state. This will recalculate the position of the displays based
  * on the current screen size. The state will call the renderDisplays method during in the render method.*/
@@ -70,6 +74,16 @@ public class DisplaysStatePlay
 	public static StringsDisplay winCondition = new StringsDisplay("", scoreFont, scoreColor, 0, 0);
 	/// Tiled Map:
 	public static Camera camera;
+	/// Explosions:
+	public static ArrayList<ExplosionMine> explosionsMine = new ArrayList<ExplosionMine>();
+	public static boolean explodeMine = false;
+	public static int explosionMineX;
+	public static int explosionMineY;
+	public static ArrayList<ExplosionMissile> explosionsMissile = new ArrayList<ExplosionMissile>();
+	public static boolean explodeMissile = false;
+	public static int explosionMissileX;
+	public static int explosionMissileY;
+
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initDisplays()
 		{
@@ -170,30 +184,33 @@ public class DisplaysStatePlay
 		g.translate(camera.xPos + camera.pixelOffsetX, camera.yPos + camera.pixelOffsetY);
 		g.setClip(camera.viewport);
 		camera.render(g);
+
+
 		//Mines
 		if(StatePlay.mines.isEmpty() == false)
 			{
-			try {
-			for(projectile mine : StatePlay.mines)
+			try
 				{
-				mine.render(g);
+				for(projectile mine : StatePlay.mines)
+					{
+					mine.render(g);
+					}
 				}
-			}
-			catch(Exception e) {}
+			catch (Exception e) {}
 			}
 		/// Shots:
 		if(StatePlay.shots.isEmpty() == false)
 			{
-			try {
-			for(projectile i : StatePlay.shots)
+			try
 				{
-				i.render(g);
+				for(projectile i : StatePlay.shots)
+					{
+					i.render(g);
+					}
 				}
-			}
-			
-		catch(Exception e) {
-			
-		}
+			catch (Exception e)
+				{
+				}
 			}
 		/// Tanks:
 		for(int i = 0; i < Settings.numberActivePlayers; i++)
@@ -201,6 +218,12 @@ public class DisplaysStatePlay
 			StatePlay.tanks[i].render(g);
 			StatePlay.tanks[i].getTurret().render(g);
 			}
+		/// Mine Explosion:
+		for(ExplosionMine b : explosionsMine)
+			b.render(g);
+		for(ExplosionMissile b : explosionsMissile)
+			b.render(g);
+
 		/// Powerups:
 		if(Powerups.powerupFlag == true)
 			{
@@ -278,6 +301,39 @@ public class DisplaysStatePlay
 		double r = 1.0 - ((double) GameStats.health[Settings.playerID] / (double) GameStats.maxHealth[Settings.playerID]);
 		healthStartY = healthBarArea.y + (int) (healthBarArea.getHeight() * r);
 //		System.out.printf("healthMax = %d, health = %d; healthbar = (%d,%d) to (%d,%d) h=%d; r = %f, start = %d, end = %d\n", GameStats.maxHealth[Settings.playerTeamColor], GameStats.health[Settings.playerTeamColor], healthBarArea.x, healthBarArea.y, healthBarArea.endX, healthBarArea.endY, healthBarArea.getHeight(), r, healthStartY, healthBarArea.getHeight() - healthStartY);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void drawMineExplosion(int playerID)
+		{
+		ResourceManager.getSound(Filenames.explosion2).play(1, Inputs.volumeMineDetonation);
+		explodeMine = true;
+		explosionMineX = (int) StatePlay.tanks[playerID].getX();
+		explosionMineY = (int) StatePlay.tanks[playerID].getY();
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void drawMissileExplosion(int playerID)
+		{
+		ResourceManager.getSound(Filenames.explosion).play(1, Inputs.volumeExplosion);
+		explodeMissile = true;
+		explosionMissileX = (int) StatePlay.tanks[playerID].getX();
+		explosionMissileY = (int) StatePlay.tanks[playerID].getY();
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void updateExplosions()
+		{
+		if(explodeMine) explosionsMine.add(new ExplosionMine(explosionMineX, explosionMineY));
+		for(Iterator<ExplosionMine> i = explosionsMine.iterator(); i.hasNext(); )
+			{
+			if(!i.next().isActive()) i.remove();
+			}
+		explodeMine = false;
+
+		if(explodeMissile) explosionsMissile.add(new ExplosionMissile(explosionMissileX, explosionMissileY));
+		for(Iterator<ExplosionMissile> i = explosionsMissile.iterator(); i.hasNext(); )
+			{
+			if(!i.next().isActive()) i.remove();
+			}
+		explodeMissile = false;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	}

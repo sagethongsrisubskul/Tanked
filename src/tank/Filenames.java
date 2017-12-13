@@ -28,6 +28,9 @@ public class Filenames
 	public final static String explosion3 = "res/explosion3.wav";
 	public final static String explosion4 = "res/explosion4.wav";
 	public final static String explosion5 = "res/explosion5.wav";
+	public final static String explosion6 = "res/explosion6.wav";
+	public final static String explosionSprite = "res/explosionSprite.png";
+	public final static String explosionSmallSprite = "res/explosionSmallSprite.png";
 	public final static String engine = "res/engine.wav";
 	public final static String shoot = "res/shoot.wav";
 	public final static String buttonClick = "res/buttonClick.wav";

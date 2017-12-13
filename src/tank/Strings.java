@@ -132,7 +132,7 @@ public class Strings
 			"%s: Increases tank power by %d for %d seconds\n" +
 			"%s: Cannot be harmed for %d seconds\n" +
 			"%s: Invincible and increased stats for %d seconds but low stats afterwards for %d seconds\n" +
-			"    (Cannot activate any other powerups except mines while in beer mode)\n\n" +
+			"      (Cannot activate any other powerups except mines while in beer mode)\n\n" +
 
 			"SCORE\n\n" +
 
