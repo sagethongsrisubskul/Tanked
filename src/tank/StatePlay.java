@@ -255,6 +255,7 @@ public class StatePlay extends BasicGameState
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void removemines(int i)
 		{
+		
 		int x = 0;
 		int deletemine = i;
 		for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
@@ -278,10 +279,11 @@ public class StatePlay extends BasicGameState
 				{
 				if(shotTest.playerTeamColor != Settings.playerTeamColors[Settings.playerID])
 					{
-					removeshot(shotID);
+					//removeshot(shotID);
 					//StatePlay.shots.remove(shotID);
 
 					//sendMineCollision(Settings.playerID, shotID);
+					NetworkControl.sendToAll("~RS"+shotID);
 					GameStats.sendPlayerDamageCommand(shotTest.playerTeamColor, Settings.playerID, 20);
 					}
 				}
