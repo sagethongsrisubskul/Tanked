@@ -24,9 +24,14 @@ public class Filenames
 	public final static String ding = "res/ding.wav";
 	public final static String fire = "res/fire.wav";
 	public final static String explosion = "res/explosion.wav";
+	public final static String explosion2 = "res/explosion2.wav";
+	public final static String explosion3 = "res/explosion3.wav";
+	public final static String explosion4 = "res/explosion4.wav";
+	public final static String explosion5 = "res/explosion5.wav";
 	public final static String engine = "res/engine.wav";
 	public final static String shoot = "res/shoot.wav";
 	public final static String buttonClick = "res/buttonClick.wav";
+	public final static String clank = "res/clank.wav";
 	public final static String mainMusic = "res/aws_surp.ogg";
 	/// Buttons:
 	public final static String buttonRectangle = "res/ButtonRectangle.png";
@@ -47,5 +52,6 @@ public class Filenames
 	/// Projectiles:
 	public final static String shot="res/shot.png";
 	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png", "res/powerupBeer.png"};
+	public final static String mines[] = {"res/powerupMineRed.png", "res/powerupMineYellow.png", "res/powerupMineGreen.png", "res/powerupMineBlue.png"};
 	//	public final static String powerupIcons[] = {"res/powerupHealth.png", "res/powerupMine.png", "res/powerupSpeed.png", "res/powerupPower.png", "res/powerupInvincible.png", "res/powerupBeer.png", "res/powerupInvisible.png"};
 	}

@@ -2,14 +2,12 @@ package tank;
 
 import jig.Entity;
 import jig.ResourceManager;
-import jig.Vector;
-
 public class turretentity extends Entity{
 
 	private tankentity parent;
 
 	/*-----------------------------------------------------------------------------------------------------*/
-	public turretentity(final float x, final float y,final char team, tankentity parent){
+	public turretentity(final float x, final float y, final char team, tankentity parent){
 		super(x,y);
 		
 		this.parent=parent;

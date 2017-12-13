@@ -121,14 +121,14 @@ public class GameStats
 	/* A player calls this method when he receives damage */
 	public static void sendPlayerDamageCommand(int attackerID, int defenderID, int damage)
 		{
-		System.out.printf("sending playerDamage %d against %d for %d damage\n", attackerID, defenderID, damage);
+//		System.out.printf("sending playerDamage %d against %d for %d damage\n", attackerID, defenderID, damage);
 		NetworkControl.sendToAll("~PD" + attackerID + defenderID + damage);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called via the network to process a player taking damage */
 	public static void playerDamage(int attackerID, int defenderID, int damage)
 		{
-		System.out.printf("playerDamage %d against %d for %d damage\n", attackerID, defenderID, damage);
+//		System.out.printf("playerDamage %d against %d for %d damage\n", attackerID, defenderID, damage);
 		if(Settings.winCondition == C.DEATHMATCH)
 			{
 			GameStats.health[defenderID] -= damage;

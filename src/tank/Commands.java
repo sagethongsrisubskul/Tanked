@@ -51,6 +51,7 @@ public class Commands
 			else if(string.charAt(1) == 'G' && string.charAt(2) == 'P')
 				{
 				StatePlay.gamePaused = 1 - StatePlay.gamePaused; /// Toggles
+				ResourceManager.getSound(Filenames.engine).stop();
 				if(DisplaysPopupBox.popupDisplayed == C.YES)
 					{
 					DisplaysPopupBox.popupEnd();
@@ -96,6 +97,15 @@ public class Commands
 				{ /// Mine collision
 				Powerups.mineCollision(Character.getNumericValue(string.charAt(3)));
 				StatePlay.removemines(Integer.parseInt(string.substring(4, string.length())));
+				}
+			else if(string.charAt(1)=='P'&&string.charAt(2)=='S')
+				{
+				float px=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getX();
+				float py=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getY();
+				double pr=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getTurretAngle();
+				float mv=10;
+				int l=5000;
+				StatePlay.shots.add(new projectile(px,py,pr,mv,l));
 				}
 			}
 		else /// String is a chat message
@@ -143,7 +153,7 @@ public class Commands
 			StateControl.enterState(StateControl.STATE_LOBBY);
 			}
 		NetworkControl.displayMessage(Settings.playerName[firstOpenID] + " has joined the game");
-//		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerID, Settings.playerName[Settings.playerID]);
+//		System.out.printf("activePlayers = %d, active[0] = %d, active[1] = %d, active[2] = %d, active[3] = %d, Player type = %d, player ID = %d, player name = %s\n", Settings.numberActivePlayers, Settings.activeIDs[0], Settings.activeIDs[1], Settings.activeIDs[2], Settings.activeIDs[3], Settings.playerType, Settings.playerTeamColor, Settings.playerName[Settings.playerTeamColor]);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void launchGame()
