@@ -10,6 +10,8 @@ public class projectile extends Entity
 	public int lifetime;
 	public int playerTeamColor = 0;
 	public int playernumber=0;
+	public int shotnumber=0;
+	
 	//x,y=coordinates, r=angle,mv=muzzle velocity, l=lifetime
 	public projectile(final float x, final float y, final double r, final float mv, final int l)
 		{
@@ -22,6 +24,9 @@ public class projectile extends Entity
 			addImageWithBoundingBox(ResourceManager.getImage(Filenames.shot));
 			lifetime = 5000;
 			playerTeamColor=l;
+			shotnumber=StatePlay.shotnumber;
+			StatePlay.shotnumber++;
+			
 			}
 		else
 			{

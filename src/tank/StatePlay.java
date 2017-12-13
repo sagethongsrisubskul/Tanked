@@ -38,6 +38,7 @@ public class StatePlay extends BasicGameState
 	public static int y = 0;
 	public int timer = 0;
 	public static int gamePaused = C.NO;
+	public static int shotnumber=0;
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
@@ -283,7 +284,7 @@ public class StatePlay extends BasicGameState
 					//StatePlay.shots.remove(shotID);
 
 					//sendMineCollision(Settings.playerID, shotID);
-					NetworkControl.sendToAll("~RS"+shotID);
+					NetworkControl.sendToAll("~RS"+shotTest.shotnumber);
 					GameStats.sendPlayerDamageCommand(shotTest.playerTeamColor, Settings.playerID, 20);
 					}
 				}
@@ -302,17 +303,19 @@ public class StatePlay extends BasicGameState
 	}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void removeshot(int i) {
-		int x = 0;
+		
 		int deleteshot = i;
 		for(Iterator<projectile> iterator = StatePlay.shots.iterator(); iterator.hasNext(); )
 			{
 			projectile whichshot = iterator.next();
-			if(x == deleteshot)
+			if(whichshot.shotnumber == deleteshot)
 				{
 				iterator.remove();
 				}
-			x++;
+		
 			}
+	
+	
 	}
 	
 	}
