@@ -142,7 +142,7 @@ public class Inputs
 					else if(input.isKeyPressed(Input.KEY_F6))
 						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_BEER);
 //					else if(input.isKeyPressed(Input.KEY_F7))
-//						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_INVISIBLE);
+//						NetworkControl.sendToAll("~PC" + Settings.playerTeamColor + C.POWERUP_INVISIBLE);
 					}
 				else /// Game is paused
 					{

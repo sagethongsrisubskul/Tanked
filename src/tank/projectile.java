@@ -8,7 +8,7 @@ public class projectile extends Entity
 	private Vector worldpos;
 	private double angle;
 	public int lifetime;
-	public int playerID = 0;
+	public int playerTeamColor = 0;
 	//x,y=coordinates, r=angle,mv=muzzle velocity, l=lifetime
 	public projectile(final float x, final float y, final double r, final float mv, final int l)
 		{
@@ -24,10 +24,11 @@ public class projectile extends Entity
 		else
 			{
 			//is mine
-			ResourceManager.loadImage(Filenames.powerupIcons[1]);
-			addImageWithBoundingBox(ResourceManager.getImage(Filenames.powerupIcons[1]).getScaledCopy(Powerups.iconScale));
-			playerID = l;
-			lifetime = 30000;
+//			System.out.printf("mine set, player = %d\n", l);
+			playerTeamColor = l;
+			ResourceManager.loadImage(Filenames.mines[playerTeamColor]);
+			addImageWithBoundingBox(ResourceManager.getImage(Filenames.mines[playerTeamColor]).getScaledCopy(Powerups.iconScale));
+			lifetime = 300000;
 			}
 		this.setRotation(angle);
 		velocity = new Vector(mv * (float) Math.sin(angle * (Math.PI / 180.0f)), -mv * (float) Math.cos(angle * (Math.PI / 180.0f)));

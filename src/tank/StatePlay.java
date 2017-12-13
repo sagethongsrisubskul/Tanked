@@ -145,8 +145,8 @@ public class StatePlay extends BasicGameState
 				}
 			}
 		input.clearKeyPressedRecord();
-		//Inputs.xMouse[Settings.playerID]=input.getMouseX();
-		//Inputs.yMouse[Settings.playerID]=input.getMouseY();
+		//Inputs.xMouse[Settings.playerTeamColor]=input.getMouseX();
+		//Inputs.yMouse[Settings.playerTeamColor]=input.getMouseY();
 		if(GameStats.gameOver == C.NO && GameStats.health[Settings.playerID] > 0)
 			{
 			if(timer >= 10)
@@ -160,37 +160,39 @@ public class StatePlay extends BasicGameState
 				timer = 0;
 				}
 			timer += delta;
-			if(gamePaused == C.NO) updateTime(delta);
-			for(int i = 0; i < Settings.numberActivePlayers; i++)
+			if(gamePaused == C.NO)
 				{
-				Inputs.vectors[i] = new Vector(Inputs.xpos[i], Inputs.ypos[i]);
-				}
-			//System.out.println(Settings.playerID);
-			for(int i = 0; i < Settings.numberActivePlayers; i++)
-				{
-				if(i == Settings.playerID)
+				updateTime(delta);
+				for(int i = 0; i < Settings.numberActivePlayers; i++)
 					{
-					tanks[i].control(Inputs.movement[i], Inputs.rotation[i]);
-					tanks[i].aimTurret(Inputs.xMouse[i], Inputs.yMouse[i]);
-					tanks[i].update(delta, i);
+					Inputs.vectors[i] = new Vector(Inputs.xpos[i], Inputs.ypos[i]);
 					}
-				if(i != Settings.playerID)
+				//System.out.println(Settings.playerTeamColor);
+				for(int i = 0; i < Settings.numberActivePlayers; i++)
 					{
-					tanks[i].control(Inputs.movement[i], Inputs.rotation[i]);
-					tanks[i].setRotation(Inputs.hullangle[i]);
-					tanks[i].aimTurret(Inputs.xMouse[i], Inputs.yMouse[i]);
-					tanks[i].setPosition(Inputs.vectors[i]);
-					tanks[i].update(delta, i);
+					if(i == Settings.playerID)
+						{
+						tanks[i].control(Inputs.movement[i], Inputs.rotation[i]);
+						tanks[i].aimTurret(Inputs.xMouse[i], Inputs.yMouse[i]);
+						tanks[i].update(delta, i);
+						}
+					if(i != Settings.playerID)
+						{
+						tanks[i].control(Inputs.movement[i], Inputs.rotation[i]);
+						tanks[i].setRotation(Inputs.hullangle[i]);
+						tanks[i].aimTurret(Inputs.xMouse[i], Inputs.yMouse[i]);
+						tanks[i].setPosition(Inputs.vectors[i]);
+						tanks[i].update(delta, i);
+						}
 					}
+				for(projectile i : shots)
+					{
+					i.update(delta);
+					}
+				Powerups.sendPowerupStatus();
+				Powerups.checkPowerupCollision();
+				Powerups.checkMineCollision(delta);
 				}
-			
-			for(projectile i :shots){
-				i.update(delta);
-			}
-			
-			Powerups.sendPowerupStatus();
-			Powerups.checkPowerupCollision();
-			Powerups.CheckMineCollision(delta);
 			}
 		camera.update(tanks[Settings.playerID], delta);
 		}
@@ -249,6 +251,7 @@ public class StatePlay extends BasicGameState
 				}
 			}
 		}
+	/*-----------------------------------------------------------------------------------------------------*/
 	public static void removemines(int i)
 		{
 		int x = 0;
@@ -263,4 +266,5 @@ public class StatePlay extends BasicGameState
 			x++;
 			}
 		}
+	/*-----------------------------------------------------------------------------------------------------*/
 	}
