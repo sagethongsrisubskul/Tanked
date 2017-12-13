@@ -346,7 +346,7 @@ public class Powerups extends Entity
 			mineTest.lifetime -= delta;
 			if(mineTest.lifetime <= 0)
 				{
-				iterator.remove();
+				StatePlay.removemines(mineTest.minenumber);
 				}
 			}
 		}
