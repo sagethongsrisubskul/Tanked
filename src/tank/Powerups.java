@@ -336,9 +336,9 @@ public class Powerups extends Entity
 				if(mineTest.playerTeamColor != Settings.playerTeamColors[Settings.playerID])
 					{
 //					StatePlay.removemines(mineID);
-					StatePlay.mines.remove(mineID);
+					//StatePlay.mines.remove(mineID);
 
-					sendMineCollision(Settings.playerID, mineID);
+					sendMineCollision(Settings.playerID, mineTest.minenumber);
 					}
 				}
 			

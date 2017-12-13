@@ -39,6 +39,7 @@ public class StatePlay extends BasicGameState
 	public int timer = 0;
 	public static int gamePaused = C.NO;
 	public static int shotnumber=0;
+	public static int minenumber=0;
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
@@ -257,16 +258,15 @@ public class StatePlay extends BasicGameState
 	public static void removemines(int i)
 		{
 		
-		int x = 0;
 		int deletemine = i;
 		for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
 			{
 			projectile whichmine = iterator.next();
-			if(x == deletemine)
+			if(whichmine.minenumber == deletemine)
 				{
 				iterator.remove();
 				}
-			x++;
+			
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/

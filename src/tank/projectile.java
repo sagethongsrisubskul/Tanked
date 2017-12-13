@@ -11,6 +11,7 @@ public class projectile extends Entity
 	public int playerTeamColor = 0;
 	public int playernumber=0;
 	public int shotnumber=0;
+	public int minenumber=0;
 	
 	//x,y=coordinates, r=angle,mv=muzzle velocity, l=lifetime
 	public projectile(final float x, final float y, final double r, final float mv, final int l)
@@ -36,6 +37,8 @@ public class projectile extends Entity
 			ResourceManager.loadImage(Filenames.mines[playerTeamColor]);
 			addImageWithBoundingBox(ResourceManager.getImage(Filenames.mines[playerTeamColor]).getScaledCopy(Powerups.iconScale));
 			lifetime = 300000;
+			minenumber=StatePlay.minenumber;
+			StatePlay.minenumber++;
 			}
 		this.setRotation(angle);
 		velocity = new Vector(mv * (float) Math.sin(angle * (Math.PI / 180.0f)), -mv * (float) Math.cos(angle * (Math.PI / 180.0f)));
