@@ -181,10 +181,16 @@ public class DisplaysStatePlay
 		/// Shots:
 		if(StatePlay.shots.isEmpty() == false)
 			{
+			try {
 			for(projectile i : StatePlay.shots)
 				{
 				i.render(g);
 				}
+			}
+			
+		catch(Exception e) {
+			
+		}
 			}
 		/// Tanks:
 		for(int i = 0; i < Settings.numberActivePlayers; i++)

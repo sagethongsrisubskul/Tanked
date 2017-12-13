@@ -282,6 +282,7 @@ public class StatePlay extends BasicGameState
 					//StatePlay.shots.remove(shotID);
 
 					//sendMineCollision(Settings.playerID, shotID);
+					GameStats.sendPlayerDamageCommand(shotTest.playerTeamColor, Settings.playerID, 20);
 					}
 				}
 			

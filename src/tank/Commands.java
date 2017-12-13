@@ -105,8 +105,9 @@ public class Commands
 				double pr=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getTurretAngle();
 				float mv=10;
 				//int l=5000;
-				StatePlay.shots.add(new projectile(px,py,pr,mv,Settings.playerTeamColors[Settings.playerID]));
+				StatePlay.shots.add(new projectile(px,py,pr,mv,Settings.playerTeamColors[Character.getNumericValue(string.charAt(3))]));
 				}
+			else if(string.charAt(1)=='R' && string.charAt(2)=='S') StatePlay.removeshot(Integer.parseInt(string.substring(3,string.length())));
 			}
 		else /// String is a chat message
 			{
