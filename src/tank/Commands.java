@@ -104,8 +104,8 @@ public class Commands
 				float py=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getY();
 				double pr=StatePlay.tanks[Character.getNumericValue(string.charAt(3))].getTurretAngle();
 				float mv=10;
-				int l=5000;
-				StatePlay.shots.add(new projectile(px,py,pr,mv,l));
+				//int l=5000;
+				StatePlay.shots.add(new projectile(px,py,pr,mv,Settings.playerTeamColors[Settings.playerID]));
 				}
 			}
 		else /// String is a chat message

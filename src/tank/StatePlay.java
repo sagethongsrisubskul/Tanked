@@ -192,6 +192,7 @@ public class StatePlay extends BasicGameState
 				Powerups.sendPowerupStatus();
 				Powerups.checkPowerupCollision();
 				Powerups.checkMineCollision(delta);
+				CheckProjectileCollision(delta);
 				}
 			}
 		camera.update(tanks[Settings.playerID], delta);
@@ -267,4 +268,48 @@ public class StatePlay extends BasicGameState
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
+	public static void CheckProjectileCollision(int delta) {
+		int shotID = 0;
+		try {
+		for(Iterator<projectile> iterator = StatePlay.shots.iterator(); iterator.hasNext(); )
+			{
+			projectile shotTest = iterator.next();
+			if(shotTest.collides(StatePlay.tanks[Settings.playerID]) != null)
+				{
+				if(shotTest.playerTeamColor != Settings.playerTeamColors[Settings.playerID])
+					{
+					removeshot(shotID);
+					//StatePlay.shots.remove(shotID);
+
+					//sendMineCollision(Settings.playerID, shotID);
+					}
+				}
+			
+			shotID++;
+			shotTest.lifetime -= delta;
+			if(shotTest.lifetime <= 0)
+				{
+				iterator.remove();
+				}
+			}
+		}
+		catch(Exception e) {
+			
+		}
+	}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void removeshot(int i) {
+		int x = 0;
+		int deleteshot = i;
+		for(Iterator<projectile> iterator = StatePlay.shots.iterator(); iterator.hasNext(); )
+			{
+			projectile whichshot = iterator.next();
+			if(x == deleteshot)
+				{
+				iterator.remove();
+				}
+			x++;
+			}
+	}
+	
 	}

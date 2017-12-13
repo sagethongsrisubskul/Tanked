@@ -20,6 +20,7 @@ public class projectile extends Entity
 			ResourceManager.loadImage(Filenames.shot);
 			addImageWithBoundingBox(ResourceManager.getImage(Filenames.shot));
 			lifetime = 5000;
+			playerTeamColor=l;
 			}
 		else
 			{
