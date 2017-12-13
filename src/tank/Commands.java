@@ -29,6 +29,8 @@ public class Commands
 			else if(string.charAt(1) == 'N' && string.charAt(2) == 'C') /// Name change
 				Settings.playerName[Character.getNumericValue(string.charAt(3))] = string.substring(4, string.length());
 			/// Setup commands:
+			else if(string.charAt(1) == 'S' && string.charAt(2) == 'L') /// Setup locators
+				setLocators(Character.getNumericValue(string.charAt(3)));
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'N') /// Setup names
 				setNames(string.substring(4, string.length()));
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'C') /// Setup colors
@@ -239,6 +241,18 @@ public class Commands
 			temp += Settings.playerTeamColors[i];
 			}
 		NetworkControl.sendToAll(temp);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void sendLocatorsCommand()
+		{
+		NetworkControl.sendToAll("~SL" + Settings.displayLocators);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void setLocators(int setting)
+		{
+		Settings.displayLocators = setting;
+		Settings.displayTankLocation = setting;
+		Settings.displayPowerupSpawn = setting;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void sendSetMapCommand()

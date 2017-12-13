@@ -12,7 +12,6 @@ import java.util.Iterator;
 public class DisplaysStatePlay
 	{
 	static int i;
-	public static boolean renderMiniMap = true;
 	public static int healthStartY = 0;
 	public static int numMessages = 0;
 	/// Spacings:
@@ -29,6 +28,7 @@ public class DisplaysStatePlay
 	public static int pausePopupY = 400;
 	public static int messageY = pausePopupY + 100;
 	public static int highScorePadding = 20;
+	public static int minimapDotWidth = 5;
 	/// psw (percentage of screen width):
 	public static float pswMiniMap = .2f;
 	public static float pswMap = 1.2f;
@@ -54,6 +54,7 @@ public class DisplaysStatePlay
 	public static Color speedColor = Color.red;
 	public static Color messageBackgroundColor = Color.black;
 	public static Color messageTextColor = Color.white;
+	public static Color powerupSpawnColor = Color.black;
 	/// Areas:
 	public static Area messageArea = new Area();
 	public static Area mapArea = new Area();
@@ -251,10 +252,15 @@ public class DisplaysStatePlay
 			g.drawString("Edge: " + StatePlay.tanks[Settings.playerID].collideWorldEdge(), 10, 320);
 			}
 		rightMargin.colorSection(g, backgroundColor);
-		if(renderMiniMap)
+		if(Settings.displayMiniMap == C.YES)
 			{
 			miniMapArea.colorSection(g, miniMapColor);
 			miniMap.renderImage();
+			if(Settings.displayPowerupSpawn == C.YES && Powerups.powerupVisible == C.YES)
+				{
+				g.setColor(powerupSpawnColor);
+				g.fillRect(miniMapArea.x + Powerups.powerMinimapX, miniMapArea.y + Powerups.powerMinimapY, minimapDotWidth, minimapDotWidth);
+				}
 			}
 		/// Healthbar:
 		healthBarArea.colorSection(g, healthBarColor);
@@ -290,8 +296,8 @@ public class DisplaysStatePlay
 			}
 		/// Score, power, speed:
 		score.trueTypeFont.drawString(powerupArea[powerupArea.length - 1].centerStringX(scoreFont, Integer.toString(GameStats.score[Settings.playerID])), score.y, Integer.toString(GameStats.score[Settings.playerID]), score.color);
-		power.trueTypeFont.drawString(power.x, power.y, "P: " + Integer.toString(GameStats.power[Settings.playerID]) + "/" + Integer.toString(GameStats.maxPower), power.color);
-		speed.trueTypeFont.drawString(speed.x, speed.y, "S: " + Integer.toString(GameStats.speed[Settings.playerID]) + "/" + Integer.toString(GameStats.maxSpeed), speed.color);
+		power.trueTypeFont.drawString(power.x, power.y, Strings.powerups[C.POWERUP_ARMOR].charAt(0) + ": " + Integer.toString(GameStats.power[Settings.playerID]) + "/" + Integer.toString(GameStats.maxArmor), power.color);
+		speed.trueTypeFont.drawString(speed.x, speed.y, Strings.powerups[C.POWERUP_SPEED].charAt(0) + ": " + Integer.toString(GameStats.speed[Settings.playerID]) + "/" + Integer.toString(GameStats.maxSpeed), speed.color);
 		/// Win condition
 		winCondition.renderString();
 		}
@@ -334,6 +340,16 @@ public class DisplaysStatePlay
 			if(!i.next().isActive()) i.remove();
 			}
 		explodeMissile = false;
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static int convertToMinimapX(float x)
+		{
+		return (int)((x / (float)Filenames.mapSize[Settings.mapSelected][0]) * miniMapArea.getWidth());
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static int convertToMinimapY(float y)
+		{
+		return (int)((y / (float)Filenames.mapSize[Settings.mapSelected][1]) * miniMapArea.getHeight());
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	}

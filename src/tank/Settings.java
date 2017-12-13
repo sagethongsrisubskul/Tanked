@@ -21,6 +21,10 @@ public class Settings
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Map:
 	public static int mapSelected = 2;
+	public static int displayMiniMap = C.YES;
+	public static int displayLocators = C.YES;
+	public static int displayPowerupSpawn = C.YES;
+	public static int displayTankLocation = C.YES;
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Sounds:
 	public static int playButtonClick = C.YES;

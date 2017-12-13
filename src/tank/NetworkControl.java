@@ -80,6 +80,7 @@ public class NetworkControl
 		Commands.sendSetWinConditionCommand();
 		Commands.sendSetMapCommand();
 		Commands.sendSetColorsCommand();
+		Commands.sendLocatorsCommand();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called to display a chat message on the screen */
