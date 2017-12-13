@@ -173,18 +173,27 @@ public class DisplaysStatePlay
 		//Mines
 		if(StatePlay.mines.isEmpty() == false)
 			{
+			try {
 			for(projectile mine : StatePlay.mines)
 				{
 				mine.render(g);
 				}
 			}
+			catch(Exception e) {}
+			}
 		/// Shots:
 		if(StatePlay.shots.isEmpty() == false)
 			{
+			try {
 			for(projectile i : StatePlay.shots)
 				{
 				i.render(g);
 				}
+			}
+			
+		catch(Exception e) {
+			
+		}
 			}
 		/// Tanks:
 		for(int i = 0; i < Settings.numberActivePlayers; i++)
