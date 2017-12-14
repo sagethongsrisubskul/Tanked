@@ -124,7 +124,7 @@ public class StatePlay extends BasicGameState
 			{
 			DisplaysMessagePopup.renderMessage(g, Strings.colors[GameStats.winningTeam] + Strings.wins, C.CENTER, C.CENTER, 10, Fonts.fontCourier20BTTF, Color.black, Color.white);
 			}
-		else if(StatePlay.gamePaused == C.YES)
+		if(StatePlay.gamePaused == C.YES || GameStats.gameOver == C.YES)
 			{
 			DisplaysMessagePopup.renderMessage(g, Strings.gamePaused, C.CENTER, DisplaysStatePlay.pausePopupY, 10, Fonts.fontCourier15BTTF, Color.black, Color.white);
 			DisplaysStatePlay.messageArea.colorSection(g, DisplaysStatePlay.messageBackgroundColor);

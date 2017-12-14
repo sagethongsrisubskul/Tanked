@@ -157,6 +157,13 @@ public class Inputs
 						}
 					}
 				}
+			else if(GameStats.gameOver == C.YES)/// Game is over
+				{
+				if(input.isKeyPressed((Input.KEY_ENTER)))
+					{
+					DisplaysPopupBox.initPopup(C.POPUP_CHAT);
+					}
+				}
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
@@ -404,15 +411,15 @@ public class Inputs
 				{
 				if(StatePlay.gamePaused == C.NO) /// Only allows input if game is not paused
 					{
-					for(i = 0; i < Strings.powerups.length; i++)
+					for(i = 0; i < Strings.powerups.length; i++) /// Powerup click
 						{
-						if(withinCoordinates(DisplaysStatePlay.powerupArea[i])) /// Health
+						if(withinCoordinates(DisplaysStatePlay.powerupArea[i]))
 							{
 							playClick();
 							Powerups.sendPowerupActivation(i);
 							}
 						}
-					if(withinCoordinates(DisplaysStatePlay.mapArea))
+					if(withinCoordinates(DisplaysStatePlay.mapArea)) /// Missle fire click
 						{
 						ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeFire);
 						NetworkControl.sendToAll("~PS" + Settings.playerID);
