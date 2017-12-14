@@ -95,6 +95,7 @@ public class Strings
 		"A    : Rotate tank left\n" +
 		"D    : Rotate tank right\n" +
 		"M    : Toggle minimap display\n" +
+		"H    : Toggle players health bar display\n" +
 		"Mouse: Aim turret\n" +
 		"LMB  : Fire\n\n" +
 

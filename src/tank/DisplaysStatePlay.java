@@ -1,5 +1,4 @@
 package tank;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
@@ -33,6 +32,8 @@ public class DisplaysStatePlay
 	public static float pswMiniMap = .2f;
 	public static float pswMap = 1.2f;
 	public static float pswIcon = .045f;
+	public static int playersHealthBarWidth;
+	public static int playersHealthBarPadding = 2;
 	/// Fonts:
 	public static TrueTypeFont mainFont = Fonts.fontCourier11BTTF;
 	public static TrueTypeFont timeFont = Fonts.fontCourier10BTTF;
@@ -64,6 +65,7 @@ public class DisplaysStatePlay
 	public static Area rightMargin = new Area();
 	public static Area powerupTotalArea = new Area();
 	public static Area powerupArea[] = new Area[Strings.powerups.length + 1];
+	public static Area playersHealthBars[];
 	/// Objects:
 	public static Image miniMap = new Image(Filenames.miniMap[Settings.mapSelected], 0, 0, pswMiniMap);
 	public static Image powerupIcon[] = new Image[Filenames.powerupIcons.length];
@@ -84,7 +86,6 @@ public class DisplaysStatePlay
 	public static boolean explodeMissile = false;
 	public static int explosionMissileX;
 	public static int explosionMissileY;
-
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initDisplays()
 		{
@@ -94,6 +95,13 @@ public class DisplaysStatePlay
 			powerupStrings[i] = new StringsDisplay(Strings.powerups[i], mainFont, mainColor, 0, 0);
 		for(i = 0; i < powerupIcon.length; i++)
 			powerupIcon[i] = new Image(Filenames.powerupIcons[i], 0, 0, pswIcon);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void initPlayerHealthBars()
+		{
+		playersHealthBars = new Area[Settings.numberActivePlayers];
+		for(i = 0; i < Settings.numberActivePlayers; i++)
+			playersHealthBars[i] = new Area();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void positionDisplays()
@@ -169,10 +177,21 @@ public class DisplaysStatePlay
 		messageArea.endX = Settings.currentScreenWidth - messageAreaMargin;
 		messageArea.y = messageY;
 		messageArea.endY = messageArea.y + messageAreaHeight;
-		///
+		/// Win condition:
 		winCondition.string = Strings.winConditionTypes[Settings.winCondition];
 		winCondition.x = powerupArea[powerupArea.length - 1].centerStringX(scoreFont, winCondition.string);
 		winCondition.y = speed.getEndY() + powerupPadding;
+		/// Player's health bars:
+		playersHealthBarWidth = (Settings.currentScreenWidth - margin - healthBarWidth - 5) / Settings.numberActivePlayers;
+		System.out.printf("screen width = %d, bar width = %d\n", Settings.currentScreenWidth, playersHealthBarWidth);
+		for(i = 0; i < Settings.numberActivePlayers; i++)
+			{
+			playersHealthBars[i].x = (i * playersHealthBarWidth);
+			playersHealthBars[i].y = Settings.currentScreenHeight - healthBarWidth;
+			playersHealthBars[i].endX = ((i + 1) * playersHealthBarWidth);
+			playersHealthBars[i].endY = Settings.currentScreenHeight;
+			System.out.printf("(%d,%d) to (%d,%d)\n", playersHealthBars[i].x, playersHealthBars[i].y, playersHealthBars[i].endX, playersHealthBars[i].endY);
+			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void renderDisplays(Graphics g)
@@ -185,8 +204,6 @@ public class DisplaysStatePlay
 		g.translate(camera.xPos + camera.pixelOffsetX, camera.yPos + camera.pixelOffsetY);
 		g.setClip(camera.viewport);
 		camera.render(g);
-
-
 		//Mines
 		if(StatePlay.mines.isEmpty() == false)
 			{
@@ -224,7 +241,6 @@ public class DisplaysStatePlay
 			b.render(g);
 		for(ExplosionMissile b : explosionsMissile)
 			b.render(g);
-
 		/// Powerups:
 		if(Powerups.powerupFlag == true)
 			{
@@ -262,12 +278,27 @@ public class DisplaysStatePlay
 				g.fillRect(miniMapArea.x + Powerups.powerMinimapX, miniMapArea.y + Powerups.powerMinimapY, minimapDotWidth, minimapDotWidth);
 				}
 			}
-		/// Healthbar:
+		/// Healthbars:
 		healthBarArea.colorSection(g, healthBarColor);
 		setHealthStartY();
 		if(Powerups.isInvincible[Settings.playerID] == C.YES) g.setColor(invincibleHealthColor);
 		else g.setColor(healthColor);
 		g.fillRect(healthBarArea.x, healthStartY, healthBarWidth + 1, healthBarArea.endY - healthStartY + 1);
+		if(Settings.displayPlayersHealth == C.YES)
+			{
+			g.setColor(backgroundColor);
+			g.fillRect(0, Settings.currentScreenHeight - healthBarWidth, Settings.currentScreenWidth, healthBarWidth);
+			for(i = 0; i < Settings.numberActivePlayers; i++)
+				{
+				g.setColor(healthBarColor);
+				g.fillRect(playersHealthBars[i].x + playersHealthBarPadding, playersHealthBars[i].y + playersHealthBarPadding, playersHealthBarWidth - (2 * playersHealthBarPadding), healthBarWidth - (2 * playersHealthBarPadding));
+				if(Powerups.isInvincible[i] == C.YES) g.setColor(invincibleHealthColor);
+				else g.setColor(healthColor);
+				g.fillRect(playersHealthBars[i].x + playersHealthBarPadding, playersHealthBars[i].y + playersHealthBarPadding, getHealthEndX(i) - (2 * playersHealthBarPadding), healthBarWidth - (2 * playersHealthBarPadding));
+				g.setColor(backgroundColor);
+				g.drawString(Settings.playerName[i], playersHealthBars[i].x + (2 * playersHealthBarPadding), playersHealthBars[i].y - 1);
+				}
+			}
 		/// Powerups:
 		powerupTotalArea.colorSection(g, powerupBackgroundColor);
 		for(i = 0; i < powerupArea.length; i++)
@@ -302,6 +333,14 @@ public class DisplaysStatePlay
 		winCondition.renderString();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
+	public static int getHealthEndX(int playerID)
+		{
+		double r = 1.0 - ((double) GameStats.health[playerID] / (double) GameStats.maxHealth[playerID]);
+		int n = (int) (playersHealthBarWidth * r);
+//		System.out.printf("health = %d, maxHealth = %d, r = %f, n = %d\n", GameStats.health[playerID], GameStats.maxHealth[playerID], r, n);
+		return playersHealthBarWidth - n;
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
 	public static void setHealthStartY()
 		{
 		double r = 1.0 - ((double) GameStats.health[Settings.playerID] / (double) GameStats.maxHealth[Settings.playerID]);
@@ -333,7 +372,6 @@ public class DisplaysStatePlay
 			if(!i.next().isActive()) i.remove();
 			}
 		explodeMine = false;
-
 		if(explodeMissile) explosionsMissile.add(new ExplosionMissile(explosionMissileX, explosionMissileY));
 		for(Iterator<ExplosionMissile> i = explosionsMissile.iterator(); i.hasNext(); )
 			{
@@ -344,12 +382,12 @@ public class DisplaysStatePlay
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static int convertToMinimapX(float x)
 		{
-		return (int)((x / (float)Filenames.mapSize[Settings.mapSelected][0]) * miniMapArea.getWidth());
+		return (int) ((x / (float) Filenames.mapSize[Settings.mapSelected][0]) * miniMapArea.getWidth());
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static int convertToMinimapY(float y)
 		{
-		return (int)((y / (float)Filenames.mapSize[Settings.mapSelected][1]) * miniMapArea.getHeight());
+		return (int) ((y / (float) Filenames.mapSize[Settings.mapSelected][1]) * miniMapArea.getHeight());
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	}

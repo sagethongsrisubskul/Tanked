@@ -25,6 +25,7 @@ public class Settings
 	public static int displayLocators = C.YES;
 	public static int displayPowerupSpawn = C.YES;
 	public static int displayTankLocation = C.YES;
+	public static int displayPlayersHealth = C.YES;
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Sounds:
 	public static int playButtonClick = C.YES;
