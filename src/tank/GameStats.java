@@ -12,9 +12,9 @@ public class GameStats
 	public static int gameOver = C.NO;
 	public static int winningTeam = -1;
 	public static int maxHealthBase = 1000;
-	public static int maxPower = 10;
+	public static int maxArmor = 10;
 	public static int maxSpeed = 10;
-	public static int armorBase = 10;
+//	public static int armorBase = 10;
 	public static int powerBase = 5;
 	public static int speedBase = 5;
 	public static int scoreBase = 0;
@@ -27,11 +27,13 @@ public class GameStats
 	///
 	public static int maxHealth[] = new int[C.MAX_PLAYERS];
 	public static int health[] = new int[C.MAX_PLAYERS];
-	public static int armor[] = new int[C.MAX_PLAYERS];
+//	public static int armor[] = new int[C.MAX_PLAYERS];
 	public static int power[] = new int[C.MAX_PLAYERS];
 	public static int speed[] = new int[C.MAX_PLAYERS];
 	public static int score[] = new int[C.MAX_PLAYERS];
 	public static int level[] = new int[C.MAX_PLAYERS];
+
+	public static int missileDamage = 10;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initGameStats()
 		{
@@ -40,7 +42,7 @@ public class GameStats
 			{
 			maxHealth[i] = maxHealthBase;
 			health[i] = maxHealthBase;
-			armor[i] = armorBase;
+//			armor[i] = armorBase;
 			power[i] = powerBase;
 			speed[i] = speedBase;
 			score[i] = scoreBase;
@@ -129,6 +131,8 @@ public class GameStats
 	public static void playerDamage(int attackerID, int defenderID, int damage)
 		{
 //		System.out.printf("playerDamage %d against %d for %d damage\n", attackerID, defenderID, damage);
+		ResourceManager.getSound(Filenames.explosion).play(1, Inputs.volumeExplosion);
+		DisplaysStatePlay.drawMissileExplosion(defenderID);
 		if(Settings.winCondition == C.DEATHMATCH)
 			{
 			GameStats.health[defenderID] -= damage;

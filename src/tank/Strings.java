@@ -2,6 +2,7 @@ package tank;
 /* This class holds all the strings in the game */
 public class Strings
 	{
+	public static final String offOn[] = {"Off", "On"};
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Splash State:
 	public static final String cs447 = "CS447 FINAL PROJECT";
@@ -28,6 +29,9 @@ public class Strings
 	public static final String map = "Map";
 	public static final String check = "X";
 	public static final String helpInfo = "Help/Info";
+	public static final String minimap = "Minimap";
+	public static final String settings = "Settings";
+	public static final String locators = "Locators";
 	public static final String leaveGame = "Leave Game";
 	public static final String launchGame = "Launch Game";
 	public static final String pressEnter = "Press <Enter> to send chat message";
@@ -62,7 +66,7 @@ public class Strings
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Play State:
 //	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible", "Invisible"};
-	public static final String powerups[] = {"Health", "Mines", "Speed", "Power", "Invincible", "Beer"};
+	public static final String powerups[] = {"Health", "Mines", "Speed", "Armor", "Invincible", "Beer"};
 	public static final String gamePaused = "Game Paused - Press <Enter> to Send Message";
 	public static final String gameOver = "Game Over";
 	public static final String colors[] = {"Red", "Yellow", "Green", "Blue"};
@@ -90,6 +94,7 @@ public class Strings
 		"S    : Reverse\n" +
 		"A    : Rotate tank left\n" +
 		"D    : Rotate tank right\n" +
+		"M    : Toggle minimap display\n" +
 		"Mouse: Aim turret\n" +
 		"LMB  : Fire\n\n" +
 
@@ -124,23 +129,28 @@ public class Strings
 //			"%s: Find the hidden relic to win!\n" +
 			"\n" +
 
+			"LOCATORS\n\n" +
+
+			"Locators on will display each tank's location as a dot in the minimap. It will also display a black dot " +
+			"representing a powerup spawn on the map\n\n" +
+
 			"POWERUPS\n\n" +
 
-			"%s: Adds %d health\n" +
-			"%s: Plants a mine on the map only your team can see. Does %d damage.\n" +
-			"%s: Increases tank speed by %d for %d seconds\n" +
-			"%s: Increases tank power by %d for %d seconds\n" +
+			"%s:     Adds %d health\n" +
+			"%s:      Plants a mine on the map of your team color. Does %d damage to enemy tanks.\n" +
+			"%s:      Increases tank speed by %d for %d seconds\n" +
+			"%s:      Increases tank armor by %d for %d seconds\n" +
 			"%s: Cannot be harmed for %d seconds\n" +
-			"%s: Invincible and increased stats for %d seconds but low stats afterwards for %d seconds\n" +
-			"    (Cannot activate any other powerups except mines while in beer mode)\n\n" +
+			"%s:       Invincible and increased stats for %d seconds but low stats afterwards for %d seconds\n" +
+			"            (Cannot activate any other powerups except mines while in beer mode)\n\n" +
 
 			"SCORE\n\n" +
 
 			"Score is calculated as follows:\n\n" +
 
-			"%d point(s) for every 1 point damage you inflict\n" +
-			"%d point(s) for every 1 point damage you incur\n" +
-			"%d point(s) for every powerup you collect\n" +
+			"%d    point(s) for every 1 point damage you inflict\n" +
+			"%d   point(s) for every 1 point damage you incur\n" +
+			"%d  point(s) for every powerup you collect\n" +
 			"%d point(s) for every powerup you activate\n" +
 
 			"",
@@ -150,7 +160,7 @@ public class Strings
 		powerups[0], Powerups.healthIncrease,
 		powerups[1], Powerups.mineDamage,
 		powerups[2], Powerups.speedBurst, Powerups.speedBurstTime,
-		powerups[3], Powerups.powerBurst, Powerups.powerBurstTime,
+		powerups[3], Powerups.armorBurst, Powerups.armorBurstTime,
 		powerups[4], Powerups.invincibleBurstTime,
 		powerups[5], Powerups.beerTime, Powerups.beerRecoveryTime,
 		GameStats.scoreDamageInflicted, GameStats.scoreDamageIncurred, GameStats.scorePowerupCollected, GameStats.scorePowerupActivated

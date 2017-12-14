@@ -8,19 +8,17 @@
 //TODO colored mines *DONE
 //TODO mines disappear after 40 seconds *DONE
 //TODO fix tank moving if movign while pause is pressed *DONE
-
-// Check:
-//TODO powerups appear on the very corner of the map, not able to see all of it or collide with it
+//TODO mines will detonate together if too close *DONE
+//TODO mines will stay on screen after detonation if friendly mine *DONE
+//TODO projectile collisions *DONE
+//TODO explosion animations *DONE
+//TODO tanks can see enemy mines *DONE
+//TODO mines will detonate if too close to another mine *DONE
 
 // Left to do:
-//TODO mines will detonate together if too close
-//TODO mines will stay on screen after detonation if friendly mine
 //TODO tank collision smoothing
-//TODO projectile collisions
 //TODO map collision with walls
-//TODO explosion animations
-//TODO tanks can see enemy mines
-//TODO mines will detonate if too close to another mine
+//TODO missile collision smoothing
 
 // If time:
 //TODO Terrains (sounds)
@@ -94,6 +92,9 @@ public class Tank extends StateBasedGame
 		ResourceManager.loadSound(Filenames.explosion3);
 		ResourceManager.loadSound(Filenames.explosion4);
 		ResourceManager.loadSound(Filenames.explosion5);
+		ResourceManager.loadSound(Filenames.explosion6);
+		ResourceManager.loadImage(Filenames.explosionSprite);
+		ResourceManager.loadImage(Filenames.explosionSmallSprite);
 		ResourceManager.loadSound(Filenames.mainMusic);
 //		for(i = 0; i < Filenames.maps.length; i++)
 //			ResourceManager.loadImage(Filenames.maps[i]);

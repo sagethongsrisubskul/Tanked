@@ -20,19 +20,18 @@ public class Inputs
 	public static Vector vectors[] = new Vector[4];
 	public static float pitchEngineBase = .5f;
 	public static float pitchEngineFactor = .05f;
-	public static float volumeEngine = .7f;
-	public static float volumePowerupCollision = .5f;
-	public static float volumeFire = 1f;
-	public static float volumeMineDetonation = 1.5f;
-	public static float volumeExplosion = 1f;
+	public static float volumeEngine = .3f;
+	public static float volumePowerupCollision = .4f;
+	public static float volumeFire = .4f;
+	public static float volumeMineDetonation = 3.5f;
+	public static float volumeExplosion = .7f;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processKeyboardInput(Input input)
 		{
 //		processScreenAdjustment(input);
 		if(input.isKeyPressed(Input.KEY_F10))
 			{
-			if(StateMain.music.playing())
-				StateMain.music.stop();
+			if(StateMain.music.playing()) StateMain.music.stop();
 			else StateMain.music.play();
 			}
 		if(DisplaysPopupBox.popupDisplayed == C.YES)
@@ -54,6 +53,12 @@ public class Inputs
 				DisplaysPopupBox.finalizeMessage();
 				}
 			}
+	/* STATE SPLASH +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		else if(StateControl.currentState == StateControl.STATE_SPLASH)
+			{
+			if(input.isKeyPressed(Input.KEY_ENTER)) StateControl.enterState(StateControl.STATE_MAIN);
+			}
+	/* STATE MAIN +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		else if(StateControl.currentState == StateControl.STATE_LOBBY)
 			{
 			if(input.isKeyPressed((Input.KEY_ENTER)))
@@ -61,6 +66,7 @@ public class Inputs
 				DisplaysPopupBox.initPopup(C.POPUP_CHAT);
 				}
 			}
+	/* STATE PLAY +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		else if(StateControl.currentState == StateControl.STATE_PLAY)
 			{
 			if(GameStats.gameOver == C.NO && GameStats.health[Settings.playerID] > 0)
@@ -70,9 +76,8 @@ public class Inputs
 					Tank.DEBUG = !Tank.DEBUG;
 					jig.Entity.setDebug(Tank.DEBUG);
 					}
-
-				if(input.isKeyPressed(Input.KEY_M))
-					DisplaysStatePlay.renderMiniMap = !DisplaysStatePlay.renderMiniMap;
+				if(input.isKeyPressed(Input.KEY_M)) /// Toggle minimap display
+					Settings.displayMiniMap = 1 - Settings.displayMiniMap;
 				if(input.isKeyPressed(Input.KEY_SPACE)) NetworkControl.sendToAll("~GP");
 				if(StatePlay.gamePaused == C.NO) /// Only allows input if game is not paused
 					{
@@ -123,7 +128,7 @@ public class Inputs
 					if(input.isKeyPressed(Input.KEY_1)) Powerups.sendPowerupActivation(C.POWERUP_HEALTH);
 					else if(input.isKeyPressed(Input.KEY_2)) Powerups.sendPowerupActivation(C.POWERUP_MINE);
 					else if(input.isKeyPressed(Input.KEY_3)) Powerups.sendPowerupActivation(C.POWERUP_SPEED);
-					else if(input.isKeyPressed(Input.KEY_4)) Powerups.sendPowerupActivation(C.POWERUP_POWER);
+					else if(input.isKeyPressed(Input.KEY_4)) Powerups.sendPowerupActivation(C.POWERUP_ARMOR);
 					else if(input.isKeyPressed(Input.KEY_5)) Powerups.sendPowerupActivation(C.POWERUP_INVINCIBLE);
 					else if(input.isKeyPressed(Input.KEY_6)) Powerups.sendPowerupActivation(C.POWERUP_BEER);
 //					else if(input.isKeyPressed(Input.KEY_7)) Powerups.sendPowerupActivation(C.POWERUP_INVISIBLE);
@@ -136,7 +141,7 @@ public class Inputs
 					else if(input.isKeyPressed(Input.KEY_F3))
 						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_SPEED);
 					else if(input.isKeyPressed(Input.KEY_F4))
-						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_POWER);
+						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_ARMOR);
 					else if(input.isKeyPressed(Input.KEY_F5))
 						NetworkControl.sendToAll("~PC" + Settings.playerID + C.POWERUP_INVINCIBLE);
 					else if(input.isKeyPressed(Input.KEY_F6))
@@ -150,6 +155,13 @@ public class Inputs
 						{
 						DisplaysPopupBox.initPopup(C.POPUP_CHAT);
 						}
+					}
+				}
+			else if(GameStats.gameOver == C.YES)/// Game is over
+				{
+				if(input.isKeyPressed((Input.KEY_ENTER)))
+					{
+					DisplaysPopupBox.initPopup(C.POPUP_CHAT);
 					}
 				}
 			}
@@ -250,7 +262,7 @@ public class Inputs
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void processMouseInput()
 		{
-	/* STATE MAIN +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+	/* STATE SPLASH +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		if(StateControl.currentState == StateControl.STATE_SPLASH)
 			{
 			StateControl.enterState(StateControl.STATE_MAIN);
@@ -327,6 +339,14 @@ public class Inputs
 						Settings.highScoreTimerIndex = 0;
 					Commands.sendSetWinConditionCommand();
 					}
+				else if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.locatorsButton))
+					{
+					playClick();
+					Settings.displayLocators = 1 - Settings.displayLocators;
+					Settings.displayTankLocation = 1 - Settings.displayTankLocation;
+					Settings.displayPowerupSpawn = 1 - Settings.displayPowerupSpawn;
+					Commands.sendLocatorsCommand();
+					}
 				else
 					{
 					for(i = 0; i < C.MAX_PLAYERS; i++)
@@ -391,17 +411,16 @@ public class Inputs
 				{
 				if(StatePlay.gamePaused == C.NO) /// Only allows input if game is not paused
 					{
-					for(i = 0; i < Strings.powerups.length; i++)
+					for(i = 0; i < Strings.powerups.length; i++) /// Powerup click
 						{
-						if(withinCoordinates(DisplaysStatePlay.powerupArea[i])) /// Health
+						if(withinCoordinates(DisplaysStatePlay.powerupArea[i]))
 							{
 							playClick();
 							Powerups.sendPowerupActivation(i);
 							}
 						}
-					if(withinCoordinates(DisplaysStatePlay.mapArea))
+					if(withinCoordinates(DisplaysStatePlay.mapArea)) /// Missle fire click
 						{
-						//TODO handle projectile
 						ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeFire);
 						NetworkControl.sendToAll("~PS" + Settings.playerID);
 						}

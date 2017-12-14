@@ -55,7 +55,7 @@ public class C
 	public static final int POWERUP_HEALTH = 0;
 	public static final int POWERUP_MINE = 1;
 	public static final int POWERUP_SPEED = 2;
-	public static final int POWERUP_POWER = 3;
+	public static final int POWERUP_ARMOR = 3;
 	public static final int POWERUP_INVINCIBLE = 4;
 	public static final int POWERUP_BEER = 5;
 //	public static final int POWERUP_INVISIBLE = 6;

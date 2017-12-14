@@ -38,8 +38,8 @@ public class StatePlay extends BasicGameState
 	public static int y = 0;
 	public int timer = 0;
 	public static int gamePaused = C.NO;
-	public static int shotnumber=0;
-	public static int minenumber=0;
+	public static int shotnumber = 0;
+	public static int minenumber = 0;
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
 	public int getID()
@@ -111,11 +111,20 @@ public class StatePlay extends BasicGameState
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 		{
 		DisplaysStatePlay.renderDisplays(g);
+		/// Display tank locations:
+		if(Settings.displayMiniMap == C.YES && Settings.displayTankLocation == C.YES)
+			{
+			for(i = 0; i < Settings.numberActivePlayers; i++)
+				{
+				g.setColor(Settings.allColors[Settings.playerTeamColors[i]]);
+				g.fillRect(DisplaysStatePlay.miniMapArea.x + DisplaysStatePlay.convertToMinimapX(StatePlay.tanks[i].getX()), DisplaysStatePlay.miniMapArea.y + DisplaysStatePlay.convertToMinimapY(StatePlay.tanks[i].getY()), DisplaysStatePlay.minimapDotWidth, DisplaysStatePlay.minimapDotWidth);
+				}
+			}
 		if(GameStats.gameOver == C.YES)
 			{
 			DisplaysMessagePopup.renderMessage(g, Strings.colors[GameStats.winningTeam] + Strings.wins, C.CENTER, C.CENTER, 10, Fonts.fontCourier20BTTF, Color.black, Color.white);
 			}
-		else if(StatePlay.gamePaused == C.YES)
+		if(StatePlay.gamePaused == C.YES || GameStats.gameOver == C.YES)
 			{
 			DisplaysMessagePopup.renderMessage(g, Strings.gamePaused, C.CENTER, DisplaysStatePlay.pausePopupY, 10, Fonts.fontCourier15BTTF, Color.black, Color.white);
 			DisplaysStatePlay.messageArea.colorSection(g, DisplaysStatePlay.messageBackgroundColor);
@@ -147,6 +156,8 @@ public class StatePlay extends BasicGameState
 				}
 			}
 		input.clearKeyPressedRecord();
+
+		DisplaysStatePlay.updateExplosions();
 		//Inputs.xMouse[Settings.playerTeamColor]=input.getMouseX();
 		//Inputs.yMouse[Settings.playerTeamColor]=input.getMouseY();
 		if(GameStats.gameOver == C.NO && GameStats.health[Settings.playerID] > 0)
@@ -257,7 +268,6 @@ public class StatePlay extends BasicGameState
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void removemines(int i)
 		{
-		
 		int deletemine = i;
 		for(Iterator<projectile> iterator = StatePlay.mines.iterator(); iterator.hasNext(); )
 			{
@@ -266,44 +276,68 @@ public class StatePlay extends BasicGameState
 				{
 				iterator.remove();
 				}
-			
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void CheckProjectileCollision(int delta) {
+	public static void CheckProjectileCollision(int delta)
+		{
 		int shotID = 0;
-		try {
-		for(Iterator<projectile> iterator = StatePlay.shots.iterator(); iterator.hasNext(); )
+		try
 			{
-			projectile shotTest = iterator.next();
-			if(shotTest.collides(StatePlay.tanks[Settings.playerID]) != null)
+			for(Iterator<projectile> iterator = StatePlay.shots.iterator(); iterator.hasNext(); )
 				{
-				if(shotTest.playerTeamColor != Settings.playerTeamColors[Settings.playerID])
+				projectile shotTest = iterator.next();
+				if(shotTest.collides(StatePlay.tanks[Settings.playerID]) != null)
 					{
-					//removeshot(shotID);
-					//StatePlay.shots.remove(shotID);
+					if(shotTest.playerTeamColor != Settings.playerTeamColors[Settings.playerID])
+						{
+						//removeshot(shotID);
+						//StatePlay.shots.remove(shotID);
+						//sendMineCollision(Settings.playerID, shotID);
+							int damage = 0;
+							if(Powerups.isInvincible[Settings.playerID] == C.YES)
+								damage = 0;
+							else if(GameStats.power[Settings.playerID] == 1)
+								damage = 2 * GameStats.missileDamage;
+							else if(GameStats.power[Settings.playerID] == 2)
+								damage = (int)(1.75 * GameStats.missileDamage);
+							else if(GameStats.power[Settings.playerID] == 3)
+								damage = (int)(1.50 * GameStats.missileDamage);
+							else if(GameStats.power[Settings.playerID] == 4)
+								damage = (int)(1.25 * GameStats.missileDamage);
+							else if(GameStats.power[Settings.playerID] == 5)
+								damage = GameStats.missileDamage;
+							else if(GameStats.power[Settings.playerID] == 6)
+								damage = (int)(.83 * GameStats.missileDamage);
+							else if(GameStats.power[Settings.playerID] == 7)
+								damage = (int)(.67 * GameStats.missileDamage);
+							else if(GameStats.power[Settings.playerID] == 8)
+								damage = (int)(.5 * GameStats.missileDamage);
+							else if(GameStats.power[Settings.playerID] == 9)
+								damage = (int)(.33 * GameStats.missileDamage);
+							else if(GameStats.power[Settings.playerID] == 10)
+								damage = (int)(.17 * GameStats.missileDamage);
 
-					//sendMineCollision(Settings.playerID, shotID);
-					NetworkControl.sendToAll("~RS"+shotTest.shotnumber);
-					GameStats.sendPlayerDamageCommand(shotTest.playerTeamColor, Settings.playerID, 20);
+//							System.out.printf("power = %d, damage = %d\n", GameStats.power[Settings.playerID], damage);
+							NetworkControl.sendToAll("~RS" + shotTest.shotnumber);
+							GameStats.sendPlayerDamageCommand(shotTest.playerTeamColor, Settings.playerID, damage);
+						}
+					}
+				shotID++;
+				shotTest.lifetime -= delta;
+				if(shotTest.lifetime <= 0)
+					{
+					removeshot(shotTest.shotnumber);
 					}
 				}
-			
-			shotID++;
-			shotTest.lifetime -= delta;
-			if(shotTest.lifetime <= 0)
-				{
-				iterator.remove();
-				}
+			}
+		catch (Exception e)
+			{
 			}
 		}
-		catch(Exception e) {
-			
-		}
-	}
 	/*-----------------------------------------------------------------------------------------------------*/
-	public static void removeshot(int i) {
-		
+	public static void removeshot(int i)
+		{
 		int deleteshot = i;
 		for(Iterator<projectile> iterator = StatePlay.shots.iterator(); iterator.hasNext(); )
 			{
@@ -312,10 +346,6 @@ public class StatePlay extends BasicGameState
 				{
 				iterator.remove();
 				}
-		
 			}
-	
-	
-	}
-	
+		}
 	}

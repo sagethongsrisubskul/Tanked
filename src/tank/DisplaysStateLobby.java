@@ -29,8 +29,8 @@ public class DisplaysStateLobby
 	public static int nameWidth;
 	/// psw (percentage of screen width):
 	public static float pswButtonRect = .15f;
-	public static float pswButtonSquare = .06f;
-	public static float pswButtonHighScore = .04f;
+	public static float pswButtonSquare = .05f;
+	public static float pswButtonSquareSmall = .04f;
 	public static float pswLobbyBackground = 1.5f;
 	public static float pswMap = 0.21f;
 	public static float pswIcon = .04f;
@@ -50,16 +50,18 @@ public class DisplaysStateLobby
 	/// Objects:
 	public static Image lobbyBackground = new Image(Filenames.lobbyBackground, 0, 0, pswLobbyBackground);
 	public static Image winConditionButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
-	public static Image highScoreTimerButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonHighScore);
+	public static Image highScoreTimerButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonSquareSmall);
 	public static Image nameButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
 	public static Image helpButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
 	public static Image leaveGameButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
 	public static Image launchGameButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
+	public static Image locatorsButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonSquareSmall);
 	public static Image prevButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonSquare);
 	public static Image prevIcon = new Image(Filenames.arrowPrev, 0, 0, pswIcon);
 	public static Image nextButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonSquare);
 	public static Image nextIcon = new Image(Filenames.arrowNext, 0, 0, pswIcon);
 	public static Image miniMap[] = new Image[Filenames.miniMap.length];
+
 	public static StringsDisplay heading = new StringsDisplay(Strings.lobbyHeading, DisplaysHeading.headingFont, DisplaysHeading.headingColor, 0, 0);
 	public static StringsDisplay map = new StringsDisplay(Strings.map, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay help = new StringsDisplay(Strings.helpInfo, buttonTextFont, buttonTextColor, 0, 0);
@@ -68,7 +70,10 @@ public class DisplaysStateLobby
 	public static StringsDisplay players = new StringsDisplay(Strings.players, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay winCondition = new StringsDisplay(Strings.winCondition, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay id = new StringsDisplay(Strings.id, settingTextFont, settingTextColor, 0, 0);
+	public static StringsDisplay settings = new StringsDisplay(Strings.settings, settingTextFont, settingTextColor, 0, 0);
+	public static StringsDisplay locators = new StringsDisplay(Strings.locators, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay name = new StringsDisplay(Strings.name, settingTextFont, settingTextColor, 0, 0);
+	public static StringsDisplay minimap = new StringsDisplay(Strings.map, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay team = new StringsDisplay(Strings.team, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay pressEnter = new StringsDisplay(Strings.pressEnter, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay minutes = new StringsDisplay(Strings.minutes, settingTextFont, settingTextColor, 0, 0);
@@ -108,12 +113,12 @@ public class DisplaysStateLobby
 		minutes.x = highScoreTimerButton.getEndX() + spaceBetweenColumns;
 		minutes.y = highScoreTimerButton.centerStringY(minutes.trueTypeFont, minutes.string);
 		/// Player settings:
-		players.x = players.centerStringScreenX();
 		players.y = winConditionButton.getEndY() + spaceAfterIndividualSettings;
 		id.x = marginSides;
 		id.y = players.getEndY() + spaceAfterIndividualSettings;
 		name.x = id.getEndX() + spaceBetweenColumns;
 		name.y = id.y;
+		players.x = name.x;
 		team.x = name.x + nameWidth + spaceBetweenColumns;
 		team.y = id.y;
 		/// Color settings:
@@ -143,11 +148,14 @@ public class DisplaysStateLobby
 		/// Minimap:
 		for(i = 0; i < Filenames.miniMap.length; i++)
 			{
-			miniMap[i].x = team.getEndX() + ((Settings.currentScreenWidth - team.getEndX() - miniMap[i].getWidth()) / 2);
+			miniMap[i].x = team.getEndX() + (2 * spaceBetweenColumns) + prevButton.getWidth();
+//			miniMap[i].x = team.getEndX() + ((Settings.currentScreenWidth - team.getEndX() - miniMap[i].getWidth()) / 2);
 			miniMap[i].y = team.getEndY() + spaceBetweenRows;
 			}
 		map.x = miniMap[0].x;
 		map.y = team.y;
+		minimap.x = map.x;
+		minimap.y = players.y;
 		prevButton.x = miniMap[0].x - prevButton.getWidth() - spaceBetweenColumns;
 		prevButton.y = miniMap[0].centerImageY(pswButtonSquare);
 		prevIcon.x = prevButton.centerImageX(pswIcon);
@@ -156,6 +164,13 @@ public class DisplaysStateLobby
 		nextButton.y = miniMap[0].centerImageY(pswButtonSquare);
 		nextIcon.x = nextButton.centerImageX(pswIcon);
 		nextIcon.y = nextButton.centerImageY(pswIcon);
+		/// Settings:
+		settings.x = nextButton.getEndX() + spaceBetweenColumns;
+		settings.y = minimap.y;
+		locators.x = settings.x;
+		locators.y = map.y;
+		locatorsButton.x = locators.getEndX() + spaceBetweenColumns;
+		locatorsButton.y = locators.y;
 		/// Navigational buttons:
 		helpButton.x = (Settings.currentScreenWidth - helpButton.getWidth() - leaveGameButton.getWidth() - spaceBetweenNavigationalButtons) / 2;
 		helpButton.y = Settings.currentScreenHeight - helpButton.getHeight() - marginBottom;
@@ -187,6 +202,11 @@ public class DisplaysStateLobby
 			}
 		/// Player settings:
 		players.renderString();
+		minimap.renderString();
+		settings.renderString();
+		locators.renderString();
+		locatorsButton.renderImage();
+		locatorsButton.renderStringInImage(buttonTextFont, Strings.offOn[Settings.displayLocators], buttonTextColor);
 		id.renderString();
 		name.renderString();
 		team.renderString();

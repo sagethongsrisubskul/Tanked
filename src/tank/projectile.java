@@ -37,6 +37,7 @@ public class projectile extends Entity
 			ResourceManager.loadImage(Filenames.mines[playerTeamColor]);
 			addImageWithBoundingBox(ResourceManager.getImage(Filenames.mines[playerTeamColor]).getScaledCopy(Powerups.iconScale));
 			lifetime = 300000;
+			
 			minenumber=StatePlay.minenumber;
 			StatePlay.minenumber++;
 			}
