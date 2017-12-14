@@ -8,99 +8,68 @@ import org.newdawn.slick.tiled.TiledMap;
 import jig.Vector;
 
 public class Map extends TiledMap {
-	private static int renderTileWidth = 30;
-	private static int renderTileHeight = 19;
-
-	private int xPos;
-	private int yPos;
 	private int pixelWidth;
 	private int pixelHeight;
 	
 	int permanentBlocks;
 	int breakableBlocks;
 
-	public Map(String ref, final int x, final int y) throws SlickException {
+	public Map(String ref) throws SlickException {
 		super(ref);
-		
-		xPos = x;
-		yPos = y;
-		
-		pixelWidth = super.width*super.tileWidth;
-		pixelHeight = super.height*super.tileHeight;
-		
-		permanentBlocks = this.getLayerIndex("PermanentBlocks");
-		breakableBlocks = this.getLayerIndex("BreakableBlocks");
-		
+
+		setup();
 	}
 	
-	public Map(String ref, String tileRef, final int x, final int y) throws SlickException {
+	public Map(String ref, String tileRef) throws SlickException {
 		super(ref, tileRef);
-		
-		xPos = x;
-		yPos = y;
-		
+
+		setup();
+
+	}
+
+	private void setup() {
 		pixelWidth = super.width*super.tileWidth;
 		pixelHeight = super.height*super.tileHeight;
-		
+
 		permanentBlocks = this.getLayerIndex("PermanentBlocks");
 		breakableBlocks = this.getLayerIndex("BreakableBlocks");
-		
-	}
-	
-	public int getX() {
-		return xPos;
-	}
-	
-	public int getY() {
-		return yPos;
-	}
-	
-	public void render() {
-		super.render(xPos, yPos);
 	}
 
-    public void render(int tileOffsetX, int tileOffsetY) {
-		if(super.width - tileOffsetX < renderTileWidth)
-			tileOffsetX = super.width - renderTileWidth;
-		if(super.height - tileOffsetY < renderTileHeight)
-			tileOffsetY = super.height - renderTileHeight;
-
-        super.render(xPos, yPos, tileOffsetX, tileOffsetY, renderTileWidth, renderTileHeight);
-    }
-	
-	public int getXWidthMax() {
-		return xPos + pixelWidth;
-	}
-	
-	public int getYHeightMax() {
-		return yPos + pixelHeight;
-	}
-
+	/**
+	 * Gives the pixel width of the map
+	 * @return  Width of the map in pixels
+	 */
 	public int getMapWidth() { return pixelWidth; }
 
+	/**
+	 * Gives the pixel height of the map
+	 * @return  Height of the map in pixels
+	 */
 	public int getMapHeight() { return pixelHeight; }
 
+	/**
+	 * Gives the Tile location of a tank entity
+	 * @return  A vector of the tile location of the tank entity
+	 */
 	public Vector getTileLocation(tankentity e) {
-		float x = (float) (Math.floor((e.getX() - this.xPos) / this.tileWidth));
-		float y = (float) (Math.floor((e.getY() - this.yPos) / this.tileHeight));		
+		float x = (float) (Math.floor((e.getX()) / this.tileWidth));
+		float y = (float) (Math.floor((e.getY()) / this.tileHeight));
 		
 		return new Vector(x,y);
 	}
 
-	public float getTileXMin(final int x) {
-		return this.xPos + (x*this.tileWidth);
-	}
+	public float getTileXMin(final int x) { return (x*this.tileWidth); }
 	
 	public float getTileXMax(final int x) {
-		return this.xPos + (x+1)*this.tileWidth;
+		return (x+1)*this.tileWidth;
 	}
 	
 	public float getTileYMin(final int y) {
-		return this.yPos + (y*this.tileHeight);
+		return (y*this.tileHeight);
 	}
 	
 	public float getTileYMax(final int y) {
-		return this.yPos + (y+1)*this.tileHeight;
+		return (y+1)*this.tileHeight;
 	}
 	
 	/**
