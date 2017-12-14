@@ -76,6 +76,8 @@ public class Inputs
 					Tank.DEBUG = !Tank.DEBUG;
 					jig.Entity.setDebug(Tank.DEBUG);
 					}
+				if(input.isKeyPressed(Input.KEY_H)) /// Toggle player health bar display
+					Settings.displayPlayersHealth = 1 - Settings.displayPlayersHealth;
 				if(input.isKeyPressed(Input.KEY_M)) /// Toggle minimap display
 					Settings.displayMiniMap = 1 - Settings.displayMiniMap;
 				if(input.isKeyPressed(Input.KEY_SPACE)) NetworkControl.sendToAll("~GP");
