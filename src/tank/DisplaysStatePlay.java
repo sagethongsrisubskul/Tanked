@@ -257,17 +257,22 @@ public class DisplaysStatePlay
 			{
 			g.setColor(Color.black);
 			g.drawString("Debug: " + Tank.DEBUG, 10, 140);
-			g.drawString("MouseX: " + (Inputs.xMouse[Settings.playerID] - camera.pixelOffsetX), 10, 160);
-			g.drawString("MouseY: " + (Inputs.yMouse[Settings.playerID] - camera.pixelOffsetY), 10, 180);
-			g.drawString("TankX: " + StatePlay.tanks[Settings.playerID].getX(), 10, 200);
-			g.drawString("TankY: " + StatePlay.tanks[Settings.playerID].getY(), 10, 220);
-			g.drawString("pixelOffsetX: " + (camera.xPos + (float) camera.pixelOffsetX), 10, 240);
-			g.drawString("pixelOffsetY: " + (camera.yPos + (float) camera.pixelOffsetY), 10, 260);
-			g.drawString("worldWidth: " + camera.worldWitdth, 10, 280);
-			g.drawString("worldHeight: " + camera.worldHeight, 10, 300);
-			g.drawString("Edge: " + StatePlay.tanks[Settings.playerID].collideWorldEdge(), 10, 320);
-			g.drawString("TankLastX: " + StatePlay.tanks[Settings.playerID].getLastPos().getX(), 10, 340);
-			g.drawString("TankLastY: " + StatePlay.tanks[Settings.playerID].getLastPos().getY(), 10, 360);
+			g.drawString("Mouse: " + (Inputs.xMouse[Settings.playerID] - camera.pixelOffsetX)
+					+ ", " + (Inputs.yMouse[Settings.playerID] - camera.pixelOffsetY), 10, 160);
+
+			g.drawString("TankX: " + StatePlay.tanks[Settings.playerID].getX(), 10, 180);
+			g.drawString("TankY: " + StatePlay.tanks[Settings.playerID].getY(), 10, 200);
+
+			g.drawString("TileLoc: " + camera.map.getTileLocation(
+					StatePlay.tanks[Settings.playerID]), 10, 220);
+
+			g.drawString("pixelOffset: " + (camera.xPos + (float) camera.pixelOffsetX)
+					+ ", " + (camera.yPos + (float) camera.pixelOffsetY), 10, 240);
+
+			g.drawString("world W/H: " + camera.worldWitdth + ", " + camera.worldHeight, 10, 260);
+			g.drawString("Edge: " + StatePlay.tanks[Settings.playerID].collideWorldEdge(), 10, 280);
+			g.drawString("TankLastX: " + StatePlay.tanks[Settings.playerID].getLastPos().getX(), 10, 300);
+			g.drawString("TankLastY: " + StatePlay.tanks[Settings.playerID].getLastPos().getY(), 10, 320);
 			}
 		rightMargin.colorSection(g, backgroundColor);
 		if(Settings.displayMiniMap == C.YES)

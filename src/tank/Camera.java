@@ -3,12 +3,11 @@ package tank;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.tiled.TiledMap;
 
 public class Camera
     {
 
-    TiledMap map;
+    Map map;
     int worldWitdth;
     int worldHeight;
     Rectangle viewport;
@@ -17,9 +16,6 @@ public class Camera
 
     int xPos;
     int yPos;
-
-    int tileWidth;
-    int tileHeight;
 
     int tileOffsetX;
     int tileOffsetY;
@@ -31,13 +27,10 @@ public class Camera
         {
         xPos = x;
         yPos = y;
-        map = new TiledMap(mapPath);
+        map = new Map(mapPath);
 
-        tileWidth = map.getTileWidth();
-        tileHeight = map.getTileHeight();
-
-        worldWitdth = map.getWidth() * tileWidth;
-        worldHeight = map.getHeight() * tileHeight;
+        worldWitdth = map.getMapWidth();
+        worldHeight = map.getMapHeight();
 
         viewport = new Rectangle(xPos, yPos, viewportWidth, viewportHeight);
 
