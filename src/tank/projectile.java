@@ -27,7 +27,7 @@ public class projectile extends Entity
 			playerTeamColor=l;
 			shotnumber=StatePlay.shotnumber;
 			StatePlay.shotnumber++;
-			
+			this.setCoarseGrainedRadius(5f);
 			}
 		else
 			{
