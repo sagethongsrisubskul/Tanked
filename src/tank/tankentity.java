@@ -12,6 +12,7 @@ public class tankentity extends Entity
 	private float tankSpeed = 0.02f;
 	private Vector velocity;
 	private Vector worldpos;
+	private Vector lastpos;
 	private double hullangle;
 	private int angle = 0;
 	private double turretangle;
@@ -19,6 +20,7 @@ public class tankentity extends Entity
 	private int rotation;
 	private turretentity turret;
 	private Collision collisionResult;
+	
 	/*-----------------------------------------------------------------------------------------------------*/
 	public tankentity(final float x, final float y, final char team)
 		{
@@ -44,6 +46,7 @@ public class tankentity extends Entity
 			}
 		turret = new turretentity(x, y, team, this);
 		velocity = new Vector(0.0f, 0.0f);
+		lastpos=new Vector(this.getX(),this.getY());
 		hullangle = 0;
 		turretangle = 0;
 		//addImageWithBoundingBox(ResourceManager.getImage(Filenames.turret_r).getScaledCopy(0.05f));
@@ -51,6 +54,13 @@ public class tankentity extends Entity
 	/*-----------------------------------------------------------------------------------------------------*/
 	public void update(final int delta, int i)
 		{
+		//updates lastpos, used in collision checks
+		
+		//why doesn't this work?
+		//lastpos.setX(this.getX());
+		//lastpos.setY(this.getY());
+		lastpos=new Vector(this.getX(),this.getY());
+		
 		translate(velocity.scale(delta * (float) (tankSpeed * GameStats.speed[Settings.playerID])));
 		this.setRotation(this.getRotation() + (float) rotation * GameStats.speed[Settings.playerID] / 2);
 		hullangle = this.getRotation();
@@ -132,6 +142,11 @@ public class tankentity extends Entity
 	public turretentity getTurret()
 		{
 		return turret;
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public Vector getLastPos()
+		{
+		return lastpos;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public Edge collideWorldEdge()

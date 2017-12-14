@@ -266,6 +266,8 @@ public class DisplaysStatePlay
 			g.drawString("worldWidth: " + camera.worldWitdth, 10, 280);
 			g.drawString("worldHeight: " + camera.worldHeight, 10, 300);
 			g.drawString("Edge: " + StatePlay.tanks[Settings.playerID].collideWorldEdge(), 10, 320);
+			g.drawString("TankLastX: " + StatePlay.tanks[Settings.playerID].getLastPos().getX(), 10, 340);
+			g.drawString("TankLastY: " + StatePlay.tanks[Settings.playerID].getLastPos().getY(), 10, 360);
 			}
 		rightMargin.colorSection(g, backgroundColor);
 		if(Settings.displayMiniMap == C.YES)
