@@ -52,7 +52,11 @@ public class projectile extends Entity
 	public boolean collidesWithSolid()
 		{
 		Vector projtile=DisplaysStatePlay.camera.map.getTileLocation(this);
-		int tileid=DisplaysStatePlay.camera.map.getTileId((int)projtile.getX(),(int)projtile.getY(),0);
+		int x = (int)projtile.getX();
+		int y = (int)projtile.getY();
+		if(x < 0 || y < 0 || x >= DisplaysStatePlay.camera.map.getWidth() || y >= DisplaysStatePlay.camera.map.getHeight() )
+			return false;
+		int tileid=DisplaysStatePlay.camera.map.getTileId(x, y,0);
 		String solid=DisplaysStatePlay.camera.map.getTileProperty(tileid, "Solid", "false");
 		String water=DisplaysStatePlay.camera.map.getTileProperty(tileid, "Water", "false");
 		if(solid.equals("true"))
