@@ -18,6 +18,7 @@ public class tankentity extends Entity
 	private double turretangle;
 	private int movement;
 	private int rotation;
+	private float reload;
 	private turretentity turret;
 	private Collision collisionResult;
 	
@@ -48,6 +49,7 @@ public class tankentity extends Entity
 		velocity = new Vector(0.0f, 0.0f);
 		lastpos=new Vector(this.getX(),this.getY());
 		hullangle = 0;
+		reload=1000;
 		turretangle = 0;
 		//addImageWithBoundingBox(ResourceManager.getImage(Filenames.turret_r).getScaledCopy(0.05f));
 		}
@@ -60,6 +62,10 @@ public class tankentity extends Entity
 		//lastpos.setX(this.getX());
 		//lastpos.setY(this.getY());
 		lastpos=new Vector(this.getX(),this.getY());
+		
+		if(reload<1000){
+			reload+=delta;
+		}
 		
 		translate(velocity.scale(delta * (float) (tankSpeed * GameStats.speed[Settings.playerID])));
 		this.setRotation(this.getRotation() + (float) rotation * GameStats.speed[Settings.playerID] / 2);
@@ -158,6 +164,14 @@ public class tankentity extends Entity
 		{
 		return lastpos;
 		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public float getReload()
+		{
+		return reload;
+		}
+	public void fire(){
+		reload=0;
+	}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public Edge collideWorldEdge()
 		{
