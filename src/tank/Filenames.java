@@ -41,7 +41,7 @@ public class Filenames
 	public final static String buttonSquare = "res/ButtonSquare.png";
 	/// Maps:
 	public final static String maps[] = {"res/Map1.tmx", "res/Map2.tmx", "res/Map3.tmx"};
-	public final static int mapSize[][] = {{1280,1280},{1600,1088},{1600,1088}};
+	public final static int mapSize[][] = {{2304,2304},{1600,1088},{1600,1088}};
 	public final static String miniMap[] = {"res/miniMap1.jpg", "res/miniMap2.jpg", "res/miniMap3.jpg"};
 	/// Tanks:
 	public final static String tank_r="res/tank_r.png";
