@@ -282,12 +282,19 @@ public class StatePlay extends BasicGameState
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void CheckProjectileCollision(int delta)
 		{
-		int shotID = 0;
+
 		try
 			{
 			for(Iterator<projectile> iterator = StatePlay.shots.iterator(); iterator.hasNext(); )
 				{
 				projectile shotTest = iterator.next();
+
+				if(shotTest.collidesWithSolid())
+					{
+						//removeshot(shotTest.shotnumber);
+						iterator.remove();
+					}
+
 				if(shotTest.collides(StatePlay.tanks[Settings.playerID]) != null)
 					{
 					if(shotTest.playerTeamColor != Settings.playerTeamColors[Settings.playerID])
@@ -324,7 +331,7 @@ public class StatePlay extends BasicGameState
 							GameStats.sendPlayerDamageCommand(shotTest.playerTeamColor, Settings.playerID, damage);
 						}
 					}
-				shotID++;
+
 				shotTest.lifetime -= delta;
 				if(shotTest.lifetime <= 0)
 					{
@@ -334,6 +341,7 @@ public class StatePlay extends BasicGameState
 			}
 		catch (Exception e)
 			{
+				System.out.println("Something Happened: " + e.toString());
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
