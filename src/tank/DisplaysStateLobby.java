@@ -56,6 +56,8 @@ public class DisplaysStateLobby
 	public static Image leaveGameButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
 	public static Image launchGameButton = new Image(Filenames.buttonRectangle, 0, 0, pswButtonRect);
 	public static Image locatorsButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonSquareSmall);
+	public static Image powerupIntervalButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonSquareSmall);
+	public static Image powerupDurationButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonSquareSmall);
 	public static Image prevButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonSquare);
 	public static Image prevIcon = new Image(Filenames.arrowPrev, 0, 0, pswIcon);
 	public static Image nextButton = new Image(Filenames.buttonSquare, 0, 0, pswButtonSquare);
@@ -72,6 +74,8 @@ public class DisplaysStateLobby
 	public static StringsDisplay id = new StringsDisplay(Strings.id, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay settings = new StringsDisplay(Strings.settings, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay locators = new StringsDisplay(Strings.locators, settingTextFont, settingTextColor, 0, 0);
+	public static StringsDisplay powerupInterval = new StringsDisplay(Strings.powerupInterval, settingTextFont, settingTextColor, 0, 0);
+	public static StringsDisplay powerupDuration = new StringsDisplay(Strings.powerupDuration, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay name = new StringsDisplay(Strings.name, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay minimap = new StringsDisplay(Strings.map, settingTextFont, settingTextColor, 0, 0);
 	public static StringsDisplay team = new StringsDisplay(Strings.team, settingTextFont, settingTextColor, 0, 0);
@@ -93,6 +97,10 @@ public class DisplaysStateLobby
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void positionDisplays()
 		{
+		/// Spacing:
+		spaceBetweenColumns = 30 + ((Settings.currentScreenWidth - Settings.minLobbyScreenWidth) / 7);
+//		spaceBetweenRows = 15 + ((Settings.currentScreenHeight - Settings.minLobbyScreenHeight) / 7);
+		messageAreaHeight = 200 + ((Settings.currentScreenHeight - Settings.minLobbyScreenHeight) / 1);
 		/// Title & lobbyHeading:
 		heading.x = heading.centerStringScreenX();
 		heading.y = marginTop;
@@ -145,6 +153,7 @@ public class DisplaysStateLobby
 		messageArea.endX = Settings.currentScreenWidth - messageAreaMargin;
 		messageArea.y = pressEnter.getEndY() + spaceBetweenRows;
 		messageArea.endY = messageArea.y + messageAreaHeight;
+
 		/// Minimap:
 		for(i = 0; i < Filenames.miniMap.length; i++)
 			{
@@ -164,13 +173,25 @@ public class DisplaysStateLobby
 		nextButton.y = miniMap[0].centerImageY(pswButtonSquare);
 		nextIcon.x = nextButton.centerImageX(pswIcon);
 		nextIcon.y = nextButton.centerImageY(pswIcon);
+
 		/// Settings:
 		settings.x = nextButton.getEndX() + spaceBetweenColumns;
 		settings.y = minimap.y;
 		locators.x = settings.x;
 		locators.y = map.y;
-		locatorsButton.x = locators.getEndX() + spaceBetweenColumns;
+		locatorsButton.x = Settings.currentScreenWidth - locatorsButton.getWidth() - spaceBetweenColumns;
 		locatorsButton.y = locators.y;
+
+		powerupInterval.x = locators.x;
+		powerupInterval.y = locatorsButton.getEndY() + spaceBetweenRows;
+		powerupIntervalButton.x = locatorsButton.x;
+		powerupIntervalButton.y = locatorsButton.getEndY() + spaceBetweenRows;
+
+		powerupDuration.x = locators.x;
+		powerupDuration.y = powerupIntervalButton.getEndY() + spaceBetweenRows;
+		powerupDurationButton.x = locatorsButton.x;
+		powerupDurationButton.y = powerupIntervalButton.getEndY() + spaceBetweenRows;
+
 		/// Navigational buttons:
 		helpButton.x = (Settings.currentScreenWidth - helpButton.getWidth() - leaveGameButton.getWidth() - spaceBetweenNavigationalButtons) / 2;
 		helpButton.y = Settings.currentScreenHeight - helpButton.getHeight() - marginBottom;
@@ -197,7 +218,7 @@ public class DisplaysStateLobby
 		if(Settings.winCondition == C.HIGH_SCORE)
 			{
 			highScoreTimerButton.renderImage();
-			highScoreTimerButton.renderStringInImage(buttonTextFont, Integer.toString(StatePlay.highScoreTimerOptions[Settings.highScoreTimerIndex]), buttonTextColor);
+			highScoreTimerButton.renderStringInImage(buttonTextFont, Integer.toString(Settings.highScoreTimerOptions[Settings.highScoreTimerIndex]), buttonTextColor);
 			minutes.renderString();
 			}
 		/// Player settings:
@@ -205,8 +226,15 @@ public class DisplaysStateLobby
 		minimap.renderString();
 		settings.renderString();
 		locators.renderString();
+		powerupInterval.renderString();
+		powerupDuration.renderString();
 		locatorsButton.renderImage();
 		locatorsButton.renderStringInImage(buttonTextFont, Strings.offOn[Settings.displayLocators], buttonTextColor);
+		powerupIntervalButton.renderImage();
+		powerupIntervalButton.renderStringInImage(buttonTextFont, Integer.toString(Powerups.powerupIntervalOptions[Powerups.powerupIntervalIndex]), buttonTextColor);
+		powerupDurationButton.renderImage();
+		powerupDurationButton.renderStringInImage(buttonTextFont, Integer.toString(Powerups.powerupDurationOptions[Powerups.powerupDurationIndex]), buttonTextColor);
+		
 		id.renderString();
 		name.renderString();
 		team.renderString();

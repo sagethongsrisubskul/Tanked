@@ -3,6 +3,7 @@ import org.newdawn.slick.Color;
 /* This class contains all the game settings */
 public class Settings
 	{
+	public static int playMusic = C.YES;
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Gameplay:
 	/*-----------------------------------------------------------------------------------------------------*/
@@ -42,6 +43,13 @@ public class Settings
 	public static int minMainScreenHeight = 600;
 	public static int maxMainScreenWidth; /// Max screen dimensions are set by the container at launch
 	public static int maxMainScreenHeight;
+	/// Screen dimensions (Lobby):
+	public static int lobbyScreenWidth = 1000;
+	public static int lobbyScreenHeight = 750;
+	public static int minLobbyScreenWidth = 1000;
+	public static int minLobbyScreenHeight = 750;
+	public static int maxLobbyScreenWidth;
+	public static int maxLobbyScreenHeight;
 	/// Screen dimensions (Play):
 	public static int playScreenWidth = 1000;
 	public static int playScreenHeight = 750;
@@ -59,6 +67,7 @@ public class Settings
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static int winCondition = C.DEATHMATCH;
 	public static int highScoreTimerIndex = 3;
+	public static int highScoreTimerOptions[] = {1, 5, 10, 15, 20, 30}; /// Minutes
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initSettings()
 		{

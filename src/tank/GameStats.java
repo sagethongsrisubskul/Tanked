@@ -22,8 +22,8 @@ public class GameStats
 	///
 	public static int scoreDamageInflicted = 1;
 	public static int scoreDamageIncurred = -1;
-	public static int scorePowerupCollected = 250;
-	public static int scorePowerupActivated = -100;
+	public static int scorePowerupCollected = 500;
+	public static int scorePowerupActivated = -250;
 	///
 	public static int maxHealth[] = new int[C.MAX_PLAYERS];
 	public static int health[] = new int[C.MAX_PLAYERS];

@@ -27,10 +27,10 @@ public class StateLobby extends BasicGameState
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException
 		{
 		AppGameContainer gc = (AppGameContainer) container;
-		gc.setDisplayMode(Settings.playScreenWidth, Settings.playScreenHeight, false);
+		gc.setDisplayMode(Settings.lobbyScreenWidth, Settings.lobbyScreenHeight, false);
 		StateControl.addCurrentState(getID());
-		Settings.currentScreenHeight = Settings.playScreenHeight;
-		Settings.currentScreenWidth = Settings.playScreenWidth;
+		Settings.currentScreenHeight = Settings.lobbyScreenHeight;
+		Settings.currentScreenWidth = Settings.lobbyScreenWidth;
 		DisplaysStateLobby.positionDisplays();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/

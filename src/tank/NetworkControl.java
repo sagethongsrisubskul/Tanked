@@ -81,6 +81,8 @@ public class NetworkControl
 		Commands.sendSetMapCommand();
 		Commands.sendSetColorsCommand();
 		Commands.sendLocatorsCommand();
+		Commands.sendPowerupIntervalCommand();
+		Commands.sendPowerupDurationCommand();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	/* This method is called to display a chat message on the screen */

@@ -24,7 +24,6 @@ public class StatePlay extends BasicGameState
 	public static int minutes;
 	public static int seconds;
 	public static int highScoreTimer; /// Seconds
-	public static int highScoreTimerOptions[] = {1, 5, 10, 15, 20, 30}; /// Minutes
 	public static tankentity tanks[] = new tankentity[C.MAX_PLAYERS];
 	public static ArrayList<projectile> mines = new ArrayList<projectile>();
 	public static ArrayList<projectile> shots = new ArrayList<projectile>();
@@ -105,7 +104,7 @@ public class StatePlay extends BasicGameState
 				}
 			}
 		GameStats.recordNumberTeams();
-		highScoreTimer = 60 * highScoreTimerOptions[Settings.highScoreTimerIndex];
+		highScoreTimer = 60 * Settings.highScoreTimerOptions[Settings.highScoreTimerIndex];
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
