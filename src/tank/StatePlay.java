@@ -335,7 +335,8 @@ public class StatePlay extends BasicGameState
 				shotTest.lifetime -= delta;
 				if(shotTest.lifetime <= 0)
 					{
-					removeshot(shotTest.shotnumber);
+					//removeshot(shotTest.shotnumber);
+					iterator.remove();
 					}
 				}
 			}
