@@ -36,19 +36,19 @@ public class Inputs
 			}
 		if(DisplaysPopupBox.popupDisplayed == C.YES)
 			{
-			if(input.isKeyDown(Input.KEY_ESCAPE))
+			if(input.isKeyPressed(Input.KEY_ESCAPE))
 				{
 				DisplaysPopupBox.popupEnd();
 				}
-			else if(input.isKeyDown(Input.KEY_DELETE))
+			else if(input.isKeyPressed(Input.KEY_DELETE))
 				{
 				DisplaysPopupBox.clearEntered();
 				}
-			else if(input.isKeyDown(Input.KEY_BACK))
+			else if(input.isKeyPressed(Input.KEY_BACK))
 				{
 				DisplaysPopupBox.clearLastCharacter();
 				}
-			else if(input.isKeyDown(Input.KEY_ENTER))
+			else if(input.isKeyPressed(Input.KEY_ENTER))
 				{
 				DisplaysPopupBox.finalizeMessage();
 				}
