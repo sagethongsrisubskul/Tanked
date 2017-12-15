@@ -117,6 +117,14 @@ public class Inputs
 						if(!ResourceManager.getSound(Filenames.engine).playing())
 							ResourceManager.getSound(Filenames.engine).play(pitchEngineBase + GameStats.speed[Settings.playerID] * pitchEngineFactor, volumeEngine);
 						}
+					if(input.isMouseButtonDown(0)){
+						if(StatePlay.tanks[Settings.playerID].getReload()>=1000){
+							StatePlay.tanks[Settings.playerID].fire();
+							ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeFire);
+							NetworkControl.sendToAll("~PS" + Settings.playerID);
+						}
+					}
+					
 					if(!input.isKeyDown(Input.KEY_W) && !input.isKeyDown(Input.KEY_S) && !input.isKeyDown(Input.KEY_A) && !input.isKeyDown(Input.KEY_D))
 						ResourceManager.getSound(Filenames.engine).stop();
 					//send movement and rotation here
@@ -423,8 +431,8 @@ public class Inputs
 						}
 					if(withinCoordinates(DisplaysStatePlay.mapArea)) /// Missle fire click
 						{
-						ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeFire);
-						NetworkControl.sendToAll("~PS" + Settings.playerID);
+						//ResourceManager.getSound(Filenames.fire).play(1, Inputs.volumeFire);
+						//NetworkControl.sendToAll("~PS" + Settings.playerID);
 						}
 					}
 				}

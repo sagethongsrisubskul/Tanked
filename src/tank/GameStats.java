@@ -33,7 +33,7 @@ public class GameStats
 	public static int score[] = new int[C.MAX_PLAYERS];
 	public static int level[] = new int[C.MAX_PLAYERS];
 
-	public static int missileDamage = 10;
+	public static int missileDamage = 300;
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void initGameStats()
 		{
