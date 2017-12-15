@@ -20,7 +20,7 @@ public class Settings
 	public static String sampleMaxName = "123456789012";
 	/*-----------------------------------------------------------------------------------------------------*/
 	/// Map:
-	public static int mapSelected = 2;
+	public static int mapSelected = 0;
 	public static int displayMiniMap = C.YES;
 	public static int displayLocators = C.YES;
 	public static int displayPowerupSpawn = C.YES;
