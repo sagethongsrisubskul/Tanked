@@ -183,14 +183,14 @@ public class DisplaysStatePlay
 		winCondition.y = speed.getEndY() + powerupPadding;
 		/// Player's health bars:
 		playersHealthBarWidth = (Settings.currentScreenWidth - margin - healthBarWidth - 5) / Settings.numberActivePlayers;
-		System.out.printf("screen width = %d, bar width = %d\n", Settings.currentScreenWidth, playersHealthBarWidth);
+//		System.out.printf("screen width = %d, bar width = %d\n", Settings.currentScreenWidth, playersHealthBarWidth);
 		for(i = 0; i < Settings.numberActivePlayers; i++)
 			{
 			playersHealthBars[i].x = (i * playersHealthBarWidth);
 			playersHealthBars[i].y = Settings.currentScreenHeight - healthBarWidth;
 			playersHealthBars[i].endX = ((i + 1) * playersHealthBarWidth);
 			playersHealthBars[i].endY = Settings.currentScreenHeight;
-			System.out.printf("(%d,%d) to (%d,%d)\n", playersHealthBars[i].x, playersHealthBars[i].y, playersHealthBars[i].endX, playersHealthBars[i].endY);
+//			System.out.printf("(%d,%d) to (%d,%d)\n", playersHealthBars[i].x, playersHealthBars[i].y, playersHealthBars[i].endX, playersHealthBars[i].endY);
 			}
 		}
 	/*-----------------------------------------------------------------------------------------------------*/

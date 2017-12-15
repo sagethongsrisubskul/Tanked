@@ -20,6 +20,7 @@ public class StateMain extends BasicGameState
 		Settings.initSettings();
 		DisplaysStateMain.initDisplays();
 		StateControl.initStateControl(tank);
+		music = new Music(Filenames.mainMusic);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override
@@ -33,8 +34,8 @@ public class StateMain extends BasicGameState
 		DisplaysStateMain.positionDisplays();
 		DisplaysNavigationalButtons.positionButtons();
 		DisplaysButtonsHelpNavigation.positionButtons();
-		music = new Music(Filenames.mainMusic);
-		music.loop();
+		if(!music.playing() && Settings.playMusic == C.YES)
+			music.loop();
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	@Override

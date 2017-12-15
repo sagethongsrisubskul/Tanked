@@ -31,24 +31,25 @@ public class Inputs
 //		processScreenAdjustment(input);
 		if(input.isKeyPressed(Input.KEY_F10))
 			{
+			Settings.playMusic = 1 - Settings.playMusic;
 			if(StateMain.music.playing()) StateMain.music.stop();
 			else StateMain.music.play();
 			}
 		if(DisplaysPopupBox.popupDisplayed == C.YES)
 			{
-			if(input.isKeyDown(Input.KEY_ESCAPE))
+			if(input.isKeyPressed(Input.KEY_ESCAPE))
 				{
 				DisplaysPopupBox.popupEnd();
 				}
-			else if(input.isKeyDown(Input.KEY_DELETE))
+			else if(input.isKeyPressed(Input.KEY_DELETE))
 				{
 				DisplaysPopupBox.clearEntered();
 				}
-			else if(input.isKeyDown(Input.KEY_BACK))
+			else if(input.isKeyPressed(Input.KEY_BACK))
 				{
 				DisplaysPopupBox.clearLastCharacter();
 				}
-			else if(input.isKeyDown(Input.KEY_ENTER))
+			else if(input.isKeyPressed(Input.KEY_ENTER))
 				{
 				DisplaysPopupBox.finalizeMessage();
 				}
@@ -59,12 +60,23 @@ public class Inputs
 			if(input.isKeyPressed(Input.KEY_ENTER)) StateControl.enterState(StateControl.STATE_MAIN);
 			}
 	/* STATE MAIN +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		else if(StateControl.currentState == StateControl.STATE_MAIN)
+			{
+			processScreenAdjustment(input);
+			}
+	/* STATE LOBBY ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		else if(StateControl.currentState == StateControl.STATE_LOBBY)
 			{
+			processScreenAdjustment(input);
 			if(input.isKeyPressed((Input.KEY_ENTER)))
 				{
 				DisplaysPopupBox.initPopup(C.POPUP_CHAT);
 				}
+			}
+	/* STATE HELP +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+		else if(StateControl.currentState == StateControl.STATE_HELP_MAIN || StateControl.currentState == StateControl.STATE_HELP_CONTROLS || StateControl.currentState == StateControl.STATE_HELP_GAMEPLAY || StateControl.currentState == StateControl.STATE_HELP_CREDITS)
+			{
+			processScreenAdjustment(input);
 			}
 	/* STATE PLAY +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		else if(StateControl.currentState == StateControl.STATE_PLAY)
@@ -191,6 +203,15 @@ public class Inputs
 					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
 					}
 				}
+			else if(StateControl.currentState == StateControl.STATE_LOBBY)
+				{
+				if(Settings.currentScreenWidth <= (Settings.maxLobbyScreenWidth - Settings.screenAdjustment))
+					{
+					Settings.currentScreenWidth += Settings.screenAdjustment;
+					Settings.lobbyScreenWidth += Settings.screenAdjustment;
+					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
+					}
+				}
 			else
 				{
 				if(Settings.currentScreenWidth <= (Settings.maxMainScreenWidth - Settings.screenAdjustment))
@@ -210,6 +231,15 @@ public class Inputs
 					{
 					Settings.currentScreenWidth -= Settings.screenAdjustment;
 					Settings.playScreenWidth -= Settings.screenAdjustment;
+					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
+					}
+				}
+			else if(StateControl.currentState == StateControl.STATE_LOBBY)
+				{
+				if(Settings.currentScreenWidth >= (Settings.minLobbyScreenWidth + Settings.screenAdjustment))
+					{
+					Settings.currentScreenWidth -= Settings.screenAdjustment;
+					Settings.lobbyScreenWidth -= Settings.screenAdjustment;
 					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
 					}
 				}
@@ -235,6 +265,15 @@ public class Inputs
 					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
 					}
 				}
+			else if(StateControl.currentState == StateControl.STATE_LOBBY)
+				{
+				if(Settings.currentScreenHeight <= (Settings.maxLobbyScreenHeight - Settings.screenAdjustment))
+					{
+					Settings.currentScreenHeight += Settings.screenAdjustment;
+					Settings.lobbyScreenHeight += Settings.screenAdjustment;
+					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
+					}
+				}
 			else
 				{
 				if(Settings.currentScreenHeight <= (Settings.maxMainScreenHeight - Settings.screenAdjustment))
@@ -254,6 +293,15 @@ public class Inputs
 					{
 					Settings.currentScreenHeight -= Settings.screenAdjustment;
 					Settings.playScreenHeight -= Settings.screenAdjustment;
+					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
+					}
+				}
+			else if(StateControl.currentState == StateControl.STATE_LOBBY)
+				{
+				if(Settings.currentScreenHeight >= (Settings.minLobbyScreenHeight + Settings.screenAdjustment))
+					{
+					Settings.currentScreenHeight -= Settings.screenAdjustment;
+					Settings.lobbyScreenHeight -= Settings.screenAdjustment;
 					StateControl.enterState(StateControl.STATE_CHANGE_SCREEN_SIZE);
 					}
 				}
@@ -345,7 +393,7 @@ public class Inputs
 					{
 					playClick();
 					Settings.highScoreTimerIndex++;
-					if(Settings.highScoreTimerIndex == StatePlay.highScoreTimerOptions.length)
+					if(Settings.highScoreTimerIndex == Settings.highScoreTimerOptions.length)
 						Settings.highScoreTimerIndex = 0;
 					Commands.sendSetWinConditionCommand();
 					}
@@ -356,6 +404,22 @@ public class Inputs
 					Settings.displayTankLocation = 1 - Settings.displayTankLocation;
 					Settings.displayPowerupSpawn = 1 - Settings.displayPowerupSpawn;
 					Commands.sendLocatorsCommand();
+					}
+				else if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.powerupIntervalButton))
+					{
+					playClick();
+					Powerups.powerupIntervalIndex++;
+					if(Powerups.powerupIntervalIndex >= Powerups.powerupIntervalOptions.length)
+						Powerups.powerupIntervalIndex = 0;
+					Commands.sendPowerupIntervalCommand();
+					}
+				else if(Settings.playerType == C.SERVER && withinCoordinates(DisplaysStateLobby.powerupDurationButton))
+					{
+					playClick();
+					Powerups.powerupDurationIndex++;
+					if(Powerups.powerupDurationIndex >= Powerups.powerupDurationOptions.length)
+						Powerups.powerupDurationIndex = 0;
+					Commands.sendPowerupDurationCommand();
 					}
 				else
 					{

@@ -28,8 +28,12 @@ public class Powerups extends Entity
 	public static int minePlayer = 0;
 	/// Powerup life cycle:
 	public static int powerupElapsedTime = 0; /// The time in seconds the powerup is on its cycle
-	public static int powerupInterval = 20; /// The interval in seconds a powerup will appear after the previous disappeared
-	public static int powerupDuration = 20; /// The seconds the powerup will remain on the screen
+//	public static int powerupInterval = 20; /// The interval in seconds a powerup will appear after the previous disappeared
+//	public static int powerupDuration = 20; /// The seconds the powerup will remain on the screen
+	public static int powerupIntervalIndex = 2;
+	public static int powerupDurationIndex = 2;
+	public static int powerupIntervalOptions[] = {5, 10, 20, 30, 60}; /// Seconds
+	public static int powerupDurationOptions[] = {5, 10, 20, 30, 60}; /// Seconds
 	/// Powerup coord
 	public static int powerupIndex = 0; /// The index of the powerup image in Filenames
 	/// Powerup statuses:
@@ -74,14 +78,14 @@ public class Powerups extends Entity
 		{
 		if(Settings.playerType == C.SERVER)
 			{
-			if((powerupElapsedTime == powerupInterval) && powerupFlag == false)
+			if((powerupElapsedTime == powerupIntervalOptions[powerupIntervalIndex]) && powerupFlag == false)
 				{
 				int xcoord = ThreadLocalRandom.current().nextInt(200, (DisplaysStatePlay.camera.worldWitdth - 200) + 1);
 				int ycoord = ThreadLocalRandom.current().nextInt(200, (DisplaysStatePlay.camera.worldHeight - 200) + 1);
 				int index = ThreadLocalRandom.current().nextInt(0, Filenames.powerupIcons.length);
 				NetworkControl.sendToAll("~PT" + xcoord + "," + ycoord + "," + index);
 				}
-			if((powerupElapsedTime == powerupInterval + powerupDuration) && powerupFlag == true)
+			if((powerupElapsedTime == powerupIntervalOptions[powerupIntervalIndex] + powerupDurationOptions[powerupDurationIndex]) && powerupFlag == true)
 				{
 				NetworkControl.sendToAll("~PF");
 				}

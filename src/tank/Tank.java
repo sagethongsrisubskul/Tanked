@@ -118,8 +118,10 @@ public class Tank extends StateBasedGame
 			application = appGameContainer;
 			Settings.maxMainScreenHeight = appGameContainer.getScreenHeight();
 			Settings.maxPlayScreenHeight = appGameContainer.getScreenHeight();
+			Settings.maxLobbyScreenHeight = appGameContainer.getScreenHeight();
 			Settings.maxMainScreenWidth = appGameContainer.getScreenWidth();
 			Settings.maxPlayScreenWidth = appGameContainer.getScreenWidth();
+			Settings.maxLobbyScreenWidth = appGameContainer.getScreenWidth();
 			appGameContainer.setTargetFrameRate(Settings.targetFrameRate);
 			appGameContainer.setShowFPS(false);
 			appGameContainer.setVSync(true);

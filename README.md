@@ -21,7 +21,12 @@ After the host has selected a map, and all players have selected their teams, th
 Players fire at each other and use various powerups to destroy tanks on other teams until only one team remains. Last team remianing wins.
 
 ### Highscore Mode
-Explain game mode here.
+Players play a timed match. The team with the highest score at the end wins! Times available are 1, 5, 15, 20, and 30 minutes. Players' health is not decreased in this mode so no dying. Score is calculated as follows: 
+
+- 1 point for every 1 point of damage you inflict
+- -1 point for every 1 point of damage you inccur
+- 500 points for every powerup you collect
+- -250 points for every powerup you activate
 
 ### Controls
 - W, S: Move the tank forwards or backwards
@@ -29,13 +34,13 @@ Explain game mode here.
 - Mouse: Aim the tank's turret
 - Left Mouse Button: Fire turret
 
-If the player has any powerups in their inventory, the following controls will utilize them:
+If the player has any powerups in their inventory, the player can activate by clicking on the powerup icon on the top of the screen, or by the following keyboard key:
 - 1: Use health pack. (Restores some health)
 - 2: Place down mine. (Directly below tank.)
 - 3: Use speed boost pack. (Wears off over time.)
 - 4: Use armor boost pack. (Wears off over time.)
 - 5: Use invincibility pack. (Wears off over time.)
-- 6: Use beer. (Temporary invincibility. Wears off over time, afterwards player experiences "hangover" which negatively effects armor and speed.)
+- 6: Use beer. (Wears off over time, afterwards player experiences "hangover" which negatively effects armor and speed.)
 
 ### Powerups
 6 Powerup items are availble:
@@ -44,7 +49,10 @@ If the player has any powerups in their inventory, the following controls will u
 - Speed boost pack: Temporarily increase tank's speed.
 - Armor boost pack: Temporarily increase tank's defense.
 - Invincibility pack: No damage taken for a period of time.
-- Beer: Explain beer...Please...
+- Beer: Invincibility and increased speed and armor for a period of time. Afterwards, decreased speed and armor for a period of time. Cannot use any other powerup (except mines) while in beer mode.
+
+PU Wait: The time in seconds a powerup will appear after the previous one disappeared
+PU Appear: The time is seconds a powerup will appear on the screen
 
 ### Cheats
 - F1: Gives player a health pack.
@@ -53,6 +61,8 @@ If the player has any powerups in their inventory, the following controls will u
 - F4: Gives player an armor boost pack.
 - F5: Gives player an invincibility pack.
 - F6: Gives player a beer.
+- F11: Gives player all max powerups.
+- F12: Debug mode
 
 ## Low Bars
 - [x] Main splash screen, setup game screen(s), help screen (explains the game and the controls), play game screen 
@@ -68,23 +78,29 @@ If the player has any powerups in their inventory, the following controls will u
 
 ## High Bars
 - [ ] Different missile projectiles (with different animations)
-- [ ] Different armor types for tanks
+- [x] Different armor types for tanks (armor stat)
 - [x] Powerups
 - [x] Multiple maps to select from
 - [x] Different win conditions (Dealthmatch, Highscore)
-- [ ] Resizable screen?
+- [x] Resizable screen (outside of gameplay screen)
 - [ ] Save game feature?
 - [ ] Non-playable enemy tanks with A.I. script
 - [x] Mini-map feature (able to hide)
 
 ## Extra Features
 - Sound effects
-- Explosion animation
-- Main menu music
+- Explosion animations
+- Main menu music (able to toggle)
 - Limited missile fire rate
 - Players can specify name
+- Team colors (Host able to set)
+- Powerup interval times (Host able to set)
 - Game lobby and in-game chat
-- Pause Game
+- Pause Game with chat functionality
+- Extra powerups
+- Multiple maps
+- Tank and powerup locators on minimap (Host able to set)
+- Display other players' tanks (able to toggle)
 
 ## License(s)
 Tanked Source code: GPLv3

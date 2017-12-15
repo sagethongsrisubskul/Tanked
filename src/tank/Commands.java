@@ -29,6 +29,10 @@ public class Commands
 			else if(string.charAt(1) == 'N' && string.charAt(2) == 'C') /// Name change
 				Settings.playerName[Character.getNumericValue(string.charAt(3))] = string.substring(4, string.length());
 			/// Setup commands:
+			else if(string.charAt(1) == 'S' && string.charAt(2) == 'D') /// Setup powerup interval
+				setPowerupDuration(Character.getNumericValue(string.charAt(3)));
+			else if(string.charAt(1) == 'S' && string.charAt(2) == 'I') /// Setup powerup duration
+				setPowerupInterval(Character.getNumericValue(string.charAt(3)));
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'L') /// Setup locators
 				setLocators(Character.getNumericValue(string.charAt(3)));
 			else if(string.charAt(1) == 'S' && string.charAt(2) == 'N') /// Setup names
@@ -241,6 +245,26 @@ public class Commands
 			temp += Settings.playerTeamColors[i];
 			}
 		NetworkControl.sendToAll(temp);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void sendPowerupIntervalCommand()
+		{
+		NetworkControl.sendToAll("~SI" + Powerups.powerupIntervalIndex);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void setPowerupInterval(int index)
+		{
+		Powerups.powerupIntervalIndex = index;
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void sendPowerupDurationCommand()
+		{
+		NetworkControl.sendToAll("~SD" + Powerups.powerupDurationIndex);
+		}
+	/*-----------------------------------------------------------------------------------------------------*/
+	public static void setPowerupDuration(int index)
+		{
+		Powerups.powerupDurationIndex = index;
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static void sendLocatorsCommand()

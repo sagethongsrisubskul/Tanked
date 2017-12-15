@@ -32,6 +32,8 @@ public class Strings
 	public static final String minimap = "Minimap";
 	public static final String settings = "Settings";
 	public static final String locators = "Locators";
+	public static final String powerupInterval = "PU Wait";
+	public static final String powerupDuration = "PU Appear";
 	public static final String leaveGame = "Leave Game";
 	public static final String launchGame = "Launch Game";
 	public static final String pressEnter = "Press <Enter> to send chat message";
@@ -90,6 +92,8 @@ public class Strings
 	};
 	/*-----------------------------------------------------------------------------------------------------*/
 	public static final String gameControlsText = String.format("" +
+		"#    : Number keys change screen size (outside of gameplay screen)\n\n" +
+
 		"W    : Forwards\n" +
 		"S    : Reverse\n" +
 		"A    : Rotate tank left\n" +
@@ -145,6 +149,9 @@ public class Strings
 			"%s:       Invincible and increased stats for %d seconds but low stats afterwards for %d seconds\n" +
 			"            (Cannot activate any other powerups except mines while in beer mode)\n\n" +
 
+			"%s:    The time in seconds a powerup will appear after the previous one disappeared\n" +
+			"%s:  The time is seconds a powerup will appear on the screen\n\n" +
+
 			"SCORE\n\n" +
 
 			"Score is calculated as follows:\n\n" +
@@ -164,6 +171,7 @@ public class Strings
 		powerups[3], Powerups.armorBurst, Powerups.armorBurstTime,
 		powerups[4], Powerups.invincibleBurstTime,
 		powerups[5], Powerups.beerTime, Powerups.beerRecoveryTime,
+		powerupInterval, powerupDuration,
 		GameStats.scoreDamageInflicted, GameStats.scoreDamageIncurred, GameStats.scorePowerupCollected, GameStats.scorePowerupActivated
 	);
 	// @formatter:on
