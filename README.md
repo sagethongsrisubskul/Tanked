@@ -1,15 +1,4 @@
-==================================================================================
-                                                                                                    
-     ÛÛÛÛÛÛÛÛÛÛÛ   ÛÛÛÛÛÛÛÛÛ   ÛÛÛÛÛÛ   ÛÛÛÛÛ ÛÛÛÛÛ   ÛÛÛÛ ÛÛÛÛÛÛÛÛÛÛ ÛÛÛÛÛÛÛÛÛÛ
-    °Û°°°ÛÛÛ°°°Û  ÛÛÛ°°°°°ÛÛÛ °°ÛÛÛÛÛÛ °°ÛÛÛ °°ÛÛÛ   ÛÛÛ° °°ÛÛÛ°°°°°Û°°ÛÛÛ°°°°ÛÛÛ 
-    °   °ÛÛÛ  °  °ÛÛÛ    °ÛÛÛ  °ÛÛÛ°ÛÛÛ °ÛÛÛ  °ÛÛÛ  ÛÛÛ    °ÛÛÛ  Û °  °ÛÛÛ   °°ÛÛÛ
-        °ÛÛÛ     °ÛÛÛÛÛÛÛÛÛÛÛ  °ÛÛÛ°°ÛÛÛ°ÛÛÛ  °ÛÛÛÛÛÛÛ     °ÛÛÛÛÛÛ    °ÛÛÛ    °ÛÛÛ
-        °ÛÛÛ     °ÛÛÛ°°°°°ÛÛÛ  °ÛÛÛ °°ÛÛÛÛÛÛ  °ÛÛÛ°°ÛÛÛ    °ÛÛÛ°°Û    °ÛÛÛ    °ÛÛÛ
-        °ÛÛÛ     °ÛÛÛ    °ÛÛÛ  °ÛÛÛ  °°ÛÛÛÛÛ  °ÛÛÛ °°ÛÛÛ   °ÛÛÛ °   Û °ÛÛÛ    ÛÛÛ 
-        ÛÛÛÛÛ    ÛÛÛÛÛ   ÛÛÛÛÛ ÛÛÛÛÛ  °°ÛÛÛÛÛ ÛÛÛÛÛ °°ÛÛÛÛ ÛÛÛÛÛÛÛÛÛÛ ÛÛÛÛÛÛÛÛÛÛ  
-       °°°°°    °°°°°   °°°°° °°°°°    °°°°° °°°°°   °°°° °°°°°°°°°° °°°°°°°°°°
-
-==================================================================================
+![Tanked](Tanked.png)
 
 # Tanked: CS447 Final Project 2017
 
@@ -46,19 +35,18 @@ If the player has any powerups in their inventory, the following controls will u
 - 3: Use speed boost pack. (Wears off over time.)
 - 4: Use armor boost pack. (Wears off over time.)
 - 5: Use invincibility pack. (Wears off over time.)
-- 6: Use beer. (Temp invincibility. Wears off over time, afterwards player experiences "hangover" which negatively effects armor and speed.)
+- 6: Use beer. (Temporary invincibility. Wears off over time, afterwards player experiences "hangover" which negatively effects armor and speed.)
 
 ### Powerups
 6 Powerup items are availble:
-- Health pack:
-- Mines: 
-- Speed boost pack:
-- Armor boost pack:
-- Invincibility pack:
-- Beer: 
+- Health pack: Recovers a portion of player's health
+- Mines: Damages enemy tanks when they drive over.
+- Speed boost pack: Temporarily increase tank's speed.
+- Armor boost pack: Temporarily increase tank's defense.
+- Invincibility pack: No damage taken for a period of time.
+- Beer: Explain beer...Please...
 
 ### Cheats
-
 - F1: Gives player a health pack.
 - F2: Gives player a mine.
 - F3: Gives player a speed boost pack.
@@ -89,15 +77,27 @@ If the player has any powerups in their inventory, the following controls will u
 - [ ] Non-playable enemy tanks with A.I. script
 - [x] Mini-map feature (able to hide)
 
-## Extra Features (If Applicable)
+## Extra Features
 - Sound effects
+- Explosion animation
 - Main menu music
 - Limited missile fire rate
 - Players can specify name
 - Game lobby and in-game chat
-
-## Assets Attribution
+- Pause Game
 
 ## License(s)
+Tanked Source code: GPLv3
+
+Assets:
+- "https://github.com/bjorn/tiled/blob/master/LICENSE.GPL"
+- "http://pngimg.com/download/1308",
+- "http://www.fontspace.com/",
+- "https://opengameart.org/",
+- "http://www.reinerstilesets.de/lizenz/",
+- "https://freesound.org/",
+- "https://www.iconspng.com/",
+- "https://modarchive.org/index.php?faq-licensing"
+
 
 
