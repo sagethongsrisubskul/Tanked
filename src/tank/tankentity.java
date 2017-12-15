@@ -66,6 +66,16 @@ public class tankentity extends Entity
 		hullangle = this.getRotation();
 		angle = (int) this.getRotation();
 		NetworkControl.sendToAll("~PH" + i + angle);
+		
+		//handle collision
+		Vector tanktile=DisplaysStatePlay.camera.map.getTileLocation(this);
+		int tileid=DisplaysStatePlay.camera.map.getTileId((int)tanktile.getX(),(int)tanktile.getY(),0);
+		String solid=DisplaysStatePlay.camera.map.getTileProperty(tileid, "Solid", "false");
+		String water=DisplaysStatePlay.camera.map.getTileProperty(tileid, "Water", "false");
+		if(water.equals("true")||solid.equals("true")){
+			this.setPosition(lastpos);
+		}
+		
 		turret.update(delta);
 		}
 	/*-----------------------------------------------------------------------------------------------------*/
