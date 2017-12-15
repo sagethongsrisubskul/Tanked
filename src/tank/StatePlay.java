@@ -288,6 +288,11 @@ public class StatePlay extends BasicGameState
 			for(Iterator<projectile> iterator = StatePlay.shots.iterator(); iterator.hasNext(); )
 				{
 				projectile shotTest = iterator.next();
+				
+				if(shotTest.collidesWithSolid()){
+					NetworkControl.sendToAll("~RS" + shotTest.shotnumber);
+				}
+				
 				if(shotTest.collides(StatePlay.tanks[Settings.playerID]) != null)
 					{
 					if(shotTest.playerTeamColor != Settings.playerTeamColors[Settings.playerID])
@@ -326,6 +331,7 @@ public class StatePlay extends BasicGameState
 					}
 				shotID++;
 				shotTest.lifetime -= delta;
+				
 				if(shotTest.lifetime <= 0)
 					{
 					removeshot(shotTest.shotnumber);

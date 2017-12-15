@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="Maptiles.tsx"/>
  <layer name="Tile Layer 1" width="20" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC9XUuwoCMRCF4UnjIthEbEVrL5Bn0s4bNoqizbKiNurz2nkWJzjMqo2DkOKrJvnJkrCBiEIiJjBTOo5oSE/eVedT1cigztZwVnbg2OLNvBD7a9AVzV96ZasFg/KbDHpNbqXUW8EFrrz2BFvRm8ORZzdem3/pxTuP55Rn02csxHrrXvjQi+95w3v2MBatESx5dqDXe071fi16fWgb9Dz0RMvif+DVncf3LN2hwTJXnedk86/8lwcV4Nt9QAYAAA==
+   H4sIAAAAAAAAC9XUPQvCMBDG8ctiEVwirlJnXyCfSTffcFEUXUrFdlE/r5uPeMHjqi4eQoffdMmf0IQGIgpsKAQD1r0pzJXUEY3oybvqfKYaCTTZBkplD44t38xzsb8BPdH8pfdodfhbpQa9tvj2demt4QwXXlvATvQWcOLZlddmX3rxzuM55dn0GXOx3roXPvTie97yngNMRGsMK54d6fWe63q/Fr0BdA16HvqiZfE/8OrO43uWbtBiiavOM7L5V/7LHWDWOe5ABgAA
   </data>
  </layer>
 </map>

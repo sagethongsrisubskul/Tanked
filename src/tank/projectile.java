@@ -48,4 +48,18 @@ public class projectile extends Entity
 		{
 		translate(velocity.scale(delta * 0.1f));
 		}
+	
+	public boolean collidesWithSolid()
+		{
+		Vector projtile=DisplaysStatePlay.camera.map.getTileLocation(this);
+		int tileid=DisplaysStatePlay.camera.map.getTileId((int)projtile.getX(),(int)projtile.getY(),0);
+		String solid=DisplaysStatePlay.camera.map.getTileProperty(tileid, "Solid", "false");
+		String water=DisplaysStatePlay.camera.map.getTileProperty(tileid, "Water", "false");
+		if(solid.equals("true"))
+			{
+			return true;
+			}else{
+			return false;
+			}
+		}
 	}

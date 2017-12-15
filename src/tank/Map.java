@@ -6,7 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import jig.Vector;
-
+import jig.Entity;
 public class Map extends TiledMap {
 	private int pixelWidth;
 	private int pixelHeight;
@@ -51,7 +51,7 @@ public class Map extends TiledMap {
 	 * Gives the Tile location of a tank entity
 	 * @return  A vector of the tile location of the tank entity
 	 */
-	public Vector getTileLocation(tankentity e) {
+	public Vector getTileLocation(Entity e) {
 		float x = (float) (Math.floor((e.getX()) / this.tileWidth));
 		float y = (float) (Math.floor((e.getY()) / this.tileHeight));
 		
